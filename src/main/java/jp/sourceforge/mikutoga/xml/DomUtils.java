@@ -265,6 +265,7 @@ public final class DomUtils {
                                                    String childTag){
         final Iterator<Element> iterator = getChildIterator(parent, childTag);
         Iterable<Element> result = new Iterable<Element>(){
+            @Override
             public Iterator<Element> iterator(){
                 return iterator;
             }
@@ -326,6 +327,7 @@ public final class DomUtils {
          * {@inheritDoc}
          * @return {@inheritDoc}
          */
+        @Override
         public boolean hasNext(){
             if(this.next == null) return false;
             return true;
@@ -336,6 +338,7 @@ public final class DomUtils {
          * @return {@inheritDoc}
          * @throws NoSuchElementException {@inheritDoc}
          */
+        @Override
         public Element next() throws NoSuchElementException{
             if(this.next == null) throw new NoSuchElementException();
             Element result = this.next;
@@ -347,6 +350,7 @@ public final class DomUtils {
          * {@inheritDoc}
          * ※ 未サポート。
          */
+        @Override
         public void remove(){
             throw new UnsupportedOperationException();
         }

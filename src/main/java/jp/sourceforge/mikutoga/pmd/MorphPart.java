@@ -74,6 +74,7 @@ public class MorphPart implements SerialNumbered, Iterable<MorphVertex> {
      * {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public Iterator<MorphVertex> iterator(){
         return this.morphVertexList.iterator();
     }
@@ -82,6 +83,7 @@ public class MorphPart implements SerialNumbered, Iterable<MorphVertex> {
      * {@inheritDoc}
      * @param num {@inheritDoc}
      */
+    @Override
     public void setSerialNumber(int num){
         this.serialNo = num;
         return;
@@ -91,6 +93,7 @@ public class MorphPart implements SerialNumbered, Iterable<MorphVertex> {
      * {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public int getSerialNumber(){
         return this.serialNo;
     }

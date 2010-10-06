@@ -32,9 +32,9 @@ public final class PmdXmlResources {
     public static final String VER_PMDXML =
             "100923";
     public static final String LOCAL_SCHEMA_PMDXML =
-            "./resources/pmdxml-100923.xsd";
+            "resources/pmdxml-100923.xsd";
     public static final String LOCAL_DTD_PMDXML =
-            "./resources/pmdxml-100923.dtd";
+            "resources/pmdxml-100923.dtd";
 
     public static final URI URI_SCHEMA_PMDXML = URI.create(SCHEMA_PMDXML);
     public static final URI URI_DTD_PMDXML = URI.create(DTD_PMDXML);

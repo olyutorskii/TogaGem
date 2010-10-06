@@ -63,6 +63,7 @@ public class MorphVertex implements SerialNumbered{
      * {@inheritDoc}
      * @param num {@inheritDoc}
      */
+    @Override
     public void setSerialNumber(int num){
         this.serialNo = num;
         return;
@@ -72,6 +73,7 @@ public class MorphVertex implements SerialNumbered{
      * {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public int getSerialNumber(){
         return this.serialNo;
     }
@@ -114,6 +116,7 @@ public class MorphVertex implements SerialNumbered{
          * @param o2 {@inheritDoc}
          * @return {@inheritDoc}
          */
+        @Override
         public int compare(MorphVertex o1, MorphVertex o2){
             if(o1 == o2) return 0;
             if(o1 == null) return -1;

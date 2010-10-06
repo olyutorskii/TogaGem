@@ -50,6 +50,7 @@ public interface SerialNumbered {
          * @param o2 {@inheritDoc}
          * @return {@inheritDoc}
          */
+        @Override
         public int compare(SerialNumbered o1, SerialNumbered o2){
             if(o1 == o2) return 0;
             if(o1 == null) return -1;

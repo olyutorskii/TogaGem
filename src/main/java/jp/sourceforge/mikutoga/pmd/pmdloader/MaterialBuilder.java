@@ -52,6 +52,7 @@ class MaterialBuilder implements PmdMaterialHandler {
      * @param stage {@inheritDoc}
      * @param loops {@inheritDoc}
      */
+    @Override
     public void loopStart(ParseStage stage, int loops){
         assert stage == PmdMaterialHandler.MATERIAL_LIST;
 
@@ -71,6 +72,7 @@ class MaterialBuilder implements PmdMaterialHandler {
      * {@inheritDoc}
      * @param stage {@inheritDoc}
      */
+    @Override
     public void loopNext(ParseStage stage){
         assert stage == PmdMaterialHandler.MATERIAL_LIST;
 
@@ -85,6 +87,7 @@ class MaterialBuilder implements PmdMaterialHandler {
      * {@inheritDoc}
      * @param stage {@inheritDoc}
      */
+    @Override
     public void loopEnd(ParseStage stage){
         assert stage == PmdMaterialHandler.MATERIAL_LIST;
         return;
@@ -97,6 +100,7 @@ class MaterialBuilder implements PmdMaterialHandler {
      * @param blue {@inheritDoc}
      * @param alpha {@inheritDoc}
      */
+    @Override
     public void pmdMaterialDiffuse(float red,
                                    float green,
                                    float blue,
@@ -112,6 +116,7 @@ class MaterialBuilder implements PmdMaterialHandler {
      * @param green {@inheritDoc}
      * @param blue {@inheritDoc}
      */
+    @Override
     public void pmdMaterialAmbient(float red,
                                    float green,
                                    float blue ){
@@ -127,6 +132,7 @@ class MaterialBuilder implements PmdMaterialHandler {
      * @param blue {@inheritDoc}
      * @param shininess {@inheritDoc}
      */
+    @Override
     public void pmdMaterialSpecular(float red,
                                     float green,
                                     float blue,
@@ -142,6 +148,7 @@ class MaterialBuilder implements PmdMaterialHandler {
      * @param hasEdge {@inheritDoc}
      * @param vertexNum {@inheritDoc}
      */
+    @Override
     public void pmdMaterialInfo(boolean hasEdge, int vertexNum){
         this.currentMaterial.setEdgeAppearance(hasEdge);
 
@@ -162,6 +169,7 @@ class MaterialBuilder implements PmdMaterialHandler {
      * @param textureFile {@inheritDoc}
      * @param sphereFile {@inheritDoc}
      */
+    @Override
     public void pmdMaterialShading(int toonIdx,
                                    String textureFile,
                                    String sphereFile ){

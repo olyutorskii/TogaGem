@@ -57,6 +57,7 @@ class BoneBuilder implements PmdBoneHandler {
      * @param stage {@inheritDoc}
      * @param loops {@inheritDoc}
      */
+    @Override
     public void loopStart(ParseStage stage, int loops){
         assert stage instanceof PmdBoneStage;
 
@@ -107,6 +108,7 @@ class BoneBuilder implements PmdBoneHandler {
      * {@inheritDoc}
      * @param stage {@inheritDoc}
      */
+    @Override
     public void loopNext(ParseStage stage){
         assert stage instanceof PmdBoneStage;
 
@@ -137,6 +139,7 @@ class BoneBuilder implements PmdBoneHandler {
      * {@inheritDoc}
      * @param stage {@inheritDoc}
      */
+    @Override
     public void loopEnd(ParseStage stage){
         assert stage instanceof PmdBoneStage;
 
@@ -178,6 +181,7 @@ class BoneBuilder implements PmdBoneHandler {
      * @param boneName {@inheritDoc}
      * @param boneKind {@inheritDoc}
      */
+    @Override
     public void pmdBoneInfo(String boneName, byte boneKind){
         this.currentBone.getBoneName().setPrimaryText(boneName);
         BoneType type = BoneType.decode(boneKind);
@@ -191,6 +195,7 @@ class BoneBuilder implements PmdBoneHandler {
      * @param tailId {@inheritDoc}
      * @param ikId {@inheritDoc}
      */
+    @Override
     public void pmdBoneLink(int parentId, int tailId, int ikId){
         BoneInfo prevBone = null;
         if(0 <= parentId && parentId < PmdLimits.MAX_BONE){
@@ -224,6 +229,7 @@ class BoneBuilder implements PmdBoneHandler {
      * @param yPos {@inheritDoc}
      * @param zPos {@inheritDoc}
      */
+    @Override
     public void pmdBonePosition(float xPos, float yPos, float zPos){
         Pos3d position = this.currentBone.getPosition();
         position.setXPos(xPos);
@@ -239,6 +245,7 @@ class BoneBuilder implements PmdBoneHandler {
      * @param depth {@inheritDoc}
      * @param weight {@inheritDoc}
      */
+    @Override
     public void pmdIKInfo(int boneId, int targetId, int depth, float weight){
         BoneInfo bone = this.boneList.get(boneId);
         this.currentIkChain.setIkBone(bone);
@@ -256,6 +263,7 @@ class BoneBuilder implements PmdBoneHandler {
      * {@inheritDoc}
      * @param childId {@inheritDoc}
      */
+    @Override
     public void pmdIKChainInfo(int childId){
         BoneInfo chain = this.boneList.get(childId);
         this.currentIkChain.getChainedBoneList().add(chain);
@@ -266,6 +274,7 @@ class BoneBuilder implements PmdBoneHandler {
      * {@inheritDoc}
      * @param groupName {@inheritDoc}
      */
+    @Override
     public void pmdBoneGroupInfo(String groupName){
         this.currentBoneGroup.getGroupName().setPrimaryText(groupName);
         return;
@@ -276,6 +285,7 @@ class BoneBuilder implements PmdBoneHandler {
      * @param boneId {@inheritDoc}
      * @param groupId {@inheritDoc}
      */
+    @Override
     public void pmdGroupedBoneInfo(int boneId, int groupId){
         BoneInfo bone = this.boneList.get(boneId);
         BoneGroup group = this.boneGroupList.get(groupId);

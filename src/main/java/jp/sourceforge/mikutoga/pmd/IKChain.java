@@ -95,6 +95,7 @@ public class IKChain implements Iterable<BoneInfo> {
      * {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public Iterator<BoneInfo> iterator(){
         return this.chainList.iterator();
     }

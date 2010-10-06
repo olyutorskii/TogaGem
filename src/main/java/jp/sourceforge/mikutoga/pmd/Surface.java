@@ -107,6 +107,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
      * 反復子がnullを返す可能性もありうる。
      * @return {@inheritDoc}
      */
+    @Override
     public Iterator<Vertex> iterator(){
         List<Vertex> list = new ArrayList<Vertex>(3);
 
@@ -134,6 +135,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
      * {@inheritDoc}
      * @param num {@inheritDoc}
      */
+    @Override
     public void setSerialNumber(int num){
         this.serialNo = num;
         return;
@@ -143,6 +145,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
      * {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public int getSerialNumber(){
         return this.serialNo;
     }

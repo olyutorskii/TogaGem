@@ -188,6 +188,7 @@ public class Material implements Iterable<Surface> {
      * {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public Iterator<Surface> iterator(){
         return this.surfaceList.iterator();
     }

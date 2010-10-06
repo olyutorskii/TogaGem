@@ -42,6 +42,7 @@ public class RigidGroup implements SerialNumbered, Iterable<RigidInfo> {
      * {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public Iterator<RigidInfo> iterator(){
         return this.rigidList.iterator();
     }
@@ -50,6 +51,7 @@ public class RigidGroup implements SerialNumbered, Iterable<RigidInfo> {
      * {@inheritDoc}
      * @param num {@inheritDoc}
      */
+    @Override
     public void setSerialNumber(int num){
         this.serialNo = num;
         return;
@@ -59,6 +61,7 @@ public class RigidGroup implements SerialNumbered, Iterable<RigidInfo> {
      * {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public int getSerialNumber(){
         return this.serialNo;
     }

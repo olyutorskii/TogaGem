@@ -54,6 +54,7 @@ class RigidBuilder implements PmdRigidHandler {
      * @param stage {@inheritDoc}
      * @param loops {@inheritDoc}
      */
+    @Override
     public void loopStart(ParseStage stage, int loops){
         ListUtil.prepareDefConsList(this.rigidList, RigidInfo.class, loops);
         ListUtil.assignIndexedSerial(this.rigidList);
@@ -75,6 +76,7 @@ class RigidBuilder implements PmdRigidHandler {
      * {@inheritDoc}
      * @param stage {@inheritDoc}
      */
+    @Override
     public void loopNext(ParseStage stage){
         if(this.rigidIt.hasNext()){
             this.currentRigid = this.rigidIt.next();
@@ -86,6 +88,7 @@ class RigidBuilder implements PmdRigidHandler {
      * {@inheritDoc}
      * @param stage {@inheritDoc}
      */
+    @Override
     public void loopEnd(ParseStage stage){
         return;
     }
@@ -94,6 +97,7 @@ class RigidBuilder implements PmdRigidHandler {
      * {@inheritDoc}
      * @param rigidName {@inheritDoc}
      */
+    @Override
     public void pmdRigidName(String rigidName){
         this.currentRigid.getRigidName().setPrimaryText(rigidName);
         return;
@@ -104,6 +108,7 @@ class RigidBuilder implements PmdRigidHandler {
      * @param rigidGroupId {@inheritDoc}
      * @param linkedBoneId {@inheritDoc}
      */
+    @Override
     public void pmdRigidInfo(int rigidGroupId, int linkedBoneId){
         BoneInfo bone = this.boneList.get(linkedBoneId);
         RigidGroup group = this.rigidGroupList.get(rigidGroupId);
@@ -122,6 +127,7 @@ class RigidBuilder implements PmdRigidHandler {
      * @param height {@inheritDoc}
      * @param depth {@inheritDoc}
      */
+    @Override
     public void pmdRigidShape(byte shapeType,
                               float width, float height, float depth){
         RigidShape shape = this.currentRigid.getRigidShape();
@@ -142,6 +148,7 @@ class RigidBuilder implements PmdRigidHandler {
      * @param posY {@inheritDoc}
      * @param posZ {@inheritDoc}
      */
+    @Override
     public void pmdRigidPosition(float posX, float posY, float posZ){
         Pos3d position = this.currentRigid.getPosition();
         position.setXPos(posX);
@@ -156,6 +163,7 @@ class RigidBuilder implements PmdRigidHandler {
      * @param radY {@inheritDoc}
      * @param radZ {@inheritDoc}
      */
+    @Override
     public void pmdRigidRotation(float radX, float radY, float radZ){
         Rad3d rotation = this.currentRigid.getRotation();
         rotation.setXRad(radX);
@@ -172,6 +180,7 @@ class RigidBuilder implements PmdRigidHandler {
      * @param restitution {@inheritDoc}
      * @param friction {@inheritDoc}
      */
+    @Override
     public void pmdRigidPhysics(float mass,
                                   float dampingPos,
                                   float dampingRot,
@@ -193,6 +202,7 @@ class RigidBuilder implements PmdRigidHandler {
      * @param behaveType {@inheritDoc}
      * @param collisionMap {@inheritDoc}
      */
+    @Override
     public void pmdRigidBehavior(byte behaveType, short collisionMap){
         RigidBehaviorType type = RigidBehaviorType.decode(behaveType);
         this.currentRigid.setBehaviorType(type);

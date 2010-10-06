@@ -62,6 +62,7 @@ class MorphBuilder implements PmdMorphHandler {
      * @param stage {@inheritDoc}
      * @param loops {@inheritDoc}
      */
+    @Override
     public void loopStart(ParseStage stage, int loops){
         assert stage instanceof PmdMorphStage;
 
@@ -88,6 +89,7 @@ class MorphBuilder implements PmdMorphHandler {
      * {@inheritDoc}
      * @param stage {@inheritDoc}
      */
+    @Override
     public void loopNext(ParseStage stage){
         assert stage instanceof PmdMorphStage;
 
@@ -108,6 +110,7 @@ class MorphBuilder implements PmdMorphHandler {
      * {@inheritDoc}
      * @param stage {@inheritDoc}
      */
+    @Override
     public void loopEnd(ParseStage stage){
         assert stage instanceof PmdMorphStage;
         if(stage == PmdMorphHandler.MORPH_LIST){
@@ -125,6 +128,7 @@ class MorphBuilder implements PmdMorphHandler {
      * @param morphName {@inheritDoc}
      * @param morphType {@inheritDoc}
      */
+    @Override
     public void pmdMorphInfo(String morphName, byte morphType){
         this.currentMorphPart.getMorphName().setPrimaryText(morphName);
         MorphType type = MorphType.decode(morphType);
@@ -140,6 +144,7 @@ class MorphBuilder implements PmdMorphHandler {
      * @param yPos {@inheritDoc}
      * @param zPos {@inheritDoc}
      */
+    @Override
     public void pmdMorphVertexInfo(int serialId,
                                    float xPos, float yPos, float zPos){
         MorphVertex morphVertex;
@@ -167,6 +172,7 @@ class MorphBuilder implements PmdMorphHandler {
      * {@inheritDoc}
      * @param morphId {@inheritDoc}
      */
+    @Override
     public void pmdMorphOrderInfo(int morphId){
         MorphPart part = this.morphPartList.get(morphId);
         MorphType type = part.getMorphType();

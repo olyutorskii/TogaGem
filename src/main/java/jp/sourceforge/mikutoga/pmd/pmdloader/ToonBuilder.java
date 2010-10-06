@@ -37,6 +37,7 @@ class ToonBuilder implements PmdToonHandler {
      * @param stage {@inheritDoc}
      * @param loops {@inheritDoc}
      */
+    @Override
     public void loopStart(ParseStage stage, int loops){
         assert stage == PmdToonHandler.TOON_LIST;
         assert loops == PmdLimits.TOON_FIXEDNUM;
@@ -51,6 +52,7 @@ class ToonBuilder implements PmdToonHandler {
      * {@inheritDoc}
      * @param stage {@inheritDoc}
      */
+    @Override
     public void loopNext(ParseStage stage){
         assert stage == PmdToonHandler.TOON_LIST;
         this.index++;
@@ -61,6 +63,7 @@ class ToonBuilder implements PmdToonHandler {
      * {@inheritDoc}
      * @param stage {@inheritDoc}
      */
+    @Override
     public void loopEnd(ParseStage stage){
         assert stage == PmdToonHandler.TOON_LIST;
         this.model.setToonMap(this.toonMap);
@@ -71,6 +74,7 @@ class ToonBuilder implements PmdToonHandler {
      * {@inheritDoc}
      * @param toonFileName {@inheritDoc}
      */
+    @Override
     public void pmdToonFileInfo(String toonFileName){
         this.toonMap.setIndexedToon(this.index, toonFileName);
         return;

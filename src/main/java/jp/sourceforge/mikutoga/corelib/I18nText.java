@@ -265,6 +265,7 @@ public class I18nText implements CharSequence {
      * @param index {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public char charAt(int index){
         String text = getText();
         char result = text.charAt(index);
@@ -276,6 +277,7 @@ public class I18nText implements CharSequence {
      * {@link #getText()}に準ずる。
      * @return {@inheritDoc}
      */
+    @Override
     public int length(){
         String text = getText();
         int result = text.length();
@@ -289,6 +291,7 @@ public class I18nText implements CharSequence {
      * @param end {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public CharSequence subSequence(int start, int end){
         String text = getText();
         CharSequence result = text.subSequence(start, end);

@@ -35,7 +35,7 @@ public class XmlResourceResolver
             "http://www.w3.org/2001/XMLSchema-instance";
 
     private static final String LOCAL_SCHEMA_XML =
-            "./resources/xml-2009-01.xsd";
+            "resources/xml-2009-01.xsd";
     private static final URI EMPTY_URI = URI.create("");
     private static final Class THISCLASS = XmlResourceResolver.class;
 
@@ -147,6 +147,7 @@ public class XmlResourceResolver
      * @param baseURI {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public LSInput resolveResource(String type,
                                      String namespaceURI,
                                      String publicId,
@@ -186,6 +187,7 @@ public class XmlResourceResolver
      * @throws org.xml.sax.SAXException {@inheritDoc}
      * @throws java.io.IOException {@inheritDoc}
      */
+    @Override
     public InputSource resolveEntity(String publicId, String systemId)
             throws SAXException, IOException{
         if(systemId == null) return null;
@@ -235,6 +237,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @return {@inheritDoc}
          */
+        @Override
         public String getBaseURI(){
             return this.baseURI;
         }
@@ -243,6 +246,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @param baseURI {@inheritDoc}
          */
+        @Override
         public void setBaseURI(String baseURI){
             this.baseURI = baseURI;
             return;
@@ -252,6 +256,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @return {@inheritDoc}
          */
+        @Override
         public InputStream getByteStream(){
             return this.byteStream;
         }
@@ -260,6 +265,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @param byteStream {@inheritDoc}
          */
+        @Override
         public void setByteStream(InputStream byteStream){
             this.byteStream = byteStream;
         }
@@ -268,6 +274,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @return {@inheritDoc}
          */
+        @Override
         public boolean getCertifiedText(){
             return this.certifiedText;
         }
@@ -276,6 +283,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @param certifiedText {@inheritDoc}
          */
+        @Override
         public void setCertifiedText(boolean certifiedText){
             this.certifiedText = certifiedText;
             return;
@@ -285,6 +293,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @return {@inheritDoc}
          */
+        @Override
         public Reader getCharacterStream(){
             return this.characterStream;
         }
@@ -293,6 +302,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @param characterStream {@inheritDoc}
          */
+        @Override
         public void setCharacterStream(Reader characterStream){
             this.characterStream = characterStream;
         }
@@ -301,6 +311,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @return {@inheritDoc}
          */
+        @Override
         public String getEncoding(){
             return this.encoding;
         }
@@ -309,6 +320,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @param encoding {@inheritDoc}
          */
+        @Override
         public void setEncoding(String encoding){
             this.encoding = encoding;
             return;
@@ -318,6 +330,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @return {@inheritDoc}
          */
+        @Override
         public String getPublicId(){
             return this.publicId;
         }
@@ -326,6 +339,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @param publicId {@inheritDoc}
          */
+        @Override
         public void setPublicId(String publicId){
             this.publicId = publicId;
             return;
@@ -335,6 +349,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @return {@inheritDoc}
          */
+        @Override
         public String getStringData(){
             return this.stringData;
         }
@@ -343,6 +358,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @param stringData {@inheritDoc}
          */
+        @Override
         public void setStringData(String stringData){
             this.stringData = stringData;
             return;
@@ -352,6 +368,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @return {@inheritDoc}
          */
+        @Override
         public String getSystemId(){
             return this.systemId;
         }
@@ -360,6 +377,7 @@ public class XmlResourceResolver
          * {@inheritDoc}
          * @param systemId {@inheritDoc}
          */
+        @Override
         public void setSystemId(String systemId){
             this.systemId = systemId;
             return;

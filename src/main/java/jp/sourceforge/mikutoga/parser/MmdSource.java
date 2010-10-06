@@ -120,6 +120,7 @@ public class MmdSource implements Closeable {
      * @throws IOException IOエラー
      * @see java.io.InputStream#close()
      */
+    @Override
     public void close() throws IOException{
         this.istream.close();
         this.readBuffer.clear();

@@ -76,6 +76,7 @@ class ShapeBuilder implements PmdShapeHandler {
      * @param stage {@inheritDoc}
      * @param loops {@inheritDoc}
      */
+    @Override
     public void loopStart(ParseStage stage, int loops){
         if(stage == PmdShapeHandler.VERTEX_LIST){
             ListUtil.prepareDefConsList(this.vertexList, Vertex.class, loops);
@@ -105,6 +106,7 @@ class ShapeBuilder implements PmdShapeHandler {
      * {@inheritDoc}
      * @param stage {@inheritDoc}
      */
+    @Override
     public void loopNext(ParseStage stage){
         if(stage == PmdShapeHandler.VERTEX_LIST){
             if(this.vertexIt.hasNext()){
@@ -125,6 +127,7 @@ class ShapeBuilder implements PmdShapeHandler {
      * {@inheritDoc}
      * @param stage {@inheritDoc}
      */
+    @Override
     public void loopEnd(ParseStage stage){
         return;
     }
@@ -135,6 +138,7 @@ class ShapeBuilder implements PmdShapeHandler {
      * @param yPos {@inheritDoc}
      * @param zPos {@inheritDoc}
      */
+    @Override
     public void pmdVertexPosition(float xPos, float yPos, float zPos){
         Pos3d position = this.currentVertex.getPosition();
         position.setXPos(xPos);
@@ -149,6 +153,7 @@ class ShapeBuilder implements PmdShapeHandler {
      * @param yVec {@inheritDoc}
      * @param zVec {@inheritDoc}
      */
+    @Override
     public void pmdVertexNormal(float xVec, float yVec, float zVec){
         Vec3d normal = this.currentVertex.getNormal();
         normal.setXVal(xVec);
@@ -162,6 +167,7 @@ class ShapeBuilder implements PmdShapeHandler {
      * @param uVal {@inheritDoc}
      * @param vVal {@inheritDoc}
      */
+    @Override
     public void pmdVertexUV(float uVal, float vVal){
         Pos2d uv = this.currentVertex.getUVPosition();
         uv.setXPos(uVal);
@@ -175,6 +181,7 @@ class ShapeBuilder implements PmdShapeHandler {
      * @param boneId2 {@inheritDoc}
      * @param weightForB1 {@inheritDoc}
      */
+    @Override
     public void pmdVertexWeight(int boneId1, int boneId2, int weightForB1){
         BoneInfo bone1 = prepareBone(boneId1);
         BoneInfo bone2 = prepareBone(boneId2);
@@ -189,6 +196,7 @@ class ShapeBuilder implements PmdShapeHandler {
      * {@inheritDoc}
      * @param hideEdge {@inheritDoc}
      */
+    @Override
     public void pmdVertexEdge(boolean hideEdge){
         this.currentVertex.setEdgeAppearance( ! hideEdge );
         return;
@@ -200,6 +208,7 @@ class ShapeBuilder implements PmdShapeHandler {
      * @param vertexId2 {@inheritDoc}
      * @param vertexId3 {@inheritDoc}
      */
+    @Override
     public void pmdSurfaceTriangle(int vertexId1,
                                       int vertexId2,
                                       int vertexId3 ){

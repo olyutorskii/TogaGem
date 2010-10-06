@@ -64,6 +64,7 @@ public class BoneGroup implements SerialNumbered , Iterable<BoneInfo> {
      * {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public Iterator<BoneInfo> iterator(){
         return this.boneList.iterator();
     }
@@ -72,6 +73,7 @@ public class BoneGroup implements SerialNumbered , Iterable<BoneInfo> {
      * {@inheritDoc}
      * @param num {@inheritDoc}
      */
+    @Override
     public void setSerialNumber(int num){
         this.serialNo = num;
         return;
@@ -81,6 +83,7 @@ public class BoneGroup implements SerialNumbered , Iterable<BoneInfo> {
      * {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public int getSerialNumber(){
         return this.serialNo;
     }

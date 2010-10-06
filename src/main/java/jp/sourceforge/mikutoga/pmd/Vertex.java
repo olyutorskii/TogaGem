@@ -174,6 +174,7 @@ public class Vertex implements SerialNumbered {
      * {@inheritDoc}
      * @param num {@inheritDoc}
      */
+    @Override
     public void setSerialNumber(int num){
         this.serialNo = num;
         return;
@@ -183,6 +184,7 @@ public class Vertex implements SerialNumbered {
      * {@inheritDoc}
      * @return {@inheritDoc}
      */
+    @Override
     public int getSerialNumber(){
         return this.serialNo;
     }
