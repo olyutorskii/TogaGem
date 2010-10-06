@@ -1,0 +1,11 @@
+[UTF-8 Japanese]
+
+
+TogaGem 変更履歴
+
+
+1.104-SNAPSHOT (2010-10-06)
+    ・TogaParser1.103.2版を吸収する形で開発をスタート。
+
+
+--- EOF ---
