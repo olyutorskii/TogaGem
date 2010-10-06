@@ -47,7 +47,6 @@ import jp.sourceforge.mikutoga.xml.XmlResourceResolver;
  */
 public class PmdXmlExporter extends BasicXmlExporter{
 
-    private static final String GENERATOR = "Mikutoga" + " Ver 0.0.1";
     private static final String TOP_COMMENT =
             "  MikuMikuDance\n    model-data(*.pmd) on XML";
     private static final String SCHEMA_LOCATION =
@@ -93,6 +92,8 @@ public class PmdXmlExporter extends BasicXmlExporter{
         + "[1 : ONLYDYNAMICS  : 物理演算         ]\n"
         + "[2 : BONEDDYNAMICS : ボーン位置合わせ ]\n";
 
+    private String generator = "";
+
     /**
      * コンストラクタ。
      * 文字エンコーディングはUTF-8が用いられる。
@@ -100,6 +101,18 @@ public class PmdXmlExporter extends BasicXmlExporter{
      */
     public PmdXmlExporter(OutputStream stream){
         super(stream);
+        return;
+    }
+
+    /**
+     * Generatorメタ情報を設定する
+     * @param generatorArg Generatorメタ情報
+     * @throws NullPointerException 引数がnull
+     */
+    public void setGenerator(String generatorArg)
+            throws NullPointerException{
+        if(generatorArg == null) throw new NullPointerException();
+        this.generator = generatorArg;
         return;
     }
 
@@ -267,11 +280,13 @@ public class PmdXmlExporter extends BasicXmlExporter{
 
         ind().putBlockComment(TOP_COMMENT).ln(2);
 
+        /*
         ind().put("<!DOCTYPE pmdModel").ln();
         ind().put(" SYSTEM \"")
              .put(PmdXmlResources.DTD_PMDXML)
              .put("\" >")
              .ln(3);
+         */
 
         I18nText modelName = model.getModelName();
         ind().putLocalNameComment(modelName).ln();
@@ -410,7 +425,8 @@ public class PmdXmlExporter extends BasicXmlExporter{
         ind().put("</credits>").ln(2);
 
         ind().put("<meta ");
-        putAttr("name", "generator").put(' ').putAttr("content", GENERATOR);
+        putAttr("name", "generator").put(' ')
+                                    .putAttr("content", this.generator);
         put(" />").ln();
         ind().put("<meta ");
         putAttr("name", "siteURL").put(' ').putAttr("content", "");
