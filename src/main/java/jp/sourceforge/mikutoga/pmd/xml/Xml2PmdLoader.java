@@ -482,7 +482,8 @@ public class Xml2PmdLoader {
         for(Element surfaceGroupElem :
             eachChild(surfaceGroupListElem, "surfaceGroup") ){
 
-            String groupId = getStringAttr(surfaceGroupElem, "surfaceGroupId");
+            String groupId =
+                    getStringAttr(surfaceGroupElem, "surfaceGroupId");
             List<Surface> surfaceList = buildSurface(surfaceGroupElem);
 
             this.surfaceGroupMap.put(groupId, surfaceList);
@@ -607,7 +608,8 @@ public class Xml2PmdLoader {
             ikChainList.add(ikChain);
 
             String ikBoneIdRef = getStringAttr(ikChainElem, "ikBoneIdRef");
-            int rucursiveDepth = getIntegerAttr(ikChainElem, "recursiveDepth");
+            int rucursiveDepth =
+                    getIntegerAttr(ikChainElem, "recursiveDepth");
             float weight = getFloatAttr(ikChainElem, "weight");
 
             BoneInfo ikBone = this.boneMap.get(ikBoneIdRef);
@@ -644,9 +646,11 @@ public class Xml2PmdLoader {
             MorphType morphType = MorphType.valueOf(type);
             morphPart.setMorphType(morphType);
 
-            List<MorphVertex> morphVertexList = morphPart.getMorphVertexList();
+            List<MorphVertex> morphVertexList =
+                    morphPart.getMorphVertexList();
 
-            for(Element morphVertexElem : eachChild(morphElem, "morphVertex")){
+            for(Element morphVertexElem
+                    : eachChild(morphElem, "morphVertex")){
                 String vtxIdRef = getStringAttr(morphVertexElem, "vtxIdRef");
                 Vertex baseVertex = this.vertexMap.get(vtxIdRef);
                 float xOff = getFloatAttr(morphVertexElem, "xOff");
@@ -695,15 +699,18 @@ public class Xml2PmdLoader {
         BoneGroup defaultGroup = new BoneGroup();
         boneGroupList.add(defaultGroup);
 
-        for(Element boneGroupElem : eachChild(boneGroupListElem, "boneGroup")){
+        for(Element boneGroupElem
+                : eachChild(boneGroupListElem, "boneGroup")){
             BoneGroup group = new BoneGroup();
             boneGroupList.add(group);
 
             I18nText name = group.getGroupName();
             buildI18nName(boneGroupElem, name);
 
-            for(Element boneGroupMemberElem : eachChild(boneGroupElem, "boneGroupMember")){
-                String boneIdRef = getStringAttr(boneGroupMemberElem, "boneIdRef");
+            for(Element boneGroupMemberElem
+                    : eachChild(boneGroupElem, "boneGroupMember")){
+                String boneIdRef =
+                        getStringAttr(boneGroupMemberElem, "boneIdRef");
                 BoneInfo bone = this.boneMap.get(boneIdRef);
                 group.getBoneList().add(bone);
             }
@@ -793,8 +800,10 @@ public class Xml2PmdLoader {
 
             Element dynamicsElem = getChild(rigidElem, "dynamics");
             float mass = getFloatAttr(dynamicsElem, "mass");
-            float dampingPosition = getFloatAttr(dynamicsElem, "dampingPosition");
-            float dampingRotation = getFloatAttr(dynamicsElem, "dampingRotation");
+            float dampingPosition =
+                    getFloatAttr(dynamicsElem, "dampingPosition");
+            float dampingRotation =
+                    getFloatAttr(dynamicsElem, "dampingRotation");
             float restitution = getFloatAttr(dynamicsElem, "restitution");
             float friction = getFloatAttr(dynamicsElem, "friction");
             DynamicsInfo dynamics = rigid.getDynamicsInfo();
@@ -817,14 +826,17 @@ public class Xml2PmdLoader {
 
         List<RigidGroup> groupList = this.model.getRigidGroupList();
 
-        for(Element rigidGroupElem : eachChild(rigidGroupListElem, "rigidGroup")){
+        for(Element rigidGroupElem
+                : eachChild(rigidGroupListElem, "rigidGroup")){
             RigidGroup rigidGroup = new RigidGroup();
             groupList.add(rigidGroup);
 
-            String rigidGroupId = getStringAttr(rigidGroupElem, "rigidGroupId");
+            String rigidGroupId =
+                    getStringAttr(rigidGroupElem, "rigidGroupId");
             this.rigidGroupMap.put(rigidGroupId, rigidGroup);
 
-            for(Element memberElem : eachChild(rigidGroupElem, "rigidGroupMember")){
+            for(Element memberElem
+                    : eachChild(rigidGroupElem, "rigidGroupMember")){
                 String rigidIdRef = getStringAttr(memberElem, "rigidIdRef");
                 RigidInfo rigid = this.rigidMap.get(rigidIdRef);
                 rigidGroup.getRigidList().add(rigid);
@@ -852,7 +864,8 @@ public class Xml2PmdLoader {
         int serialNum = 0;
         for(Element rigidElem : eachChild(rigidListElem, "rigid")){
             RigidInfo rigid = rigidList.get(serialNum++);
-            for(Element groupElem : eachChild(rigidElem, "throughRigidGroup")){
+            for(Element groupElem
+                    : eachChild(rigidElem, "throughRigidGroup")){
                 String groupId = getStringAttr(groupElem, "rigidGroupIdRef");
                 RigidGroup group = this.rigidGroupMap.get(groupId);
                 rigid.getThroughGroupColl().add(group);
@@ -936,7 +949,8 @@ public class Xml2PmdLoader {
             limitRotation.setZRange(zFrom, zTo);
 
             Pos3d elasticPosition = joint.getElasticPosition();
-            Element elasticPositionElem = getChild(jointElem, "elasticPosition");
+            Element elasticPositionElem =
+                    getChild(jointElem, "elasticPosition");
             xVal = getFloatAttr(elasticPositionElem, "x");
             yVal = getFloatAttr(elasticPositionElem, "y");
             zVal = getFloatAttr(elasticPositionElem, "z");
@@ -945,7 +959,8 @@ public class Xml2PmdLoader {
             elasticPosition.setZPos(zVal);
 
             Deg3d elasticRotation = joint.getElasticRotation();
-            Element elasticRotationElem = getChild(jointElem, "elasticRotation");
+            Element elasticRotationElem =
+                    getChild(jointElem, "elasticRotation");
             xVal = getFloatAttr(elasticRotationElem, "xDeg");
             yVal = getFloatAttr(elasticRotationElem, "yDeg");
             zVal = getFloatAttr(elasticRotationElem, "zDeg");
