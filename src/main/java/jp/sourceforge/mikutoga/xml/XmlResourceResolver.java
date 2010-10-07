@@ -39,6 +39,30 @@ public class XmlResourceResolver
     private static final URI EMPTY_URI = URI.create("");
     private static final Class THISCLASS = XmlResourceResolver.class;
 
+    private final Map<URI, URI> uriMap = new HashMap<URI, URI>();
+
+    /**
+     * コンストラクタ。
+     */
+    public XmlResourceResolver(){
+        super();
+
+        assert this.getClass().equals(THISCLASS);
+
+        URI originalURI = URI.create(SCHEMA_XML);
+        URL redirectURL = THISCLASS.getResource(LOCAL_SCHEMA_XML);
+        URI redirectURI;
+        try{
+            redirectURI = redirectURL.toURI();
+        }catch(URISyntaxException e){
+            assert false;
+            throw new AssertionError(e);
+        }
+
+        this.uriMap.put(originalURI, redirectURI);
+
+        return;
+    }
 
     /**
      * 絶対URIと相対URIを合成したURIを返す。
@@ -84,31 +108,6 @@ public class XmlResourceResolver
     public static LSInput createLSInput(){
         LSInput input = new LSInputImpl();
         return input;
-    }
-
-    private final Map<URI, URI> uriMap = new HashMap<URI, URI>();
-
-    /**
-     * コンストラクタ。
-     */
-    public XmlResourceResolver(){
-        super();
-
-        assert this.getClass().equals(THISCLASS);
-
-        URI originalURI = URI.create(SCHEMA_XML);
-        URL redirectURL = THISCLASS.getResource(LOCAL_SCHEMA_XML);
-        URI redirectURI;
-        try{
-            redirectURI = redirectURL.toURI();
-        }catch(URISyntaxException e){
-            assert false;
-            throw new AssertionError(e);
-        }
-
-        this.uriMap.put(originalURI, redirectURI);
-
-        return;
     }
 
     /**
@@ -214,7 +213,7 @@ public class XmlResourceResolver
      * org.w3c.dom.ls.DOMImplementationLS#createLSInput()
      * で生成可能かも。
      */
-    private static class LSInputImpl implements LSInput {
+    private static final class LSInputImpl implements LSInput {
 
         private String baseURI = null;
         private InputStream byteStream = null;
