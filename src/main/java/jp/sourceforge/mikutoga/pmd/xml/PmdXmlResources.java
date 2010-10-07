@@ -16,10 +16,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import jp.sourceforge.mikutoga.xml.XmlResourceResolver;
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * XML各種リソースの定義。
  */
 public final class PmdXmlResources {
 
@@ -65,7 +66,14 @@ public final class PmdXmlResources {
         return;
     }
 
-    public static DocumentBuilder newBuilder()
+    /**
+     * ビルダの生成。
+     * @param handler エラーハンドラ
+     * @return ビルダ
+     * @throws SAXException パースエラー
+     * @throws ParserConfigurationException 構成エラー
+     */
+    public static DocumentBuilder newBuilder(ErrorHandler handler)
             throws SAXException, ParserConfigurationException {
         XmlResourceResolver resolver = new XmlResourceResolver();
         resolver.putURIMap(URI_SCHEMA_PMDXML, RES_SCHEMA_PMDXML);
@@ -74,6 +82,7 @@ public final class PmdXmlResources {
         SchemaFactory schemaFactory =
                 SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         schemaFactory.setResourceResolver(resolver);
+        schemaFactory.setErrorHandler(handler);
         Schema schema = schemaFactory.newSchema();
 
         DocumentBuilderFactory builderFactory =
@@ -88,6 +97,7 @@ public final class PmdXmlResources {
 
         DocumentBuilder builder = builderFactory.newDocumentBuilder();
         builder.setEntityResolver(resolver);
+        builder.setErrorHandler(handler);
 
         return builder;
     }
