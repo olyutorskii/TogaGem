@@ -7,12 +7,12 @@
 
 package jp.sourceforge.mikutoga.pmd.pmdloader;
 
-import jp.sourceforge.mikutoga.corelib.ListUtil;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import jp.sourceforge.mikutoga.corelib.ListUtil;
 import jp.sourceforge.mikutoga.parser.ParseStage;
 import jp.sourceforge.mikutoga.parser.pmd.PmdMorphHandler;
 import jp.sourceforge.mikutoga.pmd.MorphPart;

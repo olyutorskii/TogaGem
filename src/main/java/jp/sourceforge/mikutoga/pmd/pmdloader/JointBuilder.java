@@ -7,9 +7,9 @@
 
 package jp.sourceforge.mikutoga.pmd.pmdloader;
 
-import jp.sourceforge.mikutoga.corelib.ListUtil;
 import java.util.Iterator;
 import java.util.List;
+import jp.sourceforge.mikutoga.corelib.ListUtil;
 import jp.sourceforge.mikutoga.parser.ParseStage;
 import jp.sourceforge.mikutoga.parser.pmd.PmdJointHandler;
 import jp.sourceforge.mikutoga.pmd.Deg3d;
