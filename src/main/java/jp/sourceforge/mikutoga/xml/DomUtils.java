@@ -34,7 +34,7 @@ public final class DomUtils {
      * @param elem 要素
      * @param attrName 属性名
      * @return 文字列
-     * @throw TogaXmlException 属性値が見つからなかった。
+     * @throws TogaXmlException 属性値が見つからなかった。
      */
     public static String getStringAttr(Element elem, String attrName)
             throws TogaXmlException{
@@ -61,7 +61,7 @@ public final class DomUtils {
      * @param elem 要素
      * @param attrName 属性名
      * @return 真ならtrue
-     * @throw TogaXmlException 属性値が見つからなかった。
+     * @throws TogaXmlException 属性値が見つからなかった。
      */
     public static boolean getBooleanAttr(Element elem, String attrName)
             throws TogaXmlException{
@@ -85,7 +85,7 @@ public final class DomUtils {
      * @param elem 要素
      * @param attrName 属性名
      * @return int値
-     * @throw TogaXmlException 属性値が見つからなかった。
+     * @throws TogaXmlException 属性値が見つからなかった。
      */
     public static int getIntegerAttr(Element elem, String attrName)
             throws TogaXmlException{
@@ -109,7 +109,7 @@ public final class DomUtils {
      * @param elem 要素
      * @param attrName 属性名
      * @return float値
-     * @throw TogaXmlException 属性値が見つからなかった。
+     * @throws TogaXmlException 属性値が見つからなかった。
      */
     public static float getFloatAttr(Element elem, String attrName)
             throws TogaXmlException{
@@ -134,7 +134,7 @@ public final class DomUtils {
      * @param elem 要素
      * @param attrName 属性名
      * @return ファイル名
-     * @throw TogaXmlException 属性値が見つからなかった。
+     * @throws TogaXmlException 属性値が見つからなかった。
      */
     public static String getSjisFileNameAttr(Element elem, String attrName)
             throws TogaXmlException{
@@ -158,7 +158,7 @@ public final class DomUtils {
      * @param parent 親要素
      * @param tagName 子要素名
      * @return 子要素
-     * @throw TogaXmlException 1つも見つからなかった
+     * @throws TogaXmlException 1つも見つからなかった
      */
     public static Element getChild(Element parent, String tagName)
             throws TogaXmlException{
