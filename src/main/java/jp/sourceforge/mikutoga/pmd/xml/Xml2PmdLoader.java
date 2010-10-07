@@ -90,7 +90,7 @@ public class Xml2PmdLoader {
      * @param elem 要素
      * @param attrName 属性名
      * @return 文字列
-     * @throw TogaXmlException 属性値が見つからなかった。
+     * @throws TogaXmlException 属性値が見つからなかった。
      */
     private static String getStringAttr(Element elem, String attrName)
             throws TogaXmlException{
@@ -102,7 +102,7 @@ public class Xml2PmdLoader {
      * @param elem 要素
      * @param attrName 属性名
      * @return 真ならtrue
-     * @throw TogaXmlException 属性値が見つからなかった。
+     * @throws TogaXmlException 属性値が見つからなかった。
      */
     private static boolean getBooleanAttr(Element elem, String attrName)
             throws TogaXmlException{
@@ -114,7 +114,7 @@ public class Xml2PmdLoader {
      * @param elem 要素
      * @param attrName 属性名
      * @return int値
-     * @throw TogaXmlException 属性値が見つからなかった。
+     * @throws TogaXmlException 属性値が見つからなかった。
      */
     private static int getIntegerAttr(Element elem, String attrName)
             throws TogaXmlException{
@@ -126,7 +126,7 @@ public class Xml2PmdLoader {
      * @param elem 要素
      * @param attrName 属性名
      * @return float値
-     * @throw TogaXmlException 属性値が見つからなかった。
+     * @throws TogaXmlException 属性値が見つからなかった。
      */
     private static float getFloatAttr(Element elem, String attrName)
             throws TogaXmlException{
@@ -139,7 +139,7 @@ public class Xml2PmdLoader {
      * @param elem 要素
      * @param attrName 属性名
      * @return ファイル名
-     * @throw TogaXmlException 属性値が見つからなかった。
+     * @throws TogaXmlException 属性値が見つからなかった。
      */
     private static String getSjisFileNameAttr(Element elem, String attrName)
             throws TogaXmlException{
@@ -151,7 +151,7 @@ public class Xml2PmdLoader {
      * @param parent 親要素
      * @param tagName 子要素名
      * @return 子要素
-     * @throw TogaXmlException 1つも見つからなかった
+     * @throws TogaXmlException 1つも見つからなかった
      */
     private static Element getChild(Element parent, String tagName)
             throws TogaXmlException{
@@ -179,6 +179,12 @@ public class Xml2PmdLoader {
         return DomUtils.getEachChild(parent, childTag);
     }
 
+    /**
+     * グローバル名を取得する。
+     * 元要素のname属性及びi18nNameタグを持つ子要素が検索対象
+     * @param parent 元要素
+     * @return グローバル名。なければnull
+     */
     private static String getGlobalName(Element parent){
         NodeList nodeList = parent.getElementsByTagName("i18nName");
         int length = nodeList.getLength();
@@ -232,6 +238,12 @@ public class Xml2PmdLoader {
         return result.toString();
     }
 
+    /**
+     * 多言語名を取得する。
+     * @param baseElement 元要素
+     * @param text 多言語名
+     * @throws TogaXmlException あるべき属性が存在しない。
+     */
     private static void buildI18nName(Element baseElement, I18nText text)
             throws TogaXmlException{
         String primaryText;
@@ -251,6 +263,14 @@ public class Xml2PmdLoader {
         return;
     }
 
+    /**
+     * XMLのパースを開始する。
+     * @param source XML入力
+     * @return モデルデータ
+     * @throws SAXException 構文エラー
+     * @throws IOException 入力エラー
+     * @throws TogaXmlException 構文エラー
+     */
     public PmdModel parse(InputSource source)
             throws SAXException, IOException, TogaXmlException{
         Document document = this.builder.parse(source);
