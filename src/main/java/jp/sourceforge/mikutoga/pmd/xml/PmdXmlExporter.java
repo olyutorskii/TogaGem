@@ -105,7 +105,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
     }
 
     /**
-     * Generatorメタ情報を設定する
+     * Generatorメタ情報を設定する。
      * @param generatorArg Generatorメタ情報
      * @throws NullPointerException 引数がnull
      */
