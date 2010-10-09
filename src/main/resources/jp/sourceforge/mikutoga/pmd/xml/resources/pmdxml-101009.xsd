@@ -13,11 +13,11 @@
 <xsd:schema
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 
-    targetNamespace="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/100923"
-    xmlns:tns      ="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/100923"
+    targetNamespace="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/101009"
+    xmlns:tns      ="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/101009"
 
     elementFormDefault="qualified"
-    version="100923"
+    version="101009"
 >
 
     <xsd:annotation>
@@ -71,7 +71,7 @@
                 name="schemaVersion"
                 type="xsd:string"
                 use="required"
-                fixed="100923" />
+                fixed="101009" />
         </xsd:complexType>
 
         <xsd:unique name="ModelLang">
@@ -948,7 +948,7 @@
                 <xsd:element
                     ref="tns:i18nName"
                     minOccurs="0" maxOccurs="unbounded" />
-                <xsd:element ref="tns:linkedBone" />
+                <xsd:element ref="tns:linkedBone" minOccurs="0" />
 
                 <xsd:choice>
                     <xsd:element ref="tns:rigidShapeSphere" />

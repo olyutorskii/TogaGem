@@ -173,9 +173,16 @@ public class RigidInfo implements SerialNumbered {
     public String toString(){
         StringBuilder result = new StringBuilder();
 
+        String boneName;
+        if(this.linkedBone == null){
+            boneName = "NOBONE";
+        }else{
+            boneName = this.linkedBone.getBoneName().toString();
+        }
+
         result.append("Rigid(").append(this.rigidName).append(") ");
         result.append("[=>")
-              .append(this.linkedBone.getBoneName())
+              .append(boneName)
               .append("bone]");
         result.append(" [").append(this.rigidShape).append("]");
         result.append(" ").append(this.position);

@@ -742,10 +742,12 @@ public class Xml2PmdLoader {
             String rigidId = getStringAttr(rigidElem, "rigidId");
             this.rigidMap.put(rigidId, rigid);
 
-            Element linkedBoneElem = getChild(rigidElem, "linkedBone");
-            String boneIdRef = getStringAttr(linkedBoneElem, "boneIdRef");
-            BoneInfo linkedBone = this.boneMap.get(boneIdRef);
-            rigid.setLinkedBone(linkedBone);
+            if(hasChild(rigidElem, "linkedBone")){
+                Element linkedBoneElem = getChild(rigidElem, "linkedBone");
+                String boneIdRef = getStringAttr(linkedBoneElem, "boneIdRef");
+                BoneInfo linkedBone = this.boneMap.get(boneIdRef);
+                rigid.setLinkedBone(linkedBone);
+            }
 
             RigidShape rigidShape = rigid.getRigidShape();
             if(hasChild(rigidElem, "rigidShapeSphere")){

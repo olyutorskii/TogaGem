@@ -110,7 +110,12 @@ class RigidBuilder implements PmdRigidHandler {
      */
     @Override
     public void pmdRigidInfo(int rigidGroupId, int linkedBoneId){
-        BoneInfo bone = this.boneList.get(linkedBoneId);
+        BoneInfo bone;
+        if(linkedBoneId < 0 || 65535 <= linkedBoneId){
+            bone = null;
+        }else{
+            bone = this.boneList.get(linkedBoneId);
+        }
         RigidGroup group = this.rigidGroupList.get(rigidGroupId);
 
         this.currentRigid.setLinkedBone(bone);

@@ -1049,11 +1049,13 @@ public class PmdXmlExporter extends BasicXmlExporter{
 
         putI18nName(i18nName);
 
-        ind().put("<linkedBone ");
-        putNumberedIdAttr("boneIdRef", PFX_BONE, linkedBone);
-        put(" /> ");
-        putLineComment("Ref:" + linkedBone.getBoneName().getText());
-        ln(2);
+        if(linkedBone != null){
+            ind().put("<linkedBone ");
+            putNumberedIdAttr("boneIdRef", PFX_BONE, linkedBone);
+            put(" /> ");
+            putLineComment("Ref:" + linkedBone.getBoneName().getText());
+            ln(2);
+        }
 
         RigidShape shape = rigid.getRigidShape();
         putRigidShape(shape);

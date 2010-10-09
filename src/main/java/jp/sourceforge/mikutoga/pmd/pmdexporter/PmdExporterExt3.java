@@ -94,7 +94,11 @@ public class PmdExporterExt3 extends PmdExporterExt2{
         dumpText(rigidName, PmdLimits.MAXBYTES_RIGIDNAME);
 
         BoneInfo linkedBone = rigid.getLinkedBone();
-        dumpShort(linkedBone.getSerialNumber());
+        if(linkedBone == null){
+            dumpShort(-1);
+        }else{
+            dumpShort(linkedBone.getSerialNumber());
+        }
 
         RigidGroup group = rigid.getRigidGroup();
         dumpByte(group.getSerialNumber());

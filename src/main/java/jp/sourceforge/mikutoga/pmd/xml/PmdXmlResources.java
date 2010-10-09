@@ -25,17 +25,17 @@ import org.xml.sax.SAXException;
 public final class PmdXmlResources {
 
     public static final String NS_PMDXML =
-            "http://mikutoga.sourceforge.jp/xml/ns/pmdxml/100923";
+            "http://mikutoga.sourceforge.jp/xml/ns/pmdxml/101009";
     public static final String SCHEMA_PMDXML =
-            "http://mikutoga.sourceforge.jp/xml/xsd/pmdxml-100923.xsd";
+            "http://mikutoga.sourceforge.jp/xml/xsd/pmdxml-101009.xsd";
     public static final String DTD_PMDXML =
-            "http://mikutoga.sourceforge.jp/xml/dtd/pmdxml-100923.dtd";
+            "http://mikutoga.sourceforge.jp/xml/dtd/pmdxml-101009.dtd";
     public static final String VER_PMDXML =
-            "100923";
+            "101009";
     public static final String LOCAL_SCHEMA_PMDXML =
-            "resources/pmdxml-100923.xsd";
+            "resources/pmdxml-101009.xsd";
     public static final String LOCAL_DTD_PMDXML =
-            "resources/pmdxml-100923.dtd";
+            "resources/pmdxml-101009.dtd";
 
     public static final URI URI_SCHEMA_PMDXML = URI.create(SCHEMA_PMDXML);
     public static final URI URI_DTD_PMDXML = URI.create(DTD_PMDXML);
