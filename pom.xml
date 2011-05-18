@@ -307,6 +307,7 @@
                 </reportSets>
             </plugin>
 
+<!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
@@ -314,11 +315,12 @@
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
-                    <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
+                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
                     <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
-                    <!--excludeFilterFile/-->
+                    <!- -excludeFilterFile/- ->
                 </configuration>
             </plugin>
+-->
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
