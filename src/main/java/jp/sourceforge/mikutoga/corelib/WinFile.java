@@ -12,9 +12,12 @@ package jp.sourceforge.mikutoga.corelib;
  */
 public final class WinFile {
 
+    /** パスセパレータ。 */
     public static final char SEPARATOR_CHAR = '\\';  // \
+    /** パスセパレータ文字列。 */
     public static final String SEPARATOR =
             Character.toString(SEPARATOR_CHAR);
+    /** UNC 分離文字列。 */
     public static final String PFX_UNC =
             SEPARATOR + SEPARATOR;                   // \\
 
