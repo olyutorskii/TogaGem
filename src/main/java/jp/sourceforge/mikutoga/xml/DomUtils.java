@@ -20,6 +20,9 @@ import org.w3c.dom.Node;
  */
 public final class DomUtils {
 
+    // 構文解析バグ回避。
+    private static final char BS_CHAR = (char) 0x005c;
+
     /**
      * 隠しコンストラクタ。
      */
@@ -148,7 +151,7 @@ public final class DomUtils {
             throw new TogaXmlException(message, e);
         }
 
-        result.replace("" + '\u00a5', "" + '\u005c\u005c');
+        result.replace("" + '\u00a5', "" + BS_CHAR);
 
         return result;
     }
