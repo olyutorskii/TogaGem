@@ -15,7 +15,7 @@ import java.util.Comparator;
 public interface SerialNumbered {
 
     /** 昇順での比較子。 */
-    public Comparator<SerialNumbered> COMPARATOR = new SerialComparator();
+    Comparator<SerialNumbered> COMPARATOR = new SerialComparator();
 
     /**
      * 通し番号を設定する。
@@ -33,7 +33,7 @@ public interface SerialNumbered {
      * 通し番号による比較子Comparator。
      * 通し番号の昇順を定義づける。
      */
-    public static class SerialComparator
+    class SerialComparator
             implements Comparator<SerialNumbered> {
 
         /**
