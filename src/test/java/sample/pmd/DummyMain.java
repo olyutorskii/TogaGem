@@ -19,6 +19,7 @@ import jp.sourceforge.mikutoga.parser.pmd.PmdParser;
 
 /**
  * パーサ利用のサンプルプログラム。
+ * これはユニットテストではない。
  */
 public class DummyMain {
 
@@ -27,7 +28,28 @@ public class DummyMain {
     private static final DummyHandler handler = new DummyHandler();
 
     static{
-        PMDFILE = "D:\\Test\\test.pmd";
+        PMDFILE =
+                "D:\\Test\\test.pmd";
+    }
+
+    /**
+     * アプリを終了する。
+     * 制御は戻らない。
+     * @param code 終了コード。
+     */
+    private static void exit(int code){
+        System.exit(code);
+        assert false;
+        return;
+    }
+
+    /**
+     * 標準エラー出力にエラー情報を出し改行する。
+     * @param text エラー情報文字列
+     */
+    private static void errprintln(Object text){
+        System.err.println(text);
+        return;
     }
 
     /**
@@ -42,8 +64,8 @@ public class DummyMain {
         try{
             is = new FileInputStream(file);
         }catch(FileNotFoundException e){
-            System.err.println(e);
-            System.exit(1);
+            errprintln(e);
+            exit(1);
             return null;
         }
         is = new BufferedInputStream(is, BUF_SZ);
@@ -89,14 +111,14 @@ public class DummyMain {
         try{
             parser.parsePmd();
         }catch(IOException e){
-            System.err.println(e);
-            System.exit(1);
+            errprintln(e);
+            exit(1);
         }catch(MmdFormatException e){
-            System.err.println(e);
-            System.exit(1);
+            errprintln(e);
+            exit(1);
         }
 
-        System.exit(0);
+        exit(0);
 
         return;
     }
