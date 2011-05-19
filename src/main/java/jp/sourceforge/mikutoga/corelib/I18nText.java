@@ -37,8 +37,8 @@ public class I18nText implements CharSequence {
     public static final String CODE639_GLOBAL = LOCALE_GLOBAL.getLanguage();
 
     static{
-        assert CODE639_PRIMARY.equals("ja");
-        assert CODE639_GLOBAL .equals("en");
+        assert "ja".equals(CODE639_PRIMARY);
+        assert "en".equals(CODE639_GLOBAL);
     }
 
     private final Map<String, String> nameMap = new HashMap<String, String>();
@@ -56,7 +56,7 @@ public class I18nText implements CharSequence {
      * @param seq プライマリ文字列。nullの場合は削除動作
      */
     public void setPrimaryText(CharSequence seq){
-        setText(CODE639_PRIMARY, seq);
+        setI18nText(CODE639_PRIMARY, seq);
         return;
     }
 
@@ -65,7 +65,7 @@ public class I18nText implements CharSequence {
      * @param seq グローバル文字列。nullの場合は削除動作
      */
     public void setGlobalText(CharSequence seq){
-        setText(CODE639_GLOBAL, seq);
+        setI18nText(CODE639_GLOBAL, seq);
         return;
     }
 
@@ -75,10 +75,10 @@ public class I18nText implements CharSequence {
      * @param seq 文字列。nullの場合は削除動作
      * @throws NullPointerException ロケール引数がnull
      */
-    public void setText(Locale locale, CharSequence seq)
+    public void setI18nText(Locale locale, CharSequence seq)
             throws NullPointerException{
         String code639 = locale.getLanguage();
-        setText(code639, seq);
+        setI18nText(code639, seq);
         return;
     }
 
@@ -88,7 +88,7 @@ public class I18nText implements CharSequence {
      * @param seq 文字列。nullの場合は削除動作
      * @throws NullPointerException 言語コードがnull
      */
-    public void setText(String code639, CharSequence seq)
+    public void setI18nText(String code639, CharSequence seq)
             throws NullPointerException{
         if(code639 == null) throw new NullPointerException();
 
@@ -103,14 +103,20 @@ public class I18nText implements CharSequence {
     }
 
     /**
-     * 言語コードに応じた文字列を返す。
-     * @param code639 ISO639言語コード
+     * プライマリ文字列を返す。
      * @return 文字列。見つからなければnullを返す。
-     * @throws NullPointerException 引数がnull
      */
-    public String getText(String code639) throws NullPointerException{
-        if(code639 == null) throw new NullPointerException();
-        String result = this.nameMap.get(code639);
+    public String getPrimaryText(){
+        String result = getI18nText(CODE639_PRIMARY);
+        return result;
+    }
+
+    /**
+     * グローバル文字列を返す。
+     * @return 文字列。見つからなければnullを返す。
+     */
+    public String getGlobalText(){
+        String result = getI18nText(CODE639_GLOBAL);
         return result;
     }
 
@@ -120,27 +126,21 @@ public class I18nText implements CharSequence {
      * @return 文字列。見つからなければnullを返す。
      * @throws NullPointerException 引数がnull
      */
-    public String getText(Locale locale) throws NullPointerException{
+    public String getI18nText(Locale locale) throws NullPointerException{
         String code639 = locale.getLanguage();
-        String result = getText(code639);
+        String result = getI18nText(code639);
         return result;
     }
 
     /**
-     * プライマリ文字列を返す。
+     * 言語コードに応じた文字列を返す。
+     * @param code639 ISO639言語コード
      * @return 文字列。見つからなければnullを返す。
+     * @throws NullPointerException 引数がnull
      */
-    public String getPrimaryText(){
-        String result = getText(CODE639_PRIMARY);
-        return result;
-    }
-
-    /**
-     * グローバル文字列を返す。
-     * @return 文字列。見つからなければnullを返す。
-     */
-    public String getGlobalText(){
-        String result = getText(CODE639_GLOBAL);
+    public String getI18nText(String code639) throws NullPointerException{
+        if(code639 == null) throw new NullPointerException();
+        String result = this.nameMap.get(code639);
         return result;
     }
 
@@ -170,7 +170,7 @@ public class I18nText implements CharSequence {
      * 実行環境のデフォルトロケールに応じた文字列を返す。
      * 見つからなければグローバル文字列、プライマリ文字列の順に返す。
      * それでも見つからなければ適当な言語コードの文字列を返す。
-     * それでも見つからなければ空文字列を返す。
+     * それでも見つからなければ長さ0の空文字列を返す。
      * デフォルトロケールの確認はその都度行われる。
      * @return 文字列
      */
@@ -210,7 +210,7 @@ public class I18nText implements CharSequence {
     /**
      * 全言語の文字列を削除する。
      */
-    public void removeAllText(){
+    public void clearI18nText(){
         this.nameMap.clear();
         return;
     }

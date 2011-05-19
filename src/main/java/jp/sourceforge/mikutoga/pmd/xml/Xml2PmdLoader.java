@@ -256,7 +256,7 @@ public class Xml2PmdLoader {
             if("en".equals(lang)){
                 text.setGlobalText(name);
             }else{
-                text.setText(lang, text);
+                text.setI18nText(lang, text);
             }
         }
 

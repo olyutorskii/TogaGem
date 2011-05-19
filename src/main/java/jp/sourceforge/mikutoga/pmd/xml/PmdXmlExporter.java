@@ -166,7 +166,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
     protected PmdXmlExporter putI18nName(I18nText text) throws IOException{
         for(String lang639 : text.lang639CodeList()){
             if(lang639.equals(I18nText.CODE639_PRIMARY)) continue;
-            String name = text.getText(lang639);
+            String name = text.getI18nText(lang639);
             ind().put("<i18nName ");
             putAttr("lang", lang639).put(' ');
             putAttr("name", name);
@@ -334,7 +334,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
 
         I18nText description = model.getDescription();
         for(String lang639 : description.lang639CodeList()){
-            String descText = description.getText(lang639);
+            String descText = description.getI18nText(lang639);
             putDescription(lang639, descText);
             ln();
         }
