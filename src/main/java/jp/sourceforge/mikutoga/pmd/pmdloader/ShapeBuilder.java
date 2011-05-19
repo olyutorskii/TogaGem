@@ -61,7 +61,7 @@ class ShapeBuilder implements PmdShapeHandler {
      * @return 用意されたボーン
      */
     private BoneInfo prepareBone(int id){
-        ListUtil.extendCollection(this.boneList, id + 1);
+        ListUtil.extendList(this.boneList, id + 1);
         BoneInfo bone = this.boneList.get(id);
         if(bone == null){
             bone = new BoneInfo();

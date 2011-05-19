@@ -9,7 +9,6 @@ package jp.sourceforge.mikutoga.corelib;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -28,35 +27,36 @@ public final class ListUtil {
     /**
      * リストの出現順にシリアルナンバーを割り振る。
      * シリアルナンバー先頭は0。
-     * @param list リスト。なるべく{@link java.util.RandomAccess}型が望ましい。
+     * @param list リスト。
      */
     public static void assignIndexedSerial(
             List<? extends SerialNumbered> list){
-        int size = list.size();
-        for(int idx = 0; idx < size; idx++){
-            SerialNumbered numbered = list.get(idx);
-            numbered.setSerialNumber(idx);
+        int serial = 0;
+        for(SerialNumbered numbered : list){
+            numbered.setSerialNumber(serial);
+            serial++;
         }
+
         return;
     }
 
     /**
-     * コレクションの要素数を拡張する。
+     * リストの要素数を拡張する。
      * 追加された要素にはnullが収められる。
-     * コレクションがすでに指定サイズ以上の要素数を持つ場合、何もしない。
+     * リストがすでに指定サイズ以上の要素数を持つ場合、何もしない。
      * @param <E> 型
-     * @param coll コレクション
+     * @param list リスト
      * @param newSize 新サイズ
      */
-    public static <E> void extendCollection(Collection<E> coll, int newSize){
-        int remain = newSize - coll.size();
+    public static <E> void extendList(List<E> list, int newSize){
+        int remain = newSize - list.size();
         if(remain <= 0) return;
 
         for(int ct = 1; ct <= remain; ct++){
-            coll.add(null);
+            list.add(null);
         }
 
-        assert coll.size() == newSize;
+        assert list.size() == newSize;
 
         return;
     }
@@ -137,7 +137,7 @@ public final class ListUtil {
     public static <E> int prepareDefConsList(List<E> list,
                                              Class<? extends E> klass,
                                              int newSize ){
-        extendCollection(list, newSize);
+        extendList(list, newSize);
         int result = fillDefCons(list, klass);
         return result;
     }
