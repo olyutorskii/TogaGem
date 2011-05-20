@@ -17,7 +17,7 @@ public interface LoopHandler {
      * ループ構造開始の通知を受け取る。
      * 0回ループの場合も含め一度呼ばれる。
      * @param stage ループ種別
-     * @param loops ループ回数。未知の場合は負の値。
+     * @param loops ループ予定回数。未知の場合は負の値。
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
