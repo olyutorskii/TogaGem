@@ -35,13 +35,35 @@ public class ParseStageTest extends TestCase {
 
         ParseStage instance;
 
-        instance = new ParseStage();
+        instance = new Test1("A.B.C");
+        assertEquals("A.B.C", instance.toString());
+
+        instance = new Test1("");
         assertEquals("", instance.toString());
 
-        instance = new ParseStage("ABC");
-        assertEquals("ABC", instance.toString());
+        try{
+            instance = new Test1(null);
+            fail();
+        }catch(NullPointerException e){
+            // OK
+        }
+
+        instance = new Test2();
+        assertEquals("ParseStageTest$Test2", instance.toString());
 
         return;
+    }
+
+    class Test1 extends ParseStage{
+        public Test1(String txt){
+            super(txt);
+        }
+    }
+
+    class Test2 extends ParseStage{
+        public Test2(){
+            super();
+        }
     }
 
 }
