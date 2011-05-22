@@ -283,7 +283,7 @@ public class CommonParser {
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
      * @throws MmdFormatException 不正な文字エンコーディングが検出された。
      */
-    protected String parseZeroTermString(int maxlen)
+    protected String parseZeroTermWin31J(int maxlen)
             throws IOException,
                    IllegalArgumentException,
                    MmdEofException,

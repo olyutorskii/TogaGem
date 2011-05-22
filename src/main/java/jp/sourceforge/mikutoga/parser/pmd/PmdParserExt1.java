@@ -75,9 +75,9 @@ public class PmdParserExt1 extends PmdParserBase {
         if( ! this.hasEnglishInfo ) return;
 
         String modelName =
-                parseZeroTermString(PmdLimits.MAXBYTES_MODELNAME);
+                parseZeroTermWin31J(PmdLimits.MAXBYTES_MODELNAME);
         String description =
-                parseZeroTermString(PmdLimits.MAXBYTES_MODELDESC);
+                parseZeroTermWin31J(PmdLimits.MAXBYTES_MODELDESC);
         description = description.replace(CRLF, LF);
 
         if(this.engHandler != null){
@@ -105,7 +105,7 @@ public class PmdParserExt1 extends PmdParserBase {
 
         for(int ct = 0; ct < boneNum; ct++){
             String boneName =
-                    parseZeroTermString(PmdLimits.MAXBYTES_BONENAME);
+                    parseZeroTermWin31J(PmdLimits.MAXBYTES_BONENAME);
             this.engHandler.pmdEngBoneInfo(boneName);
 
             this.engHandler.loopNext(PmdEngHandler.ENGBONE_LIST);
@@ -134,7 +134,7 @@ public class PmdParserExt1 extends PmdParserBase {
 
         for(int ct = 0; ct < morphNum; ct++){
             String morphName =
-                    parseZeroTermString(PmdLimits.MAXBYTES_MORPHNAME);
+                    parseZeroTermWin31J(PmdLimits.MAXBYTES_MORPHNAME);
             this.engHandler.pmdEngMorphInfo(morphName);
 
             this.engHandler.loopNext(PmdEngHandler.ENGMORPH_LIST);
@@ -163,7 +163,7 @@ public class PmdParserExt1 extends PmdParserBase {
 
         for(int ct = 0; ct < groupNum; ct++){
             String boneGroupName =
-                    parseZeroTermString(PmdLimits.MAXBYTES_BONEGROUPNAME);
+                    parseZeroTermWin31J(PmdLimits.MAXBYTES_BONEGROUPNAME);
             this.engHandler.pmdEngBoneGroupInfo(boneGroupName);
 
             this.engHandler.loopNext(PmdEngHandler.ENGBONEGROUP_LIST);

@@ -85,7 +85,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
 
         for(int ct = 0; ct < rigidNum; ct++){
             String rigidName =
-                    parseZeroTermString(PmdLimits.MAXBYTES_RIGIDNAME);
+                    parseZeroTermWin31J(PmdLimits.MAXBYTES_RIGIDNAME);
             this.rigidHandler.pmdRigidName(rigidName);
 
             int linkedBoneId = parseUShortAsInteger();
@@ -146,7 +146,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
 
         for(int ct = 0; ct < jointNum; ct++){
             String jointName =
-                    parseZeroTermString(PmdLimits.MAXBYTES_JOINTNAME);
+                    parseZeroTermWin31J(PmdLimits.MAXBYTES_JOINTNAME);
             this.jointHandler.pmdJointName(jointName);
 
             int rigidIdA = parseInteger();

@@ -70,7 +70,7 @@ public class PmdParserExt2 extends PmdParserExt1 {
 
         for(int ct = 0; ct < PmdLimits.TOON_FIXEDNUM; ct++){
             String toonName =
-                    parseZeroTermString(PmdLimits.MAXBYTES_TOONFILENAME);
+                    parseZeroTermWin31J(PmdLimits.MAXBYTES_TOONFILENAME);
             this.toonHandler.pmdToonFileInfo(toonName);
 
             this.toonHandler.loopNext(PmdToonHandler.TOON_LIST);
