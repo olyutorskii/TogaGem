@@ -77,6 +77,7 @@ public class TextDecoder {
         }
 
         int rounded = (int)( newSize * WIDEN_RATE );
+        if(rounded < BYTEBUF_SZ) rounded = BYTEBUF_SZ;
 
         this.byteArray = new byte[rounded];
         this.byteBuffer = ByteBuffer.wrap(this.byteArray);
