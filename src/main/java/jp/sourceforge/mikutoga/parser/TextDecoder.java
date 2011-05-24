@@ -17,6 +17,14 @@ import java.nio.charset.CodingErrorAction;
 
 /**
  * 文字デコーダー。
+ * <p>あらかじめ長さが既知であるバイト列をMMD入力ソースから読み取り、
+ * デコーディング結果を返す。
+ * <p>デコード対象のバイト列が全てメモリ上に展開されるので、
+ * 巨大なテキストのデコードには不適当。
+ * <p>入力バイト値0x00以降をデコーディングの対象から外す
+ * 「ゼロチョップモード」を備える。
+ * デフォルトではゼロチョップモードはオフ。
+ * ゼロチョップモードはUTF16などのデコーディング時に使っても意味が無い。
  */
 public class TextDecoder {
 
@@ -28,6 +36,8 @@ public class TextDecoder {
 
 
     private final CharsetDecoder decoder;
+
+    private boolean chopZero = false;
 
     private byte[] byteArray;
     private ByteBuffer byteBuffer;  // byteArrayの別ビュー
@@ -48,7 +58,7 @@ public class TextDecoder {
      * コンストラクタ。
      * @param decoder デコーダ
      */
-    protected TextDecoder(CharsetDecoder decoder){
+    public TextDecoder(CharsetDecoder decoder){
         super();
         this.decoder = decoder;
         this.decoder.onMalformedInput(CodingErrorAction.REPORT);
@@ -82,10 +92,50 @@ public class TextDecoder {
     }
 
     /**
+     * ゼロチョップモードを設定する。
+     * ゼロチョップモードをオンにすると、
+     * 入力バイト値0x00以降はデコード対象外となる。
+     * @param chop trueならゼロチョップモードオン
+     */
+    public void setZeroChopMode(boolean chop){
+        this.chopZero = chop;
+        return;
+    }
+
+    /**
+     * ゼロチョップモードか否か判定する。
+     * @return ゼロチョップモードならtrue
+     */
+    public boolean isZeroChopMode(){
+        return this.chopZero;
+    }
+
+    /**
+     * 入力バイト列のバイト値'0'出現以降をチョップする。
+     * ゼロチョップモードでなければ何もしない。
+     */
+    protected void chopZeroTermed(){
+        if( ! this.chopZero ) return;
+
+        int limit = this.byteBuffer.limit();
+
+        for(int idx = 0; idx < limit; idx++){
+            byte bVal = this.byteArray[idx];
+            if(bVal == 0x00){
+                this.byteBuffer.limit(idx);
+                break;
+            }
+        }
+
+        return;
+    }
+
+    /**
      * バイト列を読み込み文字列へデコーディングする。
      * @param source 入力ソース
      * @param byteSize 読み込みバイトサイズ
-     * @return 文字へのデコード結果。
+     * @return 内部に保持されるデコード結果。
+     * 次回呼び出しまでに結果の適切なコピーがなされなければならない。
      * @throws MmdEofException 意図しないファイル末端
      * @throws MmdFormatException 矛盾したバイトシーケンス
      * もしくは未定義文字
@@ -97,6 +147,7 @@ public class TextDecoder {
 
         source.parseByteArray(this.byteArray, 0, byteSize);
         this.byteBuffer.rewind().limit(byteSize);
+        chopZeroTermed();
 
         this.charBuffer.clear();
 
@@ -104,8 +155,13 @@ public class TextDecoder {
         CoderResult decResult =
                 this.decoder.decode(this.byteBuffer, this.charBuffer, true);
         if(decResult.isError()){
-            throw new MmdFormatException("illegal character encoding",
-                                         source.getPosition() );
+            if(decResult.isUnmappable()){
+                throw new MmdFormatException("unmapped character",
+                                             source.getPosition() );
+            }else{
+                throw new MmdFormatException("illegal character encoding",
+                                             source.getPosition() );
+            }
         }else if(decResult.isOverflow()){
             assert false;
         }
