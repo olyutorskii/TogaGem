@@ -7,8 +7,6 @@
 
 package jp.sourceforge.mikutoga.parser.pmd;
 
-import jp.sourceforge.mikutoga.parser.CommonParser;
-
 /**
  * PMDファイルフォーマットの各種リミット値その他定数。
  */
@@ -54,19 +52,6 @@ public final class PmdLimits {
 
     /** 独自トゥーンテクスチャファイル名テーブルの固定数。 */
     public static final int TOON_FIXEDNUM = 10;
-
-
-    static{
-        assert CommonParser.TEXTBUF_SZ >= MAXBYTES_MODELNAME;
-        assert CommonParser.TEXTBUF_SZ >= MAXBYTES_MODELDESC;
-        assert CommonParser.TEXTBUF_SZ >= MAXBYTES_BONENAME;
-        assert CommonParser.TEXTBUF_SZ >= MAXBYTES_MORPHNAME;
-        assert CommonParser.TEXTBUF_SZ >= MAXBYTES_BONEGROUPNAME;
-        assert CommonParser.TEXTBUF_SZ >= MAXBYTES_TEXTUREFILENAME;
-        assert CommonParser.TEXTBUF_SZ >= MAXBYTES_TOONFILENAME;
-        assert CommonParser.TEXTBUF_SZ >= MAXBYTES_RIGIDNAME;
-        assert CommonParser.TEXTBUF_SZ >= MAXBYTES_JOINTNAME;
-    }
 
 
     /**

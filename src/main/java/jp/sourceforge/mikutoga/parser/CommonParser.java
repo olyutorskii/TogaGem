@@ -8,37 +8,32 @@
 package jp.sourceforge.mikutoga.parser;
 
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
-import java.nio.charset.CoderResult;
-import java.nio.charset.CodingErrorAction;
 
 /**
  * 各種パーサの共通実装。
  */
 public class CommonParser {
 
-    /** 日本語デコード作業用入力バッファ長。バイト単位。 */
-    public static final int TEXTBUF_SZ = 512;
-
     /**
-     * MMD各種ファイルで用いられる日本語エンコーディング。(windows-31j)
+     * PMDで用いられる文字エンコーディング(windows-31j)。
      * ほぼShift_JISのスーパーセットと思ってよい。
      * デコード結果はUCS-2集合に収まるはず。
      */
-    protected static final Charset CS_WIN31J = Charset.forName("windows-31j");
+    public static final Charset CS_WIN31J = Charset.forName("windows-31j");
 
-    private static final byte TERMINATOR = (byte) '\0';  // 0x00
-    private static final char UCSYEN = '\u00a5';
-    private static final char SJISYEN = (char) 0x005c;  // '\u005c\u005c';
+    /** PMXで用いられる文字エンコーディング(UTF-8)。 */
+    public static final Charset CS_UTF8 = Charset.forName("UTF-8");
+
+    /** PMXで用いられる文字エンコーディング(UTF-16のリトルエンディアン)。 */
+    public static final Charset CS_UTF16LE = Charset.forName("UTF-16LE");
 
     private final MmdSource source;
-    private final CharsetDecoder decoder;
-    private final byte[] textArray;
-    private final ByteBuffer textBuffer;  // textArrayの別ビュー
-    private final CharBuffer charBuffer;
+
+    private final TextDecoder decoderWin31j  = new TextDecoder(CS_WIN31J);
+    private final TextDecoder decoderUTF8    = new TextDecoder(CS_UTF8);
+    private final TextDecoder decoderUTF16LE = new TextDecoder(CS_UTF16LE);
 
     /**
      * コンストラクタ。
@@ -48,17 +43,10 @@ public class CommonParser {
         super();
 
         this.source = source;
-        this.decoder = CS_WIN31J.newDecoder();
-        this.textArray = new byte[TEXTBUF_SZ];
-        this.textBuffer = ByteBuffer.wrap(this.textArray);
-        int maxChars =
-                (int)(TEXTBUF_SZ * (this.decoder.maxCharsPerByte())) + 1;
-        this.charBuffer = CharBuffer.allocate(maxChars);
 
-        this.decoder.onMalformedInput(CodingErrorAction.REPORT);
-        this.decoder.onUnmappableCharacter(CodingErrorAction.REPORT);
-        this.textBuffer.clear();
-        this.charBuffer.clear();
+        this.decoderWin31j .setZeroChopMode(true);
+        this.decoderUTF8   .setZeroChopMode(false);
+        this.decoderUTF16LE.setZeroChopMode(false);
 
         return;
     }
@@ -271,55 +259,21 @@ public class CommonParser {
      * IO入力は指定バイト数だけ読み進められる。
      * ゼロ終端が見つからないまま指定バイト数が読み込み終わった場合、
      * そこまでのデータから文字列を構成する。
-     * <p>
-     * 戻り結果にはU+00A5(UCS円通貨記号)が含まれないことが保証される。
-     * ※0x5c(Win31J円通貨)はU+005C(UCSバックスラッシュ)にデコードされる。
      *
      * @param maxlen 読み込みバイト数
      * @return デコードされた文字列
      * @throws IOException IOエラー
-     * @throws IllegalArgumentException 読み込みバイト数が負であるか、
-     * または内部バッファに対し大きすぎる。
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
      * @throws MmdFormatException 不正な文字エンコーディングが検出された。
      */
     protected String parseZeroTermWin31J(int maxlen)
             throws IOException,
-                   IllegalArgumentException,
                    MmdEofException,
                    MmdFormatException {
-        if(this.textArray.length < maxlen || maxlen < 0){
-            throw new IllegalArgumentException();
-        }
+        CharBuffer encoded =
+                this.decoderWin31j.parseString(this.source, maxlen);
 
-        this.source.parseByteArray(this.textArray, 0, maxlen);
-
-        int length = -1;
-        for(int pos = 0; pos < maxlen; pos++){
-            byte ch = this.textArray[pos];
-            if(ch == TERMINATOR){
-                length = pos;
-                break;
-            }
-        }
-        if(length < 0) length = maxlen;
-
-        this.textBuffer.rewind();
-        this.textBuffer.limit(length);
-        this.charBuffer.clear();
-        CoderResult decResult =
-                this.decoder.decode(this.textBuffer, this.charBuffer, true);
-        if( ! decResult.isUnderflow() || decResult.isError()){
-            throw new MmdFormatException("illegal character encoding",
-                                         this.source.getPosition() );
-        }
-
-        this.charBuffer.flip();
-        String result = this.charBuffer.toString();
-
-        if(result.indexOf(UCSYEN) >= 0){
-            result = result.replace(UCSYEN, SJISYEN);
-        }
+        String result = encoded.toString();
 
         return result;
     }
