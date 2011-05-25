@@ -42,6 +42,7 @@
         <exclude name="OnlyOneReturn" />
         <exclude name="DefaultPackage" />
         <exclude name="DataflowAnomalyAnalysis" />
+        <exclude name="AvoidUsingShortType" />>
     </rule>
 
     <rule ref="rulesets/coupling.xml" />
