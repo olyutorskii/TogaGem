@@ -259,7 +259,6 @@ public class CommonParser {
      * IO入力は指定バイト数だけ読み進められる。
      * ゼロ終端が見つからないまま指定バイト数が読み込み終わった場合、
      * そこまでのデータから文字列を構成する。
-     *
      * @param maxlen 読み込みバイト数
      * @return デコードされた文字列
      * @throws IOException IOエラー
@@ -272,6 +271,50 @@ public class CommonParser {
                    MmdFormatException {
         CharBuffer encoded =
                 this.decoderWin31j.parseString(this.source, maxlen);
+
+        String result = encoded.toString();
+
+        return result;
+    }
+
+    /**
+     * 4byte整数によるバイト列長とそれに続くUTF8バイト列を
+     * 文字にデコードする。
+     * @return デコードされた文字列。
+     * @throws IOException IOエラー
+     * @throws MmdEofException 予期せぬ入力終端
+     * @throws MmdFormatException 不正な文字エンコーディングが検出された。
+     */
+    protected String parseHollerithUtf8()
+            throws IOException,
+                   MmdEofException,
+                   MmdFormatException {
+        int byteLen = this.source.parseInteger();
+
+        CharBuffer encoded =
+                this.decoderUTF8.parseString(this.source, byteLen);
+
+        String result = encoded.toString();
+
+        return result;
+    }
+
+    /**
+     * 4byte整数によるバイト列長とそれに続くUTF16-LEバイト列を
+     * 文字にデコードする。
+     * @return デコードされた文字列。
+     * @throws IOException IOエラー
+     * @throws MmdEofException 予期せぬ入力終端
+     * @throws MmdFormatException 不正な文字エンコーディングが検出された。
+     */
+    protected String parseHollerithUtf16LE()
+            throws IOException,
+                   MmdEofException,
+                   MmdFormatException {
+        int byteLen = this.source.parseInteger();
+
+        CharBuffer encoded =
+                this.decoderUTF16LE.parseString(this.source, byteLen);
 
         String result = encoded.toString();
 
