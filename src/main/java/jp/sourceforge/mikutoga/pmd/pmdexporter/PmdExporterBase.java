@@ -48,7 +48,10 @@ public class PmdExporterBase extends AbstractExporter{
     /** 影響元IKボーンが無い場合の便宜的なボーンID。 */
     public static final int NOIKBONE_ID = 0x0000;
 
-    private static final String MAGIC = "Pmd";
+    private static final byte[] MAGIC_BYTES = {
+        (byte)0x50, (byte)0x6d, (byte)0x64,               // "Pmd"
+        (byte)0x00, (byte)0x00, (byte)0x80, (byte)0x3f,   // 1.0f
+    };
 
     private static final byte[] NULLFILLER =
         { (byte)0x00 };
@@ -174,9 +177,9 @@ public class PmdExporterBase extends AbstractExporter{
      */
     private void dumpBasic(PmdModel model)
             throws IOException, IllegalPmdTextException{
-        dumpCharSequence(MAGIC);
-        float ver = model.getHeaderVersion();
-        dumpFloat(ver);
+        for(int idx=0; idx < MAGIC_BYTES.length; idx++){
+            dumpByte(MAGIC_BYTES[idx]);
+        }
 
         String modelName   = model.getModelName()  .getPrimaryText();
         String description = model.getDescription().getPrimaryText();

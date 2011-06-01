@@ -72,8 +72,8 @@ public class DummyHandler
     }
 
     @Override
-    public void pmdHeaderInfo(float ver){
-        System.out.println("ver=" + ver);
+    public void pmdHeaderInfo(byte[] header){
+        System.out.println("header length=" + header.length);
         return;
     }
 

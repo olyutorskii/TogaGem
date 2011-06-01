@@ -170,11 +170,10 @@ class TextBuilder implements PmdBasicHandler, PmdEngHandler {
 
     /**
      * {@inheritDoc}
-     * @param ver {@inheritDoc}
+     * @param header {@inheritDoc}
      */
     @Override
-    public void pmdHeaderInfo(float ver){
-        this.model.setHeaderVersion(ver);
+    public void pmdHeaderInfo(byte[] header){
         return;
     }
 

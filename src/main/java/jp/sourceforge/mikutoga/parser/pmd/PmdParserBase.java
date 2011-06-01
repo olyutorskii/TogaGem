@@ -17,6 +17,8 @@ import jp.sourceforge.mikutoga.parser.MmdSource;
  */
 public class PmdParserBase extends CommonParser {
 
+    public static final int HEADER_LENGTH = 7;
+
     /** 改行文字列 CR。 */
     protected static final String CR = "\r";       // 0x0d
     /** 改行文字列 LF。 */
@@ -24,8 +26,10 @@ public class PmdParserBase extends CommonParser {
     /** 改行文字列 CRLF。 */
     protected static final String CRLF = CR + LF;  // 0x0d, 0x0a
 
-    private static final String MAGIC = "Pmd";
-    private static final int MAGIC_SZ = MAGIC.getBytes(CS_WIN31J).length;
+    private static final byte[] MAGIC_BYTES = {
+        (byte)0x50, (byte)0x6d, (byte)0x64,               // "Pmd"
+        (byte)0x00, (byte)0x00, (byte)0x80, (byte)0x3f,   // 1.0f
+    };
 
     private static final int VERTEX_DATA_SZ      = 38;
     private static final int SURFACE_DATA_SZ     =  6;
@@ -35,6 +39,11 @@ public class PmdParserBase extends CommonParser {
     private static final int MORPHORDER_DATA_SZ  =  2;
     private static final int BONEGROUP_DATA_SZ   = 50;
     private static final int GROUPEDBONE_DATA_SZ =  3;
+
+
+    static{
+        assert MAGIC_BYTES.length == HEADER_LENGTH;
+    }
 
 
     private PmdBasicHandler basicHandler = null;
@@ -222,12 +231,15 @@ public class PmdParserBase extends CommonParser {
      * @throws MmdFormatException フォーマットエラー
      */
     private void parsePmdHeader() throws IOException, MmdFormatException{
-        String magic = parseZeroTermWin31J(MAGIC_SZ);
-        if( ! magic.equals(MAGIC) ){
-            throw new MmdFormatException("unrecognized magic data");
+        byte[] header = new byte[HEADER_LENGTH];
+        parseByteArray(header);
+
+        for(int idx = 0; idx < MAGIC_BYTES.length; idx++){
+            if(header[idx] != MAGIC_BYTES[idx]){
+                throw new MmdFormatException("unknown PMD-header type");
+            }
         }
 
-        float ver = parseFloat();
         String modelName   =
                 parseZeroTermWin31J(PmdLimits.MAXBYTES_MODELNAME);
         String description =
@@ -235,7 +247,7 @@ public class PmdParserBase extends CommonParser {
         description = description.replace(CRLF, LF);
 
         if(this.basicHandler != null){
-            this.basicHandler.pmdHeaderInfo(ver);
+            this.basicHandler.pmdHeaderInfo(header);
             this.basicHandler.pmdModelInfo(modelName, description);
         }
 

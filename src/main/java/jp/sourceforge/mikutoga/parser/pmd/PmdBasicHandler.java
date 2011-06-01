@@ -34,11 +34,11 @@ public interface PmdBasicHandler {
 
     /**
      * PMDファイルのヘッダ情報の通知を受け取る。
-     * @param ver ヘッダ情報の版数。
+     * @param header ヘッダ情報バイト列。
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdHeaderInfo(float ver)
+    void pmdHeaderInfo(byte[] header)
             throws MmdFormatException;
 
     /**

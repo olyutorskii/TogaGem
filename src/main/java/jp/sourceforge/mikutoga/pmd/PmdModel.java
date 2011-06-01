@@ -25,11 +25,6 @@ import jp.sourceforge.mikutoga.corelib.I18nText;
  */
 public class PmdModel {
 
-    /** デフォルトのヘッダバージョン。 */
-    public static final float DEF_HEADERVER = 1.0f;
-
-    private float headerVersion = DEF_HEADERVER;
-
     private final I18nText modelName = new I18nText();
     private final I18nText description = new I18nText();
 
@@ -67,23 +62,6 @@ public class PmdModel {
         this.morphMap.put(MorphType.LIP,     new ArrayList<MorphPart>());
         this.morphMap.put(MorphType.EXTRA,   new ArrayList<MorphPart>());
 
-        return;
-    }
-
-    /**
-     * PMDファイルのヘッダバージョンを返す。
-     * @return PMDファイルのヘッダバージョン
-     */
-    public float getHeaderVersion(){
-        return this.headerVersion;
-    }
-
-    /**
-     * PMDファイルのヘッダバージョンを設定する。
-     * @param ver PMDファイルのヘッダバージョン
-     */
-    public void setHeaderVersion(float ver){
-        this.headerVersion = ver;
         return;
     }
 
