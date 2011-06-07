@@ -52,6 +52,23 @@ public class CommonParser {
     }
 
     /**
+     * 入力ソースを返す。
+     * @return 入力ソース
+     */
+    protected MmdSource getSource(){
+        return this.source;
+    }
+
+    /**
+     * 入力ソースの読み込み位置を返す。
+     * @return 入力ソースの読み込み位置。単位はbyte。
+     */
+    protected long getPosition(){
+        long result = this.source.getPosition();
+        return result;
+    }
+
+    /**
      * 入力ソースにまだデータが残っているか判定する。
      * @return まだ読み込んでいないデータが残っていればtrue
      * @throws IOException IOエラー
