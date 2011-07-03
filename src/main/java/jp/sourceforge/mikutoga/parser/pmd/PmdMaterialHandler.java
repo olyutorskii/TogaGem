@@ -17,16 +17,8 @@ import jp.sourceforge.mikutoga.parser.ParseStage;
  */
 public interface PmdMaterialHandler extends LoopHandler {
 
-    /**
-     * モデル材質パースステージ。
-     */
-    class PmdMaterialStage extends ParseStage{
-        /** コンストラクタ。 */
-        PmdMaterialStage(){ super(); return; }
-    }
-
     /** 材質抽出ループ。 */
-    PmdMaterialStage MATERIAL_LIST = new PmdMaterialStage();
+    ParseStage MATERIAL_LIST = new ParseStage();
 
     /**
      * 材質の拡散光成分の通知を受け取る。

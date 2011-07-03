@@ -16,16 +16,8 @@ import jp.sourceforge.mikutoga.parser.ParseStage;
  */
 public interface PmdToonHandler extends LoopHandler {
 
-    /**
-     * 独自トゥーンテクスチャファイル名パースステージ。
-     */
-    class PmdToonStage extends ParseStage{
-        /** コンストラクタ。 */
-        PmdToonStage(){ super(); return; }
-    }
-
     /** トゥーンテクスチャファイル名抽出ループ。 */
-    PmdToonStage TOON_LIST = new PmdToonStage();
+    ParseStage TOON_LIST = new ParseStage();
 
     /**
      * 独自トゥーンテクスチャファイル名の通知を受け取る。

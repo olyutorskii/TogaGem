@@ -16,16 +16,8 @@ import jp.sourceforge.mikutoga.parser.ParseStage;
  */
 public interface PmdJointHandler extends LoopHandler {
 
-    /**
-     * ジョイント情報パースステージ。
-     */
-    class PmdJointStage extends ParseStage{
-        /** コンストラクタ。 */
-        PmdJointStage(){ super(); return; }
-    }
-
     /** ジョイント情報抽出ループ。 */
-    PmdJointStage JOINT_LIST = new PmdJointStage();
+    ParseStage JOINT_LIST = new ParseStage();
 
     /**
      * ジョイント名の通知を受け取る。

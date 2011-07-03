@@ -16,22 +16,14 @@ import jp.sourceforge.mikutoga.parser.ParseStage;
  */
 public interface PmdEngHandler extends LoopHandler {
 
-    /**
-     * 英語情報パースステージ。
-     */
-    class PmdEngStage extends ParseStage{
-        /** コンストラクタ。 */
-        PmdEngStage(){ super(); return; }
-    }
-
     /** ボーン英語名抽出ループ。 */
-    ParseStage ENGBONE_LIST = new PmdEngStage();
+    ParseStage ENGBONE_LIST = new ParseStage();
 
     /** モーフ英語名抽出ループ。 */
-    ParseStage ENGMORPH_LIST = new PmdEngStage();
+    ParseStage ENGMORPH_LIST = new ParseStage();
 
     /** ボーングループ英語名抽出グループ。 */
-    ParseStage ENGBONEGROUP_LIST = new PmdEngStage();
+    ParseStage ENGBONEGROUP_LIST = new ParseStage();
 
     /**
      * PMD英語情報の有無の通知を受け取る。

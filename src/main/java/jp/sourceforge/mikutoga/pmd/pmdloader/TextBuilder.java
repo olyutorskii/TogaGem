@@ -95,8 +95,6 @@ class TextBuilder implements PmdBasicHandler, PmdEngHandler {
      */
     @Override
     public void loopStart(ParseStage stage, int loops){
-        assert stage instanceof PmdEngStage;
-
         if(stage == PmdEngHandler.ENGBONE_LIST){
             this.boneIt = this.boneList.iterator();
             if(this.boneIt.hasNext()){
@@ -137,8 +135,6 @@ class TextBuilder implements PmdBasicHandler, PmdEngHandler {
      */
     @Override
     public void loopNext(ParseStage stage){
-        assert stage instanceof PmdEngStage;
-
         if(stage == PmdEngHandler.ENGBONE_LIST){
             if(this.boneIt.hasNext()){
                 this.currentBone = this.boneIt.next();
@@ -164,7 +160,6 @@ class TextBuilder implements PmdBasicHandler, PmdEngHandler {
      */
     @Override
     public void loopEnd(ParseStage stage){
-        assert stage instanceof PmdEngStage;
         return;
     }
 

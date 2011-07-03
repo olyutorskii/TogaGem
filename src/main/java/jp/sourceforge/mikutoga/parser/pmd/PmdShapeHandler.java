@@ -18,18 +18,10 @@ import jp.sourceforge.mikutoga.parser.ParseStage;
  */
 public interface PmdShapeHandler extends LoopHandler {
 
-    /**
-     * モデル形状パースステージ。
-     */
-    class PmdShapeStage extends ParseStage{
-        /** コンストラクタ。 */
-        PmdShapeStage(){ super(); return; }
-    }
-
     /** 頂点抽出ループ。 */
-    PmdShapeStage VERTEX_LIST = new PmdShapeStage();
+    ParseStage VERTEX_LIST = new ParseStage();
     /** 面抽出ループ。 */
-    PmdShapeStage SURFACE_LIST = new PmdShapeStage();
+    ParseStage SURFACE_LIST = new ParseStage();
 
     /**
      * 頂点の座標の通知を受け取る。

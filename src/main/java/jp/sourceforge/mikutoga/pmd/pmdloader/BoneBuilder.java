@@ -59,8 +59,6 @@ class BoneBuilder implements PmdBoneHandler {
      */
     @Override
     public void loopStart(ParseStage stage, int loops){
-        assert stage instanceof PmdBoneStage;
-
         if(stage == PmdBoneHandler.BONE_LIST){
             ListUtil.prepareDefConsList(this.boneList, BoneInfo.class, loops);
             ListUtil.assignIndexedSerial(this.boneList);
@@ -110,8 +108,6 @@ class BoneBuilder implements PmdBoneHandler {
      */
     @Override
     public void loopNext(ParseStage stage){
-        assert stage instanceof PmdBoneStage;
-
         if(stage == PmdBoneHandler.BONE_LIST){
             if(this.boneIt.hasNext()){
                 this.currentBone = this.boneIt.next();
@@ -141,8 +137,6 @@ class BoneBuilder implements PmdBoneHandler {
      */
     @Override
     public void loopEnd(ParseStage stage){
-        assert stage instanceof PmdBoneStage;
-
         if(stage == PmdBoneHandler.BONE_LIST){
             //NOTHING
         }else if(stage == PmdBoneHandler.IK_LIST){

@@ -16,16 +16,8 @@ import jp.sourceforge.mikutoga.parser.ParseStage;
  */
 public interface PmdRigidHandler extends LoopHandler {
 
-    /**
-     * 剛体情報パースステージ。
-     */
-    class PmdRigidStage extends ParseStage{
-        /** コンストラクタ。 */
-        PmdRigidStage(){ super(); return; }
-    }
-
     /** 剛体情報抽出ループ。 */
-    PmdRigidStage RIGID_LIST = new PmdRigidStage();
+    ParseStage RIGID_LIST = new ParseStage();
 
     /**
      * 剛体名の通知を受け取る。

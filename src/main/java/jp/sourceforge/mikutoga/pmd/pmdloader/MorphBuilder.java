@@ -64,8 +64,6 @@ class MorphBuilder implements PmdMorphHandler {
      */
     @Override
     public void loopStart(ParseStage stage, int loops){
-        assert stage instanceof PmdMorphStage;
-
         if(stage == PmdMorphHandler.MORPH_LIST){
             ListUtil.prepareDefConsList(this.morphPartList,
                                         MorphPart.class,
@@ -80,6 +78,9 @@ class MorphBuilder implements PmdMorphHandler {
             // NOTHING
         }else if(stage == PmdMorphHandler.MORPHORDER_LIST){
             // NOTHING
+        }else{
+            assert false;
+            throw new AssertionError();
         }
 
         return;
@@ -91,8 +92,6 @@ class MorphBuilder implements PmdMorphHandler {
      */
     @Override
     public void loopNext(ParseStage stage){
-        assert stage instanceof PmdMorphStage;
-
         if(stage == PmdMorphHandler.MORPH_LIST){
             if(this.morphPartIt.hasNext()){
                 this.currentMorphPart = this.morphPartIt.next();
@@ -101,6 +100,9 @@ class MorphBuilder implements PmdMorphHandler {
             // NOTHING
         }else if(stage == PmdMorphHandler.MORPHORDER_LIST){
             // NOTHING
+        }else{
+            assert false;
+            throw new AssertionError();
         }
 
         return;
@@ -112,13 +114,15 @@ class MorphBuilder implements PmdMorphHandler {
      */
     @Override
     public void loopEnd(ParseStage stage){
-        assert stage instanceof PmdMorphStage;
         if(stage == PmdMorphHandler.MORPH_LIST){
             // NOTHING
         }else if(stage == PmdMorphHandler.MORPHVERTEX_LIST){
             // NOTHING
         }else if(stage == PmdMorphHandler.MORPHORDER_LIST){
             // NOTHING
+        }else{
+            assert false;
+            throw new AssertionError();
         }
         return;
     }

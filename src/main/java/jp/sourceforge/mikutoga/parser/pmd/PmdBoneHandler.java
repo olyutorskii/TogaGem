@@ -17,28 +17,20 @@ import jp.sourceforge.mikutoga.parser.ParseStage;
  */
 public interface PmdBoneHandler extends LoopHandler {
 
-    /**
-     * ボーン情報パースステージ。
-     */
-    class PmdBoneStage extends ParseStage{
-        /** コンストラクタ。 */
-        PmdBoneStage(){ super(); return; }
-    }
-
     /** ボーン定義抽出ループ。 */
-    PmdBoneStage BONE_LIST = new PmdBoneStage();
+    ParseStage BONE_LIST = new ParseStage();
 
     /** IKリスト抽出ループ。 */
-    PmdBoneStage IK_LIST = new PmdBoneStage();
+    ParseStage IK_LIST = new ParseStage();
 
     /** IKチェーンリスト抽出ループ。 */
-    PmdBoneStage IKCHAIN_LIST = new PmdBoneStage();
+    ParseStage IKCHAIN_LIST = new ParseStage();
 
     /** ボーングループ名抽出ループ。 */
-    PmdBoneStage BONEGROUP_LIST = new PmdBoneStage();
+    ParseStage BONEGROUP_LIST = new ParseStage();
 
     /** ボーングループ内訳抽出ループ。 */
-    PmdBoneStage GROUPEDBONE_LIST = new PmdBoneStage();
+    ParseStage GROUPEDBONE_LIST = new ParseStage();
 
     /**
      * ボーン定義情報の通知を受け取る。

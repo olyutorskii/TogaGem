@@ -16,22 +16,14 @@ import jp.sourceforge.mikutoga.parser.ParseStage;
  */
 public interface PmdMorphHandler extends LoopHandler {
 
-    /**
-     * モーフ情報パースステージ。
-     */
-    class PmdMorphStage extends ParseStage{
-        /** コンストラクタ。 */
-        PmdMorphStage(){ super(); return; }
-    }
-
     /** モーフ抽出ループ。 */
-    PmdMorphStage MORPH_LIST = new PmdMorphStage();
+    ParseStage MORPH_LIST = new ParseStage();
 
     /** モーフ頂点抽出ループ。 */
-    PmdMorphStage MORPHVERTEX_LIST = new PmdMorphStage();
+    ParseStage MORPHVERTEX_LIST = new ParseStage();
 
     /** モーフ出現順抽出ループ。 */
-    PmdMorphStage MORPHORDER_LIST = new PmdMorphStage();
+    ParseStage MORPHORDER_LIST = new ParseStage();
 
     /**
      * モーフ情報の通知を受け取る。
