@@ -240,6 +240,29 @@ public class BasicXmlExporter {
     }
 
     /**
+     * 空白を出力する。
+     * @return this本体
+     * @throws IOException 出力エラー
+     */
+    public BasicXmlExporter sp() throws IOException{
+        this.appendable.append(" ");
+        return this;
+    }
+
+    /**
+     * 空白を指定回数出力する。
+     * @param count 空白回数。0以下の場合は何も出力しない。
+     * @return this本体
+     * @throws IOException 出力エラー
+     */
+    public BasicXmlExporter sp(int count) throws IOException{
+        for(int ct = 1; ct <= count; ct++){
+            this.appendable.append(" ");
+        }
+        return this;
+    }
+
+    /**
      * インデントを出力する。
      * インデント単位文字列をネストレベル回数分出力する。
      * @return this本体
