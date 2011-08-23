@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  MikuMikuDance
+    motion-data(*.vmd) on XML
+    DTD definition
+
+  License : The MIT License
+  Copyright(c) 2011 MikuToga Partners
+
+  SYSTEM ID: http://mikutoga.sourceforge.jp/xml/dtd/vmdxml-110820.dtd
+-->
+
+
+<!--
+    ROOT
+-->
+<!ELEMENT vmdMotion (
+    meta*,
+    (
+          ( modelName, boneMotionSequence, morphSequence )
+        | ( cameraSequence, luminousSequence, shadowSequence )
+    )
+) >
+<!ATTLIST vmdMotion
+    xmlns              CDATA #IMPLIED
+    xmlns:xsi          CDATA #IMPLIED
+    xsi:schemaLocation CDATA #IMPLIED
+    version            CDATA #FIXED "110820"
+>
+
+
+<!--
+    Meta-information of model.
+    Use free.
+    but, some meta-name has recommended usage.
+    + "generator" (Generator application name)
+    + "siteURL" (Website URL)
+-->
+<!ELEMENT meta EMPTY >
+<!ATTLIST meta
+    name    CDATA #REQUIRED
+    content CDATA #REQUIRED
+>
+
+
+<!--
+    bezier cubic curve parameters for interpolation.
+    p0=(0, 0) p3=(127, 127) [implicit points]
+    P1 and P2 points are required.
+-->
+<!ELEMENT bezier EMPTY >
+<!ATTLIST bezier
+    p1x CDATA #REQUIRED
+    p1y CDATA #REQUIRED
+    p2x CDATA #REQUIRED
+    p2y CDATA #REQUIRED
+>
+
+
+<!--
+    default linear bezier curve for interpolation.
+    p0=(0, 0) p1=(20, 20) p2=(107, 107) p3=(127, 127)
+-->
+<!ELEMENT defLinear EMPTY >
+
+
+<!--
+    default ease-in-out bezier curve for interpolation.
+    p0=(0, 0) p1=(64, 0) p2=(64, 127) p3=(127, 127)
+-->
+<!ELEMENT defEaseInOut EMPTY >
+
+
+<!--
+    model name.
+-->
+<!ELEMENT modelName EMPTY>
+<!ATTLIST modelName name CDATA #REQUIRED>
+
+
+<!--
+    bone motion sequence
+-->
+<!ELEMENT boneMotionSequence (
+    bonePart*
+) >
+
+
+<!--
+    bone part grouped by bone-name
+-->
+<!ELEMENT bonePart (
+    boneMotion*
+) >
+<!ATTLIST bonePart name CDATA #REQUIRED>
+
+
+<!--
+    bone motion
+-->
+<!ELEMENT boneMotion (
+    bonePosition?, ( boneRotQuat | boneRotEyxz )
+) >
+<!ATTLIST boneMotion frame CDATA #REQUIRED>
+
+
+<!--
+    bone position
+    with XYZ *3 interpolations.
+-->
+<!ELEMENT bonePosition (
+    ( ( bezier | defLinear | defEaseInOut ),
+      ( bezier | defLinear | defEaseInOut ),
+      ( bezier | defLinear | defEaseInOut )  )?
+) >
+<!ATTLIST bonePosition
+    xPos CDATA #REQUIRED
+    yPos CDATA #REQUIRED
+    zPos CDATA #REQUIRED
+>
+
+
+<!--
+    bone rotation [Quaternion]
+-->
+<!ELEMENT boneRotQuat (
+    ( bezier | defLinear | defEaseInOut )?
+) >
+<!ATTLIST boneRotQuat
+    qx CDATA #REQUIRED
+    qy CDATA #REQUIRED
+    qz CDATA #REQUIRED
+    qw CDATA #REQUIRED
+>
+
+
+<!--
+    bone rotation [YXZ-Euler]
+    degree but not radian
+-->
+<!ELEMENT boneRotEyxz (
+    ( bezier | defLinear | defEaseInOut )?
+) >
+<!ATTLIST boneRotEyxz
+    xDeg CDATA #REQUIRED
+    yDeg CDATA #REQUIRED
+    zDeg CDATA #REQUIRED
+>
+
+
+<!--
+    morph sequence
+-->
+<!ELEMENT morphSequence (
+    morphPart*
+) >
+
+
+<!--
+    morph part grouped by morph-name
+-->
+<!ELEMENT morphPart (
+    morphMotion*
+) >
+<!ATTLIST morphPart name CDATA #REQUIRED>
+
+
+<!--
+    morph motion
+    flex : morph flexible value. [0.0-1.0]
+-->
+<!ELEMENT morphMotion EMPTY >
+<!ATTLIST morphMotion
+    frame CDATA #REQUIRED
+    flex  CDATA #REQUIRED
+>
+
+
+<!--
+    camera sequence
+-->
+<!ELEMENT cameraSequence (
+    cameraMotion*
+) >
+
+
+<!--
+    camera motion
+-->
+<!ELEMENT cameraMotion (
+    cameraTarget, cameraRotation, cameraRange, projection
+) >
+<!ATTLIST cameraMotion
+    frame          CDATA #REQUIRED
+    hasPerspective ( true | false | 1 | 0 ) "true"
+>
+
+
+<!--
+    camera target position
+    with XYZ *3 interpolations.
+-->
+<!ELEMENT cameraTarget (
+    ( ( bezier | defLinear | defEaseInOut ),
+      ( bezier | defLinear | defEaseInOut ),
+      ( bezier | defLinear | defEaseInOut )  )?
+) >
+<!ATTLIST cameraTarget
+    xPos CDATA #REQUIRED
+    yPos CDATA #REQUIRED
+    zPos CDATA #REQUIRED
+>
+
+
+<!--
+    camera-rotation around camera-target
+      with polar-coordinates parameters.
+
+    xRad = -radian(UI_X) [latitude]
+    yRad =  radian(UI_Y) [longitude]
+    zRad =  radian(UI_Z) [roll]
+-->
+<!ELEMENT cameraRotation (
+    ( bezier | defLinear | defEaseInOut )?
+) >
+<!ATTLIST cameraRotation
+    xRad CDATA #REQUIRED
+    yRad CDATA #REQUIRED
+    zRad CDATA #REQUIRED
+>
+
+
+<!--
+    camera range.
+    sign was negated from UI_RANGE.
+-->
+<!ELEMENT cameraRange (
+    ( bezier | defLinear | defEaseInOut )?
+) >
+<!ATTLIST cameraRange range CDATA #REQUIRED >
+
+
+<!--
+    screen-projection data.
+    vertDeg : vertical screen-projection angle by degree.
+-->
+<!ELEMENT projection (
+    ( bezier | defLinear | defEaseInOut )?
+) >
+<!ATTLIST projection vertDeg CDATA #REQUIRED >
+
+
+<!--
+    luminous sequence
+-->
+<!ELEMENT luminousSequence (
+    luminousAct*
+) >
+
+
+<!--
+    luminous act
+-->
+<!ELEMENT luminousAct (
+    lumiColor, lumiDirection
+) >
+<!ATTLIST luminousAct frame CDATA #REQUIRED >
+
+
+<!--
+    luminous color by RGB color space.
+    color component value. [0.0-1.0]
+-->
+<!ELEMENT lumiColor EMPTY >
+<!ATTLIST lumiColor
+    rCol CDATA #REQUIRED
+    gCol CDATA #REQUIRED
+    bCol CDATA #REQUIRED
+>
+
+
+<!--
+    luminous direction by vector
+    vector component [0.0-1.0]
+-->
+<!ELEMENT lumiDirection EMPTY >
+<!ATTLIST lumiDirection
+    xVec CDATA #REQUIRED
+    yVec CDATA #REQUIRED
+    zVec CDATA #REQUIRED
+>
+
+
+<!--
+    shadow sequence
+-->
+<!ELEMENT shadowSequence (
+    shadowAct*
+) >
+
+
+<!--
+    shadow act
+
+    mode : type of shadow
+    + NONE   : no self-shadow
+    + MODE_1 : reduce shadow-quality suddenly at range
+    + MODE_2 : reduce shadow-quality gradually with range
+
+    rawParam : shadow range raw value.
+    UI_VALUE = EFFECTIVE_RANGE * 100 ???
+    rawParam = 0.1 - (UI_VALUE / 1.0E+5)
+
+    UI_VALUE:0    => rawParam:0.1
+    UI_VALUE:8875 => rawParam:0.01125
+    UI_VALUE:9999 => rawParam:1.0E-5
+-->
+<!ELEMENT shadowAct EMPTY >
+<!ATTLIST shadowAct
+    frame CDATA #REQUIRED
+    mode ( NONE | MODE_1 | MODE_2 ) #REQUIRED
+    rawParam CDATA #REQUIRED
+>
+
+
+<!-- EOF -->
