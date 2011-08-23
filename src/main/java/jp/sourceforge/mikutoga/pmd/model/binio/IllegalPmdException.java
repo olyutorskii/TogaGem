@@ -5,7 +5,7 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd.pmdexporter;
+package jp.sourceforge.mikutoga.pmd.model.binio;
 
 /**
  * モデルデータの不備を発見した場合の例外。

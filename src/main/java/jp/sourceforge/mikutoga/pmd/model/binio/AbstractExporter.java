@@ -5,7 +5,7 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd.pmdexporter;
+package jp.sourceforge.mikutoga.pmd.model.binio;
 
 import java.io.IOException;
 import java.io.OutputStream;

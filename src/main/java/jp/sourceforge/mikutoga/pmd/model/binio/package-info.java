@@ -6,9 +6,9 @@
  */
 
 /**
- * PMDモデルファイル(*.pmd)用エクスポーター。
+ * PMDモデルファイル(*.pmd)用入出力。
  */
 
-package jp.sourceforge.mikutoga.pmd.pmdexporter;
+package jp.sourceforge.mikutoga.pmd.model.binio;
 
 /* EOF */

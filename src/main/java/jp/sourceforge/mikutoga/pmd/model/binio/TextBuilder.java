@@ -5,7 +5,7 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd.pmdloader;
+package jp.sourceforge.mikutoga.pmd.model.binio;
 
 import java.util.Iterator;
 import java.util.List;
