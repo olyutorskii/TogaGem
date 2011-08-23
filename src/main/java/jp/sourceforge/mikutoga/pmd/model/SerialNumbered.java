@@ -5,7 +5,7 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.corelib;
+package jp.sourceforge.mikutoga.pmd.model;
 
 import java.util.Comparator;
 

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import jp.sourceforge.mikutoga.corelib.I18nText;
-import jp.sourceforge.mikutoga.corelib.SerialNumbered;
 
 /**
  * ボーングループ。

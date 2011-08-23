@@ -8,7 +8,6 @@
 package jp.sourceforge.mikutoga.pmd.model;
 
 import java.util.Comparator;
-import jp.sourceforge.mikutoga.corelib.SerialNumbered;
 import jp.sourceforge.mikutoga.pmd.Pos3d;
 
 /**

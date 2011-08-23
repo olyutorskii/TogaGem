@@ -10,6 +10,7 @@ package jp.sourceforge.mikutoga.corelib;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import jp.sourceforge.mikutoga.pmd.model.SerialNumbered;
 
 /**
  * リスト構造の各種ユーティリティ。

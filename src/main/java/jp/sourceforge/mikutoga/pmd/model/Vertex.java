@@ -7,8 +7,6 @@
 
 package jp.sourceforge.mikutoga.pmd.model;
 
-import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
-import jp.sourceforge.mikutoga.corelib.SerialNumbered;
 import jp.sourceforge.mikutoga.pmd.Pos2d;
 import jp.sourceforge.mikutoga.pmd.Pos3d;
 import jp.sourceforge.mikutoga.pmd.Vec3d;

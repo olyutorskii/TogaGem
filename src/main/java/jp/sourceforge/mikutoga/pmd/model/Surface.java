@@ -10,7 +10,6 @@ package jp.sourceforge.mikutoga.pmd.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import jp.sourceforge.mikutoga.corelib.SerialNumbered;
 
 /**
  * 3頂点の三角形からなる面情報。

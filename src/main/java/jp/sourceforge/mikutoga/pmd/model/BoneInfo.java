@@ -8,7 +8,6 @@
 package jp.sourceforge.mikutoga.pmd.model;
 
 import jp.sourceforge.mikutoga.corelib.I18nText;
-import jp.sourceforge.mikutoga.corelib.SerialNumbered;
 import jp.sourceforge.mikutoga.pmd.BoneType;
 import jp.sourceforge.mikutoga.pmd.Pos3d;
 
