@@ -17,21 +17,21 @@ import java.util.Map;
 import java.util.Set;
 import jp.sourceforge.mikutoga.corelib.SerialNumbered;
 import jp.sourceforge.mikutoga.parser.pmd.PmdLimits;
-import jp.sourceforge.mikutoga.pmd.BoneGroup;
-import jp.sourceforge.mikutoga.pmd.BoneInfo;
 import jp.sourceforge.mikutoga.pmd.BoneType;
-import jp.sourceforge.mikutoga.pmd.IKChain;
-import jp.sourceforge.mikutoga.pmd.Material;
-import jp.sourceforge.mikutoga.pmd.MorphPart;
 import jp.sourceforge.mikutoga.pmd.MorphType;
-import jp.sourceforge.mikutoga.pmd.MorphVertex;
-import jp.sourceforge.mikutoga.pmd.PmdModel;
 import jp.sourceforge.mikutoga.pmd.Pos2d;
 import jp.sourceforge.mikutoga.pmd.Pos3d;
-import jp.sourceforge.mikutoga.pmd.ShadeInfo;
-import jp.sourceforge.mikutoga.pmd.Surface;
 import jp.sourceforge.mikutoga.pmd.Vec3d;
-import jp.sourceforge.mikutoga.pmd.Vertex;
+import jp.sourceforge.mikutoga.pmd.model.BoneGroup;
+import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
+import jp.sourceforge.mikutoga.pmd.model.IKChain;
+import jp.sourceforge.mikutoga.pmd.model.Material;
+import jp.sourceforge.mikutoga.pmd.model.MorphPart;
+import jp.sourceforge.mikutoga.pmd.model.MorphVertex;
+import jp.sourceforge.mikutoga.pmd.model.PmdModel;
+import jp.sourceforge.mikutoga.pmd.model.ShadeInfo;
+import jp.sourceforge.mikutoga.pmd.model.Surface;
+import jp.sourceforge.mikutoga.pmd.model.Vertex;
 
 /**
  * PMDファイルのエクスポーター(拡張無し基本フォーマット)。

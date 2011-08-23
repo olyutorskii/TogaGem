@@ -5,8 +5,9 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd;
+package jp.sourceforge.mikutoga.pmd.model;
 
+import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

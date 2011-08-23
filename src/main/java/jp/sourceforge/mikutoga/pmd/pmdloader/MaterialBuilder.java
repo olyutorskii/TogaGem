@@ -13,11 +13,11 @@ import java.util.List;
 import jp.sourceforge.mikutoga.corelib.ListUtil;
 import jp.sourceforge.mikutoga.parser.ParseStage;
 import jp.sourceforge.mikutoga.parser.pmd.PmdMaterialHandler;
-import jp.sourceforge.mikutoga.pmd.Material;
-import jp.sourceforge.mikutoga.pmd.PmdModel;
-import jp.sourceforge.mikutoga.pmd.ShadeInfo;
-import jp.sourceforge.mikutoga.pmd.Surface;
-import jp.sourceforge.mikutoga.pmd.ToonMap;
+import jp.sourceforge.mikutoga.pmd.model.Material;
+import jp.sourceforge.mikutoga.pmd.model.PmdModel;
+import jp.sourceforge.mikutoga.pmd.model.ShadeInfo;
+import jp.sourceforge.mikutoga.pmd.model.Surface;
+import jp.sourceforge.mikutoga.pmd.model.ToonMap;
 
 /**
  * マテリアル素材関連の通知をパーサから受け取る。

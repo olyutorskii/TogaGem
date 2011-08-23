@@ -5,12 +5,17 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd;
+package jp.sourceforge.mikutoga.pmd.model;
 
+import jp.sourceforge.mikutoga.pmd.model.DynamicsInfo;
+import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
 import java.util.ArrayList;
 import java.util.Collection;
 import jp.sourceforge.mikutoga.corelib.I18nText;
 import jp.sourceforge.mikutoga.corelib.SerialNumbered;
+import jp.sourceforge.mikutoga.pmd.Pos3d;
+import jp.sourceforge.mikutoga.pmd.Rad3d;
+import jp.sourceforge.mikutoga.pmd.RigidBehaviorType;
 
 /**
  * 個別の剛体の情報。

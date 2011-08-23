@@ -5,10 +5,11 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd;
+package jp.sourceforge.mikutoga.pmd.model;
 
 import java.util.Comparator;
 import jp.sourceforge.mikutoga.corelib.SerialNumbered;
+import jp.sourceforge.mikutoga.pmd.Pos3d;
 
 /**
  * モーフアニメーションを構成する個別の頂点移動の情報。

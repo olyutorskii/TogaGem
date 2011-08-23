@@ -5,7 +5,7 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd;
+package jp.sourceforge.mikutoga.pmd.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.RandomAccess;
 import java.util.Set;
 import jp.sourceforge.mikutoga.corelib.I18nText;
+import jp.sourceforge.mikutoga.pmd.MorphType;
 
 /**
  * PMDモデルファイル一式に相当するもの。

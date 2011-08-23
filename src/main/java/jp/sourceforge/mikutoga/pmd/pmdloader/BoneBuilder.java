@@ -14,12 +14,12 @@ import jp.sourceforge.mikutoga.corelib.ListUtil;
 import jp.sourceforge.mikutoga.parser.ParseStage;
 import jp.sourceforge.mikutoga.parser.pmd.PmdBoneHandler;
 import jp.sourceforge.mikutoga.parser.pmd.PmdLimits;
-import jp.sourceforge.mikutoga.pmd.BoneGroup;
-import jp.sourceforge.mikutoga.pmd.BoneInfo;
 import jp.sourceforge.mikutoga.pmd.BoneType;
-import jp.sourceforge.mikutoga.pmd.IKChain;
-import jp.sourceforge.mikutoga.pmd.PmdModel;
 import jp.sourceforge.mikutoga.pmd.Pos3d;
+import jp.sourceforge.mikutoga.pmd.model.BoneGroup;
+import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
+import jp.sourceforge.mikutoga.pmd.model.IKChain;
+import jp.sourceforge.mikutoga.pmd.model.PmdModel;
 
 /**
  * ボーン関係の通知をパーサから受け取る。

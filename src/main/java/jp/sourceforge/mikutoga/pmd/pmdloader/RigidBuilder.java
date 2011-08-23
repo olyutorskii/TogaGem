@@ -13,16 +13,16 @@ import jp.sourceforge.mikutoga.corelib.ListUtil;
 import jp.sourceforge.mikutoga.parser.ParseStage;
 import jp.sourceforge.mikutoga.parser.pmd.PmdLimits;
 import jp.sourceforge.mikutoga.parser.pmd.PmdRigidHandler;
-import jp.sourceforge.mikutoga.pmd.BoneInfo;
-import jp.sourceforge.mikutoga.pmd.DynamicsInfo;
-import jp.sourceforge.mikutoga.pmd.PmdModel;
 import jp.sourceforge.mikutoga.pmd.Pos3d;
 import jp.sourceforge.mikutoga.pmd.Rad3d;
 import jp.sourceforge.mikutoga.pmd.RigidBehaviorType;
-import jp.sourceforge.mikutoga.pmd.RigidGroup;
-import jp.sourceforge.mikutoga.pmd.RigidInfo;
-import jp.sourceforge.mikutoga.pmd.RigidShape;
 import jp.sourceforge.mikutoga.pmd.RigidShapeType;
+import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
+import jp.sourceforge.mikutoga.pmd.model.DynamicsInfo;
+import jp.sourceforge.mikutoga.pmd.model.PmdModel;
+import jp.sourceforge.mikutoga.pmd.model.RigidGroup;
+import jp.sourceforge.mikutoga.pmd.model.RigidInfo;
+import jp.sourceforge.mikutoga.pmd.model.RigidShape;
 
 /**
  * 剛体関係の通知をパーサから受け取る。

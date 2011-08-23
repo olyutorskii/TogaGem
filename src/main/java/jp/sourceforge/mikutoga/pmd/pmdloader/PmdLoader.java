@@ -13,8 +13,8 @@ import java.util.List;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
 import jp.sourceforge.mikutoga.parser.MmdSource;
 import jp.sourceforge.mikutoga.parser.pmd.PmdParser;
-import jp.sourceforge.mikutoga.pmd.MorphPart;
-import jp.sourceforge.mikutoga.pmd.PmdModel;
+import jp.sourceforge.mikutoga.pmd.model.MorphPart;
+import jp.sourceforge.mikutoga.pmd.model.PmdModel;
 
 /**
  * PMDモデルファイルを読み込むためのローダ。

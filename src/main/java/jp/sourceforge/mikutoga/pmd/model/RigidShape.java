@@ -5,7 +5,9 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd;
+package jp.sourceforge.mikutoga.pmd.model;
+
+import jp.sourceforge.mikutoga.pmd.RigidShapeType;
 
 /**
  * 剛体形状に関する情報。

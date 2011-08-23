@@ -5,9 +5,13 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd;
+package jp.sourceforge.mikutoga.pmd.model;
 
 import jp.sourceforge.mikutoga.corelib.I18nText;
+import jp.sourceforge.mikutoga.pmd.Deg3d;
+import jp.sourceforge.mikutoga.pmd.Pos3d;
+import jp.sourceforge.mikutoga.pmd.Rad3d;
+import jp.sourceforge.mikutoga.pmd.TripletRange;
 
 /**
  * 剛体間ジョイント情報。

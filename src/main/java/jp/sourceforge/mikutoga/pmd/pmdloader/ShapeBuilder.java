@@ -13,13 +13,13 @@ import java.util.RandomAccess;
 import jp.sourceforge.mikutoga.corelib.ListUtil;
 import jp.sourceforge.mikutoga.parser.ParseStage;
 import jp.sourceforge.mikutoga.parser.pmd.PmdShapeHandler;
-import jp.sourceforge.mikutoga.pmd.BoneInfo;
-import jp.sourceforge.mikutoga.pmd.PmdModel;
 import jp.sourceforge.mikutoga.pmd.Pos2d;
 import jp.sourceforge.mikutoga.pmd.Pos3d;
-import jp.sourceforge.mikutoga.pmd.Surface;
 import jp.sourceforge.mikutoga.pmd.Vec3d;
-import jp.sourceforge.mikutoga.pmd.Vertex;
+import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
+import jp.sourceforge.mikutoga.pmd.model.PmdModel;
+import jp.sourceforge.mikutoga.pmd.model.Surface;
+import jp.sourceforge.mikutoga.pmd.model.Vertex;
 
 /**
  * モデル形状に関する通知をパーサから受け取る。

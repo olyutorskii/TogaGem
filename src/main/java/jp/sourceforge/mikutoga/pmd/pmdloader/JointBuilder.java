@@ -13,12 +13,12 @@ import jp.sourceforge.mikutoga.corelib.ListUtil;
 import jp.sourceforge.mikutoga.parser.ParseStage;
 import jp.sourceforge.mikutoga.parser.pmd.PmdJointHandler;
 import jp.sourceforge.mikutoga.pmd.Deg3d;
-import jp.sourceforge.mikutoga.pmd.JointInfo;
-import jp.sourceforge.mikutoga.pmd.PmdModel;
 import jp.sourceforge.mikutoga.pmd.Pos3d;
 import jp.sourceforge.mikutoga.pmd.Rad3d;
-import jp.sourceforge.mikutoga.pmd.RigidInfo;
 import jp.sourceforge.mikutoga.pmd.TripletRange;
+import jp.sourceforge.mikutoga.pmd.model.JointInfo;
+import jp.sourceforge.mikutoga.pmd.model.PmdModel;
+import jp.sourceforge.mikutoga.pmd.model.RigidInfo;
 
 /**
  * ジョイント関係の通知をパーサから受け取る。
