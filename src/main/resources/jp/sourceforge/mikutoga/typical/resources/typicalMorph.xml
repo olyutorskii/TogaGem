@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!--
+    commonly morph settings
+    source : MikuMikuDance built-in models
+-->
+
+
+<!DOCTYPE typicalMorph [
+    <!ELEMENT typicalMorph (morphGroup*) >
+    <!ELEMENT morphGroup (morph*) >
+    <!ELEMENT morph (primary+, global*) >
+    <!ELEMENT primary EMPTY >
+    <!ELEMENT global EMPTY >
+
+    <!ATTLIST morphGroup type ( EYEBROW | EYE | LIP | EXTRA ) #REQUIRED >
+    <!ATTLIST primary name CDATA #REQUIRED >
+    <!ATTLIST global name CDATA #REQUIRED >
+]>
+
+
+<typicalMorph>
+
+
+<morphGroup type="EYEBROW" >  <!-- まゆ -->
+
+    <morph>
+        <primary name="&#x771F;&#x9762;&#x76EE;" />  <!-- 真面目 -->
+        <global name="serious" />
+    </morph>
+
+    <morph>
+        <primary name="&#x56F0;&#x308B;" />  <!-- 困る -->
+        <global name="sadness" />
+    </morph>
+
+    <morph>
+        <primary name="&#x306B;&#x3053;&#x308A;" />  <!-- にこり -->
+        <global name="cheerful" />
+    </morph>
+
+    <morph>
+        <primary name="&#x6012;&#x308A;" />  <!-- 怒り -->
+        <global name="anger" />
+    </morph>
+
+    <morph>
+        <primary name="&#x4E0A;" />  <!-- 上 -->
+        <global name="go up" />
+    </morph>
+
+    <morph>
+        <primary name="&#x4E0B;" />  <!-- 下 -->
+        <global name="go down" />
+    </morph>
+
+</morphGroup>
+
+<morphGroup type="EYE" >  <!-- 目 -->
+
+    <morph>
+        <primary name="&#x307E;&#x3070;&#x305F;&#x304D;" />  <!-- まばたき -->
+        <global name="blink" />
+    </morph>
+
+    <morph>
+        <primary name="&#x7B11;&#x3044;" />  <!-- 笑い -->
+        <global name="smile" />
+    </morph>
+
+    <morph>
+        <primary name="&#x30A6;&#x30A3;&#x30F3;&#x30AF;" />  <!-- ウィンク -->
+        <global name="wink" />
+    </morph>
+
+    <morph>
+        <primary name="&#x306F;&#x3045;" />  <!-- はぅ -->
+        <global name="close&gt;&lt;" />
+    </morph>
+
+    <morph>
+        <primary name="&#x306A;&#x3054;&#x307F;" />  <!-- なごみ -->
+        <global name="calm" />
+    </morph>
+
+    <morph>
+        <primary name="&#x3073;&#x3063;&#x304F;&#x308A;" />  <!-- びっくり -->
+        <global name="surprise" />
+    </morph>
+
+    <morph>
+        <primary name="&#x3058;&#x3068;&#x76EE;" />  <!-- じと目 -->
+        <global name="doubt" />
+    </morph>
+
+</morphGroup>
+
+<morphGroup type="LIP" >  <!-- 唇 -->
+
+    <morph>
+        <primary name="&#x3042;" />  <!-- あ -->
+        <global name="a" />
+    </morph>
+
+    <morph>
+        <primary name="&#x3044;" />  <!-- い -->
+        <global name="i" />
+    </morph>
+
+    <morph>
+        <primary name="&#x3046;" />  <!-- う -->
+        <global name="u" />
+    </morph>
+
+    <morph>
+        <primary name="&#x3048;" />  <!-- え -->
+        <global name="e" />
+    </morph>
+
+    <morph>
+        <primary name="&#x304A;" />  <!-- お -->
+        <global name="o" />
+    </morph>
+
+    <morph>
+        <primary name="&#x306B;&#x3084;&#x308A;" />  <!-- にやり -->
+        <global name="grin" />
+    </morph>
+
+    <morph>
+        <primary name="&#x25B2;" />  <!-- ▲ -->
+        <primary name="&#x25B3;" />  <!-- △ -->
+        <global name="triangle" />
+    </morph>
+
+    <morph>
+        <primary name="&#x2227;" />  <!-- ∧ -->
+        <primary name="&#x3078;&#x306E;&#x5B57;" />  <!-- への字 -->
+        <global name="regret" />
+    </morph>
+
+    <morph>
+        <primary name="&#x306F;&#x3093;&#x3063;&#xFF01;" />  <!-- はんっ！ -->
+        <global name="fool" />
+    </morph>
+
+    <morph>
+        <primary name="&#x03C9;" />  <!-- ω -->
+        <global name="omega" />
+    </morph>
+
+    <morph>
+        <primary name="&#x03C9;&#x25A1;" />  <!-- ω□ -->
+        <global name="omegabox" />
+    </morph>
+
+    <morph>
+        <primary name="&#x3048;&#x30FC;" />  <!-- えー -->
+        <global name="e-" />
+    </morph>
+
+</morphGroup>
+
+<morphGroup type="EXTRA" >  <!-- その他 -->
+
+    <morph>
+        <primary name="&#x77B3;&#x5C0F;" />  <!-- 瞳小 -->
+        <global name="pupil" />
+    </morph>
+
+    <morph>
+        <primary name="&#x3079;&#x30FC;" />  <!-- べー -->
+        <primary name="&#x307A;&#x308D;&#x3063;" />  <!-- ぺろっ -->
+        <global name="tongue" />
+    </morph>
+
+</morphGroup>
+
+
+</typicalMorph>
+
+
+<!-- EOF -->

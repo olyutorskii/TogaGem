@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!--
+    commonly bone settings
+    source : MikuMikuDance built-in models
+-->
+
+
+<!DOCTYPE typicalBone [
+    <!ELEMENT typicalBone (bone*) >
+    <!ELEMENT bone (primary+, global*) >
+    <!ELEMENT primary EMPTY >
+    <!ELEMENT global EMPTY >
+
+    <!ATTLIST primary name CDATA #REQUIRED >
+    <!ATTLIST global name CDATA #REQUIRED >
+]>
+
+
+<typicalBone>
+
+
+    <bone>
+        <primary name="&#x30BB;&#x30F3;&#x30BF;&#x30FC;" />  <!-- センター -->
+        <global name="center" />
+    </bone>
+
+    <bone>
+        <primary name="&#x4E0A;&#x534A;&#x8EAB;" />  <!-- 上半身 -->
+        <global name="upper body" />
+    </bone>
+
+    <bone>
+        <primary name="&#x9996;" />  <!-- 首 -->
+        <global name="neck" />
+    </bone>
+
+    <bone>
+        <primary name="&#x982D;" />  <!-- 頭 -->
+        <global name="head" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x76EE;" />  <!-- 左目 -->
+        <global name="eye_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x76EE;" />  <!-- 右目 -->
+        <global name="eye_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x4E0B;&#x534A;&#x8EAB;" />  <!-- 下半身 -->
+        <global name="lower body" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x80A9;" />  <!-- 左肩 -->
+        <global name="shoulder_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x8155;" />  <!-- 左腕 -->
+        <global name="arm_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x8155;&#x6369;" />  <!-- 左腕捩 -->
+        <global name="arm twist_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x3072;&#x3058;" />  <!-- 左ひじ -->
+        <global name="elbow_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x624B;&#x6369;" />  <!-- 左手捩 -->
+        <global name="wrist twist_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x624B;&#x9996;" />  <!-- 左手首 -->
+        <global name="wrist_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x8896;" />  <!-- 左袖 -->
+        <global name="sleeve_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x89AA;&#x6307;&#xFF11;" />  <!-- 左親指１ -->
+        <global name="thumb1_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x89AA;&#x6307;&#xFF12;" />  <!-- 左親指２ -->
+        <global name="thumb2_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x4EBA;&#x6307;&#xFF11;" />  <!-- 左人指１ -->
+        <global name="fore1_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x4EBA;&#x6307;&#xFF12;" />  <!-- 左人指２ -->
+        <global name="fore2_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x4EBA;&#x6307;&#xFF13;" />  <!-- 左人指３ -->
+        <global name="fore3_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x4E2D;&#x6307;&#xFF11;" />  <!-- 左中指１ -->
+        <global name="middle1_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x4E2D;&#x6307;&#xFF12;" />  <!-- 左中指２ -->
+        <global name="middle2_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x4E2D;&#x6307;&#xFF13;" />  <!-- 左中指３ -->
+        <global name="middle3_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x85AC;&#x6307;&#xFF11;" />  <!-- 左薬指１ -->
+        <global name="third1_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x85AC;&#x6307;&#xFF12;" />  <!-- 左薬指２ -->
+        <global name="third2_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x85AC;&#x6307;&#xFF13;" />  <!-- 左薬指３ -->
+        <global name="third3_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x5C0F;&#x6307;&#xFF11;" />  <!-- 左小指１ -->
+        <global name="little1_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x5C0F;&#x6307;&#xFF12;" />  <!-- 左小指２ -->
+        <global name="little2_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x5C0F;&#x6307;&#xFF13;" />  <!-- 左小指３ -->
+        <global name="little3_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x8DB3;" />  <!-- 左足 -->
+        <global name="leg_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x3072;&#x3056;" />  <!-- 左ひざ -->
+        <global name="knee_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x8DB3;&#x9996;" />  <!-- 左足首 -->
+        <global name="ankle_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x80A9;" />  <!-- 右肩 -->
+        <global name="shoulder_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x8155;" />  <!-- 右腕 -->
+        <global name="arm_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x8155;&#x6369;" />  <!-- 右腕捩 -->
+        <global name="arm twist_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x3072;&#x3058;" />  <!-- 右ひじ -->
+        <global name="elbow_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x624B;&#x6369;" />  <!-- 右手捩 -->
+        <global name="wrist twist_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x624B;&#x9996;" />  <!-- 右手首 -->
+        <global name="wrist_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x8896;" />  <!-- 右袖 -->
+        <global name="sleeve_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x89AA;&#x6307;&#xFF11;" />  <!-- 右親指１ -->
+        <global name="thumb1_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x89AA;&#x6307;&#xFF12;" />  <!-- 右親指２ -->
+        <global name="thumb2_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x4EBA;&#x6307;&#xFF11;" />  <!-- 右人指１ -->
+        <global name="fore1_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x4EBA;&#x6307;&#xFF12;" />  <!-- 右人指２ -->
+        <global name="fore2_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x4EBA;&#x6307;&#xFF13;" />  <!-- 右人指３ -->
+        <global name="fore3_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x4E2D;&#x6307;&#xFF11;" />  <!-- 右中指１ -->
+        <global name="middle1_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x4E2D;&#x6307;&#xFF12;" />  <!-- 右中指２ -->
+        <global name="middle2_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x4E2D;&#x6307;&#xFF13;" />  <!-- 右中指３ -->
+        <global name="middle3_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x85AC;&#x6307;&#xFF11;" />  <!-- 右薬指１ -->
+        <global name="third1_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x85AC;&#x6307;&#xFF12;" />  <!-- 右薬指２ -->
+        <global name="third2_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x85AC;&#x6307;&#xFF13;" />  <!-- 右薬指３ -->
+        <global name="third3_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x5C0F;&#x6307;&#xFF11;" />  <!-- 右小指１ -->
+        <global name="little1_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x5C0F;&#x6307;&#xFF12;" />  <!-- 右小指２ -->
+        <global name="little2_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x5C0F;&#x6307;&#xFF13;" />  <!-- 右小指３ -->
+        <global name="little3_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x8DB3;" />  <!-- 右足 -->
+        <global name="leg_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x3072;&#x3056;" />  <!-- 右ひざ -->
+        <global name="knee_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x8DB3;&#x9996;" />  <!-- 右足首 -->
+        <global name="ankle_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x4E21;&#x76EE;" />  <!-- 両目 -->
+        <global name="eyes" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x3064;&#x307E;&#x5148;" />  <!-- 左つま先 -->
+        <global name="L toe" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x3064;&#x307E;&#x5148;" />  <!-- 右つま先 -->
+        <global name="R toe" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x8DB3;&#xFF29;&#xFF2B;" />  <!-- 左足ＩＫ -->
+        <global name="leg IK_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x8DB3;&#xFF29;&#xFF2B;" />  <!-- 右足ＩＫ -->
+        <global name="leg IK_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#x5DE6;&#x3064;&#x307E;&#x5148;&#xFF29;&#xFF2B;" />  <!-- 左つま先ＩＫ -->
+        <global name="toe IK_L" />
+    </bone>
+
+    <bone>
+        <primary name="&#x53F3;&#x3064;&#x307E;&#x5148;&#xFF29;&#xFF2B;" />  <!-- 右つま先ＩＫ -->
+        <global name="toe IK_R" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;01" />  <!-- ﾎﾞｰﾝ01 -->
+        <global name="bone01" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;02" />  <!-- ﾎﾞｰﾝ02 -->
+        <global name="bone02" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;03" />  <!-- ﾎﾞｰﾝ03 -->
+        <global name="bone03" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;04" />  <!-- ﾎﾞｰﾝ04 -->
+        <global name="bone04" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;05" />  <!-- ﾎﾞｰﾝ05 -->
+        <global name="bone05" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;06" />  <!-- ﾎﾞｰﾝ06 -->
+        <global name="bone06" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;07" />  <!-- ﾎﾞｰﾝ07 -->
+        <global name="bone07" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;08" />  <!-- ﾎﾞｰﾝ08 -->
+        <global name="bone08" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;09" />  <!-- ﾎﾞｰﾝ09 -->
+        <global name="bone09" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;10" />  <!-- ﾎﾞｰﾝ10 -->
+        <global name="bone10" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;11" />  <!-- ﾎﾞｰﾝ11 -->
+        <global name="bone11" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;12" />  <!-- ﾎﾞｰﾝ12 -->
+        <global name="bone12" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;13" />  <!-- ﾎﾞｰﾝ13 -->
+        <global name="bone13" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;14" />  <!-- ﾎﾞｰﾝ14 -->
+        <global name="bone14" />
+    </bone>
+
+    <bone>
+        <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;15" />  <!-- ﾎﾞｰﾝ15 -->
+        <global name="bone15" />
+    </bone>
+
+
+</typicalBone>
+
+
+<!-- EOF -->
