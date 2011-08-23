@@ -5,7 +5,7 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd.xml;
+package jp.sourceforge.mikutoga.pmd.model.xml;
 
 import java.awt.Color;
 import java.io.IOException;

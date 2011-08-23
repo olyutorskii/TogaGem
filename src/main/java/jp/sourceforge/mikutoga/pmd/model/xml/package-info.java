@@ -9,6 +9,6 @@
  * PMDモデル内容をXMLで出力するためのライブラリ。
  */
 
-package jp.sourceforge.mikutoga.pmd.xml;
+package jp.sourceforge.mikutoga.pmd.model.xml;
 
 /* EOF */
