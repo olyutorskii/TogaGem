@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import jp.sourceforge.mikutoga.corelib.SerialNumbered;
-import jp.sourceforge.mikutoga.parser.pmd.PmdLimits;
 import jp.sourceforge.mikutoga.pmd.BoneType;
 import jp.sourceforge.mikutoga.pmd.MorphType;
 import jp.sourceforge.mikutoga.pmd.Pos2d;
@@ -32,6 +31,7 @@ import jp.sourceforge.mikutoga.pmd.model.PmdModel;
 import jp.sourceforge.mikutoga.pmd.model.ShadeInfo;
 import jp.sourceforge.mikutoga.pmd.model.Surface;
 import jp.sourceforge.mikutoga.pmd.model.Vertex;
+import jp.sourceforge.mikutoga.pmd.parser.PmdLimits;
 
 /**
  * PMDファイルのエクスポーター(拡張無し基本フォーマット)。

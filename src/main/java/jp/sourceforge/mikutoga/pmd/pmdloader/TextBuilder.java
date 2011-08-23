@@ -11,12 +11,12 @@ import java.util.Iterator;
 import java.util.List;
 import jp.sourceforge.mikutoga.corelib.I18nText;
 import jp.sourceforge.mikutoga.parser.ParseStage;
-import jp.sourceforge.mikutoga.parser.pmd.PmdBasicHandler;
-import jp.sourceforge.mikutoga.parser.pmd.PmdEngHandler;
 import jp.sourceforge.mikutoga.pmd.model.BoneGroup;
 import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
 import jp.sourceforge.mikutoga.pmd.model.MorphPart;
 import jp.sourceforge.mikutoga.pmd.model.PmdModel;
+import jp.sourceforge.mikutoga.pmd.parser.PmdBasicHandler;
+import jp.sourceforge.mikutoga.pmd.parser.PmdEngHandler;
 
 /**
  * テキスト関係の通知をパーサから受け取る。

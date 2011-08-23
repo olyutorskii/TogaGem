@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
 import jp.sourceforge.mikutoga.parser.MmdSource;
-import jp.sourceforge.mikutoga.parser.pmd.PmdParser;
+import jp.sourceforge.mikutoga.pmd.parser.PmdParser;
 
 /**
  * パーサ利用のサンプルプログラム。

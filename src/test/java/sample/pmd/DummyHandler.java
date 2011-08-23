@@ -8,15 +8,15 @@
 package sample.pmd;
 
 import jp.sourceforge.mikutoga.parser.ParseStage;
-import jp.sourceforge.mikutoga.parser.pmd.PmdBasicHandler;
-import jp.sourceforge.mikutoga.parser.pmd.PmdBoneHandler;
-import jp.sourceforge.mikutoga.parser.pmd.PmdEngHandler;
-import jp.sourceforge.mikutoga.parser.pmd.PmdJointHandler;
-import jp.sourceforge.mikutoga.parser.pmd.PmdMaterialHandler;
-import jp.sourceforge.mikutoga.parser.pmd.PmdMorphHandler;
-import jp.sourceforge.mikutoga.parser.pmd.PmdRigidHandler;
-import jp.sourceforge.mikutoga.parser.pmd.PmdShapeHandler;
-import jp.sourceforge.mikutoga.parser.pmd.PmdToonHandler;
+import jp.sourceforge.mikutoga.pmd.parser.PmdBasicHandler;
+import jp.sourceforge.mikutoga.pmd.parser.PmdBoneHandler;
+import jp.sourceforge.mikutoga.pmd.parser.PmdEngHandler;
+import jp.sourceforge.mikutoga.pmd.parser.PmdJointHandler;
+import jp.sourceforge.mikutoga.pmd.parser.PmdMaterialHandler;
+import jp.sourceforge.mikutoga.pmd.parser.PmdMorphHandler;
+import jp.sourceforge.mikutoga.pmd.parser.PmdRigidHandler;
+import jp.sourceforge.mikutoga.pmd.parser.PmdShapeHandler;
+import jp.sourceforge.mikutoga.pmd.parser.PmdToonHandler;
 
 /**
  * サンプルのハンドラ。

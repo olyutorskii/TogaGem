@@ -8,10 +8,10 @@
 package jp.sourceforge.mikutoga.pmd.pmdloader;
 
 import jp.sourceforge.mikutoga.parser.ParseStage;
-import jp.sourceforge.mikutoga.parser.pmd.PmdLimits;
-import jp.sourceforge.mikutoga.parser.pmd.PmdToonHandler;
 import jp.sourceforge.mikutoga.pmd.model.PmdModel;
 import jp.sourceforge.mikutoga.pmd.model.ToonMap;
+import jp.sourceforge.mikutoga.pmd.parser.PmdLimits;
+import jp.sourceforge.mikutoga.pmd.parser.PmdToonHandler;
 
 /**
  * トゥーン関係の通知をパーサから受け取る。

@@ -9,9 +9,9 @@ package jp.sourceforge.mikutoga.pmd.pmdexporter;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import jp.sourceforge.mikutoga.parser.pmd.PmdLimits;
 import jp.sourceforge.mikutoga.pmd.model.PmdModel;
 import jp.sourceforge.mikutoga.pmd.model.ToonMap;
+import jp.sourceforge.mikutoga.pmd.parser.PmdLimits;
 
 /**
  * PMDファイルのエクスポーター(拡張2:任意のトゥーンファイル名対応)。

@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Map;
 import jp.sourceforge.mikutoga.corelib.ListUtil;
 import jp.sourceforge.mikutoga.parser.ParseStage;
-import jp.sourceforge.mikutoga.parser.pmd.PmdMorphHandler;
 import jp.sourceforge.mikutoga.pmd.MorphType;
 import jp.sourceforge.mikutoga.pmd.Pos3d;
 import jp.sourceforge.mikutoga.pmd.model.MorphPart;
 import jp.sourceforge.mikutoga.pmd.model.MorphVertex;
 import jp.sourceforge.mikutoga.pmd.model.PmdModel;
 import jp.sourceforge.mikutoga.pmd.model.Vertex;
+import jp.sourceforge.mikutoga.pmd.parser.PmdMorphHandler;
 
 /**
  * モーフ関係の通知をパーサから受け取る。

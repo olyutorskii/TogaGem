@@ -11,12 +11,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
-import jp.sourceforge.mikutoga.parser.pmd.PmdLimits;
 import jp.sourceforge.mikutoga.pmd.MorphType;
 import jp.sourceforge.mikutoga.pmd.model.BoneGroup;
 import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
 import jp.sourceforge.mikutoga.pmd.model.MorphPart;
 import jp.sourceforge.mikutoga.pmd.model.PmdModel;
+import jp.sourceforge.mikutoga.pmd.parser.PmdLimits;
 
 /**
  * PMDファイルのエクスポーター(拡張1:英名対応)。
