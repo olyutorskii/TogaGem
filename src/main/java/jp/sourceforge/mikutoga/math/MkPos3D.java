@@ -1,5 +1,5 @@
 /*
- * position
+ * 3D position
  *
  * License : The MIT License
  * Copyright(c) 2011 MikuToga Partners

@@ -10,9 +10,9 @@ package jp.sourceforge.mikutoga.pmd.model.binio;
 import java.util.Iterator;
 import java.util.List;
 import jp.sourceforge.mikutoga.corelib.ListUtil;
+import jp.sourceforge.mikutoga.math.MkPos3D;
 import jp.sourceforge.mikutoga.parser.ParseStage;
 import jp.sourceforge.mikutoga.pmd.Deg3d;
-import jp.sourceforge.mikutoga.pmd.Pos3d;
 import jp.sourceforge.mikutoga.pmd.Rad3d;
 import jp.sourceforge.mikutoga.pmd.TripletRange;
 import jp.sourceforge.mikutoga.pmd.model.JointInfo;
@@ -117,10 +117,10 @@ class JointBuilder implements PmdJointHandler {
      */
     @Override
     public void pmdJointPosition(float posX, float posY, float posZ){
-        Pos3d position = this.currentJoint.getPosition();
-        position.setXPos(posX);
-        position.setYPos(posY);
-        position.setZPos(posZ);
+        MkPos3D position = this.currentJoint.getPosition();
+        position.setXpos(posX);
+        position.setYpos(posY);
+        position.setZpos(posZ);
         return;
     }
 
@@ -189,10 +189,10 @@ class JointBuilder implements PmdJointHandler {
     public void pmdElasticPosition(float elasticPosX,
                                    float elasticPosY,
                                    float elasticPosZ){
-        Pos3d position = this.currentJoint.getElasticPosition();
-        position.setXPos(elasticPosX);
-        position.setYPos(elasticPosY);
-        position.setZPos(elasticPosZ);
+        MkPos3D position = this.currentJoint.getElasticPosition();
+        position.setXpos(elasticPosX);
+        position.setYpos(elasticPosY);
+        position.setZpos(elasticPosZ);
         return;
     }
 

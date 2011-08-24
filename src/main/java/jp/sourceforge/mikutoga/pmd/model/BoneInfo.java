@@ -8,8 +8,8 @@
 package jp.sourceforge.mikutoga.pmd.model;
 
 import jp.sourceforge.mikutoga.corelib.I18nText;
+import jp.sourceforge.mikutoga.math.MkPos3D;
 import jp.sourceforge.mikutoga.pmd.BoneType;
-import jp.sourceforge.mikutoga.pmd.Pos3d;
 
 /**
  * ボーン情報。
@@ -23,7 +23,7 @@ public class BoneInfo implements SerialNumbered {
     private BoneInfo nextBone;
     private BoneInfo ikBone;
 
-    private final Pos3d position = new Pos3d();
+    private final MkPos3D position = new MkPos3D();
 
     private int rotationRatio;
 
@@ -123,7 +123,7 @@ public class BoneInfo implements SerialNumbered {
      * ボーン位置を返す。
      * @return ボーン位置
      */
-    public Pos3d getPosition(){
+    public MkPos3D getPosition(){
         return this.position;
     }
 

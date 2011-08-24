@@ -13,9 +13,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import jp.sourceforge.mikutoga.corelib.ListUtil;
+import jp.sourceforge.mikutoga.math.MkPos3D;
 import jp.sourceforge.mikutoga.parser.ParseStage;
 import jp.sourceforge.mikutoga.pmd.MorphType;
-import jp.sourceforge.mikutoga.pmd.Pos3d;
 import jp.sourceforge.mikutoga.pmd.model.MorphPart;
 import jp.sourceforge.mikutoga.pmd.model.MorphVertex;
 import jp.sourceforge.mikutoga.pmd.model.PmdModel;
@@ -153,10 +153,10 @@ class MorphBuilder implements PmdMorphHandler {
                                    float xPos, float yPos, float zPos){
         MorphVertex morphVertex;
         morphVertex = new MorphVertex();
-        Pos3d position = morphVertex.getOffset();
-        position.setXPos(xPos);
-        position.setYPos(yPos);
-        position.setZPos(zPos);
+        MkPos3D position = morphVertex.getOffset();
+        position.setXpos(xPos);
+        position.setYpos(yPos);
+        position.setZpos(zPos);
 
         Vertex vertex;
         if(this.currentMorphPart.getMorphType().isBase()){

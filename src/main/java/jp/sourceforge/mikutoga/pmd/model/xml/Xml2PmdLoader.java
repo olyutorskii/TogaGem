@@ -17,16 +17,16 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import jp.sourceforge.mikutoga.corelib.I18nText;
 import jp.sourceforge.mikutoga.corelib.ListUtil;
+import jp.sourceforge.mikutoga.math.MkPos2D;
+import jp.sourceforge.mikutoga.math.MkPos3D;
+import jp.sourceforge.mikutoga.math.MkVec3D;
 import jp.sourceforge.mikutoga.pmd.BoneType;
 import jp.sourceforge.mikutoga.pmd.Deg3d;
 import jp.sourceforge.mikutoga.pmd.MorphType;
-import jp.sourceforge.mikutoga.pmd.Pos2d;
-import jp.sourceforge.mikutoga.pmd.Pos3d;
 import jp.sourceforge.mikutoga.pmd.Rad3d;
 import jp.sourceforge.mikutoga.pmd.RigidBehaviorType;
 import jp.sourceforge.mikutoga.pmd.RigidShapeType;
 import jp.sourceforge.mikutoga.pmd.TripletRange;
-import jp.sourceforge.mikutoga.pmd.Vec3d;
 import jp.sourceforge.mikutoga.pmd.model.BoneGroup;
 import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
 import jp.sourceforge.mikutoga.pmd.model.DynamicsInfo;
@@ -375,10 +375,10 @@ public class Xml2PmdLoader {
             float xPos = getFloatAttr(positionElem, "x");
             float yPos = getFloatAttr(positionElem, "y");
             float zPos = getFloatAttr(positionElem, "z");
-            Pos3d position = boneInfo.getPosition();
-            position.setXPos(xPos);
-            position.setYPos(yPos);
-            position.setZPos(zPos);
+            MkPos3D position = boneInfo.getPosition();
+            position.setXpos(xPos);
+            position.setYpos(yPos);
+            position.setZpos(zPos);
         }
 
         ListUtil.assignIndexedSerial(boneList);
@@ -438,16 +438,16 @@ public class Xml2PmdLoader {
             xVal = getFloatAttr(positionElem, "x");
             yVal = getFloatAttr(positionElem, "y");
             zVal = getFloatAttr(positionElem, "z");
-            Pos3d position = vertex.getPosition();
-            position.setXPos(xVal);
-            position.setYPos(yVal);
-            position.setZPos(zVal);
+            MkPos3D position = vertex.getPosition();
+            position.setXpos(xVal);
+            position.setYpos(yVal);
+            position.setZpos(zVal);
 
             Element normalElem = getChild(vertexElem, "normal");
             xVal = getFloatAttr(normalElem, "x");
             yVal = getFloatAttr(normalElem, "y");
             zVal = getFloatAttr(normalElem, "z");
-            Vec3d normal = vertex.getNormal();
+            MkVec3D normal = vertex.getNormal();
             normal.setXVal(xVal);
             normal.setYVal(yVal);
             normal.setZVal(zVal);
@@ -455,9 +455,9 @@ public class Xml2PmdLoader {
             Element uvElem = getChild(vertexElem, "uvMap");
             float uVal = getFloatAttr(uvElem, "u");
             float vVal = getFloatAttr(uvElem, "v");
-            Pos2d uv = vertex.getUVPosition();
-            uv.setXPos(uVal);
-            uv.setYPos(vVal);
+            MkPos2D uv = vertex.getUVPosition();
+            uv.setXpos(uVal);
+            uv.setYpos(vVal);
 
             Element skinningElem = getChild(vertexElem, "skinning");
             String boneId1 = getStringAttr(skinningElem, "boneIdRef1");
@@ -659,10 +659,10 @@ public class Xml2PmdLoader {
 
                 MorphVertex morphVertex = new MorphVertex();
                 morphVertex.setBaseVertex(baseVertex);
-                Pos3d position = morphVertex.getOffset();
-                position.setXPos(xOff);
-                position.setYPos(yOff);
-                position.setZPos(zOff);
+                MkPos3D position = morphVertex.getOffset();
+                position.setXpos(xOff);
+                position.setYpos(yOff);
+                position.setZpos(zOff);
 
                 morphVertexList.add(morphVertex);
             }
@@ -786,10 +786,10 @@ public class Xml2PmdLoader {
             xVal = getFloatAttr(positionElem, "x");
             yVal = getFloatAttr(positionElem, "y");
             zVal = getFloatAttr(positionElem, "z");
-            Pos3d position = rigid.getPosition();
-            position.setXPos(xVal);
-            position.setYPos(yVal);
-            position.setZPos(zVal);
+            MkPos3D position = rigid.getPosition();
+            position.setXpos(xVal);
+            position.setYpos(yVal);
+            position.setZpos(zVal);
 
             Element radRotationElem = getChild(rigidElem, "radRotation");
             xVal = getFloatAttr(radRotationElem, "xRad");
@@ -908,14 +908,14 @@ public class Xml2PmdLoader {
             float zFrom;
             float zTo;
 
-            Pos3d position = joint.getPosition();
+            MkPos3D position = joint.getPosition();
             Element positionElem = getChild(jointElem, "position");
             xVal = getFloatAttr(positionElem, "x");
             yVal = getFloatAttr(positionElem, "y");
             zVal = getFloatAttr(positionElem, "z");
-            position.setXPos(xVal);
-            position.setYPos(yVal);
-            position.setZPos(zVal);
+            position.setXpos(xVal);
+            position.setYpos(yVal);
+            position.setZpos(zVal);
 
             TripletRange limitPosition = joint.getPositionRange();
             Element limitPositionElem = getChild(jointElem, "limitPosition");
@@ -950,15 +950,15 @@ public class Xml2PmdLoader {
             limitRotation.setYRange(yFrom, yTo);
             limitRotation.setZRange(zFrom, zTo);
 
-            Pos3d elasticPosition = joint.getElasticPosition();
+            MkPos3D elasticPosition = joint.getElasticPosition();
             Element elasticPositionElem =
                     getChild(jointElem, "elasticPosition");
             xVal = getFloatAttr(elasticPositionElem, "x");
             yVal = getFloatAttr(elasticPositionElem, "y");
             zVal = getFloatAttr(elasticPositionElem, "z");
-            elasticPosition.setXPos(xVal);
-            elasticPosition.setYPos(yVal);
-            elasticPosition.setZPos(zVal);
+            elasticPosition.setXpos(xVal);
+            elasticPosition.setYpos(yVal);
+            elasticPosition.setZpos(zVal);
 
             Deg3d elasticRotation = joint.getElasticRotation();
             Element elasticRotationElem =

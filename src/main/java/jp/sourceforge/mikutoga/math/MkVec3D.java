@@ -5,21 +5,21 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd;
+package jp.sourceforge.mikutoga.math;
 
 /**
  * XYZ三次元ベクトル。
  */
-public class Vec3d {
+public class MkVec3D {
 
-    private float xVal;
-    private float yVal;
-    private float zVal;
+    private double xVal;
+    private double yVal;
+    private double zVal;
 
     /**
      * コンストラクタ。
      */
-    public Vec3d(){
+    public MkVec3D(){
         super();
         return;
     }
@@ -28,7 +28,7 @@ public class Vec3d {
      * X値を設定する。
      * @param xVal X値
      */
-    public void setXVal(float xVal){
+    public void setXVal(double xVal){
         this.xVal = xVal;
         return;
     }
@@ -37,7 +37,7 @@ public class Vec3d {
      * X値を返す。
      * @return X値
      */
-    public float getXVal(){
+    public double getXVal(){
         return this.xVal;
     }
 
@@ -45,7 +45,7 @@ public class Vec3d {
      * Y値を設定する。
      * @param yVal Y値
      */
-    public void setYVal(float yVal){
+    public void setYVal(double yVal){
         this.yVal = yVal;
         return;
     }
@@ -54,7 +54,7 @@ public class Vec3d {
      * Y値を返す。
      * @return Y値
      */
-    public float getYVal(){
+    public double getYVal(){
         return this.yVal;
     }
 
@@ -62,7 +62,7 @@ public class Vec3d {
      * Z値を設定する。
      * @param zVal Z値
      */
-    public void setZVal(float zVal){
+    public void setZVal(double zVal){
         this.zVal = zVal;
         return;
     }
@@ -71,8 +71,21 @@ public class Vec3d {
      * Z値を返す。
      * @return Z値
      */
-    public float getZVal(){
+    public double getZVal(){
         return this.zVal;
+    }
+
+    /**
+     * ベクトル成分を設定する。
+     * @param xValArg X値
+     * @param yValArg Y値
+     * @param zValArg Z値
+     */
+    public void setVector(double xValArg, double yValArg, double zValArg){
+        this.xVal = xValArg;
+        this.yVal = yValArg;
+        this.zVal = zValArg;
+        return;
     }
 
     /**

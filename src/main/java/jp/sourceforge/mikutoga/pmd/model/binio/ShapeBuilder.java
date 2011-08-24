@@ -11,10 +11,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.RandomAccess;
 import jp.sourceforge.mikutoga.corelib.ListUtil;
+import jp.sourceforge.mikutoga.math.MkPos2D;
+import jp.sourceforge.mikutoga.math.MkPos3D;
+import jp.sourceforge.mikutoga.math.MkVec3D;
 import jp.sourceforge.mikutoga.parser.ParseStage;
-import jp.sourceforge.mikutoga.pmd.Pos2d;
-import jp.sourceforge.mikutoga.pmd.Pos3d;
-import jp.sourceforge.mikutoga.pmd.Vec3d;
 import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
 import jp.sourceforge.mikutoga.pmd.model.PmdModel;
 import jp.sourceforge.mikutoga.pmd.model.Surface;
@@ -140,10 +140,10 @@ class ShapeBuilder implements PmdShapeHandler {
      */
     @Override
     public void pmdVertexPosition(float xPos, float yPos, float zPos){
-        Pos3d position = this.currentVertex.getPosition();
-        position.setXPos(xPos);
-        position.setYPos(yPos);
-        position.setZPos(zPos);
+        MkPos3D position = this.currentVertex.getPosition();
+        position.setXpos(xPos);
+        position.setYpos(yPos);
+        position.setZpos(zPos);
         return;
     }
 
@@ -155,7 +155,7 @@ class ShapeBuilder implements PmdShapeHandler {
      */
     @Override
     public void pmdVertexNormal(float xVec, float yVec, float zVec){
-        Vec3d normal = this.currentVertex.getNormal();
+        MkVec3D normal = this.currentVertex.getNormal();
         normal.setXVal(xVec);
         normal.setYVal(yVec);
         normal.setZVal(zVec);
@@ -169,9 +169,9 @@ class ShapeBuilder implements PmdShapeHandler {
      */
     @Override
     public void pmdVertexUV(float uVal, float vVal){
-        Pos2d uv = this.currentVertex.getUVPosition();
-        uv.setXPos(uVal);
-        uv.setYPos(vVal);
+        MkPos2D uv = this.currentVertex.getUVPosition();
+        uv.setXpos(uVal);
+        uv.setYpos(vVal);
         return;
     }
 

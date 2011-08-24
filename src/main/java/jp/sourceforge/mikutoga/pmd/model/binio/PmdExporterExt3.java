@@ -112,7 +112,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
 
         dumpRigidShape(rigid.getRigidShape());
 
-        dumpPos3d(rigid.getPosition());
+        dumpPos3D(rigid.getPosition());
         dumpRad3d(rigid.getRotation());
 
         dumpDynamics(rigid.getDynamicsInfo());
@@ -203,13 +203,13 @@ public class PmdExporterExt3 extends PmdExporterExt2{
         dumpInt(rigidA.getSerialNumber());
         dumpInt(rigidB.getSerialNumber());
 
-        dumpPos3d(joint.getPosition());
+        dumpPos3D(joint.getPosition());
         dumpRad3d(joint.getRotation());
 
         dumpTripletRange(joint.getPositionRange());
         dumpTripletRange(joint.getRotationRange());
 
-        dumpPos3d(joint.getElasticPosition());
+        dumpPos3D(joint.getElasticPosition());
         dumpDeg3d(joint.getElasticRotation());
 
         return;

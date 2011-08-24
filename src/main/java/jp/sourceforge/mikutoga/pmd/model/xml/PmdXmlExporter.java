@@ -13,15 +13,15 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 import jp.sourceforge.mikutoga.corelib.I18nText;
+import jp.sourceforge.mikutoga.math.MkPos2D;
+import jp.sourceforge.mikutoga.math.MkPos3D;
+import jp.sourceforge.mikutoga.math.MkVec3D;
 import jp.sourceforge.mikutoga.pmd.BoneType;
 import jp.sourceforge.mikutoga.pmd.Deg3d;
 import jp.sourceforge.mikutoga.pmd.MorphType;
-import jp.sourceforge.mikutoga.pmd.Pos2d;
-import jp.sourceforge.mikutoga.pmd.Pos3d;
 import jp.sourceforge.mikutoga.pmd.Rad3d;
 import jp.sourceforge.mikutoga.pmd.RigidShapeType;
 import jp.sourceforge.mikutoga.pmd.TripletRange;
-import jp.sourceforge.mikutoga.pmd.Vec3d;
 import jp.sourceforge.mikutoga.pmd.model.BoneGroup;
 import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
 import jp.sourceforge.mikutoga.pmd.model.DynamicsInfo;
@@ -217,11 +217,12 @@ public class PmdXmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    protected PmdXmlExporter putPosition(Pos3d position) throws IOException{
+    protected PmdXmlExporter putPosition(MkPos3D position)
+            throws IOException{
         put("<position ");
-        putFloatAttr("x", position.getXPos()).put(' ');
-        putFloatAttr("y", position.getYPos()).put(' ');
-        putFloatAttr("z", position.getZPos()).put(' ');
+        putFloatAttr("x", (float) position.getXpos()).put(' ');
+        putFloatAttr("y", (float) position.getYpos()).put(' ');
+        putFloatAttr("z", (float) position.getZpos()).put(' ');
         put("/>");
         return this;
     }
@@ -704,20 +705,20 @@ public class PmdXmlExporter extends BasicXmlExporter{
         put(">").ln();
         pushNest();
 
-        Pos3d position = vertex.getPosition();
+        MkPos3D position = vertex.getPosition();
         ind().putPosition(position).ln();
 
-        Vec3d normal = vertex.getNormal();
+        MkVec3D normal = vertex.getNormal();
         ind().put("<normal ");
-        putFloatAttr("x", normal.getXVal()).put(' ');
-        putFloatAttr("y", normal.getYVal()).put(' ');
-        putFloatAttr("z", normal.getZVal()).put(' ');
+        putFloatAttr("x", (float) normal.getXVal()).put(' ');
+        putFloatAttr("y", (float) normal.getYVal()).put(' ');
+        putFloatAttr("z", (float) normal.getZVal()).put(' ');
         put("/>").ln();
 
-        Pos2d uvPos = vertex.getUVPosition();
+        MkPos2D uvPos = vertex.getUVPosition();
         ind().put("<uvMap ");
-        putFloatAttr("u", uvPos.getXPos()).put(' ');
-        putFloatAttr("v", uvPos.getYPos()).put(' ');
+        putFloatAttr("u", (float) uvPos.getXpos()).put(' ');
+        putFloatAttr("v", (float) uvPos.getYpos()).put(' ');
         put("/>").ln();
 
         BoneInfo boneA = vertex.getBoneA();
@@ -779,7 +780,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
 
         putI18nName(i18nName);
 
-        Pos3d position = bone.getPosition();
+        MkPos3D position = bone.getPosition();
         ind().putPosition(position).ln();
 
         BoneInfo ikBone = bone.getIKBone();
@@ -986,14 +987,14 @@ public class PmdXmlExporter extends BasicXmlExporter{
         putI18nName(i18nName);
 
         for(MorphVertex mvertex : part){
-            Pos3d offset = mvertex.getOffset();
+            MkPos3D offset = mvertex.getOffset();
             Vertex base = mvertex.getBaseVertex();
 
             ind().put("<morphVertex ");
             putNumberedIdAttr("vtxIdRef", PFX_VERTEX, base).put(' ');
-            putFloatAttr("xOff", offset.getXPos()).put(' ');
-            putFloatAttr("yOff", offset.getYPos()).put(' ');
-            putFloatAttr("zOff", offset.getZPos()).put(' ');
+            putFloatAttr("xOff", (float) offset.getXpos()).put(' ');
+            putFloatAttr("yOff", (float) offset.getYpos()).put(' ');
+            putFloatAttr("zOff", (float) offset.getZpos()).put(' ');
             put("/>");
             ln();
         }
@@ -1060,7 +1061,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
         RigidShape shape = rigid.getRigidShape();
         putRigidShape(shape);
 
-        Pos3d position = rigid.getPosition();
+        MkPos3D position = rigid.getPosition();
         ind().putPosition(position).ln();
 
         Rad3d rotation = rigid.getRotation();
@@ -1235,7 +1236,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
                 + " <=> [" + rigidB.getRigidName().getText() + "]");
         ln(2);
 
-        Pos3d position = joint.getPosition();
+        MkPos3D position = joint.getPosition();
         ind().putPosition(position).ln();
 
         TripletRange posRange = joint.getPositionRange();
@@ -1270,11 +1271,11 @@ public class PmdXmlExporter extends BasicXmlExporter{
         popNest();
         ind().put("/>").ln(2);
 
-        Pos3d elaPosition = joint.getElasticPosition();
+        MkPos3D elaPosition = joint.getElasticPosition();
         ind().put("<elasticPosition ");
-        putFloatAttr("x", elaPosition.getXPos()).put(' ');
-        putFloatAttr("y", elaPosition.getYPos()).put(' ');
-        putFloatAttr("z", elaPosition.getZPos()).put(' ');
+        putFloatAttr("x", (float) elaPosition.getXpos()).put(' ');
+        putFloatAttr("y", (float) elaPosition.getYpos()).put(' ');
+        putFloatAttr("z", (float) elaPosition.getZpos()).put(' ');
         put("/>").ln();
 
         Deg3d elaRotation = joint.getElasticRotation();

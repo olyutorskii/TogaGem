@@ -8,7 +8,7 @@
 package jp.sourceforge.mikutoga.pmd.model;
 
 import java.util.Comparator;
-import jp.sourceforge.mikutoga.pmd.Pos3d;
+import jp.sourceforge.mikutoga.math.MkPos3D;
 
 /**
  * モーフアニメーションを構成する個別の頂点移動の情報。
@@ -20,7 +20,7 @@ public class MorphVertex implements SerialNumbered{
             new VertexIdComparator();
 
     private Vertex baseVertex;
-    private final Pos3d offset = new Pos3d();
+    private final MkPos3D offset = new MkPos3D();
 
     private int serialNo = -1;
 
@@ -55,7 +55,7 @@ public class MorphVertex implements SerialNumbered{
      * 頂点移動量を返す。
      * @return 頂点移動量
      */
-    public Pos3d getOffset(){
+    public MkPos3D getOffset(){
         return this.offset;
     }
 

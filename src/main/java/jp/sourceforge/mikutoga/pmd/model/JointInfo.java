@@ -8,8 +8,8 @@
 package jp.sourceforge.mikutoga.pmd.model;
 
 import jp.sourceforge.mikutoga.corelib.I18nText;
+import jp.sourceforge.mikutoga.math.MkPos3D;
 import jp.sourceforge.mikutoga.pmd.Deg3d;
-import jp.sourceforge.mikutoga.pmd.Pos3d;
 import jp.sourceforge.mikutoga.pmd.Rad3d;
 import jp.sourceforge.mikutoga.pmd.TripletRange;
 
@@ -23,10 +23,10 @@ public class JointInfo {
     private RigidInfo rigidA;
     private RigidInfo rigidB;
 
-    private final Pos3d position = new Pos3d();
+    private final MkPos3D position = new MkPos3D();
     private final Rad3d rotation = new Rad3d();
 
-    private final Pos3d elaPosition = new Pos3d();
+    private final MkPos3D elaPosition = new MkPos3D();
     private final Deg3d elaRotation = new Deg3d();
 
     private final TripletRange posRange = new TripletRange();
@@ -79,7 +79,7 @@ public class JointInfo {
      * ジョイントの位置を返す。
      * @return ジョイントの位置
      */
-    public Pos3d getPosition(){
+    public MkPos3D getPosition(){
         return this.position;
     }
 
@@ -95,7 +95,7 @@ public class JointInfo {
      * ジョイントのバネ位置を返す。
      * @return ジョイントのバネ位置
      */
-    public Pos3d getElasticPosition(){
+    public MkPos3D getElasticPosition(){
         return this.elaPosition;
     }
 

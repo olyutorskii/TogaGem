@@ -11,9 +11,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import jp.sourceforge.mikutoga.corelib.ListUtil;
+import jp.sourceforge.mikutoga.math.MkPos3D;
 import jp.sourceforge.mikutoga.parser.ParseStage;
 import jp.sourceforge.mikutoga.pmd.BoneType;
-import jp.sourceforge.mikutoga.pmd.Pos3d;
 import jp.sourceforge.mikutoga.pmd.model.BoneGroup;
 import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
 import jp.sourceforge.mikutoga.pmd.model.IKChain;
@@ -225,10 +225,10 @@ class BoneBuilder implements PmdBoneHandler {
      */
     @Override
     public void pmdBonePosition(float xPos, float yPos, float zPos){
-        Pos3d position = this.currentBone.getPosition();
-        position.setXPos(xPos);
-        position.setYPos(yPos);
-        position.setZPos(zPos);
+        MkPos3D position = this.currentBone.getPosition();
+        position.setXpos(xPos);
+        position.setYpos(yPos);
+        position.setZpos(zPos);
         return;
     }
 

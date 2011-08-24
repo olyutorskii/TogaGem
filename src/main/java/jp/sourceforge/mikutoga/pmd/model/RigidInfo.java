@@ -10,7 +10,7 @@ package jp.sourceforge.mikutoga.pmd.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import jp.sourceforge.mikutoga.corelib.I18nText;
-import jp.sourceforge.mikutoga.pmd.Pos3d;
+import jp.sourceforge.mikutoga.math.MkPos3D;
 import jp.sourceforge.mikutoga.pmd.Rad3d;
 import jp.sourceforge.mikutoga.pmd.RigidBehaviorType;
 
@@ -24,7 +24,7 @@ public class RigidInfo implements SerialNumbered {
     private RigidBehaviorType behaviorType = RigidBehaviorType.FOLLOWBONE;
 
     private final RigidShape rigidShape = new RigidShape();
-    private final Pos3d position = new Pos3d();
+    private final MkPos3D position = new MkPos3D();
     private final Rad3d rotation = new Rad3d();
 
     private BoneInfo linkedBone;
@@ -86,7 +86,7 @@ public class RigidInfo implements SerialNumbered {
      * 剛体位置を返す。
      * @return 剛体位置
      */
-    public Pos3d getPosition(){
+    public MkPos3D getPosition(){
         return this.position;
     }
 

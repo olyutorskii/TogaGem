@@ -7,9 +7,9 @@
 
 package jp.sourceforge.mikutoga.pmd.model;
 
-import jp.sourceforge.mikutoga.pmd.Pos2d;
-import jp.sourceforge.mikutoga.pmd.Pos3d;
-import jp.sourceforge.mikutoga.pmd.Vec3d;
+import jp.sourceforge.mikutoga.math.MkPos2D;
+import jp.sourceforge.mikutoga.math.MkPos3D;
+import jp.sourceforge.mikutoga.math.MkVec3D;
 
 /**
  * 頂点情報。
@@ -19,10 +19,10 @@ public class Vertex implements SerialNumbered {
     private static final int MIN_WEIGHT = 0;
     private static final int MAX_WEIGHT = 100;
 
-    private final Pos3d position = new Pos3d();
-    private final Vec3d normal = new Vec3d();
+    private final MkPos3D position = new MkPos3D();
+    private final MkVec3D normal = new MkVec3D();
 
-    private final Pos2d uvPosition = new Pos2d();
+    private final MkPos2D uvPosition = new MkPos2D();
 
     private BoneInfo boneA = null;
     private BoneInfo boneB = null;
@@ -45,7 +45,7 @@ public class Vertex implements SerialNumbered {
      * 頂点位置座標を返す。
      * @return 頂点の位置座標
      */
-    public Pos3d getPosition(){
+    public MkPos3D getPosition(){
         return this.position;
     }
 
@@ -53,7 +53,7 @@ public class Vertex implements SerialNumbered {
      * 法線ベクトルを返す。
      * @return 法線ベクトル
      */
-    public Vec3d getNormal(){
+    public MkVec3D getNormal(){
         return this.normal;
     }
 
@@ -61,7 +61,7 @@ public class Vertex implements SerialNumbered {
      * UVマップ座標を返す。
      * @return UVマップ情報
      */
-    public Pos2d getUVPosition(){
+    public MkPos2D getUVPosition(){
         return this.uvPosition;
     }
 

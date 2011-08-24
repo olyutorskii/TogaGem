@@ -15,11 +15,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import jp.sourceforge.mikutoga.math.MkPos2D;
+import jp.sourceforge.mikutoga.math.MkPos3D;
+import jp.sourceforge.mikutoga.math.MkVec3D;
 import jp.sourceforge.mikutoga.pmd.BoneType;
 import jp.sourceforge.mikutoga.pmd.MorphType;
-import jp.sourceforge.mikutoga.pmd.Pos2d;
-import jp.sourceforge.mikutoga.pmd.Pos3d;
-import jp.sourceforge.mikutoga.pmd.Vec3d;
 import jp.sourceforge.mikutoga.pmd.model.BoneGroup;
 import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
 import jp.sourceforge.mikutoga.pmd.model.IKChain;
@@ -220,13 +220,13 @@ public class PmdExporterBase extends AbstractExporter{
      */
     private void dumpVertex(Vertex vertex)
             throws IOException{
-        Pos3d position = vertex.getPosition();
-        dumpPos3d(position);
+        MkPos3D position = vertex.getPosition();
+        dumpPos3D(position);
 
-        Vec3d normal = vertex.getNormal();
-        dumpVec3d(normal);
+        MkVec3D normal = vertex.getNormal();
+        dumpVec3D(normal);
 
-        Pos2d uv = vertex.getUVPosition();
+        MkPos2D uv = vertex.getUVPosition();
         dumpPos2d(uv);
 
         BoneInfo boneA = vertex.getBoneA();
@@ -416,8 +416,8 @@ public class PmdExporterBase extends AbstractExporter{
             else           dumpShort(NOIKBONE_ID);
         }
 
-        Pos3d position = bone.getPosition();
-        dumpPos3d(position);
+        MkPos3D position = bone.getPosition();
+        dumpPos3D(position);
 
         return;
     }
@@ -510,7 +510,7 @@ public class PmdExporterBase extends AbstractExporter{
         for(MorphVertex morphVertex : mergedMorphVertexList){
             Vertex baseVertex = morphVertex.getBaseVertex();
             dumpInt(baseVertex.getSerialNumber());
-            dumpPos3d(baseVertex.getPosition());
+            dumpPos3D(baseVertex.getPosition());
         }
 
         for(MorphType type : typeSet){
@@ -525,7 +525,7 @@ public class PmdExporterBase extends AbstractExporter{
 
                 for(MorphVertex morphVertex : morphVertexList){
                     dumpInt(morphVertex.getSerialNumber());
-                    dumpPos3d(morphVertex.getOffset());
+                    dumpPos3D(morphVertex.getOffset());
                 }
             }
         }
@@ -627,9 +627,9 @@ public class PmdExporterBase extends AbstractExporter{
      * @param position 2次元位置情報
      * @throws IOException 出力エラー
      */
-    protected void dumpPos2d(Pos2d position) throws IOException{
-        float xPos = position.getXPos();
-        float yPos = position.getYPos();
+    protected void dumpPos2d(MkPos2D position) throws IOException{
+        float xPos = (float) position.getXpos();
+        float yPos = (float) position.getYpos();
 
         dumpFloat(xPos);
         dumpFloat(yPos);
@@ -642,10 +642,10 @@ public class PmdExporterBase extends AbstractExporter{
      * @param position 3次元位置情報
      * @throws IOException 出力エラー
      */
-    protected void dumpPos3d(Pos3d position) throws IOException{
-        float xPos = position.getXPos();
-        float yPos = position.getYPos();
-        float zPos = position.getZPos();
+    protected void dumpPos3D(MkPos3D position) throws IOException{
+        float xPos = (float) position.getXpos();
+        float yPos = (float) position.getYpos();
+        float zPos = (float) position.getZpos();
 
         dumpFloat(xPos);
         dumpFloat(yPos);
@@ -659,10 +659,10 @@ public class PmdExporterBase extends AbstractExporter{
      * @param vector 3次元ベクトル
      * @throws IOException 出力エラー
      */
-    protected void dumpVec3d(Vec3d vector) throws IOException{
-        float xVal = vector.getXVal();
-        float yVal = vector.getYVal();
-        float zVal = vector.getZVal();
+    protected void dumpVec3D(MkVec3D vector) throws IOException{
+        float xVal = (float) vector.getXVal();
+        float yVal = (float) vector.getYVal();
+        float zVal = (float) vector.getZVal();
 
         dumpFloat(xVal);
         dumpFloat(yVal);

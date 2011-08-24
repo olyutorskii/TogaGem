@@ -10,8 +10,8 @@ package jp.sourceforge.mikutoga.pmd.model.binio;
 import java.util.Iterator;
 import java.util.List;
 import jp.sourceforge.mikutoga.corelib.ListUtil;
+import jp.sourceforge.mikutoga.math.MkPos3D;
 import jp.sourceforge.mikutoga.parser.ParseStage;
-import jp.sourceforge.mikutoga.pmd.Pos3d;
 import jp.sourceforge.mikutoga.pmd.Rad3d;
 import jp.sourceforge.mikutoga.pmd.RigidBehaviorType;
 import jp.sourceforge.mikutoga.pmd.RigidShapeType;
@@ -155,10 +155,10 @@ class RigidBuilder implements PmdRigidHandler {
      */
     @Override
     public void pmdRigidPosition(float posX, float posY, float posZ){
-        Pos3d position = this.currentRigid.getPosition();
-        position.setXPos(posX);
-        position.setYPos(posY);
-        position.setZPos(posZ);
+        MkPos3D position = this.currentRigid.getPosition();
+        position.setXpos(posX);
+        position.setYpos(posY);
+        position.setZpos(posZ);
         return;
     }
 

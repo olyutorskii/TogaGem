@@ -1,27 +1,28 @@
 /*
- * 3D position
+ * 2D position
  *
  * License : The MIT License
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd;
+package jp.sourceforge.mikutoga.math;
 
 /**
- * 三次元空間座標及び変量を表す。
+ * 二次元空間座標及び変量を表す。
+ * <p>直交座標を二つの倍精度値で表す。
+ * <p>主な用途はUVマッピングなど。
  */
-public class Pos3d {
+public class MkPos2D {
 
-    private float xPos;
-    private float yPos;
-    private float zPos;
+    private double xPos;
+    private double yPos;
 
     /**
      * コンストラクタ。
-     * [0,0,0]が設定される。
+     * [0,0]が設定される
      */
-    public Pos3d(){
-        this(0.0f, 0.0f, 0.0f);
+    public MkPos2D(){
+        this(0.0, 0.0);
         return;
     }
 
@@ -29,13 +30,11 @@ public class Pos3d {
      * コンストラクタ。
      * @param xPos X座標
      * @param yPos Y座標
-     * @param zPos Z座標
      */
-    public Pos3d(float xPos, float yPos, float zPos){
+    public MkPos2D(double xPos, double yPos){
         super();
         this.xPos = xPos;
         this.yPos = yPos;
-        this.zPos = zPos;
         return;
     }
 
@@ -43,7 +42,7 @@ public class Pos3d {
      * X座標を設定する。
      * @param xPos X座標
      */
-    public void setXPos(float xPos){
+    public void setXpos(double xPos){
         this.xPos = xPos;
         return;
     }
@@ -52,7 +51,7 @@ public class Pos3d {
      * X座標を返す。
      * @return X座標
      */
-    public float getXPos(){
+    public double getXpos(){
         return this.xPos;
     }
 
@@ -60,7 +59,7 @@ public class Pos3d {
      * Y座標を設定する。
      * @param yPos Y座標
      */
-    public void setYPos(float yPos){
+    public void setYpos(double yPos){
         this.yPos = yPos;
         return;
     }
@@ -69,25 +68,29 @@ public class Pos3d {
      * Y座標を返す。
      * @return Y座標
      */
-    public float getYPos(){
+    public double getYpos(){
         return this.yPos;
     }
 
     /**
-     * Z座標を設定する。
-     * @param zPos Z座標
+     * 座標を設定する。
+     * @param xPosArg X軸座標
+     * @param yPosArg Y軸座標
      */
-    public void setZPos(float zPos){
-        this.zPos = zPos;
+    public void setPosition(double xPosArg, double yPosArg){
+        this.xPos = xPosArg;
+        this.yPos = yPosArg;
         return;
     }
 
     /**
-     * Z座標を返す。
-     * @return Z座標
+     * この点が原点(0,0)か否か判定する。
+     * @return 原点ならtrue
      */
-    public float getZPos(){
-        return this.zPos;
+    public boolean isOriginPoint(){
+        if(this.xPos != 0.0) return false;
+        if(this.yPos != 0.0) return false;
+        return true;
     }
 
     /**
@@ -100,8 +103,7 @@ public class Pos3d {
 
         result.append("pos=[")
               .append(this.xPos).append(", ")
-              .append(this.yPos).append(", ")
-              .append(this.zPos).append(']');
+              .append(this.yPos).append(']');
 
         return result.toString();
     }
