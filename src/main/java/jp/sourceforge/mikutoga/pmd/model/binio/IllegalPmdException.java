@@ -30,4 +30,13 @@ public class IllegalPmdException extends Exception{
         return;
     }
 
+    /**
+     * コンストラクタ。
+     * @param cause 原因
+     */
+    public IllegalPmdException(Throwable cause){
+        super(cause);
+        return;
+    }
+
 }

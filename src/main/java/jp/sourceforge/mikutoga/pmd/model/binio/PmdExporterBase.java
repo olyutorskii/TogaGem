@@ -15,6 +15,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import jp.sourceforge.mikutoga.binio.BinaryExporter;
+import jp.sourceforge.mikutoga.binio.IllegalTextExportException;
 import jp.sourceforge.mikutoga.math.MkPos2D;
 import jp.sourceforge.mikutoga.math.MkPos3D;
 import jp.sourceforge.mikutoga.math.MkVec3D;
@@ -39,7 +41,7 @@ import jp.sourceforge.mikutoga.pmd.parser.PmdLimits;
  * 英名対応以降のPMDファイルフォーマットを
  * 使いたくない場合はこのエクスポーターを用いて出力せよ。
  */
-public class PmdExporterBase extends AbstractExporter{
+public class PmdExporterBase extends BinaryExporter{
 
     /** 前(親)ボーンが無い場合の便宜的なボーンID。 */
     public static final int NOPREVBONE_ID = 0xffff;
@@ -109,42 +111,8 @@ public class PmdExporterBase extends AbstractExporter{
      * 指定バイト長をはみ出した。
      */
     protected void dumpText(String text, int maxByteLength)
-            throws IOException, IllegalPmdTextException{
-        dumpText(text, maxByteLength, FDFILLER);
-        return;
-    }
-
-    /**
-     * 文字列を指定されたバイト長で出力する。
-     * 文字列の改行記号はLF(0x0a)に正規化される。
-     * エンコード結果がバイト長に満たない場合は
-     * fillerがパディングされる。
-     * @param text 文字列
-     * @param maxByteLength バイト超指定
-     * @param filler 出力結果が足りない場合の詰め物。
-     * それでも足りない場合は最後のbyte要素が繰り返し出力される。
-     * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException エンコード結果が
-     * 指定バイト長をはみ出した
-     */
-    protected void dumpText(String text, int maxByteLength, byte[] filler)
-            throws IOException, IllegalPmdTextException{
-        String normalized = normalizeBreak(text);
-        int blen = dumpCharSequence(normalized);
-        int remain = maxByteLength - blen;
-
-        if(remain < 0) throw new IllegalPmdTextException("too long text");
-
-        int fillerIdx = 0;
-        while(remain > 0){
-            if(fillerIdx >= filler.length){
-                fillerIdx = filler.length - 1;
-            }
-            dumpByte(filler[fillerIdx]);
-            fillerIdx++;
-            remain--;
-        }
-
+            throws IOException, IllegalTextExportException{
+        dumpFixedW31j(text, maxByteLength, FDFILLER);
         return;
     }
 
@@ -156,15 +124,19 @@ public class PmdExporterBase extends AbstractExporter{
      */
     public void dumpPmdModel(PmdModel model)
             throws IOException, IllegalPmdException{
-        dumpBasic(model);
-        dumpVertexList(model);
-        dumpSurfaceList(model);
-        dumpMaterialList(model);
-        dumpBoneList(model);
-        dumpIKChainList(model);
-        dumpMorphList(model);
-        dumpMorphGroup(model);
-        dumpBoneGroupList(model);
+        try{
+            dumpBasic(model);
+            dumpVertexList(model);
+            dumpSurfaceList(model);
+            dumpMaterialList(model);
+            dumpBoneList(model);
+            dumpIKChainList(model);
+            dumpMorphList(model);
+            dumpMorphGroup(model);
+            dumpBoneGroupList(model);
+        }catch(IllegalTextExportException e){
+            throw new IllegalPmdException(e);
+        }
 
         return;
     }
@@ -176,7 +148,7 @@ public class PmdExporterBase extends AbstractExporter{
      * @throws IllegalPmdTextException モデル名もしくは説明が長すぎる
      */
     private void dumpBasic(PmdModel model)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         for(int idx=0; idx < MAGIC_BYTES.length; idx++){
             dumpByte(MAGIC_BYTES[idx]);
         }
@@ -282,7 +254,7 @@ public class PmdExporterBase extends AbstractExporter{
      * @throws IllegalPmdTextException シェーディングファイル情報が長すぎる
      */
     private void dumpMaterialList(PmdModel model)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         List<Material> materialList = model.getMaterialList();
 
         int materialNum = materialList.size();
@@ -338,10 +310,10 @@ public class PmdExporterBase extends AbstractExporter{
      * シェーディングファイル情報を出力する。
      * @param shade シェーディング情報
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException ファイル名が長すぎる
+     * @throws IllegalTextExportException ファイル名が長すぎる
      */
     private void dumpShadeFileInfo(ShadeInfo shade)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         String textureFile   = shade.getTextureFileName();
         String spheremapFile = shade.getSpheremapFileName();
 
@@ -356,9 +328,9 @@ public class PmdExporterBase extends AbstractExporter{
         if(text.length() <= 0) filler = NULLFILLER;
         else                   filler = FDFILLER;
 
-        dumpText(text.toString(),
-                 PmdLimits.MAXBYTES_TEXTUREFILENAME,
-                 filler );
+        dumpFixedW31j(text.toString(),
+                      PmdLimits.MAXBYTES_TEXTUREFILENAME,
+                      filler );
 
         return;
     }
@@ -370,7 +342,7 @@ public class PmdExporterBase extends AbstractExporter{
      * @throws IllegalPmdTextException ボーン名が長すぎる
      */
     private void dumpBoneList(PmdModel model)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         List<BoneInfo> boneList = model.getBoneList();
 
         int boneNum = boneList.size();
@@ -392,7 +364,7 @@ public class PmdExporterBase extends AbstractExporter{
      * @throws IllegalPmdTextException ボーン名が長すぎる
      */
     private void dumpBone(BoneInfo bone)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         String boneName = bone.getBoneName().getPrimaryText();
         dumpText(boneName, PmdLimits.MAXBYTES_BONENAME);
 
@@ -483,7 +455,7 @@ public class PmdExporterBase extends AbstractExporter{
      * @throws IllegalPmdTextException モーフ名が長すぎる
      */
     private void dumpMorphList(PmdModel model)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         Map<MorphType, List<MorphPart>> morphMap = model.getMorphMap();
         Set<MorphType> typeSet = morphMap.keySet();
         List<MorphVertex> mergedMorphVertexList = model.mergeMorphVertex();
@@ -578,10 +550,10 @@ public class PmdExporterBase extends AbstractExporter{
      * デフォルトボーングループ内訳は出力されない。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException ボーングループ名が長すぎる
+     * @throws IllegalTextExportException ボーングループ名が長すぎる
      */
     private void dumpBoneGroupList(PmdModel model)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         List<BoneGroup> groupList = model.getBoneGroupList();
         int groupNum = groupList.size();
         dumpByte(groupNum - 1);
@@ -589,8 +561,8 @@ public class PmdExporterBase extends AbstractExporter{
         int dispBoneNum = 0;
         for(BoneGroup group : groupList){
             if(group.isDefaultBoneGroup()) continue;
-            dumpText(group.getGroupName().getPrimaryText(),
-                     PmdLimits.MAXBYTES_BONEGROUPNAME, LFFILLER );
+            dumpFixedW31j(group.getGroupName().getPrimaryText(),
+                          PmdLimits.MAXBYTES_BONEGROUPNAME, LFFILLER );
             dispBoneNum += group.getBoneList().size();
         }
         dumpInt(dispBoneNum);

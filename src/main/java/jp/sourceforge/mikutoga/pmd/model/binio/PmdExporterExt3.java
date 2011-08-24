@@ -10,6 +10,7 @@ package jp.sourceforge.mikutoga.pmd.model.binio;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import jp.sourceforge.mikutoga.binio.IllegalTextExportException;
 import jp.sourceforge.mikutoga.pmd.Deg3d;
 import jp.sourceforge.mikutoga.pmd.Rad3d;
 import jp.sourceforge.mikutoga.pmd.RigidShapeType;
@@ -55,8 +56,12 @@ public class PmdExporterExt3 extends PmdExporterExt2{
             throws IOException, IllegalPmdException{
         super.dumpPmdModel(model);
 
-        dumpRigidList(model);
-        dumpJointList(model);
+        try{
+            dumpRigidList(model);
+            dumpJointList(model);
+        }catch(IllegalTextExportException e){
+            throw new IllegalPmdException(e);
+        }
 
         return;
     }
@@ -68,7 +73,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
      * @throws IllegalPmdTextException 長すぎる剛体名
      */
     private void dumpRigidList(PmdModel model)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         List<RigidInfo> rigidList = model.getRigidList();
         int rigidNum = rigidList.size();
         dumpInt(rigidNum);
@@ -89,7 +94,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
      * @throws IllegalPmdTextException 長すぎる剛体名
      */
     private void dumpRigid(RigidInfo rigid)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         String rigidName = rigid.getRigidName().getPrimaryText();
         dumpText(rigidName, PmdLimits.MAXBYTES_RIGIDNAME);
 
@@ -172,7 +177,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
      * @throws IllegalPmdTextException 長すぎるジョイント名
      */
     private void dumpJointList(PmdModel model)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         List<JointInfo> jointList = model.getJointList();
         int jointNum = jointList.size();
         dumpInt(jointNum);
@@ -193,7 +198,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
      * @throws IllegalPmdTextException 長すぎるジョイント名
      */
     private void dumpJoint(JointInfo joint)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         String jointName = joint.getJointName().getPrimaryText();
         dumpText(jointName, PmdLimits.MAXBYTES_JOINTNAME);
 

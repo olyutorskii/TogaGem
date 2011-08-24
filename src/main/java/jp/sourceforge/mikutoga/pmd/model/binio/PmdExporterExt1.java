@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
+import jp.sourceforge.mikutoga.binio.IllegalTextExportException;
 import jp.sourceforge.mikutoga.pmd.MorphType;
 import jp.sourceforge.mikutoga.pmd.model.BoneGroup;
 import jp.sourceforge.mikutoga.pmd.model.BoneInfo;
@@ -60,7 +61,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
      * @throws IllegalPmdTextException 文字列が長すぎる。
      */
     private void dumpGlobalInfo(PmdModel model)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalPmdException{
         boolean hasGlobal = model.hasGlobalText();
         byte globalFlag;
         if(hasGlobal) globalFlag = 0x01;
@@ -68,10 +69,14 @@ public class PmdExporterExt1 extends PmdExporterBase{
         dumpByte(globalFlag);
 
         if(hasGlobal){
-            dumpBasicGlobal(model);
-            dumpBoneGlobal(model);
-            dumpMorphGlobal(model);
-            dumpBoneGroupGlobal(model);
+            try{
+                dumpBasicGlobal(model);
+                dumpBoneGlobal(model);
+                dumpMorphGlobal(model);
+                dumpBoneGroupGlobal(model);
+            }catch(IllegalTextExportException e){
+                throw new IllegalPmdException(e);
+            }
         }
 
         flush();
@@ -86,7 +91,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
      * @throws IllegalPmdTextException 文字列が長すぎる。
      */
     private void dumpBasicGlobal(PmdModel model)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         String modelName = model.getModelName().getGlobalText();
         if(modelName == null) modelName = "";
         dumpText(modelName, PmdLimits.MAXBYTES_MODELNAME);
@@ -105,7 +110,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
      * @throws IllegalPmdTextException 文字列が長すぎる。
      */
     private void dumpBoneGlobal(PmdModel model)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         for(BoneInfo bone : model.getBoneList()){
             String boneName = bone.getBoneName().getGlobalText();
             if(boneName == null) boneName = "";
@@ -122,7 +127,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
      * @throws IllegalPmdTextException 文字列が長すぎる。
      */
     private void dumpMorphGlobal(PmdModel model)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         Map<MorphType, List<MorphPart>> morphMap = model.getMorphMap();
 
         for(MorphType type : MorphType.values()){
@@ -146,7 +151,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
      * @throws IllegalPmdTextException 文字列が長すぎる
      */
     private void dumpBoneGroupGlobal(PmdModel model)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         for(BoneGroup group : model.getBoneGroupList()){
             if(group.isDefaultBoneGroup()) continue;
             String groupName = group.getGroupName().getGlobalText();

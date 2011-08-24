@@ -9,6 +9,7 @@ package jp.sourceforge.mikutoga.pmd.model.binio;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import jp.sourceforge.mikutoga.binio.IllegalTextExportException;
 import jp.sourceforge.mikutoga.pmd.model.PmdModel;
 import jp.sourceforge.mikutoga.pmd.model.ToonMap;
 import jp.sourceforge.mikutoga.pmd.parser.PmdLimits;
@@ -43,7 +44,11 @@ public class PmdExporterExt2 extends PmdExporterExt1{
             throws IOException, IllegalPmdException{
         super.dumpPmdModel(model);
 
-        dumpToonMap(model);
+        try{
+            dumpToonMap(model);
+        }catch(IllegalTextExportException e){
+            throw new IllegalPmdException(e);
+        }
 
         return;
     }
@@ -55,7 +60,7 @@ public class PmdExporterExt2 extends PmdExporterExt1{
      * @throws IllegalPmdTextException トゥーンファイル名が長すぎる
      */
     private void dumpToonMap(PmdModel model)
-            throws IOException, IllegalPmdTextException{
+            throws IOException, IllegalTextExportException{
         ToonMap map = model.getToonMap();
 
         for(int idx = 0; idx < PmdLimits.TOON_FIXEDNUM; idx++){
