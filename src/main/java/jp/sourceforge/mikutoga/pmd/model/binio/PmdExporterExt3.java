@@ -7,6 +7,7 @@
 
 package jp.sourceforge.mikutoga.pmd.model.binio;
 
+import jp.sourceforge.mikutoga.pmd.IllegalPmdDataException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
@@ -49,18 +50,18 @@ public class PmdExporterExt3 extends PmdExporterExt2{
      * {@inheritDoc}
      * @param model {@inheritDoc}
      * @throws IOException {@inheritDoc}
-     * @throws IllegalPmdException {@inheritDoc}
+     * @throws IllegalPmdDataException {@inheritDoc}
      */
     @Override
     public void dumpPmdModel(PmdModel model)
-            throws IOException, IllegalPmdException{
+            throws IOException, IllegalPmdDataException{
         super.dumpPmdModel(model);
 
         try{
             dumpRigidList(model);
             dumpJointList(model);
         }catch(IllegalTextExportException e){
-            throw new IllegalPmdException(e);
+            throw new IllegalPmdDataException(e);
         }
 
         return;

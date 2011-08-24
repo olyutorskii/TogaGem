@@ -7,6 +7,7 @@
 
 package jp.sourceforge.mikutoga.pmd.model.binio;
 
+import jp.sourceforge.mikutoga.pmd.IllegalPmdDataException;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -120,10 +121,10 @@ public class PmdExporterBase extends BinaryExporter{
      * モデルデータをPMDファイル形式で出力する。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdException モデルデータに不備が発見された
+     * @throws IllegalPmdDataException モデルデータに不備が発見された
      */
     public void dumpPmdModel(PmdModel model)
-            throws IOException, IllegalPmdException{
+            throws IOException, IllegalPmdDataException{
         try{
             dumpBasic(model);
             dumpVertexList(model);
@@ -135,7 +136,7 @@ public class PmdExporterBase extends BinaryExporter{
             dumpMorphGroup(model);
             dumpBoneGroupList(model);
         }catch(IllegalTextExportException e){
-            throw new IllegalPmdException(e);
+            throw new IllegalPmdDataException(e);
         }
 
         return;

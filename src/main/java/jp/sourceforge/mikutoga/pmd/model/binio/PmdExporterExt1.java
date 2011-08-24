@@ -7,6 +7,7 @@
 
 package jp.sourceforge.mikutoga.pmd.model.binio;
 
+import jp.sourceforge.mikutoga.pmd.IllegalPmdDataException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
@@ -42,11 +43,11 @@ public class PmdExporterExt1 extends PmdExporterBase{
      * {@inheritDoc}
      * @param model {@inheritDoc}
      * @throws IOException {@inheritDoc}
-     * @throws IllegalPmdException {@inheritDoc}
+     * @throws IllegalPmdDataException {@inheritDoc}
      */
     @Override
     public void dumpPmdModel(PmdModel model)
-            throws IOException, IllegalPmdException{
+            throws IOException, IllegalPmdDataException{
         super.dumpPmdModel(model);
 
         dumpGlobalInfo(model);
@@ -61,7 +62,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
      * @throws IllegalPmdTextException 文字列が長すぎる。
      */
     private void dumpGlobalInfo(PmdModel model)
-            throws IOException, IllegalPmdException{
+            throws IOException, IllegalPmdDataException{
         boolean hasGlobal = model.hasGlobalText();
         byte globalFlag;
         if(hasGlobal) globalFlag = 0x01;
@@ -75,7 +76,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
                 dumpMorphGlobal(model);
                 dumpBoneGroupGlobal(model);
             }catch(IllegalTextExportException e){
-                throw new IllegalPmdException(e);
+                throw new IllegalPmdDataException(e);
             }
         }
 

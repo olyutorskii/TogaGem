@@ -5,18 +5,18 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd.model.binio;
+package jp.sourceforge.mikutoga.pmd;
 
 /**
  * モデルデータの不備を発見した場合の例外。
  */
 @SuppressWarnings("serial")
-public class IllegalPmdException extends Exception{
+public class IllegalPmdDataException extends Exception{
 
     /**
      * コンストラクタ。
      */
-    public IllegalPmdException(){
+    public IllegalPmdDataException(){
         super();
         return;
     }
@@ -25,7 +25,7 @@ public class IllegalPmdException extends Exception{
      * コンストラクタ。
      * @param message メッセージ
      */
-    public IllegalPmdException(String message){
+    public IllegalPmdDataException(String message){
         super(message);
         return;
     }
@@ -34,7 +34,7 @@ public class IllegalPmdException extends Exception{
      * コンストラクタ。
      * @param cause 原因
      */
-    public IllegalPmdException(Throwable cause){
+    public IllegalPmdDataException(Throwable cause){
         super(cause);
         return;
     }
