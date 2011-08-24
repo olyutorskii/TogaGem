@@ -30,16 +30,16 @@ public class TripletRange {
     /**
      * X値有効範囲を設定する。
      * 下限値が上限値より大きければ入れ替える。
-     * @param xFrom X値下限
-     * @param xTo X値上限
+     * @param xFromArg X値下限
+     * @param xToArg X値上限
      */
-    public void setXRange(float xFrom, float xTo){
-        if(xFrom <= xTo){
-            this.xFrom = xFrom;
-            this.xTo = xTo;
+    public void setXRange(float xFromArg, float xToArg){
+        if(xFromArg <= xToArg){
+            this.xFrom = xFromArg;
+            this.xTo = xToArg;
         }else{
-            this.xFrom = xTo;
-            this.xTo = xFrom;
+            this.xFrom = xToArg;
+            this.xTo = xFromArg;
         }
         return;
     }
@@ -47,16 +47,16 @@ public class TripletRange {
     /**
      * Y値有効範囲を設定する。
      * 下限値が上限値より大きければ入れ替える。
-     * @param yFrom Y値下限
-     * @param yTo Y値上限
+     * @param yFromArg Y値下限
+     * @param yToArg Y値上限
      */
-    public void setYRange(float yFrom, float yTo){
-        if(yFrom <= yTo){
-            this.yFrom = yFrom;
-            this.yTo = yTo;
+    public void setYRange(float yFromArg, float yToArg){
+        if(yFromArg <= yToArg){
+            this.yFrom = yFromArg;
+            this.yTo = yToArg;
         }else{
-            this.yFrom = yTo;
-            this.yTo = yFrom;
+            this.yFrom = yToArg;
+            this.yTo = yFromArg;
         }
         return;
     }
@@ -64,16 +64,16 @@ public class TripletRange {
     /**
      * Z値有効範囲を設定する。
      * 下限値が上限値より大きければ入れ替える。
-     * @param zFrom Z値下限
-     * @param zTo Z値上限
+     * @param zFromArg Z値下限
+     * @param zToArg Z値上限
      */
-    public void setZRange(float zFrom, float zTo){
-        if(zFrom <= zTo){
-            this.zFrom = zFrom;
-            this.zTo = zTo;
+    public void setZRange(float zFromArg, float zToArg){
+        if(zFromArg <= zToArg){
+            this.zFrom = zFromArg;
+            this.zTo = zToArg;
         }else{
-            this.zFrom = zTo;
-            this.zTo = zFrom;
+            this.zFrom = zToArg;
+            this.zTo = zFromArg;
         }
         return;
     }

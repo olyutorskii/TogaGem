@@ -17,14 +17,14 @@ import jp.sourceforge.mikutoga.parser.MmdSource;
  */
 public class PmdParserBase extends CommonParser {
 
-    public static final int HEADER_LENGTH = 7;
-
     /** 改行文字列 CR。 */
     protected static final String CR = "\r";       // 0x0d
     /** 改行文字列 LF。 */
     protected static final String LF = "\n";       // 0x0a
     /** 改行文字列 CRLF。 */
     protected static final String CRLF = CR + LF;  // 0x0d, 0x0a
+
+    private static final int HEADER_LENGTH = 7;
 
     private static final byte[] MAGIC_BYTES = {
         (byte)0x50, (byte)0x6d, (byte)0x64,               // "Pmd"

@@ -29,15 +29,18 @@ import org.xml.sax.SAXException;
 public class XmlResourceResolver
         implements LSResourceResolver, EntityResolver {
 
+    /** XML Schema. */
     public static final String SCHEMA_XML =
             "http://www.w3.org/2001/xml.xsd";
+
+    /** XSD名前空間。 */
     public static final String NS_XSD =
             "http://www.w3.org/2001/XMLSchema-instance";
 
     private static final String LOCAL_SCHEMA_XML =
             "resources/xml-2009-01.xsd";
     private static final URI EMPTY_URI = URI.create("");
-    private static final Class THISCLASS = XmlResourceResolver.class;
+    private static final Class<?> THISCLASS = XmlResourceResolver.class;
 
     private final Map<URI, URI> uriMap = new HashMap<URI, URI>();
 
@@ -227,7 +230,7 @@ public class XmlResourceResolver
         /**
          * コンストラクタ。
          */
-        private LSInputImpl(){
+        LSInputImpl(){
             super();
             return;
         }

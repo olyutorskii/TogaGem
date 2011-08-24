@@ -28,22 +28,22 @@ public class MkPos2D {
 
     /**
      * コンストラクタ。
-     * @param xPos X座標
-     * @param yPos Y座標
+     * @param xPosArg X座標
+     * @param yPosArg Y座標
      */
-    public MkPos2D(double xPos, double yPos){
+    public MkPos2D(double xPosArg, double yPosArg){
         super();
-        this.xPos = xPos;
-        this.yPos = yPos;
+        this.xPos = xPosArg;
+        this.yPos = yPosArg;
         return;
     }
 
     /**
      * X座標を設定する。
-     * @param xPos X座標
+     * @param xPosArg X座標
      */
-    public void setXpos(double xPos){
-        this.xPos = xPos;
+    public void setXpos(double xPosArg){
+        this.xPos = xPosArg;
         return;
     }
 
@@ -57,10 +57,10 @@ public class MkPos2D {
 
     /**
      * Y座標を設定する。
-     * @param yPos Y座標
+     * @param yPosArg Y座標
      */
-    public void setYpos(double yPos){
-        this.yPos = yPos;
+    public void setYpos(double yPosArg){
+        this.yPos = yPosArg;
         return;
     }
 

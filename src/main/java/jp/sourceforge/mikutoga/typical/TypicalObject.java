@@ -150,7 +150,7 @@ class TypicalObject {
         /**
          * コンストラクタ。
          */
-        private OrderComparator(){
+        OrderComparator(){
             super();
             return;
         }

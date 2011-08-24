@@ -314,14 +314,14 @@ public final class DomUtils {
     /**
      * 同じ親要素と同じ要素名を持つ兄弟要素を列挙する列挙子。
      */
-    private static class ElemIterator implements Iterator<Element>{
+    private static final class ElemIterator implements Iterator<Element>{
         private Element next;
 
         /**
          * コンストラクタ。
          * @param elem 最初の要素。nullを指定すれば空列挙子となる。
          */
-        private ElemIterator(Element elem){
+        ElemIterator(Element elem){
             super();
             this.next = elem;
         }
