@@ -9,14 +9,17 @@
 === TogaGemとは ===
 
 TogaGemは、3D動画制作ツール、MikuMikuDance(MMD)で用いられる
-各種データファイルを読み書きするためのJavaライブラリです。
+各種データファイルを読み込むためのJavaライブラリです。
 TogaGemは、MikuTogaプロジェクトの派生ライブラリとして、
 TogaParserライブラリの1.103.2版を引き継ぐ形で誕生しました。
 
 MikuTogaプロジェクトは、MMDによる3Dアニメーション制作を支援するプログラムの
 整備のために発足した、オープンソースプロジェクトです。
 
-現時点では、PMDモデルファイル(*.pmd)の読み書きが可能です。
+現時点で読み込みが可能なファイルは、
+  - PMDモデルファイル(*.pmd)
+  - VMDモーションファイル(*.vmd)
+の二種類です。
 
 ※ MMD開発者の樋口M氏は、MikuTogaの開発活動に一切関与していません。
 　 TogaGemに関する問い合わせをを樋口M氏へ投げかけないように！約束だよ！
@@ -85,12 +88,19 @@ MikuTogaプロジェクトは、MMDによる3Dアニメーション制作を支�
 
 
 通りすがりの記憶 (T.Tetosuki氏ブログ)
-「MMD のモデルデータ(PMD)形式　めも　(まとめ)」
-http://blog.goo.ne.jp/torisu_tetosuki/e/209ad341d3ece2b1b4df24abf619d6e4
+  「MMD のモデルデータ(PMD)形式　めも　(まとめ)」
+  http://blog.goo.ne.jp/torisu_tetosuki/e/209ad341d3ece2b1b4df24abf619d6e4
+  「MMDのモーションデータ(VMD)形式　めも」
+  http://blog.goo.ne.jp/torisu_tetosuki/e/bc9f1c4d597341b394bd02b64597499d
 
 
-PMDエディタver0.0.6.3(極北P氏制作)
-同梱readme.txt
+針金のブログ VMDメモ
+  http://harigane.at.webry.info/201103/article_1.html
+
+
+PMDエディタver0.0.6.3(極北P制作)
+  同梱readme.txt
+
 
 
 --- EOF ---
