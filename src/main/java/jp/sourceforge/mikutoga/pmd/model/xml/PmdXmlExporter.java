@@ -152,7 +152,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
             throws IOException{
         if( ! isBasicLatinOnlyOut() ) return this;
         if(hasOnlyBasicLatin(seq)) return this;
-        put(' ').putLineComment(seq);
+        sp().putLineComment(seq);
         return this;
     }
 
@@ -168,7 +168,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
             if(lang639.equals(I18nText.CODE639_PRIMARY)) continue;
             String name = text.getI18nText(lang639);
             ind().put("<i18nName ");
-            putAttr("lang", lang639).put(' ');
+            putAttr("lang", lang639).sp();
             putAttr("name", name);
             put(" />");
             putUnescapedComment(name);
@@ -220,9 +220,9 @@ public class PmdXmlExporter extends BasicXmlExporter{
     protected PmdXmlExporter putPosition(MkPos3D position)
             throws IOException{
         put("<position ");
-        putFloatAttr("x", (float) position.getXpos()).put(' ');
-        putFloatAttr("y", (float) position.getYpos()).put(' ');
-        putFloatAttr("z", (float) position.getZpos()).put(' ');
+        putFloatAttr("x", (float) position.getXpos()).sp();
+        putFloatAttr("y", (float) position.getYpos()).sp();
+        putFloatAttr("z", (float) position.getZpos()).sp();
         put("/>");
         return this;
     }
@@ -236,9 +236,9 @@ public class PmdXmlExporter extends BasicXmlExporter{
     protected PmdXmlExporter putRadRotation(Rad3d rotation)
             throws IOException{
         put("<radRotation ");
-        putFloatAttr("xRad", rotation.getXRad()).put(' ');
-        putFloatAttr("yRad", rotation.getYRad()).put(' ');
-        putFloatAttr("zRad", rotation.getZRad()).put(' ');
+        putFloatAttr("xRad", rotation.getXRad()).sp();
+        putFloatAttr("yRad", rotation.getYRad()).sp();
+        putFloatAttr("zRad", rotation.getZRad()).sp();
         put("/>");
         return this;
     }
@@ -359,7 +359,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
 
         ind().put("<description");
         if( ! I18nText.CODE639_PRIMARY.equals(lang639) ){
-            put(" ");
+            sp();
             putAttr("lang", lang639);
         }
         put(">").ln();
@@ -426,14 +426,14 @@ public class PmdXmlExporter extends BasicXmlExporter{
         ind().put("</credits>").ln(2);
 
         ind().put("<meta ");
-        putAttr("name", "generator").put(' ')
+        putAttr("name", "generator").sp()
                                     .putAttr("content", this.generator);
         put(" />").ln();
         ind().put("<meta ");
-        putAttr("name", "siteURL").put(' ').putAttr("content", "");
+        putAttr("name", "siteURL").sp().putAttr("content", "");
         put(" />").ln();
         ind().put("<meta ");
-        putAttr("name", "imageURL").put(' ').putAttr("content", "");
+        putAttr("name", "imageURL").sp().putAttr("content", "");
         put(" />").ln(2);
 
         return this;
@@ -482,11 +482,11 @@ public class PmdXmlExporter extends BasicXmlExporter{
         }
         ind().put("<material ");
         if(primary != null && primary.length() > 0){
-            putAttr("name", primary).put(' ');
+            putAttr("name", primary).sp();
         }
 
         putAttr("showEdge", bool);
-        put(" ");
+        sp();
         putNumberedIdAttr("surfaceGroupIdRef", PFX_SURFACEGROUP, no);
         put('>').ln();
         pushNest();
@@ -498,28 +498,28 @@ public class PmdXmlExporter extends BasicXmlExporter{
         Color diffuse = material.getDiffuseColor();
         diffuse.getRGBComponents(rgba);
         ind().put("<diffuse ");
-        putFloatAttr("r", rgba[0]).put(' ');
-        putFloatAttr("g", rgba[1]).put(' ');
-        putFloatAttr("b", rgba[2]).put(' ');
-        putFloatAttr("alpha", rgba[3]).put(' ');
+        putFloatAttr("r", rgba[0]).sp();
+        putFloatAttr("g", rgba[1]).sp();
+        putFloatAttr("b", rgba[2]).sp();
+        putFloatAttr("alpha", rgba[3]).sp();
         put("/>").ln();
 
         Color specular = material.getSpecularColor();
         specular.getRGBComponents(rgba);
         float shininess = material.getShininess();
         ind().put("<specular ");
-        putFloatAttr("r", rgba[0]).put(' ');
-        putFloatAttr("g", rgba[1]).put(' ');
-        putFloatAttr("b", rgba[2]).put(' ');
-        putFloatAttr("shininess", shininess).put(' ');
+        putFloatAttr("r", rgba[0]).sp();
+        putFloatAttr("g", rgba[1]).sp();
+        putFloatAttr("b", rgba[2]).sp();
+        putFloatAttr("shininess", shininess).sp();
         put("/>").ln();
 
         Color ambient = material.getAmbientColor();
         ambient.getRGBComponents(rgba);
         ind().put("<ambient ");
-        putFloatAttr("r", rgba[0]).put(' ');
-        putFloatAttr("g", rgba[1]).put(' ');
-        putFloatAttr("b", rgba[2]).put(' ');
+        putFloatAttr("r", rgba[0]).sp();
+        putFloatAttr("g", rgba[1]).sp();
+        putFloatAttr("b", rgba[2]).sp();
         put("/>").ln();
 
         ShadeInfo shade = material.getShadeInfo();
@@ -533,7 +533,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
             put(" />");
             String toonFileName = shade.getToonFileName();
             if(toonFileName != null && toonFileName.length() > 0){
-                put(' ').putLineComment(toonFileName);
+                sp().putLineComment(toonFileName);
             }
             ln();
         }
@@ -587,8 +587,8 @@ public class PmdXmlExporter extends BasicXmlExporter{
     private PmdXmlExporter putToon(ToonMap map, int index)
             throws IOException{
         put("<toonDef ");
-        putNumberedIdAttr("toonFileId", PFX_TOONFILE, index).put(' ');
-        putIntAttr("index", index).put(' ');
+        putNumberedIdAttr("toonFileId", PFX_TOONFILE, index).sp();
+        putIntAttr("index", index).sp();
         String toonFile = map.getIndexedToon(index);
         putAttr("winFileName", toonFile);
         put(" />");
@@ -658,9 +658,9 @@ public class PmdXmlExporter extends BasicXmlExporter{
         Vertex vertex2 = surface.getVertex2();
         Vertex vertex3 = surface.getVertex3();
 
-        putNumberedIdAttr("vtxIdRef1", PFX_VERTEX, vertex1).put(' ');
-        putNumberedIdAttr("vtxIdRef2", PFX_VERTEX, vertex2).put(' ');
-        putNumberedIdAttr("vtxIdRef3", PFX_VERTEX, vertex3).put(' ');
+        putNumberedIdAttr("vtxIdRef1", PFX_VERTEX, vertex1).sp();
+        putNumberedIdAttr("vtxIdRef2", PFX_VERTEX, vertex2).sp();
+        putNumberedIdAttr("vtxIdRef3", PFX_VERTEX, vertex3).sp();
 
         put("/>").ln();
         return this;
@@ -700,7 +700,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
         else                           bool = "false";
 
         ind().put("<vertex ");
-        putNumberedIdAttr("vtxId", PFX_VERTEX, vertex).put(' ');
+        putNumberedIdAttr("vtxId", PFX_VERTEX, vertex).sp();
         putAttr("showEdge", bool);
         put(">").ln();
         pushNest();
@@ -710,24 +710,24 @@ public class PmdXmlExporter extends BasicXmlExporter{
 
         MkVec3D normal = vertex.getNormal();
         ind().put("<normal ");
-        putFloatAttr("x", (float) normal.getXVal()).put(' ');
-        putFloatAttr("y", (float) normal.getYVal()).put(' ');
-        putFloatAttr("z", (float) normal.getZVal()).put(' ');
+        putFloatAttr("x", (float) normal.getXVal()).sp();
+        putFloatAttr("y", (float) normal.getYVal()).sp();
+        putFloatAttr("z", (float) normal.getZVal()).sp();
         put("/>").ln();
 
         MkPos2D uvPos = vertex.getUVPosition();
         ind().put("<uvMap ");
-        putFloatAttr("u", (float) uvPos.getXpos()).put(' ');
-        putFloatAttr("v", (float) uvPos.getYpos()).put(' ');
+        putFloatAttr("u", (float) uvPos.getXpos()).sp();
+        putFloatAttr("v", (float) uvPos.getYpos()).sp();
         put("/>").ln();
 
         BoneInfo boneA = vertex.getBoneA();
         BoneInfo boneB = vertex.getBoneB();
         int weight = vertex.getWeightA();
         ind().put("<skinning ");
-        putNumberedIdAttr("boneIdRef1", PFX_BONE, boneA).put(' ');
-        putNumberedIdAttr("boneIdRef2", PFX_BONE, boneB).put(' ');
-        putIntAttr("weightBalance", weight).put(' ');
+        putNumberedIdAttr("boneIdRef1", PFX_BONE, boneA).sp();
+        putNumberedIdAttr("boneIdRef2", PFX_BONE, boneB).sp();
+        putIntAttr("weightBalance", weight).sp();
         put("/>").ln();
 
         popNest();
@@ -772,8 +772,8 @@ public class PmdXmlExporter extends BasicXmlExporter{
 
         putLocalNameComment(i18nName).putLineComment(type.getGuiName()).ln();
         ind().put("<bone ");
-        putPrimaryNameAttr("name", i18nName).put(' ');
-        putNumberedIdAttr("boneId", PFX_BONE, bone).put(' ');
+        putPrimaryNameAttr("name", i18nName).sp();
+        putNumberedIdAttr("boneId", PFX_BONE, bone).sp();
         putAttr("type", type.name());
         put(">").ln();
         pushNest();
@@ -802,7 +802,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
         BoneInfo prev = bone.getPrevBone();
         BoneInfo next = bone.getNextBone();
         if(prev != null){
-            put(' ');
+            sp();
             putNumberedIdAttr("prevBoneIdRef", PFX_BONE, prev);
             chainComment.append('[')
                         .append(prev.getBoneName().getPrimaryText())
@@ -810,7 +810,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
                         .append("=> #");
         }
         if(next != null){
-            put(' ');
+            sp();
             putNumberedIdAttr("nextBoneIdRef", PFX_BONE, next);
             if(chainComment.length() <= 0) chainComment.append("#");
             chainComment.append(" =>")
@@ -916,8 +916,8 @@ public class PmdXmlExporter extends BasicXmlExporter{
 
         ind().putLineComment("Ref:" + ikBone.getBoneName().getText()).ln();
         ind().put("<ikChain ");
-        putNumberedIdAttr("ikBoneIdRef", PFX_BONE, ikBone).put(' ');
-        putIntAttr("recursiveDepth", depth).put(' ');
+        putNumberedIdAttr("ikBoneIdRef", PFX_BONE, ikBone).sp();
+        putIntAttr("recursiveDepth", depth).sp();
         putFloatAttr("weight", weight);
         put("> ").ln();
         pushNest();
@@ -977,7 +977,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
         String primary = i18nName.getPrimaryText();
 
         ind().put("<morph ");
-        putAttr("name", primary).put(' ');
+        putAttr("name", primary).sp();
         putAttr("type", part.getMorphType().name());
         put(">");
         putUnescapedComment(primary);
@@ -991,10 +991,10 @@ public class PmdXmlExporter extends BasicXmlExporter{
             Vertex base = mvertex.getBaseVertex();
 
             ind().put("<morphVertex ");
-            putNumberedIdAttr("vtxIdRef", PFX_VERTEX, base).put(' ');
-            putFloatAttr("xOff", (float) offset.getXpos()).put(' ');
-            putFloatAttr("yOff", (float) offset.getYpos()).put(' ');
-            putFloatAttr("zOff", (float) offset.getZpos()).put(' ');
+            putNumberedIdAttr("vtxIdRef", PFX_VERTEX, base).sp();
+            putFloatAttr("xOff", (float) offset.getXpos()).sp();
+            putFloatAttr("yOff", (float) offset.getYpos()).sp();
+            putFloatAttr("zOff", (float) offset.getZpos()).sp();
             put("/>");
             ln();
         }
@@ -1042,8 +1042,8 @@ public class PmdXmlExporter extends BasicXmlExporter{
 
         putLocalNameComment(i18nName).ln();
         ind().put("<rigid ");
-        putAttr("name", primary).put(' ');
-        putNumberedIdAttr("rigidId", PFX_RIGID, rigid).put(' ');
+        putAttr("name", primary).sp();
+        putNumberedIdAttr("rigidId", PFX_RIGID, rigid).sp();
         putAttr("behavior", rigid.getBehaviorType().name());
         put(">").ln();
         pushNest();
@@ -1074,7 +1074,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
             ind().put("<throughRigidGroup ");
             putNumberedIdAttr("rigidGroupIdRef",
                               PFX_RIGIDGROUP,
-                              group.getSerialNumber() + 1).put(' ');
+                              group.getSerialNumber() + 1).sp();
             put(" />").ln();
         }
 
@@ -1097,18 +1097,18 @@ public class PmdXmlExporter extends BasicXmlExporter{
         switch(type){
         case BOX:
             ind().put("<rigidShapeBox ");
-            putFloatAttr("width", shape.getWidth()).put(' ');
-            putFloatAttr("height", shape.getHeight()).put(' ');
-            putFloatAttr("depth", shape.getDepth()).put(' ');
+            putFloatAttr("width", shape.getWidth()).sp();
+            putFloatAttr("height", shape.getHeight()).sp();
+            putFloatAttr("depth", shape.getDepth()).sp();
             break;
         case SPHERE:
             ind().put("<rigidShapeSphere ");
-            putFloatAttr("radius", shape.getRadius()).put(' ');
+            putFloatAttr("radius", shape.getRadius()).sp();
             break;
         case CAPSULE:
             ind().put("<rigidShapeCapsule ");
-            putFloatAttr("height", shape.getHeight()).put(' ');
-            putFloatAttr("radius", shape.getRadius()).put(' ');
+            putFloatAttr("height", shape.getHeight()).sp();
+            putFloatAttr("radius", shape.getRadius()).sp();
             break;
         default:
             assert false;
@@ -1169,9 +1169,9 @@ public class PmdXmlExporter extends BasicXmlExporter{
 
             for(RigidInfo rigid : rigidList){
                 ind().put("<rigidGroupMember ");
-                putNumberedIdAttr("rigidIdRef", PFX_RIGID, rigid).put(' ');
+                putNumberedIdAttr("rigidIdRef", PFX_RIGID, rigid).sp();
                 put("/>");
-                put(' ');
+                sp();
                 putLineComment("Ref:" + rigid.getRigidName().getText());
                 ln();
             }
@@ -1228,8 +1228,8 @@ public class PmdXmlExporter extends BasicXmlExporter{
         RigidInfo rigidA = joint.getRigidA();
         RigidInfo rigidB = joint.getRigidB();
         ind().put("<jointedRigidPair ");
-        putNumberedIdAttr("rigidIdRef1", PFX_RIGID, rigidA).put(' ');
-        putNumberedIdAttr("rigidIdRef2", PFX_RIGID, rigidB).put(' ');
+        putNumberedIdAttr("rigidIdRef1", PFX_RIGID, rigidA).sp();
+        putNumberedIdAttr("rigidIdRef2", PFX_RIGID, rigidB).sp();
         put("/>").ln();
         ind();
         putLineComment("[" + rigidA.getRigidName().getText() + "]"
@@ -1243,13 +1243,13 @@ public class PmdXmlExporter extends BasicXmlExporter{
         ind().put("<limitPosition").ln();
         pushNest();
         ind();
-        putFloatAttr("xFrom", posRange.getXFrom()).put(' ');
+        putFloatAttr("xFrom", posRange.getXFrom()).sp();
         putFloatAttr("xTo",   posRange.getXTo()).ln();
         ind();
-        putFloatAttr("yFrom", posRange.getYFrom()).put(' ');
+        putFloatAttr("yFrom", posRange.getYFrom()).sp();
         putFloatAttr("yTo",   posRange.getYTo()).ln();
         ind();
-        putFloatAttr("zFrom", posRange.getZFrom()).put(' ');
+        putFloatAttr("zFrom", posRange.getZFrom()).sp();
         putFloatAttr("zTo",   posRange.getZTo()).ln();
         popNest();
         ind().put("/>").ln(2);
@@ -1260,29 +1260,29 @@ public class PmdXmlExporter extends BasicXmlExporter{
         ind().put("<limitRotation").ln();
         pushNest();
         ind();
-        putFloatAttr("xFrom", rotRange.getXFrom()).put(' ');
+        putFloatAttr("xFrom", rotRange.getXFrom()).sp();
         putFloatAttr("xTo",   rotRange.getXTo()).ln();
         ind();
-        putFloatAttr("yFrom", rotRange.getYFrom()).put(' ');
+        putFloatAttr("yFrom", rotRange.getYFrom()).sp();
         putFloatAttr("yTo",   rotRange.getYTo()).ln();
         ind();
-        putFloatAttr("zFrom", rotRange.getZFrom()).put(' ');
+        putFloatAttr("zFrom", rotRange.getZFrom()).sp();
         putFloatAttr("zTo",   rotRange.getZTo()).ln();
         popNest();
         ind().put("/>").ln(2);
 
         MkPos3D elaPosition = joint.getElasticPosition();
         ind().put("<elasticPosition ");
-        putFloatAttr("x", (float) elaPosition.getXpos()).put(' ');
-        putFloatAttr("y", (float) elaPosition.getYpos()).put(' ');
-        putFloatAttr("z", (float) elaPosition.getZpos()).put(' ');
+        putFloatAttr("x", (float) elaPosition.getXpos()).sp();
+        putFloatAttr("y", (float) elaPosition.getYpos()).sp();
+        putFloatAttr("z", (float) elaPosition.getZpos()).sp();
         put("/>").ln();
 
         Deg3d elaRotation = joint.getElasticRotation();
         ind().put("<elasticRotation ");
-        putFloatAttr("xDeg", elaRotation.getXDeg()).put(' ');
-        putFloatAttr("yDeg", elaRotation.getYDeg()).put(' ');
-        putFloatAttr("zDeg", elaRotation.getZDeg()).put(' ');
+        putFloatAttr("xDeg", elaRotation.getXDeg()).sp();
+        putFloatAttr("yDeg", elaRotation.getYDeg()).sp();
+        putFloatAttr("zDeg", elaRotation.getZDeg()).sp();
         put("/>").ln(2);
 
         popNest();
