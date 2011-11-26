@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <!--
     PMD用ルールセット定義
@@ -16,6 +16,10 @@
   xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
   name="Custom ruleset"
 >
+
+    <description>
+        custom rulesets for project
+    </description>
 
     <rule ref="rulesets/basic.xml">
         <exclude name="UnnecessaryReturn" />
@@ -42,7 +46,7 @@
         <exclude name="OnlyOneReturn" />
         <exclude name="DefaultPackage" />
         <exclude name="DataflowAnomalyAnalysis" />
-        <exclude name="AvoidUsingShortType" />>
+        <exclude name="AvoidUsingShortType" />
     </rule>
 
     <rule ref="rulesets/coupling.xml" />

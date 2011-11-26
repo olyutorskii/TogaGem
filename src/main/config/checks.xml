@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE module PUBLIC
     "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
@@ -7,7 +7,7 @@
 <!--
     Checkstyle用チェック項目定義。
 
-    Checkstyle 5.0 以降向けに記述。
+    Checkstyle 5.3 以降向けに記述。
 
     [ http://checkstyle.sourceforge.net/ ]
 
@@ -106,6 +106,7 @@
         <module name="ThrowsCount">
             <property name="max" value="3" />
         </module>
+        <module name="InnerTypeLast" />
 
 
     <!-- Coding -->
@@ -143,6 +144,7 @@
         <module name="SimplifyBooleanExpression" />
         <module name="SimplifyBooleanReturn" />
         <module name="StringLiteralEquality" />
+        <module name="NestedForDepth" />
         <module name="NestedIfDepth" />
         <module name="NestedTryDepth" />
         <module name="NoClone" />
@@ -171,6 +173,7 @@
         </module>
         <module name="MultipleVariableDeclarations" />
         <module name="UnnecessaryParentheses" />
+        <module name="OneStatementPerLine" />
 
 
     <!-- Imports -->
@@ -238,6 +241,7 @@
             <property name="format" value="^ \* License : The MIT License" />
             <property name="duplicateLimit" value="1" />
         </module>
+        <module name="OuterTypeFilename" />
 
 
     <!-- Modifiers -->
@@ -285,6 +289,7 @@
         <module name="AnonInnerLength" />
         <module name="ParameterNumber" />
         <module name="OuterTypeNumber" />
+        <module name="MethodCount" />
 
 
     <!-- Whitespace -->
@@ -369,16 +374,6 @@
 
 <!-- バグ？
         <module name="RequireThis" />
--->
-<!-- 5.2 or later
-        <module name="InnerTypeLast" />
--->
-
-<!-- 5.3 or later
-        <module name="NestedForDepth" />
-        <module name="OneStatementPerLine" />
-        <module name="OuterTypeFilename" />
-        <module name="MethodCount" />
 -->
 
 <!-- Obsolated
