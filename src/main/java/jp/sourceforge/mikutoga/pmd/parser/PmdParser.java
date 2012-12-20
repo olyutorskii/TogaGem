@@ -7,7 +7,7 @@
 
 package jp.sourceforge.mikutoga.pmd.parser;
 
-import jp.sourceforge.mikutoga.parser.MmdSource;
+import jp.sourceforge.mikutoga.parser.MmdInputStream;
 
 /**
  * PMDモデルファイルのパーサ最新版。
@@ -21,7 +21,7 @@ public class PmdParser extends PmdParserExt3{
      * コンストラクタ。
      * @param source 入力ソース
      */
-    public PmdParser(MmdSource source){
+    public PmdParser(MmdInputStream source){
         super(source);
         return;
     }

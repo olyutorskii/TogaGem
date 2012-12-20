@@ -133,7 +133,7 @@ public class TextDecoderTest {
         TextDecoder decoder;
         byte[] bdata;
         InputStream istream;
-        MmdSource source;
+        MmdInputStream source;
         CharBuffer cb;
 
         decoder = new TextDecoder(CS_WIN31J);
@@ -146,7 +146,7 @@ public class TextDecoderTest {
 
         bdata = byteArray("41:00:42:43");
         istream = new ByteArrayInputStream(bdata);
-        source = new MmdSource(istream);
+        source = new MmdInputStream(istream);
         cb =decoder.parseString(source, 3);
         assertEquals("A", cb.toString());
         cb =decoder.parseString(source, 1);
@@ -178,12 +178,12 @@ public class TextDecoderTest {
 
         byte[] bdata;
         InputStream istream;
-        MmdSource source;
+        MmdInputStream source;
         CharBuffer cb;
 
         bdata = byteArray("88:9F:88:A0");
         istream = new ByteArrayInputStream(bdata);
-        source = new MmdSource(istream);
+        source = new MmdInputStream(istream);
         try{
             cb =decoder.parseString(source, 5);
             fail();
@@ -218,12 +218,12 @@ public class TextDecoderTest {
 
         byte[] bdata;
         InputStream istream;
-        MmdSource source;
+        MmdInputStream source;
         CharBuffer cb;
 
         bdata = byteArray("E4:BA:9C:E5:94:96");
         istream = new ByteArrayInputStream(bdata);
-        source = new MmdSource(istream);
+        source = new MmdInputStream(istream);
         try{
             cb =decoder.parseString(source, 7);
             fail();
@@ -263,11 +263,11 @@ public class TextDecoderTest {
 
         byte[] bdata;
         InputStream istream;
-        MmdSource source;
+        MmdInputStream source;
         CharBuffer cb;
         bdata = byteArray("9C:4E:16:55");
         istream = new ByteArrayInputStream(bdata);
-        source = new MmdSource(istream);
+        source = new MmdInputStream(istream);
         try{
             cb =decoder.parseString(source, 5);
             fail();
@@ -339,19 +339,19 @@ public class TextDecoderTest {
             throws Exception{
         byte[] bdata;
         InputStream istream;
-        MmdSource source;
+        MmdInputStream source;
         CharBuffer cb;
 
         bdata = byteArray(bin);
         istream = new ByteArrayInputStream(bdata);
-        source = new MmdSource(istream);
+        source = new MmdInputStream(istream);
 
         assertDecoded(source, desired, decoder, len);
 
         return;
     }
 
-    public void assertDecoded(MmdSource source, String desired,
+    public void assertDecoded(MmdInputStream source, String desired,
                                 TextDecoder decoder, int len)
             throws Exception{
         CharBuffer cb;
@@ -365,11 +365,11 @@ public class TextDecoderTest {
             throws Exception{
         byte[] bdata;
         InputStream istream;
-        MmdSource source;
+        MmdInputStream source;
 
         bdata = byteArray(bin);
         istream = new ByteArrayInputStream(bdata);
-        source = new MmdSource(istream);
+        source = new MmdInputStream(istream);
 
         try{
             decoder.parseString(source, len);

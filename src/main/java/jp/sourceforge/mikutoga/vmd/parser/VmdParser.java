@@ -9,14 +9,14 @@ package jp.sourceforge.mikutoga.vmd.parser;
 
 import java.io.IOException;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdSource;
+import jp.sourceforge.mikutoga.parser.MmdInputStream;
 
 /**
  * VMDモーションファイルのパーサ。
  */
 public class VmdParser {
 
-    private final MmdSource source;
+    private final MmdInputStream source;
 
     private final VmdBasicParser    basicParser;
     private final VmdCameraParser   cameraParser;
@@ -31,7 +31,7 @@ public class VmdParser {
      * @param source 入力ソース
      * @throws NullPointerException 引数がnull
      */
-    public VmdParser(MmdSource source) throws NullPointerException{
+    public VmdParser(MmdInputStream source) throws NullPointerException{
         super();
 
         if(source == null) throw new NullPointerException();
@@ -49,7 +49,7 @@ public class VmdParser {
      * 入力ソースを返す。
      * @return 入力ソース
      */
-    public MmdSource getSource(){
+    public MmdInputStream getSource(){
         return this.source;
     }
 

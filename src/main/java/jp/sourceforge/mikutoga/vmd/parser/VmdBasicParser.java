@@ -10,7 +10,7 @@ package jp.sourceforge.mikutoga.vmd.parser;
 import java.io.IOException;
 import jp.sourceforge.mikutoga.parser.CommonParser;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdSource;
+import jp.sourceforge.mikutoga.parser.MmdInputStream;
 import jp.sourceforge.mikutoga.vmd.VmdConst;
 
 /**
@@ -41,7 +41,7 @@ class VmdBasicParser extends CommonParser{
      * コンストラクタ。
      * @param source 入力ソース
      */
-    VmdBasicParser(MmdSource source){
+    VmdBasicParser(MmdInputStream source){
         super(source);
         return;
     }
@@ -138,7 +138,7 @@ class VmdBasicParser extends CommonParser{
      */
     private void parseVmdBoneMotion()
             throws IOException, MmdFormatException{
-        int boneMotionNo = parseInteger();
+        int boneMotionNo = parseLeInt();
 
         if(this.handler == null){
             skip(VmdConst.BONEMOTION_DATA_SZ * boneMotionNo);
@@ -150,18 +150,18 @@ class VmdBasicParser extends CommonParser{
 
         for(int ct = 0; ct < boneMotionNo; ct++){
             String boneName = parseZeroTermWin31J(VmdConst.BONENAME_MAX);
-            int keyFrameNo = parseInteger();
+            int keyFrameNo = parseLeInt();
             this.handler.vmdBoneMotion(boneName, keyFrameNo);
 
-            float xPos = parseFloat();
-            float yPos = parseFloat();
-            float zPos = parseFloat();
+            float xPos = parseLeFloat();
+            float yPos = parseLeFloat();
+            float zPos = parseLeFloat();
             this.handler.vmdBonePosition(xPos, yPos, zPos);
 
-            float qx = parseFloat();
-            float qy = parseFloat();
-            float qz = parseFloat();
-            float qw = parseFloat();
+            float qx = parseLeFloat();
+            float qy = parseLeFloat();
+            float qz = parseLeFloat();
+            float qw = parseLeFloat();
             this.handler.vmdBoneRotationQt(qx, qy, qz, qw);
 
             parseVmdMotionInterpolation();
@@ -270,7 +270,7 @@ class VmdBasicParser extends CommonParser{
      * @throws MmdFormatException フォーマットエラー
      */
     private void parseVmdMorph() throws IOException, MmdFormatException{
-        int morphMotionNo = parseInteger();
+        int morphMotionNo = parseLeInt();
 
         if(this.handler == null){
             skip(VmdConst.MORPH_DATA_SZ * morphMotionNo);
@@ -282,8 +282,8 @@ class VmdBasicParser extends CommonParser{
 
         for(int ct = 0; ct < morphMotionNo; ct++){
             String morphName = parseZeroTermWin31J(VmdConst.MORPHNAME_MAX);
-            int keyFrameNo = parseInteger();
-            float flex = parseFloat();
+            int keyFrameNo = parseLeInt();
+            float flex = parseLeFloat();
             this.handler.vmdMorphMotion(morphName, keyFrameNo, flex);
 
             this.handler.loopNext(VmdBasicHandler.MORPH_LIST);

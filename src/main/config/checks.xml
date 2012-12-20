@@ -7,7 +7,7 @@
 <!--
     Checkstyle用チェック項目定義。
 
-    Checkstyle 5.3 以降向けに記述。
+    Checkstyle 5.5 以降向けに記述。
 
     [ http://checkstyle.sourceforge.net/ ]
 
@@ -104,7 +104,7 @@
 <!--    <module name="DesignForExtension" />  -->
         <module name="MutableException" />
         <module name="ThrowsCount">
-            <property name="max" value="3" />
+            <property name="max" value="4" />
         </module>
         <module name="InnerTypeLast" />
 
@@ -165,13 +165,11 @@
         <module name="DefaultComesLast" />
         <module name="MissingCtor" />
         <module name="FallThrough" />
-        <module name="MultipleStringLiterals">
-            <property
-                name="ignoreStringsRegexp"
-                value="^&quot;&quot;$|^&quot;.&quot;$"
-            />
-        </module>
+        <module name="MultipleStringLiterals" />
         <module name="MultipleVariableDeclarations" />
+        <module name="RequireThis">
+            <property name="checkMethods" value="false" />
+        </module>
         <module name="UnnecessaryParentheses" />
         <module name="OneStatementPerLine" />
 
@@ -275,7 +273,9 @@
         <module name="ParameterName">
             <property name="format" value="^[a-z][_a-zA-Z0-9]*$" />
         </module>
-        <module name="StaticVariableName" />
+        <module name="StaticVariableName">
+            <property name="format" value="^[a-z][_a-zA-Z0-9]*$" />
+        </module>
         <module name="TypeName" />
 
 
@@ -370,10 +370,6 @@
         <module name="RegexpSingleline" />
         <module name="RegexpMultiline" />
         <module name="RegexpSinglelineJava" />
--->
-
-<!-- バグ？
-        <module name="RequireThis" />
 -->
 
 <!-- Obsolated

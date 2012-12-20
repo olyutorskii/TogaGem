@@ -62,14 +62,4 @@ public class IllegalTextExportException extends Exception {
         return;
     }
 
-    /**
-     * 原因となったエンコーディング例外を返す。
-     * @return 原因となったエンコーディング例外。なければnull。
-     */
-    @Override
-    public CharacterCodingException getCause(){
-        Throwable superCause = super.getCause();
-        return (CharacterCodingException) superCause;
-    }
-
 }

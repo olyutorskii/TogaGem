@@ -29,7 +29,11 @@ public class CommonParser {
     /** PMXで用いられる文字エンコーディング(UTF-16のリトルエンディアン)。 */
     public static final Charset CS_UTF16LE = Charset.forName("UTF-16LE");
 
-    private final MmdSource source;
+    private static final int MASK_8BIT  =   0xff;
+    private static final int MASK_16BIT = 0xffff;
+
+
+    private final MmdInputStream is;
 
     private final TextDecoder decoderWin31j  = new TextDecoder(CS_WIN31J);
     private final TextDecoder decoderUTF8    = new TextDecoder(CS_UTF8);
@@ -39,10 +43,10 @@ public class CommonParser {
      * コンストラクタ。
      * @param source 入力ソース
      */
-    public CommonParser(MmdSource source){
+    public CommonParser(MmdInputStream source){
         super();
 
-        this.source = source;
+        this.is = source;
 
         this.decoderWin31j .setZeroChopMode(true);
         this.decoderUTF8   .setZeroChopMode(false);
@@ -55,8 +59,8 @@ public class CommonParser {
      * 入力ソースを返す。
      * @return 入力ソース
      */
-    protected MmdSource getSource(){
-        return this.source;
+    protected MmdInputStream getSource(){
+        return this.is;
     }
 
     /**
@@ -64,7 +68,7 @@ public class CommonParser {
      * @return 入力ソースの読み込み位置。単位はbyte。
      */
     protected long getPosition(){
-        long result = this.source.getPosition();
+        long result = this.is.getPosition();
         return result;
     }
 
@@ -72,10 +76,10 @@ public class CommonParser {
      * 入力ソースにまだデータが残っているか判定する。
      * @return まだ読み込んでいないデータが残っていればtrue
      * @throws IOException IOエラー
-     * @see MmdSource#hasMore()
+     * @see MmdInputStream#hasMore()
      */
     protected boolean hasMore() throws IOException{
-        boolean result = this.source.hasMore();
+        boolean result = this.is.hasMore();
         return result;
     }
 
@@ -84,13 +88,13 @@ public class CommonParser {
      * @param skipLength 読み飛ばすバイト数。
      * @throws IOException IOエラー
      * @throws MmdEofException 読み飛ばす途中でストリーム終端に達した。
-     * @see MmdSource#skip(long)
+     * @see MmdInputStream#skip(long)
      */
     protected void skip(long skipLength)
             throws IOException, MmdEofException {
-        long result = this.source.skip(skipLength);
+        long result = this.is.skipRepeat(skipLength);
         if(result != skipLength){
-            throw new MmdEofException(this.source.getPosition());
+            throw new MmdEofException(this.is.getPosition());
         }
 
         return;
@@ -101,7 +105,7 @@ public class CommonParser {
      * @param skipLength 読み飛ばすバイト数。
      * @throws IOException IOエラー
      * @throws MmdEofException 読み飛ばす途中でストリーム終端に達した。
-     * @see MmdSource#skip(long)
+     * @see MmdInputStream#skip(long)
      */
     protected void skip(int skipLength)
             throws IOException, MmdEofException {
@@ -113,11 +117,11 @@ public class CommonParser {
      * @return 読み込んだbyte値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdSource#parseByte()
+     * @see MmdInputStream#parseByte()
      */
     protected byte parseByte()
             throws IOException, MmdEofException{
-        return this.source.parseByte();
+        return this.is.parseByte();
     }
 
     /**
@@ -126,11 +130,11 @@ public class CommonParser {
      * @return 読み込まれた値のint値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdSource#parseUByteAsInteger()
+     * @see MmdInputStream#parseUByteAsInt()
      */
-    protected int parseUByteAsInteger()
+    protected int parseUByteAsInt()
             throws IOException, MmdEofException{
-        return this.source.parseUByteAsInteger();
+        return ((int) parseByte()) & MASK_8BIT;
     }
 
     /**
@@ -139,11 +143,11 @@ public class CommonParser {
      * @return 読み込まれた値のboolean値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdSource#parseBoolean()
+     * @see MmdInputStream#parseBoolean()
      */
     protected boolean parseBoolean()
             throws IOException, MmdEofException{
-        return this.source.parseBoolean();
+        return this.is.parseBoolean();
     }
 
     /**
@@ -152,11 +156,11 @@ public class CommonParser {
      * @return 読み込んだshort値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdSource#parseShort()
+     * @see MmdInputStream#parseShort()
      */
-    protected short parseShort()
+    protected short parseLeShort()
             throws IOException, MmdEofException{
-        return this.source.parseShort();
+        return this.is.parseLeShort();
     }
 
     /**
@@ -166,11 +170,11 @@ public class CommonParser {
      * @return 読み込まれた値のint値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdSource#parseUShortAsInteger()
+     * @see MmdInputStream#parseUShortAsInteger()
      */
-    protected int parseUShortAsInteger()
+    protected int parseLeUShortAsInt()
             throws IOException, MmdEofException{
-        return this.source.parseUShortAsInteger();
+        return ((int) parseLeShort()) & MASK_16BIT;
     }
 
     /**
@@ -179,11 +183,11 @@ public class CommonParser {
      * @return 読み込んだint値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdSource#parseInteger()
+     * @see MmdInputStream#parseInteger()
      */
-    protected int parseInteger()
+    protected int parseLeInt()
             throws IOException, MmdEofException{
-        return this.source.parseInteger();
+        return this.is.parseLeInt();
     }
 
     /**
@@ -192,11 +196,11 @@ public class CommonParser {
      * @return 読み込んだfloat値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdSource#parseFloat()
+     * @see MmdInputStream#parseFloat()
      */
-    protected float parseFloat()
+    protected float parseLeFloat()
             throws IOException, MmdEofException{
-        return this.source.parseFloat();
+        return this.is.parseLeFloat();
     }
 
     /**
@@ -208,14 +212,18 @@ public class CommonParser {
      * @throws NullPointerException 配列がnull
      * @throws IndexOutOfBoundsException 引数が配列属性と矛盾
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdSource#parseByteArray(byte[], int, int)
+     * @see MmdInputStream#parseByteArray(byte[], int, int)
      */
     protected void parseByteArray(byte[] dst, int offset, int length)
             throws IOException,
                    NullPointerException,
                    IndexOutOfBoundsException,
                    MmdEofException {
-        this.source.parseByteArray(dst, offset, length);
+        int readSize = this.is.read(dst, offset, length);
+        if(readSize != length){
+            throw new MmdEofException(this.is.getPosition());
+        }
+
         return;
     }
 
@@ -226,46 +234,11 @@ public class CommonParser {
      * @throws IOException IOエラー
      * @throws NullPointerException 配列がnull
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdSource#parseByteArray(byte[])
+     * @see MmdInputStream#parseByteArray(byte[])
      */
     protected void parseByteArray(byte[] dst)
             throws IOException, NullPointerException, MmdEofException{
-        this.source.parseByteArray(dst);
-        return;
-    }
-
-    /**
-     * float配列を読み込む。
-     * @param dst 格納先配列
-     * @param offset 読み込み開始オフセット
-     * @param length 読み込みfloat要素数
-     * @throws IOException IOエラー
-     * @throws NullPointerException 配列がnull
-     * @throws IndexOutOfBoundsException 引数が配列属性と矛盾
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdSource#parseFloatArray(float[], int, int)
-     */
-    protected void parseFloatArray(float[] dst, int offset, int length)
-            throws IOException,
-                   NullPointerException,
-                   IndexOutOfBoundsException,
-                   MmdEofException {
-        this.source.parseFloatArray(dst, offset, length);
-        return;
-    }
-
-    /**
-     * float配列を読み込む。
-     * 配列要素全ての読み込みが試みられる。
-     * @param dst 格納先配列
-     * @throws IOException IOエラー
-     * @throws NullPointerException 配列がnull
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdSource#parseFloatArray(float[])
-     */
-    protected void parseFloatArray(float[] dst)
-            throws IOException, NullPointerException, MmdEofException{
-        this.source.parseFloatArray(dst);
+        parseByteArray(dst, 0, dst.length);
         return;
     }
 
@@ -287,7 +260,7 @@ public class CommonParser {
                    MmdEofException,
                    MmdFormatException {
         CharBuffer encoded =
-                this.decoderWin31j.parseString(this.source, maxlen);
+                this.decoderWin31j.parseString(this.is, maxlen);
 
         String result = encoded.toString();
 
@@ -306,10 +279,10 @@ public class CommonParser {
             throws IOException,
                    MmdEofException,
                    MmdFormatException {
-        int byteLen = this.source.parseInteger();
+        int byteLen = this.is.parseLeInt();
 
         CharBuffer encoded =
-                this.decoderUTF8.parseString(this.source, byteLen);
+                this.decoderUTF8.parseString(this.is, byteLen);
 
         String result = encoded.toString();
 
@@ -328,10 +301,10 @@ public class CommonParser {
             throws IOException,
                    MmdEofException,
                    MmdFormatException {
-        int byteLen = this.source.parseInteger();
+        int byteLen = this.is.parseLeInt();
 
         CharBuffer encoded =
-                this.decoderUTF16LE.parseString(this.source, byteLen);
+                this.decoderUTF16LE.parseString(this.is, byteLen);
 
         String result = encoded.toString();
 

@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdSource;
+import jp.sourceforge.mikutoga.parser.MmdInputStream;
 import jp.sourceforge.mikutoga.vmd.parser.VmdParser;
 
 /**
@@ -32,7 +32,7 @@ public class DummyMain {
         VMDFILE = "D:\\Test\\camera.vmd";
     }
 
-    private static MmdSource buildSource(String fname){
+    private static MmdInputStream buildSource(String fname){
         File file = new File(fname);
 
         InputStream is;
@@ -45,7 +45,7 @@ public class DummyMain {
         }
         is = new BufferedInputStream(is, BUF_SZ);
 
-        MmdSource source = new MmdSource(is);
+        MmdInputStream source = new MmdInputStream(is);
 
         return source;
     }
@@ -63,7 +63,7 @@ public class DummyMain {
         if(args.length == 1) fname = args[0];
         else                 fname = VMDFILE;
 
-        MmdSource source = buildSource(fname);
+        MmdInputStream source = buildSource(fname);
 
         VmdParser parser = new VmdParser(source);
 

@@ -10,7 +10,7 @@ package jp.sourceforge.mikutoga.vmd.parser;
 import java.io.IOException;
 import jp.sourceforge.mikutoga.parser.CommonParser;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdSource;
+import jp.sourceforge.mikutoga.parser.MmdInputStream;
 import jp.sourceforge.mikutoga.vmd.VmdConst;
 
 /**
@@ -33,7 +33,7 @@ class VmdCameraParser extends CommonParser{
      * コンストラクタ。
      * @param source 入力ソース
      */
-    VmdCameraParser(MmdSource source){
+    VmdCameraParser(MmdInputStream source){
         super(source);
         return;
     }
@@ -54,7 +54,7 @@ class VmdCameraParser extends CommonParser{
      * @throws MmdFormatException フォーマットエラー
      */
     void parse() throws IOException, MmdFormatException {
-        int cameraMotionNo = parseInteger();
+        int cameraMotionNo = parseLeInt();
 
         if(this.handler == null){
             skip(VmdConst.CAMERA_DATA_SZ * cameraMotionNo);
@@ -64,26 +64,26 @@ class VmdCameraParser extends CommonParser{
         this.handler.loopStart(VmdCameraHandler.CAMERA_LIST, cameraMotionNo);
 
         for(int ct = 0; ct < cameraMotionNo; ct++){
-            int keyFrameNo = parseInteger();
+            int keyFrameNo = parseLeInt();
             this.handler.vmdCameraMotion(keyFrameNo);
 
-            float range = parseFloat();
+            float range = parseLeFloat();
             this.handler.vmdCameraRange(range);
 
-            float xPos = parseFloat();
-            float yPos = parseFloat();
-            float zPos = parseFloat();
+            float xPos = parseLeFloat();
+            float yPos = parseLeFloat();
+            float zPos = parseLeFloat();
             this.handler.vmdCameraPosition(xPos, yPos, zPos);
 
-            float latitude  = parseFloat();
-            float longitude = parseFloat();
-            float roll      = parseFloat();
+            float latitude  = parseLeFloat();
+            float longitude = parseLeFloat();
+            float roll      = parseLeFloat();
             this.handler.vmdCameraRotation(latitude, longitude, roll);
 
             parseCameraXyzInterpolation();
             parseCameraEtcInterpolation();
 
-            int angle = parseInteger();
+            int angle = parseLeInt();
             boolean hasPerspective = ! parseBoolean();
             this.handler.vmdCameraProjection(angle, hasPerspective);
 

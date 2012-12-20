@@ -32,7 +32,7 @@ public class TextExporter {
     private final CharsetEncoder encoder;
     private CharBuffer cbuf = CharBuffer.allocate(DEFBUFSZ_CHAR);
     private byte[] barray = new byte[DEFBUFSZ_BYTE];
-    private ByteBuffer bbuf = ByteBuffer.wrap(barray);
+    private ByteBuffer bbuf = ByteBuffer.wrap(this.barray);
 
     private CharSequence textData;
     private int textLength;
@@ -87,27 +87,30 @@ public class TextExporter {
 
     /**
      * 出力内部バッファサイズを設定する。
+     * 最低限必要な出力バッファサイズはエンコード設定により異なる。
      * @param newSize バッファサイズ。(単位:byte)
-     * @throws IllegalArgumentException サイズ指定が正で無かった。
+     * @throws IllegalArgumentException サイズ指定が小さすぎる。
      */
     public void setByteBufSize(int newSize)
             throws IllegalArgumentException {
-        if(newSize <= 0) throw new IllegalArgumentException();
+        float ratio = this.encoder.maxBytesPerChar();
+        int minSz = (int)( StrictMath.floor(ratio) );
+        if(newSize < minSz) throw new IllegalArgumentException();
         this.barray = new byte[newSize];
-        this.bbuf = ByteBuffer.wrap(barray);
+        this.bbuf = ByteBuffer.wrap(this.barray);
         this.bbuf.clear();
         return;
     }
 
     /**
      * 与えられた文字列をエンコードしてストリームに出力する。
-     * @param os 出力ストリーム
      * @param text 文字列
+     * @param os 出力ストリーム
      * @return 出力バイト長
      * @throws IOException 出力エラー
      * @throws CharacterCodingException エンコードエラー
      */
-    public int dumpText(OutputStream os, CharSequence text)
+    public int dumpText(CharSequence text, OutputStream os)
             throws IOException, CharacterCodingException {
         this.textData = text;
 
@@ -139,15 +142,13 @@ public class TextExporter {
             CoderResult result = encode();
             if(result.isUnderflow()){
                 this.cbuf.clear();
-                if(hasMoreInput()){
-                    continue;
+                if( ! hasMoreInput() ){
+                    total += sweepByteBuffer(os);
+                    break;
                 }
-                total += sweepByteBuffer(os);
-                break;
             }else if(result.isOverflow()){
                 total += sweepByteBuffer(os);
                 this.cbuf.compact();
-                continue;
             }else if(result.isError()){
                 result.throwException();
             }
@@ -237,14 +238,14 @@ public class TextExporter {
             throws IOException, CharacterCodingException {
         int total = 0;
 
-        for(;;){
-            CoderResult result = this.encoder.flush(this.bbuf);
+        CoderResult result;
+        do{
+            result = this.encoder.flush(this.bbuf);
             if(result.isError()) result.throwException();
 
             total += sweepByteBuffer(os);
 
-            if(result.isUnderflow()) break;
-        }
+        }while( ! result.isUnderflow() );
 
         return total;
     }
@@ -263,7 +264,7 @@ public class TextExporter {
             throws CharacterCodingException {
         int result = 0;
         try{
-            result = dumpText(bos, text);
+            result = dumpText(text, bos);
         }catch(CharacterCodingException e){
             throw e;
         }catch(IOException e){

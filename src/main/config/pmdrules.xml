@@ -3,7 +3,7 @@
 <!--
     PMD用ルールセット定義
 
-    PMD [ http://pmd.sourceforge.net/ ] 4.2.5 以降用に記述されています。
+    PMD [ http://pmd.sourceforge.net/ ] 4.3 以降用に記述されています。
 
     Copyright(c) 2010 olyutorskii
 -->
@@ -47,6 +47,7 @@
         <exclude name="DefaultPackage" />
         <exclude name="DataflowAnomalyAnalysis" />
         <exclude name="AvoidUsingShortType" />
+        <exclude name="AvoidLiteralsInIfCondition" />
     </rule>
 
     <rule ref="rulesets/coupling.xml" />

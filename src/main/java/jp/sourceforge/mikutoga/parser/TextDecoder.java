@@ -133,7 +133,7 @@ public class TextDecoder {
 
     /**
      * バイト列を読み込み文字列へデコーディングする。
-     * @param source 入力ソース
+     * @param is 入力ストリーム
      * @param byteSize 読み込みバイトサイズ
      * @return 内部に保持されるデコード結果。
      * 次回呼び出しまでに結果の適切なコピーがなされなければならない。
@@ -142,11 +142,15 @@ public class TextDecoder {
      * もしくは未定義文字
      * @throws IOException 入力エラー
      */
-    public CharBuffer parseString(MmdSource source, int byteSize)
+    public CharBuffer parseString(MmdInputStream is, int byteSize)
             throws MmdEofException, MmdFormatException, IOException{
         prepareBuffer(byteSize);
 
-        source.parseByteArray(this.byteArray, 0, byteSize);
+        int readSize = is.read(this.byteArray, 0, byteSize);
+        if(readSize != byteSize){
+            throw new MmdEofException(is.getPosition());
+        }
+
         this.byteBuffer.rewind().limit(byteSize);
         chopZeroTermed();
 
@@ -158,10 +162,10 @@ public class TextDecoder {
         if(decResult.isError()){
             if(decResult.isUnmappable()){
                 throw new MmdFormatException("unmapped character",
-                                             source.getPosition() );
+                                             is.getPosition() );
             }else{
                 throw new MmdFormatException("illegal character encoding",
-                                             source.getPosition() );
+                                             is.getPosition() );
             }
         }else if(decResult.isOverflow()){
             assert false;

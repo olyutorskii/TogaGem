@@ -9,7 +9,7 @@ package jp.sourceforge.mikutoga.pmd.parser;
 
 import java.io.IOException;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdSource;
+import jp.sourceforge.mikutoga.parser.MmdInputStream;
 
 /**
  * PMDモデルファイルのパーサ拡張その3。
@@ -27,7 +27,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
      * コンストラクタ。
      * @param source 入力ソース
      */
-    public PmdParserExt3(MmdSource source){
+    public PmdParserExt3(MmdInputStream source){
         super(source);
         return;
     }
@@ -74,7 +74,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
      * @throws MmdFormatException フォーマットエラー
      */
     private void parseRigidList() throws IOException, MmdFormatException{
-        int rigidNum = parseInteger();
+        int rigidNum = parseLeInt();
 
         if(this.rigidHandler == null){
             skip(RIGID_DATA_SZ * rigidNum);
@@ -88,32 +88,32 @@ public class PmdParserExt3 extends PmdParserExt2 {
                     parseZeroTermWin31J(PmdLimits.MAXBYTES_RIGIDNAME);
             this.rigidHandler.pmdRigidName(rigidName);
 
-            int linkedBoneId = parseUShortAsInteger();
-            int rigidGroupId = parseUByteAsInteger();
-            short collisionMap = parseShort();
+            int linkedBoneId = parseLeUShortAsInt();
+            int rigidGroupId = parseUByteAsInt();
+            short collisionMap = parseLeShort();
             this.rigidHandler.pmdRigidInfo(rigidGroupId, linkedBoneId);
 
             byte shapeType = parseByte();
-            float width = parseFloat();
-            float height = parseFloat();
-            float depth = parseFloat();
+            float width = parseLeFloat();
+            float height = parseLeFloat();
+            float depth = parseLeFloat();
             this.rigidHandler.pmdRigidShape(shapeType, width, height, depth);
 
-            float posX = parseFloat();
-            float posY = parseFloat();
-            float posZ = parseFloat();
+            float posX = parseLeFloat();
+            float posY = parseLeFloat();
+            float posZ = parseLeFloat();
             this.rigidHandler.pmdRigidPosition(posX, posY, posZ);
 
-            float rotX = parseFloat();
-            float rotY = parseFloat();
-            float rotZ = parseFloat();
+            float rotX = parseLeFloat();
+            float rotY = parseLeFloat();
+            float rotZ = parseLeFloat();
             this.rigidHandler.pmdRigidRotation(rotX, rotY, rotZ);
 
-            float mass = parseFloat();
-            float dampingPos = parseFloat();
-            float dampingRot = parseFloat();
-            float restitution = parseFloat();
-            float friction = parseFloat();
+            float mass = parseLeFloat();
+            float dampingPos = parseLeFloat();
+            float dampingRot = parseLeFloat();
+            float restitution = parseLeFloat();
+            float friction = parseLeFloat();
             this.rigidHandler.pmdRigidPhysics(mass,
                                               dampingPos, dampingRot,
                                               restitution, friction );
@@ -135,7 +135,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
      * @throws MmdFormatException フォーマットエラー
      */
     private void parseJointList() throws IOException, MmdFormatException{
-        int jointNum = parseInteger();
+        int jointNum = parseLeInt();
 
         if(this.jointHandler == null){
             skip(JOINT_DATA_SZ * jointNum);
@@ -149,50 +149,50 @@ public class PmdParserExt3 extends PmdParserExt2 {
                     parseZeroTermWin31J(PmdLimits.MAXBYTES_JOINTNAME);
             this.jointHandler.pmdJointName(jointName);
 
-            int rigidIdA = parseInteger();
-            int rigidIdB = parseInteger();
+            int rigidIdA = parseLeInt();
+            int rigidIdB = parseLeInt();
             this.jointHandler.pmdJointLink(rigidIdA, rigidIdB);
 
-            float posX = parseFloat();
-            float posY = parseFloat();
-            float posZ = parseFloat();
+            float posX = parseLeFloat();
+            float posY = parseLeFloat();
+            float posZ = parseLeFloat();
             this.jointHandler.pmdJointPosition(posX, posY, posZ);
 
-            float rotX = parseFloat();
-            float rotY = parseFloat();
-            float rotZ = parseFloat();
+            float rotX = parseLeFloat();
+            float rotY = parseLeFloat();
+            float rotZ = parseLeFloat();
             this.jointHandler.pmdJointRotation(rotX, rotY, rotZ);
 
-            float posXlim1 = parseFloat();
-            float posYlim1 = parseFloat();
-            float posZlim1 = parseFloat();
-            float posXlim2 = parseFloat();
-            float posYlim2 = parseFloat();
-            float posZlim2 = parseFloat();
+            float posXlim1 = parseLeFloat();
+            float posYlim1 = parseLeFloat();
+            float posZlim1 = parseLeFloat();
+            float posXlim2 = parseLeFloat();
+            float posYlim2 = parseLeFloat();
+            float posZlim2 = parseLeFloat();
             this.jointHandler.pmdPositionLimit(posXlim1, posXlim2,
                                                posYlim1, posYlim2,
                                                posZlim1, posZlim2 );
 
-            float rotXlim1 = parseFloat();
-            float rotYlim1 = parseFloat();
-            float rotZlim1 = parseFloat();
-            float rotXlim2 = parseFloat();
-            float rotYlim2 = parseFloat();
-            float rotZlim2 = parseFloat();
+            float rotXlim1 = parseLeFloat();
+            float rotYlim1 = parseLeFloat();
+            float rotZlim1 = parseLeFloat();
+            float rotXlim2 = parseLeFloat();
+            float rotYlim2 = parseLeFloat();
+            float rotZlim2 = parseLeFloat();
             this.jointHandler.pmdRotationLimit(rotXlim1, rotXlim2,
                                                rotYlim1, rotYlim2,
                                                rotZlim1, rotZlim2 );
 
-            float elasticPosX = parseFloat();
-            float elasticPosY = parseFloat();
-            float elasticPosZ = parseFloat();
+            float elasticPosX = parseLeFloat();
+            float elasticPosY = parseLeFloat();
+            float elasticPosZ = parseLeFloat();
             this.jointHandler.pmdElasticPosition(elasticPosX,
                                                  elasticPosY,
                                                  elasticPosZ );
 
-            float elasticRotX = parseFloat();
-            float elasticRotY = parseFloat();
-            float elasticRotZ = parseFloat();
+            float elasticRotX = parseLeFloat();
+            float elasticRotY = parseLeFloat();
+            float elasticRotZ = parseLeFloat();
             this.jointHandler.pmdElasticRotation(elasticRotX,
                                                  elasticRotY,
                                                  elasticRotZ );

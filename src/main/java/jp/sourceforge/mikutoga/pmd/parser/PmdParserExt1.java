@@ -9,7 +9,7 @@ package jp.sourceforge.mikutoga.pmd.parser;
 
 import java.io.IOException;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdSource;
+import jp.sourceforge.mikutoga.parser.MmdInputStream;
 
 /**
  * PMDモデルファイルのパーサ拡張その1。
@@ -24,7 +24,7 @@ public class PmdParserExt1 extends PmdParserBase {
      * コンストラクタ。
      * @param source 入力ソース
      */
-    public PmdParserExt1(MmdSource source){
+    public PmdParserExt1(MmdInputStream source){
         super(source);
         return;
     }

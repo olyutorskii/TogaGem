@@ -10,7 +10,7 @@ package jp.sourceforge.mikutoga.vmd.parser;
 import java.io.IOException;
 import jp.sourceforge.mikutoga.parser.CommonParser;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdSource;
+import jp.sourceforge.mikutoga.parser.MmdInputStream;
 import jp.sourceforge.mikutoga.vmd.VmdConst;
 
 /**
@@ -27,7 +27,7 @@ class VmdLightingParser extends CommonParser {
      * コンストラクタ。
      * @param source 入力ソース
      */
-    VmdLightingParser(MmdSource source){
+    VmdLightingParser(MmdInputStream source){
         super(source);
         return;
     }
@@ -62,7 +62,7 @@ class VmdLightingParser extends CommonParser {
      * @throws MmdFormatException フォーマットエラー
      */
     private void parseVmdLighting() throws IOException, MmdFormatException{
-        int lightMotionNo = parseInteger();
+        int lightMotionNo = parseLeInt();
 
         if(this.handler == null){
             skip(VmdConst.LUMINOUS_DATA_SZ * lightMotionNo);
@@ -73,17 +73,17 @@ class VmdLightingParser extends CommonParser {
                 lightMotionNo);
 
         for(int ct = 0; ct < lightMotionNo; ct++){
-            int keyFrameNo = parseInteger();
+            int keyFrameNo = parseLeInt();
             this.handler.vmdLuminousMotion(keyFrameNo);
 
-            float rVal = parseFloat();
-            float gVal = parseFloat();
-            float bVal = parseFloat();
+            float rVal = parseLeFloat();
+            float gVal = parseLeFloat();
+            float bVal = parseLeFloat();
             this.handler.vmdLuminousColor(rVal, gVal, bVal);
 
-            float xVec = parseFloat();
-            float yVec = parseFloat();
-            float zVec = parseFloat();
+            float xVec = parseLeFloat();
+            float yVec = parseLeFloat();
+            float zVec = parseLeFloat();
             this.handler.vmdLuminousDirection(xVec, yVec, zVec);
 
             this.handler.loopNext(VmdLightingHandler.LUMINOUS_LIST);
@@ -100,7 +100,7 @@ class VmdLightingParser extends CommonParser {
      * @throws MmdFormatException フォーマットエラー
      */
     private void parseVmdShadow() throws IOException, MmdFormatException{
-        int shadowMotionNo = parseInteger();
+        int shadowMotionNo = parseLeInt();
 
         if(this.handler == null){
             skip(VmdConst.SHADOW_DATA_SZ * shadowMotionNo);
@@ -111,13 +111,13 @@ class VmdLightingParser extends CommonParser {
                 shadowMotionNo);
 
         for(int ct = 0; ct < shadowMotionNo; ct++){
-            int keyFrameNo = parseInteger();
+            int keyFrameNo = parseLeInt();
             this.handler.vmdShadowMotion(keyFrameNo);
 
             byte shadowMode = parseByte();
             this.handler.vmdShadowMode(shadowMode);
 
-            float shadowScope = parseFloat();
+            float shadowScope = parseLeFloat();
             this.handler.vmdShadowScopeRaw(shadowScope);
 
             this.handler.loopNext(VmdLightingHandler.SHADOW_LIST);
