@@ -3,9 +3,6 @@
 
 package jp.sourceforge.mikutoga.parser;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,6 +101,7 @@ public class TextDecoderTest {
 
     /**
      * Test of setChopMode, getChopMode method, of class TextDecoder.
+     * @throws Exception
      */
     @Test
     public void testChopMode() throws Exception {
@@ -125,16 +123,13 @@ public class TextDecoderTest {
 
     /**
      * Test of parseString method, of class TextDecoder.
+     * @throws Exception
      */
     @Test
     public void testParseStringChop() throws Exception {
         System.out.println("parseString(Chop)");
 
         TextDecoder decoder;
-        byte[] bdata;
-        InputStream istream;
-        MmdInputStream source;
-        CharBuffer cb;
 
         decoder = new TextDecoder(CS_WIN31J);
         decoder.setZeroChopMode(true);
@@ -144,19 +139,15 @@ public class TextDecoderTest {
         assertDecoded("00:41:42", "", decoder);
         assertDecoded("41:00:88", "A", decoder);
 
-        bdata = byteArray("41:00:42:43");
-        istream = new ByteArrayInputStream(bdata);
-        source = new MmdInputStream(istream);
-        cb =decoder.parseString(source, 3);
-        assertEquals("A", cb.toString());
-        cb =decoder.parseString(source, 1);
-        assertEquals("C", cb.toString());
+        decoder.setZeroChopMode(false);
+        assertDecoded("41:00:42", "A\u0000B", decoder);
 
         return;
     }
 
     /**
      * Test of parseString method, of class TextDecoder.
+     * @throws Exception
      */
     @Test
     public void testParseStringWin31J() throws Exception {
@@ -175,27 +166,12 @@ public class TextDecoderTest {
 
         assertFormatError("88:9F:88:A0", decoder, 3);
 
-
-        byte[] bdata;
-        InputStream istream;
-        MmdInputStream source;
-        CharBuffer cb;
-
-        bdata = byteArray("88:9F:88:A0");
-        istream = new ByteArrayInputStream(bdata);
-        source = new MmdInputStream(istream);
-        try{
-            cb =decoder.parseString(source, 5);
-            fail();
-        }catch(MmdEofException e){
-            // OK
-        }
-
         return;
     }
 
     /**
      * Test of parseString method, of class TextDecoder.
+     * @throws Exception
      */
     @Test
     public void testParseStringUTF8() throws Exception {
@@ -215,27 +191,12 @@ public class TextDecoderTest {
 
         assertFormatError("E4:BA:9C:E5:94:96", decoder, 5);
 
-
-        byte[] bdata;
-        InputStream istream;
-        MmdInputStream source;
-        CharBuffer cb;
-
-        bdata = byteArray("E4:BA:9C:E5:94:96");
-        istream = new ByteArrayInputStream(bdata);
-        source = new MmdInputStream(istream);
-        try{
-            cb =decoder.parseString(source, 7);
-            fail();
-        }catch(MmdEofException e){
-            // OK
-        }
-
         return;
     }
 
     /**
      * Test of parseString method, of class TextDecoder.
+     * @throws Exception
      */
     @Test
     public void testParseStringUTF16LE() throws Exception {
@@ -260,26 +221,12 @@ public class TextDecoderTest {
 
         assertFormatError("9C:4E:16:55", decoder, 3);
 
-
-        byte[] bdata;
-        InputStream istream;
-        MmdInputStream source;
-        CharBuffer cb;
-        bdata = byteArray("9C:4E:16:55");
-        istream = new ByteArrayInputStream(bdata);
-        source = new MmdInputStream(istream);
-        try{
-            cb =decoder.parseString(source, 5);
-            fail();
-        }catch(MmdEofException e){
-            // OK
-        }
-
         return;
     }
 
     /**
      * Test of Yen(U+00A5) & Backslash(U+005C) encoding, of class TextDecoder.
+     * @throws Exception
      */
     @Test
     public void testYenAndBackslash() throws Exception {
@@ -303,6 +250,7 @@ public class TextDecoderTest {
 
     /**
      * Test of unmapped char, of class TextDecoder.
+     * @throws Exception
      */
     @Test
     public void testUnmapChar() throws Exception {
@@ -338,25 +286,14 @@ public class TextDecoderTest {
                                 TextDecoder decoder, int len)
             throws Exception{
         byte[] bdata;
-        InputStream istream;
-        MmdInputStream source;
-        CharBuffer cb;
 
         bdata = byteArray(bin);
-        istream = new ByteArrayInputStream(bdata);
-        source = new MmdInputStream(istream);
 
-        assertDecoded(source, desired, decoder, len);
+        String result;
+        result = decoder.decode(0, bdata, 0, len);
 
-        return;
-    }
+        assertEquals(desired, result);
 
-    public void assertDecoded(MmdInputStream source, String desired,
-                                TextDecoder decoder, int len)
-            throws Exception{
-        CharBuffer cb;
-        cb =decoder.parseString(source, len);
-        assertEquals(desired, cb.toString());
         return;
     }
 
@@ -364,15 +301,11 @@ public class TextDecoderTest {
                                     TextDecoder decoder, int len)
             throws Exception{
         byte[] bdata;
-        InputStream istream;
-        MmdInputStream source;
 
         bdata = byteArray(bin);
-        istream = new ByteArrayInputStream(bdata);
-        source = new MmdInputStream(istream);
 
         try{
-            decoder.parseString(source, len);
+            decoder.decode(0, bdata, 0, len);
             fail();
         }catch(MmdFormatException e){
             // OK

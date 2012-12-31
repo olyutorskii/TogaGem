@@ -8,14 +8,25 @@
 package jp.sourceforge.mikutoga.pmd.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.util.Arrays;
 import jp.sourceforge.mikutoga.parser.CommonParser;
+import jp.sourceforge.mikutoga.parser.MmdEofException;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdInputStream;
+import jp.sourceforge.mikutoga.parser.TextDecoder;
 
 /**
  * PMDモデルファイルのパーサ基本部。
  */
 public class PmdParserBase extends CommonParser {
+
+    /**
+     * PMDで用いられる文字エンコーディング(windows-31j)。
+     * ほぼShift_JISのスーパーセットと思ってよい。
+     * デコード結果はUCS-2集合に収まるはず。
+     */
+    public static final Charset CS_WIN31J = Charset.forName("windows-31j");
 
     /** 改行文字列 CR。 */
     protected static final String CR = "\r";       // 0x0d
@@ -46,6 +57,8 @@ public class PmdParserBase extends CommonParser {
     }
 
 
+    private final TextDecoder decoderWin31j  = new TextDecoder(CS_WIN31J);
+
     private PmdBasicHandler basicHandler = null;
     private PmdShapeHandler shapeHandler = null;
     private PmdMaterialHandler materialHandler = null;
@@ -61,8 +74,9 @@ public class PmdParserBase extends CommonParser {
      * コンストラクタ。
      * @param source 入力ソース
      */
-    public PmdParserBase(MmdInputStream source){
+    public PmdParserBase(InputStream source){
         super(source);
+        this.decoderWin31j.setZeroChopMode(true);
         return;
     }
 
@@ -183,6 +197,27 @@ public class PmdParserBase extends CommonParser {
     }
 
     /**
+     * 指定されたバイト長に収まるゼロ終端(0x00)文字列を読み込む。
+     * 入力バイト列はwindows-31jエンコーディングとして解釈される。
+     * ゼロ終端以降のデータは無視されるが、
+     * IO入力は指定バイト数だけ読み進められる。
+     * ゼロ終端が見つからないまま指定バイト数が読み込み終わった場合、
+     * そこまでのデータから文字列を構成する。
+     * @param byteLen 読み込みバイト数
+     * @return デコードされた文字列
+     * @throws IOException IOエラー
+     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
+     * @throws MmdFormatException 不正な文字エンコーディングが検出された。
+     */
+    protected String parsePmdText(int byteLen)
+            throws IOException,
+                   MmdEofException,
+                   MmdFormatException {
+        String result = parseString(this.decoderWin31j, byteLen);
+        return result;
+    }
+
+    /**
      * PMDファイルのパースを開始する。
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
@@ -234,16 +269,14 @@ public class PmdParserBase extends CommonParser {
         byte[] header = new byte[HEADER_LENGTH];
         parseByteArray(header);
 
-        for(int idx = 0; idx < MAGIC_BYTES.length; idx++){
-            if(header[idx] != MAGIC_BYTES[idx]){
-                throw new MmdFormatException("unknown PMD-header type");
-            }
+        if( ! Arrays.equals(header, MAGIC_BYTES) ){
+            throw new MmdFormatException("unknown PMD-header type");
         }
 
         String modelName   =
-                parseZeroTermWin31J(PmdLimits.MAXBYTES_MODELNAME);
+                parsePmdText(PmdLimits.MAXBYTES_MODELNAME);
         String description =
-                parseZeroTermWin31J(PmdLimits.MAXBYTES_MODELDESC);
+                parsePmdText(PmdLimits.MAXBYTES_MODELDESC);
         description = description.replace(CRLF, LF);
 
         if(this.basicHandler != null){
@@ -375,7 +408,7 @@ public class PmdParserBase extends CommonParser {
             boolean hasEdge = parseBoolean();
             int surfaceCount = parseLeInt();
             String shadingFile =
-                    parseZeroTermWin31J(PmdLimits.MAXBYTES_TEXTUREFILENAME);
+                    parsePmdText(PmdLimits.MAXBYTES_TEXTUREFILENAME);
             String[] splitted = splitShadingFileInfo(shadingFile);
             String textureFile = splitted[0];
             String sphereFile = splitted[1];
@@ -409,7 +442,7 @@ public class PmdParserBase extends CommonParser {
 
         for(int ct = 0; ct < this.boneCount; ct++){
             String boneName =
-                    parseZeroTermWin31J(PmdLimits.MAXBYTES_BONENAME);
+                    parsePmdText(PmdLimits.MAXBYTES_BONENAME);
             int parentId = parseLeUShortAsInt();
             int tailId = parseLeUShortAsInt();
             byte boneKind = parseByte();
@@ -509,7 +542,7 @@ public class PmdParserBase extends CommonParser {
 
         for(int ct = 0; ct < this.morphCount; ct++){
             String morphName =
-                    parseZeroTermWin31J(PmdLimits.MAXBYTES_MORPHNAME);
+                    parsePmdText(PmdLimits.MAXBYTES_MORPHNAME);
             int vertexCount = parseLeInt();
             byte morphType = parseByte();
 
@@ -609,7 +642,7 @@ public class PmdParserBase extends CommonParser {
 
         for(int ct = 0; ct < this.boneGroupCount; ct++){
             String groupName =
-                    parseZeroTermWin31J(PmdLimits.MAXBYTES_BONEGROUPNAME);
+                    parsePmdText(PmdLimits.MAXBYTES_BONEGROUPNAME);
             groupName = chopLastLF(groupName);
             this.boneHandler.pmdBoneGroupInfo(groupName);
 

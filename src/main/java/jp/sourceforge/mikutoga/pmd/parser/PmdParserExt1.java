@@ -8,8 +8,8 @@
 package jp.sourceforge.mikutoga.pmd.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdInputStream;
 
 /**
  * PMDモデルファイルのパーサ拡張その1。
@@ -24,7 +24,7 @@ public class PmdParserExt1 extends PmdParserBase {
      * コンストラクタ。
      * @param source 入力ソース
      */
-    public PmdParserExt1(MmdInputStream source){
+    public PmdParserExt1(InputStream source){
         super(source);
         return;
     }
@@ -75,9 +75,9 @@ public class PmdParserExt1 extends PmdParserBase {
         if( ! this.hasEnglishInfo ) return;
 
         String modelName =
-                parseZeroTermWin31J(PmdLimits.MAXBYTES_MODELNAME);
+                parsePmdText(PmdLimits.MAXBYTES_MODELNAME);
         String description =
-                parseZeroTermWin31J(PmdLimits.MAXBYTES_MODELDESC);
+                parsePmdText(PmdLimits.MAXBYTES_MODELDESC);
         description = description.replace(CRLF, LF);
 
         if(this.engHandler != null){
@@ -105,7 +105,7 @@ public class PmdParserExt1 extends PmdParserBase {
 
         for(int ct = 0; ct < boneNum; ct++){
             String boneName =
-                    parseZeroTermWin31J(PmdLimits.MAXBYTES_BONENAME);
+                    parsePmdText(PmdLimits.MAXBYTES_BONENAME);
             this.engHandler.pmdEngBoneInfo(boneName);
 
             this.engHandler.loopNext(PmdEngHandler.ENGBONE_LIST);
@@ -134,7 +134,7 @@ public class PmdParserExt1 extends PmdParserBase {
 
         for(int ct = 0; ct < morphNum; ct++){
             String morphName =
-                    parseZeroTermWin31J(PmdLimits.MAXBYTES_MORPHNAME);
+                    parsePmdText(PmdLimits.MAXBYTES_MORPHNAME);
             this.engHandler.pmdEngMorphInfo(morphName);
 
             this.engHandler.loopNext(PmdEngHandler.ENGMORPH_LIST);
@@ -163,7 +163,7 @@ public class PmdParserExt1 extends PmdParserBase {
 
         for(int ct = 0; ct < groupNum; ct++){
             String boneGroupName =
-                    parseZeroTermWin31J(PmdLimits.MAXBYTES_BONEGROUPNAME);
+                    parsePmdText(PmdLimits.MAXBYTES_BONEGROUPNAME);
             this.engHandler.pmdEngBoneGroupInfo(boneGroupName);
 
             this.engHandler.loopNext(PmdEngHandler.ENGBONEGROUP_LIST);

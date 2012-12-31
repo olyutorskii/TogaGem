@@ -8,8 +8,8 @@
 package jp.sourceforge.mikutoga.pmd.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdInputStream;
 
 /**
  * PMDモデルファイルのパーサ拡張その3。
@@ -27,7 +27,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
      * コンストラクタ。
      * @param source 入力ソース
      */
-    public PmdParserExt3(MmdInputStream source){
+    public PmdParserExt3(InputStream source){
         super(source);
         return;
     }
@@ -85,7 +85,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
 
         for(int ct = 0; ct < rigidNum; ct++){
             String rigidName =
-                    parseZeroTermWin31J(PmdLimits.MAXBYTES_RIGIDNAME);
+                    parsePmdText(PmdLimits.MAXBYTES_RIGIDNAME);
             this.rigidHandler.pmdRigidName(rigidName);
 
             int linkedBoneId = parseLeUShortAsInt();
@@ -146,7 +146,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
 
         for(int ct = 0; ct < jointNum; ct++){
             String jointName =
-                    parseZeroTermWin31J(PmdLimits.MAXBYTES_JOINTNAME);
+                    parsePmdText(PmdLimits.MAXBYTES_JOINTNAME);
             this.jointHandler.pmdJointName(jointName);
 
             int rigidIdA = parseLeInt();

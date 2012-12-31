@@ -8,9 +8,12 @@
 package jp.sourceforge.mikutoga.vmd.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import jp.sourceforge.mikutoga.parser.CommonParser;
+import jp.sourceforge.mikutoga.parser.MmdEofException;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdInputStream;
+import jp.sourceforge.mikutoga.parser.TextDecoder;
 import jp.sourceforge.mikutoga.vmd.VmdConst;
 
 /**
@@ -18,6 +21,13 @@ import jp.sourceforge.mikutoga.vmd.VmdConst;
  * <p>ボーンのモーション情報およびモーフモーション情報のパース処理を含む。
  */
 class VmdBasicParser extends CommonParser{
+
+    /**
+     * VMDで用いられる文字エンコーディング(windows-31j)。
+     * ほぼShift_JISのスーパーセットと思ってよい。
+     * デコード結果はUCS-2集合に収まるはず。
+     */
+    public static final Charset CS_WIN31J = Charset.forName("windows-31j");
 
     private static final int BZ_SIZE = 4;           // 4byte Bezier parameter
     private static final int BZXYZR_SIZE = BZ_SIZE * 4; // XYZR Bezier
@@ -28,6 +38,8 @@ class VmdBasicParser extends CommonParser{
             "there is potential inconsistency in motion interpolation data. "
             +"(Strict-mode)";
 
+
+    private final TextDecoder decoderWin31j  = new TextDecoder(CS_WIN31J);
 
     private final byte[] motionIntplt = new byte[BZTOTAL_SIZE];
 
@@ -41,8 +53,9 @@ class VmdBasicParser extends CommonParser{
      * コンストラクタ。
      * @param source 入力ソース
      */
-    VmdBasicParser(MmdInputStream source){
+    VmdBasicParser(InputStream source){
         super(source);
+        this.decoderWin31j.setZeroChopMode(true);
         return;
     }
 
@@ -74,6 +87,27 @@ class VmdBasicParser extends CommonParser{
     void setStrictMode(boolean mode){
         this.strictMode = mode;
         return;
+    }
+
+    /**
+     * 指定された最大バイト長に収まるゼロ終端(0x00)文字列を読み込む。
+     * 入力バイト列はwindows-31jエンコーディングとして解釈される。
+     * ゼロ終端以降のデータは無視されるが、
+     * IO入力は指定バイト数だけ読み進められる。
+     * ゼロ終端が見つからないまま指定バイト数が読み込み終わった場合、
+     * そこまでのデータから文字列を構成する。
+     * @param byteLen 読み込みバイト数
+     * @return デコードされた文字列
+     * @throws IOException IOエラー
+     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
+     * @throws MmdFormatException 不正な文字エンコーディングが検出された。
+     */
+    protected String parseVmdText(int byteLen)
+            throws IOException,
+                   MmdEofException,
+                   MmdFormatException {
+        String result = parseString(this.decoderWin31j, byteLen);
+        return result;
     }
 
     /**
@@ -118,7 +152,7 @@ class VmdBasicParser extends CommonParser{
      * @throws MmdFormatException フォーマットエラー
      */
     private void parseVmdModelName() throws IOException, MmdFormatException{
-        String modelName = parseZeroTermWin31J(VmdConst.MODELNAME_MAX);
+        String modelName = parseVmdText(VmdConst.MODELNAME_MAX);
 
         if(VmdConst.isStageActName(modelName)){
             this.hasStageActName = true;
@@ -149,7 +183,7 @@ class VmdBasicParser extends CommonParser{
                 VmdBasicHandler.BONEMOTION_LIST, boneMotionNo);
 
         for(int ct = 0; ct < boneMotionNo; ct++){
-            String boneName = parseZeroTermWin31J(VmdConst.BONENAME_MAX);
+            String boneName = parseVmdText(VmdConst.BONENAME_MAX);
             int keyFrameNo = parseLeInt();
             this.handler.vmdBoneMotion(boneName, keyFrameNo);
 
@@ -281,7 +315,7 @@ class VmdBasicParser extends CommonParser{
                 VmdBasicHandler.MORPH_LIST, morphMotionNo);
 
         for(int ct = 0; ct < morphMotionNo; ct++){
-            String morphName = parseZeroTermWin31J(VmdConst.MORPHNAME_MAX);
+            String morphName = parseVmdText(VmdConst.MORPHNAME_MAX);
             int keyFrameNo = parseLeInt();
             float flex = parseLeFloat();
             this.handler.vmdMorphMotion(morphName, keyFrameNo, flex);

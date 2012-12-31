@@ -8,9 +8,9 @@
 package jp.sourceforge.mikutoga.vmd.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
 import jp.sourceforge.mikutoga.parser.CommonParser;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdInputStream;
 import jp.sourceforge.mikutoga.vmd.VmdConst;
 
 /**
@@ -27,7 +27,7 @@ class VmdLightingParser extends CommonParser {
      * コンストラクタ。
      * @param source 入力ソース
      */
-    VmdLightingParser(MmdInputStream source){
+    VmdLightingParser(InputStream source){
         super(source);
         return;
     }

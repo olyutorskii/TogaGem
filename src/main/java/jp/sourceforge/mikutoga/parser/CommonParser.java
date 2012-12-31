@@ -7,68 +7,69 @@
 
 package jp.sourceforge.mikutoga.parser;
 
+import java.io.EOFException;
 import java.io.IOException;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
+import java.io.InputStream;
+import java.io.PushbackInputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 /**
  * 各種パーサの共通実装。
  */
 public class CommonParser {
 
-    /**
-     * PMDで用いられる文字エンコーディング(windows-31j)。
-     * ほぼShift_JISのスーパーセットと思ってよい。
-     * デコード結果はUCS-2集合に収まるはず。
-     */
-    public static final Charset CS_WIN31J = Charset.forName("windows-31j");
-
-    /** PMXで用いられる文字エンコーディング(UTF-8)。 */
-    public static final Charset CS_UTF8 = Charset.forName("UTF-8");
-
-    /** PMXで用いられる文字エンコーディング(UTF-16のリトルエンディアン)。 */
-    public static final Charset CS_UTF16LE = Charset.forName("UTF-16LE");
+    private static final int BYTES_SHORT = Short  .SIZE / Byte.SIZE;
+    private static final int BYTES_INT   = Integer.SIZE / Byte.SIZE;
+    private static final int BYTES_FLOAT = Float  .SIZE / Byte.SIZE;
+    private static final int BYTES_PRIM = 4;
 
     private static final int MASK_8BIT  =   0xff;
     private static final int MASK_16BIT = 0xffff;
 
+    static{
+        assert BYTES_PRIM >= BYTES_FLOAT;
+        assert BYTES_PRIM >= BYTES_INT;
+        assert BYTES_PRIM >= BYTES_SHORT;
+    }
 
-    private final MmdInputStream is;
 
-    private final TextDecoder decoderWin31j  = new TextDecoder(CS_WIN31J);
-    private final TextDecoder decoderUTF8    = new TextDecoder(CS_UTF8);
-    private final TextDecoder decoderUTF16LE = new TextDecoder(CS_UTF16LE);
+    private final PushbackInputStream is;
+
+    private final byte[] readBuffer;
+    private final ByteBuffer beBuf;
+    private final ByteBuffer leBuf;
+
+    private long position = 0L;
+
 
     /**
      * コンストラクタ。
      * @param source 入力ソース
      */
-    public CommonParser(MmdInputStream source){
+    public CommonParser(InputStream source){
         super();
 
-        this.is = source;
+        this.is = new PushbackInputStream(source, 1);
 
-        this.decoderWin31j .setZeroChopMode(true);
-        this.decoderUTF8   .setZeroChopMode(false);
-        this.decoderUTF16LE.setZeroChopMode(false);
+        this.readBuffer = new byte[BYTES_PRIM];
+
+        this.beBuf = ByteBuffer.wrap(this.readBuffer);
+        this.leBuf = ByteBuffer.wrap(this.readBuffer);
+
+        this.beBuf.order(ByteOrder.BIG_ENDIAN);
+        this.leBuf.order(ByteOrder.LITTLE_ENDIAN);
 
         return;
     }
 
-    /**
-     * 入力ソースを返す。
-     * @return 入力ソース
-     */
-    protected MmdInputStream getSource(){
-        return this.is;
-    }
 
     /**
      * 入力ソースの読み込み位置を返す。
      * @return 入力ソースの読み込み位置。単位はbyte。
      */
     protected long getPosition(){
-        long result = this.is.getPosition();
+        long result = this.position;
         return result;
     }
 
@@ -76,11 +77,23 @@ public class CommonParser {
      * 入力ソースにまだデータが残っているか判定する。
      * @return まだ読み込んでいないデータが残っていればtrue
      * @throws IOException IOエラー
-     * @see MmdInputStream#hasMore()
      */
-    protected boolean hasMore() throws IOException{
-        boolean result = this.is.hasMore();
-        return result;
+    public boolean hasMore() throws IOException{
+        int bVal;
+
+        try{
+            bVal = this.is.read();
+        }catch(EOFException e){ // ありえない？
+            return false;
+        }
+
+        if(bVal < 0){
+            return false;
+        }
+
+        this.is.unread(bVal);
+
+        return true;
     }
 
     /**
@@ -88,28 +101,81 @@ public class CommonParser {
      * @param skipLength 読み飛ばすバイト数。
      * @throws IOException IOエラー
      * @throws MmdEofException 読み飛ばす途中でストリーム終端に達した。
-     * @see MmdInputStream#skip(long)
+     * @see InputStream#skip(long)
      */
     protected void skip(long skipLength)
             throws IOException, MmdEofException {
-        long result = this.is.skipRepeat(skipLength);
-        if(result != skipLength){
-            throw new MmdEofException(this.is.getPosition());
+        long remain = skipLength;
+
+        while(remain > 0L){
+            long txSize = this.is.skip(remain);
+            if(txSize <= 0L){
+                throw new MmdEofException(this.position);
+            }
+            remain -= txSize;
+            this.position += txSize;
         }
 
         return;
     }
 
     /**
-     * 入力ソースを読み飛ばす。
-     * @param skipLength 読み飛ばすバイト数。
+     * byte配列を読み込む。
+     * @param dst 格納先配列
+     * @param off 読み込み開始オフセット
+     * @param length 読み込みバイト数
      * @throws IOException IOエラー
-     * @throws MmdEofException 読み飛ばす途中でストリーム終端に達した。
-     * @see MmdInputStream#skip(long)
+     * @throws NullPointerException 配列がnull
+     * @throws IndexOutOfBoundsException 引数が配列属性と矛盾
+     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
+     * @see InputStream#read(byte[], int, int)
      */
-    protected void skip(int skipLength)
+    protected void parseByteArray(byte[] dst, int off, int length)
+            throws IOException,
+                   NullPointerException,
+                   IndexOutOfBoundsException,
+                   MmdEofException {
+        int remain = length;
+        int offset = off;
+
+        while(remain > 0){
+            int txSize = this.is.read(dst, offset, remain);
+            if(txSize <= 0){
+                throw new MmdEofException(this.position);
+            }
+            remain -= txSize;
+            offset += txSize;
+            this.position += txSize;
+        }
+
+        return;
+    }
+
+    /**
+     * byte配列を読み込む。
+     * 配列要素全ての読み込みが試みられる。
+     * @param dst 格納先配列
+     * @throws IOException IOエラー
+     * @throws NullPointerException 配列がnull
+     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
+     * @see InputStream#read(byte[])
+     */
+    protected void parseByteArray(byte[] dst)
+            throws IOException, NullPointerException, MmdEofException{
+        parseByteArray(dst, 0, dst.length);
+        return;
+    }
+
+    /**
+     * 内部バッファへ指定バイト数だけ読み込む。
+     * @param fillSize
+     * @throws IOException
+     * @throws MmdEofException
+     */
+    private void fillBuffer(int fillSize)
             throws IOException, MmdEofException {
-        skip((long) skipLength);
+        parseByteArray(this.readBuffer, 0, fillSize);
+        return;
     }
 
     /**
@@ -121,7 +187,15 @@ public class CommonParser {
      */
     protected byte parseByte()
             throws IOException, MmdEofException{
-        return this.is.parseByte();
+        int bData = this.is.read();
+        if(bData < 0){
+            throw new MmdEofException(this.position);
+        }
+
+        byte result = (byte) bData;
+        this.position++;
+
+        return result;
     }
 
     /**
@@ -147,7 +221,9 @@ public class CommonParser {
      */
     protected boolean parseBoolean()
             throws IOException, MmdEofException{
-        return this.is.parseBoolean();
+        byte result = parseByte();
+        if(result == 0x00) return false;
+        return true;
     }
 
     /**
@@ -160,7 +236,9 @@ public class CommonParser {
      */
     protected short parseLeShort()
             throws IOException, MmdEofException{
-        return this.is.parseLeShort();
+        fillBuffer(BYTES_SHORT);
+        short result = this.leBuf.getShort(0);
+        return result;
     }
 
     /**
@@ -187,7 +265,9 @@ public class CommonParser {
      */
     protected int parseLeInt()
             throws IOException, MmdEofException{
-        return this.is.parseLeInt();
+        fillBuffer(BYTES_INT);
+        int result = this.leBuf.getInt(0);
+        return result;
     }
 
     /**
@@ -200,114 +280,26 @@ public class CommonParser {
      */
     protected float parseLeFloat()
             throws IOException, MmdEofException{
-        return this.is.parseLeFloat();
-    }
-
-    /**
-     * byte配列を読み込む。
-     * @param dst 格納先配列
-     * @param offset 読み込み開始オフセット
-     * @param length 読み込みバイト数
-     * @throws IOException IOエラー
-     * @throws NullPointerException 配列がnull
-     * @throws IndexOutOfBoundsException 引数が配列属性と矛盾
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdInputStream#parseByteArray(byte[], int, int)
-     */
-    protected void parseByteArray(byte[] dst, int offset, int length)
-            throws IOException,
-                   NullPointerException,
-                   IndexOutOfBoundsException,
-                   MmdEofException {
-        int readSize = this.is.read(dst, offset, length);
-        if(readSize != length){
-            throw new MmdEofException(this.is.getPosition());
-        }
-
-        return;
-    }
-
-    /**
-     * byte配列を読み込む。
-     * 配列要素全ての読み込みが試みられる。
-     * @param dst 格納先配列
-     * @throws IOException IOエラー
-     * @throws NullPointerException 配列がnull
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdInputStream#parseByteArray(byte[])
-     */
-    protected void parseByteArray(byte[] dst)
-            throws IOException, NullPointerException, MmdEofException{
-        parseByteArray(dst, 0, dst.length);
-        return;
-    }
-
-    /**
-     * 指定された最大バイト長に収まるゼロ終端(0x00)文字列を読み込む。
-     * 入力バイト列はwindows-31jエンコーディングとして解釈される。
-     * ゼロ終端以降のデータは無視されるが、
-     * IO入力は指定バイト数だけ読み進められる。
-     * ゼロ終端が見つからないまま指定バイト数が読み込み終わった場合、
-     * そこまでのデータから文字列を構成する。
-     * @param maxlen 読み込みバイト数
-     * @return デコードされた文字列
-     * @throws IOException IOエラー
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @throws MmdFormatException 不正な文字エンコーディングが検出された。
-     */
-    protected String parseZeroTermWin31J(int maxlen)
-            throws IOException,
-                   MmdEofException,
-                   MmdFormatException {
-        CharBuffer encoded =
-                this.decoderWin31j.parseString(this.is, maxlen);
-
-        String result = encoded.toString();
-
+        fillBuffer(BYTES_FLOAT);
+        float result = this.leBuf.getFloat(0);
         return result;
     }
 
     /**
-     * 4byte整数によるバイト列長とそれに続くUTF8バイト列を
-     * 文字にデコードする。
-     * @return デコードされた文字列。
-     * @throws IOException IOエラー
-     * @throws MmdEofException 予期せぬ入力終端
-     * @throws MmdFormatException 不正な文字エンコーディングが検出された。
+     * 固定バイト長の文字列を読み込む。
+     * @param decoder 文字デコーダ
+     * @param byteLen 読み込む固定バイト長
+     * @return 文字列
+     * @throws IOException 入力エラー
+     * @throws MmdEofException 固定長バイト列を読む前に末端に達した。
+     * @throws MmdFormatException 文字エンコーディングに関するエラー
      */
-    protected String parseHollerithUtf8()
-            throws IOException,
-                   MmdEofException,
-                   MmdFormatException {
-        int byteLen = this.is.parseLeInt();
-
-        CharBuffer encoded =
-                this.decoderUTF8.parseString(this.is, byteLen);
-
-        String result = encoded.toString();
-
-        return result;
-    }
-
-    /**
-     * 4byte整数によるバイト列長とそれに続くUTF16-LEバイト列を
-     * 文字にデコードする。
-     * @return デコードされた文字列。
-     * @throws IOException IOエラー
-     * @throws MmdEofException 予期せぬ入力終端
-     * @throws MmdFormatException 不正な文字エンコーディングが検出された。
-     */
-    protected String parseHollerithUtf16LE()
-            throws IOException,
-                   MmdEofException,
-                   MmdFormatException {
-        int byteLen = this.is.parseLeInt();
-
-        CharBuffer encoded =
-                this.decoderUTF16LE.parseString(this.is, byteLen);
-
-        String result = encoded.toString();
-
+    protected String parseString(TextDecoder decoder, int byteLen)
+            throws IOException, MmdEofException, MmdFormatException {
+        byte[] buf = decoder.prepareBuffer(byteLen);
+        parseByteArray(buf, 0, byteLen);
+        long basePos = getPosition();
+        String result= decoder.decode(basePos, byteLen);
         return result;
     }
 

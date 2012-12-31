@@ -8,8 +8,8 @@
 package jp.sourceforge.mikutoga.pmd.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdInputStream;
 
 /**
  * PMDモデルファイルのパーサ拡張その2。
@@ -23,7 +23,7 @@ public class PmdParserExt2 extends PmdParserExt1 {
      * コンストラクタ。
      * @param source 入力ソース
      */
-    public PmdParserExt2(MmdInputStream source){
+    public PmdParserExt2(InputStream source){
         super(source);
         return;
     }
@@ -70,7 +70,7 @@ public class PmdParserExt2 extends PmdParserExt1 {
 
         for(int ct = 0; ct < PmdLimits.TOON_FIXEDNUM; ct++){
             String toonName =
-                    parseZeroTermWin31J(PmdLimits.MAXBYTES_TOONFILENAME);
+                    parsePmdText(PmdLimits.MAXBYTES_TOONFILENAME);
             this.toonHandler.pmdToonFileInfo(toonName);
 
             this.toonHandler.loopNext(PmdToonHandler.TOON_LIST);

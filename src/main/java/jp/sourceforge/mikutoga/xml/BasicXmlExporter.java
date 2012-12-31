@@ -30,10 +30,20 @@ public class BasicXmlExporter {
     /** デフォルトのインデント単位。 */
     private static final String DEFAULT_INDENT_UNIT = "\u0020\u0020";
 
+    private static final char CH_SP     = '\u0020';       //
+    private static final char CH_YEN    = '\u00a5';       // ¥
+    private static final char CH_BSLASH = '\u005c\u005c'; // \
+
     private static final char[] HEXCHAR_TABLE = {
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         'A', 'B', 'C', 'D', 'E', 'F',
     };
+
+    private static final String COMM_START = "<!--";
+    private static final String COMM_END   =     "-->";
+
+    private static final int MASK_BIT8  = 0x000f;
+    private static final int MASK_BIT16 = 0x00ff;
 
     static{
         assert HEXCHAR_TABLE.length == 16;
@@ -89,7 +99,8 @@ public class BasicXmlExporter {
      * @return Basic-Latin文字ならtrue
      */
     public static boolean isBasicLatin(char ch){
-        if(ch <= 0x7f) return true;
+        Character.UnicodeBlock block = Character.UnicodeBlock.of(ch);
+        if(block == Character.UnicodeBlock.BASIC_LATIN) return true;
         return false;
     }
 
@@ -245,7 +256,7 @@ public class BasicXmlExporter {
      * @throws IOException 出力エラー
      */
     public BasicXmlExporter sp() throws IOException{
-        this.appendable.append(" ");
+        this.appendable.append(CH_SP);
         return this;
     }
 
@@ -257,7 +268,7 @@ public class BasicXmlExporter {
      */
     public BasicXmlExporter sp(int count) throws IOException{
         for(int ct = 1; ct <= count; ct++){
-            this.appendable.append(" ");
+            this.appendable.append(CH_SP);
         }
         return this;
     }
@@ -301,15 +312,12 @@ public class BasicXmlExporter {
      * @throws IOException 出力エラー
      */
     public BasicXmlExporter putCharRef2Hex(char ch) throws IOException{
-        if(ch > 0xff) return putCharRef4Hex(ch);
+        if(ch > MASK_BIT16) return putCharRef4Hex(ch);
 
-        char hex3 = HEXCHAR_TABLE[(ch >> 4) & 0x000f];
-        char hex4 = HEXCHAR_TABLE[(ch     ) & 0x000f];
+        char hex3 = HEXCHAR_TABLE[(ch >> 4) & MASK_BIT8];
+        char hex4 = HEXCHAR_TABLE[(ch >> 0) & MASK_BIT8];
 
-        this.appendable.append("&#x");
-        this.appendable.append(hex3);
-        this.appendable.append(hex4);
-        this.appendable.append(';');
+        put("&#x").put(hex3).put(hex4).put(';');
 
         return this;
     }
@@ -322,25 +330,21 @@ public class BasicXmlExporter {
      * @throws IOException 出力エラー
      */
     public BasicXmlExporter putCharRef4Hex(char ch) throws IOException{
-        char hex1 = HEXCHAR_TABLE[(ch >> 12) & 0x000f];
-        char hex2 = HEXCHAR_TABLE[(ch >>  8) & 0x000f];
-        char hex3 = HEXCHAR_TABLE[(ch >>  4) & 0x000f];
-        char hex4 = HEXCHAR_TABLE[(ch      ) & 0x000f];
+        char hex1 = HEXCHAR_TABLE[(ch >> 12) & MASK_BIT8];
+        char hex2 = HEXCHAR_TABLE[(ch >>  8) & MASK_BIT8];
+        char hex3 = HEXCHAR_TABLE[(ch >>  4) & MASK_BIT8];
+        char hex4 = HEXCHAR_TABLE[(ch >>  0) & MASK_BIT8];
 
-        this.appendable.append("&#x");
-        this.appendable.append(hex1);
-        this.appendable.append(hex2);
-        this.appendable.append(hex3);
-        this.appendable.append(hex4);
-        this.appendable.append(';');
+        put("&#x").put(hex1).put(hex2).put(hex3).put(hex4).put(';');
 
         return this;
     }
 
     /**
      * 要素の中身および属性値中身を出力する。
-     * 必要に応じてXML定義済み実体文字が割り振られた文字、
+     * <p>必要に応じてXML定義済み実体文字が割り振られた文字、
      * コントロールコード、および非BasicLatin文字がエスケープされる。
+     * <p>半角通貨記号U+00A5はバックスラッシュU+005Cに置換される。
      * @param content 内容
      * @return this本体
      * @throws IOException 出力エラー
@@ -349,23 +353,37 @@ public class BasicXmlExporter {
             throws IOException{
         int length = content.length();
 
+        char prev = '\0';
         for(int pos = 0; pos < length; pos++){
             char ch = content.charAt(pos);
+
             if(Character.isISOControl(ch)){
                 putCharRef2Hex(ch);
             }else if( ! isBasicLatin(ch) && isBasicLatinOnlyOut()){
                 putCharRef4Hex(ch);
+            }else if(ch == CH_SP){
+                if(prev == CH_SP){
+                    putCharRef2Hex(ch);
+                }else{
+                    put(ch);
+                }
+            }else if(Character.isSpaceChar(ch)){
+                // 全角スペースその他
+                putCharRef2Hex(ch);
+            }else if(ch == CH_YEN){
+                put(CH_BSLASH);
             }else{
                 switch(ch){
-                case '&':  this.appendable.append("&amp;");  break;
-                case '<':  this.appendable.append("&lt;");   break;
-                case '>':  this.appendable.append("&gt;");   break;
-                case '"':  this.appendable.append("&quot;"); break;
-                case '\'': this.appendable.append("&apos;"); break;
-                case '\u00a5': this.appendable.append('\u005c\u005c'); break;
-                default:   this.appendable.append(ch);       break;
+                case '&':    put("&amp;");    break;
+                case '<':    put("&lt;");     break;
+                case '>':    put("&gt;");     break;
+                case '"':    put("&quot;");   break;
+                case '\'':   put("&apos;");   break;
+                default:     put(ch);         break;
                 }
             }
+
+            prev = ch;
         }
 
         return this;
@@ -415,11 +433,12 @@ public class BasicXmlExporter {
 
     /**
      * コメントの内容を出力する。
-     * コメント中の\n記号出現に伴い、
+     * <p>コメント中の'\n'記号出現に伴い、
      * あらかじめ指定された改行文字が出力される。
-     * \n以外のコントロールコード各種、
-     * 及び非BasicLatin文字はそのまま出力される。
-     * 連続するハイフン(-)記号間には強制的にスペースが挿入される。
+     * <p>コメント中の'\n'以外のコントロールコードは
+     * Control Pictures(U+2400〜)で代替される。
+     * <p>それ以外の非BasicLatin文字はそのまま出力される。
+     * <p>連続するハイフン(-)記号間には強制的にスペースが挿入される。
      * @param comment コメント内容
      * @return this本体
      * @throws IOException 出力エラー
@@ -431,13 +450,19 @@ public class BasicXmlExporter {
         char prev = '\0';
         for(int pos = 0; pos < length; pos++){
             char ch = comment.charAt(pos);
+
             if(ch == '\n'){
                 ln();
-                prev = ch;
-                continue;
+            }else if('\u0000' <= ch && ch <= '\u001f'){
+                put((char)('\u2400' + ch));
+            }else if(ch == '\u007f'){
+                put('\u2421');
+            }else if(prev == '-' && ch == '-'){
+                sp().put(ch);
+            }else{
+                put(ch);
             }
-            if(prev == '-' && ch == '-') put(' ');
-            put(ch);
+
             prev = ch;
         }
 
@@ -446,47 +471,44 @@ public class BasicXmlExporter {
 
     /**
      * 1行コメントを出力する。
-     * コメント中の\n記号出現に伴い、
-     * あらかじめ指定された改行文字が出力される。
-     * \n以外のコントロールコード各種、
-     * 及び非BasicLatin文字はそのまま出力される。
-     * 連続するハイフン(-)記号間には強制的にスペースが挿入される。
+     * コメント内部の頭及び末尾に空白が1つ挿入される。
      * @param comment コメント内容
      * @return this本体
      * @throws IOException 出力エラー
      */
     public BasicXmlExporter putLineComment(CharSequence comment)
             throws IOException{
-        put("<!--").put(' ');
+        put(COMM_START).sp();
         putCommentContent(comment);
-        put(' ').put("-->");
+        sp().put(COMM_END);
         return this;
     }
 
     /**
      * ブロックコメントを出力する。
-     * コメント中の\n記号出現に伴い、
-     * あらかじめ指定された改行文字が出力される。
-     * \n以外のコントロールコード各種、
-     * 及び非BasicLatin文字はそのまま出力される。
-     * 連続するハイフン(-)記号間には強制的にスペースが挿入される。
+     * <p>コメント内部の頭の前に改行が出力される。
+     * <p>コメント内部の末尾が改行でない場合、改行が挿入される。
+     * <p>ブロックコメント末尾は改行で終わる。
+     * <p>インデント設定は無視される。
      * @param comment コメント内容
      * @return this本体
      * @throws IOException 出力エラー
      */
     public BasicXmlExporter putBlockComment(CharSequence comment)
             throws IOException{
-        put("<!--").ln();
+        put(COMM_START).ln();
 
         putCommentContent(comment);
 
         int commentLength = comment.length();
         if(commentLength > 0){
             char lastCh = comment.charAt(commentLength - 1);
-            if(lastCh != '\n') ln();
+            if(lastCh != '\n'){
+                ln();
+            }
         }
 
-        put("-->").ln();
+        put(COMM_END).ln();
 
         return this;
     }
