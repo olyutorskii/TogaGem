@@ -13,6 +13,7 @@ import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.w3c.dom.ls.LSInput;
@@ -39,10 +40,14 @@ public class XmlResourceResolver
 
     private static final String LOCAL_SCHEMA_XML =
             "resources/xml-2009-01.xsd";
+
     private static final URI EMPTY_URI = URI.create("");
+
     private static final Class<?> THISCLASS = XmlResourceResolver.class;
 
-    private final Map<URI, URI> uriMap = new HashMap<URI, URI>();
+
+    private final Map<URI, URI> uriMap;
+
 
     /**
      * コンストラクタ。
@@ -52,20 +57,22 @@ public class XmlResourceResolver
 
         assert this.getClass().equals(THISCLASS);
 
-        URI originalURI = URI.create(SCHEMA_XML);
-        URL redirectURL = THISCLASS.getResource(LOCAL_SCHEMA_XML);
-        URI redirectURI;
-        try{
-            redirectURI = redirectURL.toURI();
-        }catch(URISyntaxException e){
-            assert false;
-            throw new AssertionError(e);
-        }
+        Map<URI, URI> map;
+        map = new HashMap<URI, URI>();
+        map = Collections.synchronizedMap(map);
+        this.uriMap = map;
 
-        this.uriMap.put(originalURI, redirectURI);
+        URL redirectRes = THISCLASS.getResource(LOCAL_SCHEMA_XML);
+        String redirectResName = redirectRes.toString();
+
+        URI originalURI = URI.create(SCHEMA_XML);
+        URI redirectURI = URI.create(redirectResName);
+
+        putURIMapImpl(originalURI, redirectURI);
 
         return;
     }
+
 
     /**
      * 絶対URIと相対URIを合成したURIを返す。
@@ -79,15 +86,21 @@ public class XmlResourceResolver
     protected static URI buildBaseRelativeURI(String base, String relative)
             throws URISyntaxException,
                    IllegalArgumentException {
-        URI baseURI = null;
+        URI baseURI;
         if(base != null){
             baseURI = new URI(base);
-            if( ! baseURI.isAbsolute() ) throw new IllegalArgumentException();
+            if( ! baseURI.isAbsolute() ){
+                throw new IllegalArgumentException();
+            }
+        }else{
+            baseURI = null;
         }
 
-        URI relativeURI = EMPTY_URI;
+        URI relativeURI;
         if(relative != null){
             relativeURI = new URI(relative);
+        }else{
+            relativeURI = EMPTY_URI;
         }
 
         URI resultURI;
@@ -97,7 +110,9 @@ public class XmlResourceResolver
             resultURI = baseURI.resolve(relativeURI);
         }
 
-        if( ! resultURI.isAbsolute() ) throw new IllegalArgumentException();
+        if( ! resultURI.isAbsolute() ){
+            throw new IllegalArgumentException();
+        }
 
         resultURI = resultURI.normalize();
 
@@ -113,6 +128,22 @@ public class XmlResourceResolver
         return input;
     }
 
+
+    /**
+     * オリジナルURIとリダイレクト先のURIを登録する。
+     * オリジナルURIへのアクセスはリダイレクトされる。
+     * @param original オリジナルURI
+     * @param redirect リダイレクトURI
+     */
+    private void putURIMapImpl(URI original, URI redirect){
+        URI oridinalNorm = original.normalize();
+        URI redirectNorm = redirect.normalize();
+
+        this.uriMap.put(oridinalNorm, redirectNorm);
+
+        return;
+    }
+
     /**
      * オリジナルURIとリダイレクト先のURIを登録する。
      * オリジナルURIへのアクセスはリダイレクトされる。
@@ -120,19 +151,25 @@ public class XmlResourceResolver
      * @param redirect リダイレクトURI
      */
     public void putURIMap(URI original, URI redirect){
-        this.uriMap.put(original.normalize(), redirect.normalize());
+        putURIMapImpl(original, redirect);
         return;
     }
 
     /**
-     * 変換後のリソースの入力ストリームを得る。
+     * 登録済みリダイレクト先リソースの入力ストリームを得る。
      * @param originalURI オリジナルURI
-     * @return 入力ストリーム
-     * @throws java.io.IOException 入出力エラー
+     * @return 入力ストリーム。リダイレクト先が未登録の場合はnull
+     * @throws java.io.IOException 入出力エラー。
+     * もしくはリソースが見つからない。
      */
-    public InputStream getXMLResourceAsStream(URI originalURI)
+    private InputStream getXMLResourceAsStream(URI originalURI)
             throws IOException{
-        URI resourceURI = this.uriMap.get(originalURI.normalize());
+        URI keyURI = originalURI.normalize();
+        URI resourceURI = this.uriMap.get(keyURI);
+        if(resourceURI == null){
+            return null;
+        }
+
         URL resourceURL = resourceURI.toURL();
         InputStream is = resourceURL.openStream();
 
@@ -170,6 +207,7 @@ public class XmlResourceResolver
         }catch(IOException e){
             return null;
         }
+        if(is == null) return null;
 
         LSInput input = createLSInput();
         input.setBaseURI(baseURI);
@@ -202,6 +240,7 @@ public class XmlResourceResolver
         }
 
         InputStream is = getXMLResourceAsStream(originalUri);
+        if(is == null) return null;
 
         InputSource source = new InputSource(is);
         source.setPublicId(publicId);
@@ -387,5 +426,4 @@ public class XmlResourceResolver
 
     }
 
-    // TODO OASIS XML Catalog などと調和したい。
 }

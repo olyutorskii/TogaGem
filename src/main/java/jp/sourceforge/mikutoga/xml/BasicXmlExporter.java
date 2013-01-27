@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.xml.bind.DatatypeConverter;
 
 /**
@@ -26,34 +28,42 @@ public class BasicXmlExporter {
     private static final Charset CS_UTF8 = Charset.forName("UTF-8");
 
     /** デフォルトの改行文字列。 */
-    private static final String LF = "\n";       // 0x0a
+    private static final String DEF_NL = "\n";       // 0x0a(LF)
     /** デフォルトのインデント単位。 */
-    private static final String DEFAULT_INDENT_UNIT = "\u0020\u0020";
+    private static final String DEF_INDENT_UNIT = "\u0020\u0020"; // ␣␣
 
-    private static final char CH_SP     = '\u0020';       //
-    private static final char CH_YEN    = '\u00a5';       // ¥
-    private static final char CH_BSLASH = '\u005c\u005c'; // \
+    private static final char CH_SP     = '\u0020';    // ␣
+    private static final char CH_YEN    = '\u00a5';    // ¥
+    private static final char CH_BSLASH = (char)0x005c; // \
+    private static final char CH_DQ     = '\u0022';    // "
+    private static final char CH_SQ     = (char)0x0027; // '
 
+    private static final String COMM_START = "<!--";
+    private static final String COMM_END   =   "-->";
+    private static final String REF_HEX = "&#x";
+
+    private static final Pattern NUM_FUZZY =
+            Pattern.compile("([^.]*\\.[0-9][0-9]*?)0+");
+
+    private static final int HEX_EXP = 4;    // 2 ** 4 == 16
+    private static final int MASK_1HEX = (1 << HEX_EXP) - 1;  // 0b00001111
+    private static final int MAX_OCTET = (1 << Byte.SIZE) - 1;   // 0xff
     private static final char[] HEXCHAR_TABLE = {
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         'A', 'B', 'C', 'D', 'E', 'F',
     };
 
-    private static final String COMM_START = "<!--";
-    private static final String COMM_END   =     "-->";
-
-    private static final int MASK_BIT8  = 0x000f;
-    private static final int MASK_BIT16 = 0x00ff;
 
     static{
-        assert HEXCHAR_TABLE.length == 16;
+        assert HEX_EXP * 2 == Byte.SIZE;
+        assert HEXCHAR_TABLE.length == (1 << HEX_EXP);
     }
 
 
     private final Appendable appendable;
 
-    private String newline = LF;
-    private String indentUnit = DEFAULT_INDENT_UNIT;
+    private String newline = DEF_NL;
+    private String indentUnit = DEF_INDENT_UNIT;
 
     private int indentNest = 0;
     private boolean basicLatinOnlyOut = true;
@@ -93,15 +103,61 @@ public class BasicXmlExporter {
         return;
     }
 
+
     /**
      * ASCIIコード相当(UCS:Basic-Latin)の文字か否か判定する。
+     * <p>※ Basic-Latinには各種制御文字も含まれる。
      * @param ch 判定対象文字
      * @return Basic-Latin文字ならtrue
      */
     public static boolean isBasicLatin(char ch){
-        Character.UnicodeBlock block = Character.UnicodeBlock.of(ch);
-        if(block == Character.UnicodeBlock.BASIC_LATIN) return true;
+        if('\u0000' <= ch && ch <= '\u007f'){
+            return true;
+        }
         return false;
+    }
+
+    /**
+     * 冗長な実数出力を抑止する。
+     * <p>DatatypeConverterにおけるJDK1.6系と1.7系の仕様変更を吸収する。
+     * <p>0.001fは"0.0010"ではなく"0.001"と出力される。
+     * <p>指数表記での冗長桁は無視する。
+     * @param numTxt 実数表記
+     * @return 冗長桁が抑止された実数表記
+     */
+    public static String chopFuzzyZero(String numTxt){
+        String result;
+
+        Matcher matcher = NUM_FUZZY.matcher(numTxt);
+        if(matcher.matches()){
+            result = matcher.group(1);
+        }else{
+            result = numTxt;
+        }
+
+        return result;
+    }
+
+
+    /**
+     * BasicLatin文字だけで出力するか設定する。
+     * <p>BasicLatin以外の文字(≒日本語)を、そのまま出力するか、
+     * 文字参照で出力するか、の設定が可能。
+     * <p>コメント部中身は対象外。
+     * @param bool BasicLatin文字だけで出力するならtrue
+     */
+    public void setBasicLatinOnlyOut(boolean bool){
+        this.basicLatinOnlyOut = bool;
+        return;
+    }
+
+    /**
+     * BasicLatin文字だけを出力する状態か判定する。
+     * <p>コメント部中身は対象外。
+     * @return BasicLatin文字だけで出力するならtrue
+     */
+    public boolean isBasicLatinOnlyOut(){
+        return this.basicLatinOnlyOut;
     }
 
     /**
@@ -116,45 +172,31 @@ public class BasicXmlExporter {
     }
 
     /**
-     * BasicLatin文字だけで出力するか設定する。
-     * BasicLatin以外の文字(≒日本語)をそのまま出力するか
-     * 文字参照で出力するかの設定が可能。
-     * コメント部中身は対象外。
-     * @param bool BasicLatin文字だけで出力するならtrue
+     * 改行文字列を返す。
+     * @return 改行文字列
      */
-    public void setBasicLatinOnlyOut(boolean bool){
-        this.basicLatinOnlyOut = bool;
-        return;
-    }
-
-    /**
-     * BasicLatin文字だけを出力する状態か判定する。
-     * コメント部中身は対象外。
-     * @return BasicLatin文字だけで出力するならtrue
-     */
-    public boolean isBasicLatinOnlyOut(){
-        return this.basicLatinOnlyOut;
-    }
-
-    /**
-     * 改行文字列を設定する。
-     * デフォルトではLF(0x0a)\nが用いられる。
-     * @param seq 改行文字列。nullは空文字列""と解釈される。
-     */
-    public void setNewLine(CharSequence seq){
-        if(seq == null) this.newline = "";
-        else            this.newline = seq.toString();
-        return;
+    public String getNewLine(){
+        return this.newline;
     }
 
     /**
      * インデント単位文字列を設定する。
-     * デフォルトでは空白2個。
-     * @param seq インデント単位文字列。nullは空文字列""と解釈される。
+     * <p>デフォルトでは空白2個。
+     * @param indUnit インデント単位文字列。
+     * @throws NullPointerException 引数がnull
      */
-    public void setIndentUnit(CharSequence seq){
-        if(seq == null) this.indentUnit = "";
-        else            this.indentUnit = seq.toString();
+    public void setIndentUnit(String indUnit) throws NullPointerException{
+        if(indUnit == null) throw new NullPointerException();
+        this.indentUnit = indUnit;
+        return;
+    }
+
+    /**
+     * インデント単位文字列を返す。
+     * @return インデント単位文字列
+     */
+    public String getIndentUnit(){
+        return this.indentUnit;
     }
 
     /**
@@ -185,7 +227,7 @@ public class BasicXmlExporter {
      * @return this本体
      * @throws IOException 出力エラー
      */
-    public BasicXmlExporter put(char ch) throws IOException{
+    public BasicXmlExporter putRawCh(char ch) throws IOException{
         this.appendable.append(ch);
         return this;
     }
@@ -196,34 +238,134 @@ public class BasicXmlExporter {
      * @return this本体
      * @throws IOException 出力エラー
      */
-    public BasicXmlExporter put(CharSequence seq) throws IOException{
+    public BasicXmlExporter putRawText(CharSequence seq) throws IOException{
         this.appendable.append(seq);
         return this;
     }
 
     /**
-     * int値を出力する。
-     * @param iVal int値
+     * 指定された文字を16進2桁の文字参照形式で出力する。
+     * 2桁で出力できない場合(>0x00ff)は4桁で出力する。
+     * @param ch 文字
      * @return this本体
      * @throws IOException 出力エラー
-     * @see java.lang.Integer#toString(int)
      */
-    public BasicXmlExporter put(int iVal) throws IOException{
-        String value = DatatypeConverter.printInt(iVal);
-        this.appendable.append(value);
+    public BasicXmlExporter putCharRef2Hex(char ch) throws IOException{
+        if(ch > MAX_OCTET) return putCharRef4Hex(ch);
+
+        int ibits = ch;   // 常に正なので符号拡張なし
+
+        int idx4 = ibits & MASK_1HEX;
+        ibits >>= HEX_EXP;
+        int idx3 = ibits & MASK_1HEX;
+
+        char hex3 = HEXCHAR_TABLE[idx3];
+        char hex4 = HEXCHAR_TABLE[idx4];
+
+        putRawText(REF_HEX).putRawCh(hex3).putRawCh(hex4)
+                           .putRawCh(';');
+
         return this;
     }
 
     /**
-     * float値を出力する。
-     * @param fVal float値
+     * 指定された文字を16進4桁の文字参照形式で出力する。
+     * UCS4に伴うサロゲートペアは未サポート
+     * @param ch 文字
      * @return this本体
      * @throws IOException 出力エラー
-     * @see java.lang.Float#toString(float)
      */
-    public BasicXmlExporter put(float fVal) throws IOException{
-        String value = DatatypeConverter.printFloat(fVal);
-        this.appendable.append(value);
+    public BasicXmlExporter putCharRef4Hex(char ch) throws IOException{
+        int ibits = ch;   // 常に正なので符号拡張なし
+
+        int idx4 = ibits & MASK_1HEX;
+        ibits >>= HEX_EXP;
+        int idx3 = ibits & MASK_1HEX;
+        ibits >>= HEX_EXP;
+        int idx2 = ibits & MASK_1HEX;
+        ibits >>= HEX_EXP;
+        int idx1 = ibits & MASK_1HEX;
+
+        char hex1 = HEXCHAR_TABLE[idx1];
+        char hex2 = HEXCHAR_TABLE[idx2];
+        char hex3 = HEXCHAR_TABLE[idx3];
+        char hex4 = HEXCHAR_TABLE[idx4];
+
+        putRawText(REF_HEX).putRawCh(hex1).putRawCh(hex2)
+                           .putRawCh(hex3).putRawCh(hex4)
+                           .putRawCh(';');
+
+        return this;
+    }
+
+    /**
+     * 要素の中身および属性値中身を出力する。
+     * <p>XMLの構文規則を守る上で必要な各種エスケープ処理が行われる。
+     * @param ch 文字
+     * @return this本体
+     * @throws IOException 出力エラー
+     */
+    public BasicXmlExporter putCh(char ch) throws IOException{
+        if(Character.isISOControl(ch)){
+            putCharRef2Hex(ch);
+            return this;
+        }
+
+        String escTxt;
+        switch(ch){
+        case '&':   escTxt = "&amp;";  break;
+        case '<':   escTxt = "&lt;";   break;
+        case '>':   escTxt = "&gt;";   break;
+        case CH_DQ: escTxt = "&quot;"; break;
+        case CH_SQ: escTxt = "&apos;"; break;
+        default:    escTxt = null;     break;
+        }
+
+        if(escTxt != null){
+            putRawText(escTxt);
+        }else{
+            putRawCh(ch);
+        }
+
+        return this;
+    }
+
+    /**
+     * 要素の中身および属性値中身を出力する。
+     * <p>必要に応じてXML定義済み実体文字が割り振られた文字、
+     * コントロールコード、および非BasicLatin文字がエスケープされる。
+     * <p>半角通貨記号U+00A5はバックスラッシュU+005Cに置換される。
+     * <p>連続するスペースU+0020の2文字目以降は文字参照化される。
+     * <p>全角スペースその他空白文字は無条件に文字参照化される。
+     * @param content 内容
+     * @return this本体
+     * @throws IOException 出力エラー
+     */
+    public BasicXmlExporter putContent(CharSequence content)
+            throws IOException{
+        int length = content.length();
+
+        char prev = '\0';
+        for(int pos = 0; pos < length; pos++){
+            char ch = content.charAt(pos);
+
+            if( isBasicLatinOnlyOut() && ! isBasicLatin(ch) ){
+                putCharRef4Hex(ch);
+            }else if(ch == CH_YEN){
+                putRawCh(CH_BSLASH);
+            }else if(Character.isSpaceChar(ch)){
+                if(ch == CH_SP && prev != CH_SP){
+                    putRawCh(ch);
+                }else{
+                    putCharRef2Hex(ch);
+                }
+            }else{
+                putCh(ch);
+            }
+
+            prev = ch;
+        }
+
         return this;
     }
 
@@ -281,7 +423,7 @@ public class BasicXmlExporter {
      */
     public BasicXmlExporter ind() throws IOException{
         for(int ct = 1; ct <= this.indentNest; ct++){
-            put(this.indentUnit);
+            putRawText(this.indentUnit);
         }
         return this;
     }
@@ -305,87 +447,28 @@ public class BasicXmlExporter {
     }
 
     /**
-     * 指定された文字を16進2桁の文字参照形式で出力する。
-     * 2桁で出力できない場合は4桁で出力する。
-     * @param ch 文字
+     * int値をXMLスキーマ準拠の形式で出力する。
+     * @param iVal int値
      * @return this本体
      * @throws IOException 出力エラー
+     * @see java.lang.Integer#toString(int)
      */
-    public BasicXmlExporter putCharRef2Hex(char ch) throws IOException{
-        if(ch > MASK_BIT16) return putCharRef4Hex(ch);
-
-        char hex3 = HEXCHAR_TABLE[(ch >> 4) & MASK_BIT8];
-        char hex4 = HEXCHAR_TABLE[(ch >> 0) & MASK_BIT8];
-
-        put("&#x").put(hex3).put(hex4).put(';');
-
+    public BasicXmlExporter putXsdInt(int iVal) throws IOException{
+        String value = DatatypeConverter.printInt(iVal);
+        this.appendable.append(value);
         return this;
     }
 
     /**
-     * 指定された文字を16進4桁の文字参照形式で出力する。
-     * UCS4に伴うサロゲートペアは未サポート
-     * @param ch 文字
+     * float値をXMLスキーマ準拠の形式で出力する。
+     * @param fVal float値
      * @return this本体
      * @throws IOException 出力エラー
+     * @see java.lang.Float#toString(float)
      */
-    public BasicXmlExporter putCharRef4Hex(char ch) throws IOException{
-        char hex1 = HEXCHAR_TABLE[(ch >> 12) & MASK_BIT8];
-        char hex2 = HEXCHAR_TABLE[(ch >>  8) & MASK_BIT8];
-        char hex3 = HEXCHAR_TABLE[(ch >>  4) & MASK_BIT8];
-        char hex4 = HEXCHAR_TABLE[(ch >>  0) & MASK_BIT8];
-
-        put("&#x").put(hex1).put(hex2).put(hex3).put(hex4).put(';');
-
-        return this;
-    }
-
-    /**
-     * 要素の中身および属性値中身を出力する。
-     * <p>必要に応じてXML定義済み実体文字が割り振られた文字、
-     * コントロールコード、および非BasicLatin文字がエスケープされる。
-     * <p>半角通貨記号U+00A5はバックスラッシュU+005Cに置換される。
-     * @param content 内容
-     * @return this本体
-     * @throws IOException 出力エラー
-     */
-    public BasicXmlExporter putContent(CharSequence content)
-            throws IOException{
-        int length = content.length();
-
-        char prev = '\0';
-        for(int pos = 0; pos < length; pos++){
-            char ch = content.charAt(pos);
-
-            if(Character.isISOControl(ch)){
-                putCharRef2Hex(ch);
-            }else if( ! isBasicLatin(ch) && isBasicLatinOnlyOut()){
-                putCharRef4Hex(ch);
-            }else if(ch == CH_SP){
-                if(prev == CH_SP){
-                    putCharRef2Hex(ch);
-                }else{
-                    put(ch);
-                }
-            }else if(Character.isSpaceChar(ch)){
-                // 全角スペースその他
-                putCharRef2Hex(ch);
-            }else if(ch == CH_YEN){
-                put(CH_BSLASH);
-            }else{
-                switch(ch){
-                case '&':    put("&amp;");    break;
-                case '<':    put("&lt;");     break;
-                case '>':    put("&gt;");     break;
-                case '"':    put("&quot;");   break;
-                case '\'':   put("&apos;");   break;
-                default:     put(ch);         break;
-                }
-            }
-
-            prev = ch;
-        }
-
+    public BasicXmlExporter putXsdFloat(float fVal) throws IOException{
+        String value = DatatypeConverter.printFloat(fVal);
+        this.appendable.append(value);
         return this;
     }
 
@@ -399,7 +482,12 @@ public class BasicXmlExporter {
     public BasicXmlExporter putAttr(CharSequence attrName,
                                      CharSequence content)
             throws IOException{
-        put(attrName).put('=').put('"').putContent(content).put('"');
+        putRawText(attrName).putRawCh('=');
+
+        putRawCh('"');
+        putContent(content);
+        putRawCh('"');
+
         return this;
     }
 
@@ -411,9 +499,10 @@ public class BasicXmlExporter {
      * @throws IOException 出力エラー
      */
     public BasicXmlExporter putIntAttr(CharSequence attrName,
-                                           int iVal)
+                                        int iVal)
             throws IOException{
-        put(attrName).put('=').put('"').put(iVal).put('"');
+        String attrValue = DatatypeConverter.printInt(iVal);
+        putAttr(attrName, attrValue);
         return this;
     }
 
@@ -425,9 +514,11 @@ public class BasicXmlExporter {
      * @throws IOException 出力エラー
      */
     public BasicXmlExporter putFloatAttr(CharSequence attrName,
-                                              float fVal)
+                                           float fVal)
             throws IOException{
-        put(attrName).put('=').put('"').put(fVal).put('"');
+        String attrValue = DatatypeConverter.printFloat(fVal);
+        attrValue = chopFuzzyZero(attrValue);
+        putAttr(attrName, attrValue);
         return this;
     }
 
@@ -454,13 +545,13 @@ public class BasicXmlExporter {
             if(ch == '\n'){
                 ln();
             }else if('\u0000' <= ch && ch <= '\u001f'){
-                put((char)('\u2400' + ch));
+                putRawCh((char)('\u2400' + ch));
             }else if(ch == '\u007f'){
-                put('\u2421');
+                putRawCh('\u2421');
             }else if(prev == '-' && ch == '-'){
-                sp().put(ch);
+                sp().putRawCh(ch);
             }else{
-                put(ch);
+                putRawCh(ch);
             }
 
             prev = ch;
@@ -478,9 +569,9 @@ public class BasicXmlExporter {
      */
     public BasicXmlExporter putLineComment(CharSequence comment)
             throws IOException{
-        put(COMM_START).sp();
+        putRawText(COMM_START).sp();
         putCommentContent(comment);
-        sp().put(COMM_END);
+        sp().putRawText(COMM_END);
         return this;
     }
 
@@ -496,7 +587,7 @@ public class BasicXmlExporter {
      */
     public BasicXmlExporter putBlockComment(CharSequence comment)
             throws IOException{
-        put(COMM_START).ln();
+        putRawText(COMM_START).ln();
 
         putCommentContent(comment);
 
@@ -508,7 +599,7 @@ public class BasicXmlExporter {
             }
         }
 
-        put(COMM_END).ln();
+        putRawText(COMM_END).ln();
 
         return this;
     }

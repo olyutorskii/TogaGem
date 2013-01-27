@@ -183,7 +183,6 @@ public class CommonParser {
      * @return 読み込んだbyte値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdInputStream#parseByte()
      */
     protected byte parseByte()
             throws IOException, MmdEofException{
@@ -204,7 +203,6 @@ public class CommonParser {
      * @return 読み込まれた値のint値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdInputStream#parseUByteAsInt()
      */
     protected int parseUByteAsInt()
             throws IOException, MmdEofException{
@@ -217,7 +215,6 @@ public class CommonParser {
      * @return 読み込まれた値のboolean値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdInputStream#parseBoolean()
      */
     protected boolean parseBoolean()
             throws IOException, MmdEofException{
@@ -232,7 +229,6 @@ public class CommonParser {
      * @return 読み込んだshort値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdInputStream#parseShort()
      */
     protected short parseLeShort()
             throws IOException, MmdEofException{
@@ -248,7 +244,6 @@ public class CommonParser {
      * @return 読み込まれた値のint値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdInputStream#parseUShortAsInteger()
      */
     protected int parseLeUShortAsInt()
             throws IOException, MmdEofException{
@@ -261,7 +256,6 @@ public class CommonParser {
      * @return 読み込んだint値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdInputStream#parseInteger()
      */
     protected int parseLeInt()
             throws IOException, MmdEofException{
@@ -276,7 +270,6 @@ public class CommonParser {
      * @return 読み込んだfloat値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see MmdInputStream#parseFloat()
      */
     protected float parseLeFloat()
             throws IOException, MmdEofException{

@@ -9,6 +9,7 @@ package jp.sourceforge.mikutoga.typical;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +26,7 @@ import org.xml.sax.SAXException;
  * <p>選択基準は独断。
  * <p>和英対訳はMMD Ver7.39の同梱モデルにほぼ準拠。
  */
-public final class TypicalBone extends TypicalObject {
+public final class TypicalBone extends I18nAlias {
 
     private static final Class<?> THISCLASS = TypicalBone.class;
     private static final String BONE_XML = "resources/typicalBone.xml";
@@ -37,12 +38,14 @@ public final class TypicalBone extends TypicalObject {
     private static final Map<String, TypicalBone> GLOBAL_MAP =
             new HashMap<String, TypicalBone>();
 
+    private static final List<TypicalBone> TYP_BONE_UNMODLIST =
+            Collections.unmodifiableList(TYP_BONE_LIST);
 
     static{
         InputStream is = THISCLASS.getResourceAsStream(BONE_XML);
         Element top;
         try{
-            top = TypicalObject.loadXml(is);
+            top = I18nAlias.loadXml(is);
         }catch(ParserConfigurationException e){
             throw new ExceptionInInitializerError(e);
         }catch(SAXException e){
@@ -59,7 +62,8 @@ public final class TypicalBone extends TypicalObject {
 
     /**
      * コンストラクタ。
-     * <p>各初期数が0以下の場合は、状況に応じて伸長する連結リストが用意される。
+     * <p>各初期数が0以下の場合は、
+     * 状況に応じて伸長する連結リストが用意される。
      * @param primaryNo プライマリ名初期数。
      * @param globalNo グローバル名初期数。
      */
@@ -101,21 +105,23 @@ public final class TypicalBone extends TypicalObject {
         for(int idx = 0; idx < primaryNo; idx++){
             Element primary = (Element) primaryNodes.item(idx);
             String name = primary.getAttribute("name");
-            typBone.primaryList.add(name);
+            typBone.addPrimaryName(name);
         }
 
         for(int idx = 0; idx < globalNo; idx++){
             Element global = (Element) globalNodes.item(idx);
             String name = global.getAttribute("name");
-            typBone.globalList.add(name);
+            typBone.addGlobalName(name);
         }
 
-        for(String primaryName : typBone.primaryList){
-            PRIMARY_MAP.put(primaryName, typBone);
+        for(String primaryName : typBone.getPrimaryList()){
+            String key = normalize(primaryName).intern();
+            PRIMARY_MAP.put(key, typBone);
         }
 
-        for(String globalName : typBone.globalList){
-            GLOBAL_MAP.put(globalName, typBone);
+        for(String globalName : typBone.getGlobalList()){
+            String key = normalize(globalName).intern();
+            GLOBAL_MAP.put(key, typBone);
         }
 
         return typBone;
@@ -128,29 +134,41 @@ public final class TypicalBone extends TypicalObject {
     private static void numbering(){
         int order = 0;
         for(TypicalBone bone : TYP_BONE_LIST){
-            bone.orderNo = order++;
+            bone.setOrderNo(order++);
         }
 
         return;
     }
 
     /**
+     * 全ボーンの不変リストを返す。
+     * @return 全ボーンのリスト
+     */
+    public static List<TypicalBone> getBoneList(){
+        return TYP_BONE_UNMODLIST;
+    }
+
+    /**
      * プライマリ名の合致するボーン情報を返す。
+     * NFKCで正規化されたプライマリ名で検索される。
      * @param primaryName プライマリ名
      * @return モーフ情報。見つからなければnull
      */
     public static TypicalBone findWithPrimary(String primaryName){
-        TypicalBone result = PRIMARY_MAP.get(primaryName);
+        String key = normalize(primaryName);
+        TypicalBone result = PRIMARY_MAP.get(key);
         return result;
     }
 
     /**
      * グローバル名の合致するボーン情報を返す。
+     * NFKCで正規化されたグローバル名で検索される。
      * @param globalName グローバル名
      * @return モーフ情報。見つからなければnull
      */
     public static TypicalBone findWithGlobal(String globalName){
-        TypicalBone result = GLOBAL_MAP.get(globalName);
+        String key = normalize(globalName);
+        TypicalBone result = GLOBAL_MAP.get(key);
         return result;
     }
 

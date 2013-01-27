@@ -29,7 +29,7 @@ import org.xml.sax.SAXException;
  * <p>選択基準は独断。
  * <p>和英対訳はMMD Ver7.39の同梱モデルにほぼ準拠。
  */
-public final class TypicalMorph extends TypicalObject {
+public final class TypicalMorph extends I18nAlias {
 
     private static final Class<?> THISCLASS = TypicalMorph.class;
     private static final String MORPH_XML = "resources/typicalMorph.xml";
@@ -49,7 +49,7 @@ public final class TypicalMorph extends TypicalObject {
         InputStream is = THISCLASS.getResourceAsStream(MORPH_XML);
         Element top;
         try{
-            top = TypicalObject.loadXml(is);
+            top = I18nAlias.loadXml(is);
         }catch(ParserConfigurationException e){
             throw new ExceptionInInitializerError(e);
         }catch(SAXException e){
@@ -69,7 +69,8 @@ public final class TypicalMorph extends TypicalObject {
 
     /**
      * コンストラクタ。
-     * <p>各初期数が0以下の場合は、状況に応じて伸長する連結リストが用意される。
+     * <p>各初期数が0以下の場合は、
+     * 状況に応じて伸長する連結リストが用意される。
      * @param type モーフ種別
      * @param primaryNo プライマリ名初期数。
      * @param globalNo グローバル名初期数。
@@ -93,7 +94,7 @@ public final class TypicalMorph extends TypicalObject {
             parseGroup(group);
         }
 
-        // 空リスト登録
+        // 必要に応じモーフ枠に不変空リスト登録
         for(MorphType morphType : MorphType.values()){
             if( ! TYPED_MAP.containsKey(morphType) ){
                 TYPED_MAP.put(morphType, EMPTY);
@@ -113,7 +114,8 @@ public final class TypicalMorph extends TypicalObject {
 
         NodeList morphList = group.getElementsByTagName("morph");
         int morphNo = morphList.getLength();
-        List<TypicalMorph> groupedList = new ArrayList<TypicalMorph>(morphNo);
+        List<TypicalMorph> groupedList =
+                new ArrayList<TypicalMorph>(morphNo);
 
         for(int idx = 0; idx < morphNo; idx++){
             Element morph = (Element) morphList.item(idx);
@@ -121,7 +123,8 @@ public final class TypicalMorph extends TypicalObject {
             groupedList.add(common);
         }
 
-        TYPED_MAP.put(morphType, Collections.unmodifiableList(groupedList));
+        groupedList = Collections.unmodifiableList(groupedList);
+        TYPED_MAP.put(morphType, groupedList);
 
         return;
     }
@@ -143,21 +146,23 @@ public final class TypicalMorph extends TypicalObject {
         for(int idx = 0; idx < primaryNo; idx++){
             Element primary = (Element) primaryNodes.item(idx);
             String name = primary.getAttribute("name");
-            typMorph.primaryList.add(name);
+            typMorph.addPrimaryName(name);
         }
 
         for(int idx = 0; idx < globalNo; idx++){
             Element global = (Element) globalNodes.item(idx);
             String name = global.getAttribute("name");
-            typMorph.globalList.add(name);
+            typMorph.addGlobalName(name);
         }
 
-        for(String primaryName : typMorph.primaryList){
-            PRIMARY_MAP.put(primaryName, typMorph);
+        for(String primaryName : typMorph.getPrimaryList()){
+            String key = normalize(primaryName).intern();
+            PRIMARY_MAP.put(key, typMorph);
         }
 
-        for(String globalName : typMorph.globalList){
-            GLOBAL_MAP.put(globalName, typMorph);
+        for(String globalName : typMorph.getGlobalList()){
+            String key = normalize(globalName).intern();
+            GLOBAL_MAP.put(key, typMorph);
         }
 
         return typMorph;
@@ -171,7 +176,7 @@ public final class TypicalMorph extends TypicalObject {
         int order = 0;
         for(MorphType morphType : MorphType.values()){
             for(TypicalMorph common : TYPED_MAP.get(morphType)){
-                common.orderNo = order++;
+                common.setOrderNo(order++);
             }
         }
 
@@ -191,21 +196,25 @@ public final class TypicalMorph extends TypicalObject {
 
     /**
      * プライマリ名の合致するモーフ情報を返す。
+     * NFKCで正規化されたプライマリ名で検索される。
      * @param primaryName プライマリ名
      * @return モーフ情報。見つからなければnull
      */
     public static TypicalMorph findWithPrimary(String primaryName){
-        TypicalMorph result = PRIMARY_MAP.get(primaryName);
+        String key = normalize(primaryName);
+        TypicalMorph result = PRIMARY_MAP.get(key);
         return result;
     }
 
     /**
      * グローバル名の合致するモーフ情報を返す。
+     * NFKCで正規化されたグローバル名で検索される。
      * @param globalName グローバル名
      * @return モーフ情報。見つからなければnull
      */
     public static TypicalMorph findWithGlobal(String globalName){
-        TypicalMorph result = GLOBAL_MAP.get(globalName);
+        String key = normalize(globalName);
+        TypicalMorph result = GLOBAL_MAP.get(key);
         return result;
     }
 
@@ -232,6 +241,7 @@ public final class TypicalMorph extends TypicalObject {
         String primary = morph.getTopPrimaryName();
         return primary;
     }
+
 
     /**
      * モーフ種別を返す。
