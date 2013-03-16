@@ -47,18 +47,18 @@ public final class DomNsUtils {
      * @return ノードの名前空間およびローカル名が一致したらtrue
      */
     public static boolean hasNsLocalNameNode(Node node,
-                                             String nsuri,
-                                             String localName ){
+                                                String nsuri,
+                                                String localName ){
         String nodeLocalName = node.getLocalName();
         String nodeNsUri     = node.getNamespaceURI();
 
-        boolean needLocalCmp =
-                localName != null;
-        boolean needUriCmp =
-                nsuri != null && nodeNsUri != null;
+        if(localName != null){
+            if( ! localName.equals(nodeLocalName) ) return false;
+        }
 
-        if(needLocalCmp && ! localName.equals(nodeLocalName) ) return false;
-        if(needUriCmp   && ! nsuri.equals(nodeNsUri))          return false;
+        if(nsuri != null && nodeNsUri != null){
+            if( ! nsuri.equals(nodeNsUri) ) return false;
+        }
 
         return true;
     }
@@ -76,6 +76,28 @@ public final class DomNsUtils {
         if(node.getNodeType() != Node.ELEMENT_NODE) return false;
         if( ! hasNsLocalNameNode(node, nsuri, localName) ) return false;
         return true;
+    }
+
+    /**
+     * 親要素が指定された名前の子要素を持つか判定する。
+     * @param parent 親要素
+     * @param nsuri 名前空間URI
+     * @param localName ローカル名
+     * @return 指定名の子要素が存在すればtrue
+     */
+    public static boolean hasChild(Element parent,
+                                    String nsuri,
+                                    String localName ){
+        for(Node node = parent.getFirstChild();
+            node != null;
+            node = node.getNextSibling() ){
+
+            if(hasNsLocalNameElem(node, nsuri, localName)){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

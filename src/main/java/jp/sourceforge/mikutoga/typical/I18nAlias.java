@@ -114,8 +114,8 @@ class I18nAlias {
      * <li>「ﾎﾞｰﾝ」は「ボーン」になる
      * <li>「ホ゛ーン９」は「ボーン9」になる
      * </ul>
-     * @param name
-     * @return
+     * @param name 正規化対象文字列
+     * @return 正規化済み文字列
      */
     protected static String normalize(CharSequence name){
         String result;
@@ -126,7 +126,7 @@ class I18nAlias {
 
     /**
      * オーダー番号を返す。
-     * @return
+     * @return オーダー番号
      */
     protected int getOrderNo(){
         return this.orderNo;
@@ -134,7 +134,7 @@ class I18nAlias {
 
     /**
      * オーダー番号を設定する。
-     * @param orderNo
+     * @param orderNo オーダー番号
      */
     protected void setOrderNo(int orderNo){
         this.orderNo = orderNo;

@@ -151,7 +151,7 @@ public final class DomUtils {
             throw new TogaXmlException(message, e);
         }
 
-        result.replace("" + '\u00a5', "" + BS_CHAR);
+        result = result.replace("" + '\u00a5', "" + BS_CHAR);
 
         return result;
     }

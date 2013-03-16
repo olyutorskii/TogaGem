@@ -446,10 +446,10 @@ public class PmdParserBase extends CommonParser {
             int parentId = parseLeUShortAsInt();
             int tailId = parseLeUShortAsInt();
             byte boneKind = parseByte();
-            int ikId = parseLeUShortAsInt();
+            int srcId = parseLeUShortAsInt();
 
             this.boneHandler.pmdBoneInfo(boneName, boneKind);
-            this.boneHandler.pmdBoneLink(parentId, tailId, ikId);
+            this.boneHandler.pmdBoneLink(parentId, tailId, srcId);
 
             float xPos = parseLeFloat();
             float yPos = parseLeFloat();

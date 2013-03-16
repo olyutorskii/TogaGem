@@ -39,7 +39,7 @@ public class XmlResourceResolver
             "http://www.w3.org/2001/XMLSchema-instance";
 
     private static final String LOCAL_SCHEMA_XML =
-            "resources/xml-2009-01.xsd";
+            "resources/xmlspace.xsd";
 
     private static final URI EMPTY_URI = URI.create("");
 
@@ -68,7 +68,7 @@ public class XmlResourceResolver
         URI originalURI = URI.create(SCHEMA_XML);
         URI redirectURI = URI.create(redirectResName);
 
-        putURIMapImpl(originalURI, redirectURI);
+        putRedirectedImpl(originalURI, redirectURI);
 
         return;
     }
@@ -135,7 +135,7 @@ public class XmlResourceResolver
      * @param original オリジナルURI
      * @param redirect リダイレクトURI
      */
-    private void putURIMapImpl(URI original, URI redirect){
+    private void putRedirectedImpl(URI original, URI redirect){
         URI oridinalNorm = original.normalize();
         URI redirectNorm = redirect.normalize();
 
@@ -150,9 +150,40 @@ public class XmlResourceResolver
      * @param original オリジナルURI
      * @param redirect リダイレクトURI
      */
-    public void putURIMap(URI original, URI redirect){
-        putURIMapImpl(original, redirect);
+    public void putRedirected(URI original, URI redirect){
+        putRedirectedImpl(original, redirect);
         return;
+    }
+
+    /**
+     * 別リゾルバの登録内容を追加登録する。
+     * @param other 別リゾルバ
+     */
+    public void putRedirected(XmlResourceResolver other){
+        this.uriMap.putAll(other.uriMap);
+        return;
+    }
+
+    /**
+     * 登録済みリダイレクト先URIを返す。
+     * @param original オリジナルURI
+     * @return リダイレクト先URI。未登録の場合はnull
+     */
+    public URI getRedirected(URI original){
+        URI keyURI = original.normalize();
+        URI resourceURI = this.uriMap.get(keyURI);
+        return resourceURI;
+    }
+
+    /**
+     * 登録済みリダイレクト先URIを返す。
+     * @param original オリジナルURI
+     * @return リダイレクト先URI。未登録の場合はオリジナルを返す
+     */
+    public URI resolveRedirected(URI original){
+        URI result = getRedirected(original);
+        if(result == null) result = original;
+        return result;
     }
 
     /**
@@ -164,11 +195,8 @@ public class XmlResourceResolver
      */
     private InputStream getXMLResourceAsStream(URI originalURI)
             throws IOException{
-        URI keyURI = originalURI.normalize();
-        URI resourceURI = this.uriMap.get(keyURI);
-        if(resourceURI == null){
-            return null;
-        }
+        URI resourceURI = getRedirected(originalURI);
+        if(resourceURI == null) return null;
 
         URL resourceURL = resourceURI.toURL();
         InputStream is = resourceURL.openStream();
