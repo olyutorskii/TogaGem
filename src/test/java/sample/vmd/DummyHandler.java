@@ -7,12 +7,12 @@
 
 package sample.vmd;
 
-import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.ParseStage;
+import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
+import jp.sfjp.mikutoga.bin.parser.ParseStage;
 import jp.sourceforge.mikutoga.vmd.VmdConst;
-import jp.sourceforge.mikutoga.vmd.parser.VmdLightingHandler;
-import jp.sourceforge.mikutoga.vmd.parser.VmdCameraHandler;
 import jp.sourceforge.mikutoga.vmd.parser.VmdBasicHandler;
+import jp.sourceforge.mikutoga.vmd.parser.VmdCameraHandler;
+import jp.sourceforge.mikutoga.vmd.parser.VmdLightingHandler;
 
 /**
  * サンプルのハンドラ。

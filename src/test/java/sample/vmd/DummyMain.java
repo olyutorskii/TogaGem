@@ -13,7 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import jp.sourceforge.mikutoga.parser.MmdFormatException;
+import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 import jp.sourceforge.mikutoga.vmd.parser.VmdParser;
 
 /**

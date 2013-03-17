@@ -7,7 +7,7 @@
 
 package jp.sourceforge.mikutoga.pmd.parser;
 
-import jp.sourceforge.mikutoga.parser.MmdFormatException;
+import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 
 /**
  * PMDモデル情報ファイルの基本情報の通知用ハンドラ。

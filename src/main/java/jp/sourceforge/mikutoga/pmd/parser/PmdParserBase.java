@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Arrays;
-import jp.sourceforge.mikutoga.parser.CommonParser;
-import jp.sourceforge.mikutoga.parser.MmdEofException;
-import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.TextDecoder;
+import jp.sfjp.mikutoga.bin.parser.CommonParser;
+import jp.sfjp.mikutoga.bin.parser.MmdEofException;
+import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
+import jp.sfjp.mikutoga.bin.parser.TextDecoder;
 
 /**
  * PMDモデルファイルのパーサ基本部。

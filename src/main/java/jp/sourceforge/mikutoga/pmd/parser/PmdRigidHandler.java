@@ -7,9 +7,9 @@
 
 package jp.sourceforge.mikutoga.pmd.parser;
 
-import jp.sourceforge.mikutoga.parser.LoopHandler;
-import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.ParseStage;
+import jp.sfjp.mikutoga.bin.parser.LoopHandler;
+import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
+import jp.sfjp.mikutoga.bin.parser.ParseStage;
 
 /**
  * PMDモデルの各種剛体情報の通知用ハンドラ。

@@ -13,6 +13,8 @@ package jp.sourceforge.mikutoga.pmd;
  */
 public class Rad3d {
 
+    private static final String DELIM = ", ";
+
     private float xRad;
     private float yRad;
     private float zRad;
@@ -27,10 +29,10 @@ public class Rad3d {
 
     /**
      * X軸回転量を設定する。
-     * @param xRad X軸回転量(radian)
+     * @param xRadArg X軸回転量(radian)
      */
-    public void setXRad(float xRad){
-        this.xRad = xRad;
+    public void setXRad(float xRadArg){
+        this.xRad = xRadArg;
         return;
     }
 
@@ -44,10 +46,10 @@ public class Rad3d {
 
     /**
      * Y軸回転量を設定する。
-     * @param yRad Y軸回転量(radian)
+     * @param yRadArg Y軸回転量(radian)
      */
-    public void setYRad(float yRad){
-        this.yRad = yRad;
+    public void setYRad(float yRadArg){
+        this.yRad = yRadArg;
         return;
     }
 
@@ -61,10 +63,10 @@ public class Rad3d {
 
     /**
      * Z軸回転量を設定する。
-     * @param zRad Z軸回転量(radian)
+     * @param zRadArg Z軸回転量(radian)
      */
-    public void setZRad(float zRad){
-        this.zRad = zRad;
+    public void setZRad(float zRadArg){
+        this.zRad = zRadArg;
         return;
     }
 
@@ -85,8 +87,8 @@ public class Rad3d {
         StringBuilder result = new StringBuilder();
 
         result.append("rad=[")
-              .append(this.xRad).append(", ")
-              .append(this.yRad).append(", ")
+              .append(this.xRad).append(DELIM)
+              .append(this.yRad).append(DELIM)
               .append(this.zRad).append(']');
 
         return result.toString();

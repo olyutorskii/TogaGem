@@ -9,7 +9,7 @@ package jp.sourceforge.mikutoga.vmd.parser;
 
 import java.io.IOException;
 import java.io.InputStream;
-import jp.sourceforge.mikutoga.parser.MmdFormatException;
+import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 
 /**
  * VMDモーションファイルのパーサ。

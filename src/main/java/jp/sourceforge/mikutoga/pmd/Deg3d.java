@@ -13,6 +13,8 @@ package jp.sourceforge.mikutoga.pmd;
  */
 public class Deg3d {
 
+    private static final String DELIM = ", ";
+
     private float xDeg;
     private float yDeg;
     private float zDeg;
@@ -27,10 +29,10 @@ public class Deg3d {
 
     /**
      * X軸回転量を設定する。
-     * @param xDeg X軸回転量(degree)
+     * @param xDegArg X軸回転量(degree)
      */
-    public void setXDeg(float xDeg){
-        this.xDeg = xDeg;
+    public void setXDeg(float xDegArg){
+        this.xDeg = xDegArg;
         return;
     }
 
@@ -44,10 +46,10 @@ public class Deg3d {
 
     /**
      * Y軸回転量を設定する。
-     * @param yDeg Y軸回転量(degree)
+     * @param yDegArg Y軸回転量(degree)
      */
-    public void setYDeg(float yDeg){
-        this.yDeg = yDeg;
+    public void setYDeg(float yDegArg){
+        this.yDeg = yDegArg;
         return;
     }
 
@@ -61,10 +63,10 @@ public class Deg3d {
 
     /**
      * Z軸回転量を設定する。
-     * @param zDeg Z軸回転量(degree)
+     * @param zDegArg Z軸回転量(degree)
      */
-    public void setZDeg(float zDeg){
-        this.zDeg = zDeg;
+    public void setZDeg(float zDegArg){
+        this.zDeg = zDegArg;
         return;
     }
 
@@ -85,8 +87,8 @@ public class Deg3d {
         StringBuilder result = new StringBuilder();
 
         result.append("deg=[")
-              .append(this.xDeg).append(", ")
-              .append(this.yDeg).append(", ")
+              .append(this.xDeg).append(DELIM)
+              .append(this.yDeg).append(DELIM)
               .append(this.zDeg).append(']');
 
         return result.toString();

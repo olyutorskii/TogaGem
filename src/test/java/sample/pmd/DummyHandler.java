@@ -7,7 +7,7 @@
 
 package sample.pmd;
 
-import jp.sourceforge.mikutoga.parser.ParseStage;
+import jp.sfjp.mikutoga.bin.parser.ParseStage;
 import jp.sourceforge.mikutoga.pmd.parser.PmdBasicHandler;
 import jp.sourceforge.mikutoga.pmd.parser.PmdBoneHandler;
 import jp.sourceforge.mikutoga.pmd.parser.PmdEngHandler;

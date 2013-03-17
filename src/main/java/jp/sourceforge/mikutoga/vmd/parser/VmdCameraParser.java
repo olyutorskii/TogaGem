@@ -9,8 +9,8 @@ package jp.sourceforge.mikutoga.vmd.parser;
 
 import java.io.IOException;
 import java.io.InputStream;
-import jp.sourceforge.mikutoga.parser.CommonParser;
-import jp.sourceforge.mikutoga.parser.MmdFormatException;
+import jp.sfjp.mikutoga.bin.parser.CommonParser;
+import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 import jp.sourceforge.mikutoga.vmd.VmdConst;
 
 /**
