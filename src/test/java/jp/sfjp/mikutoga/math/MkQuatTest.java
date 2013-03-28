@@ -41,16 +41,27 @@ public strictfp class MkQuatTest {
     public void tearDown() {
     }
 
-    private void assert0UlpEquals(double expected, double x){
-        assertUlpEquals(expected, x, 0);
+    private void assert0UlpEquals(double expected, double result){
+        assertUlpEquals(expected, result, 0);
         return;
     }
 
-    private void assertUlpEquals(double expected, double x, int ulpNum){
-        double ulp = StrictMath.ulp(expected);
+    private void assertUlpEquals(double expected, double result, int ulpNum){
+        double ulpExpected = StrictMath.ulp(expected);
+        double ulpResult   = StrictMath.ulp(result);
+        double ulp = StrictMath.max(ulpExpected, ulpResult);
         double delta = ulp * ulpNum;
 
-        assertEquals(expected, x, delta);
+        try{
+            assertEquals(expected, result, delta);
+        }catch(AssertionError e){
+            double dist = StrictMath.abs(expected - result);
+            String msg = e.getMessage();
+            msg += " ULP * " + (dist / ulp);
+            AssertionError err = new AssertionError(msg);
+            err.initCause(e);
+            throw err;
+        }
 
         return;
     }
@@ -145,6 +156,23 @@ public strictfp class MkQuatTest {
         assert0UlpEquals(54.0, result.getQ3());
         assert0UlpEquals(-8.0, result.getQW());
 
+        EulerYXZ eu = new EulerYXZ();
+        qqa.setEulerYXZ(0.0, RAD_60DEG, 0.0);
+        qqb.setEulerYXZ(RAD_30DEG, 0.0, 0.0);
+        MkQuat.mul(qqa, qqb, result);
+        result.toEulerYXZ(eu, 0.0);
+        assertUlpEquals(RAD_30DEG, eu.getXRot(), 1);
+        assertUlpEquals(RAD_60DEG, eu.getYRot(), 0);
+        assertEquals(0.0, eu.getZRot(), EPSILON);
+
+        qqa.setEulerYXZ(0.0, RAD_15DEG, 0.0);
+        qqb.setEulerYXZ(0.0, RAD_30DEG, 0.0);
+        MkQuat.mul(qqa, qqb, result);
+        result.toEulerYXZ(eu, 0.0);
+        assert0UlpEquals(0.0, eu.getXRot());
+        assert0UlpEquals(RAD_45DEG, eu.getYRot());
+        assert0UlpEquals(0.0, eu.getZRot());
+
         return;
     }
 
@@ -189,10 +217,10 @@ public strictfp class MkQuatTest {
 
         qq = new MkQuat(2.0, 2.0, 2.0, 2.0);
         MkQuat.normalize(qq, result);
-        assertUlpEquals(0.5, result.getQ1(), 0);
-        assertUlpEquals(0.5, result.getQ2(), 0);
-        assertUlpEquals(0.5, result.getQ3(), 0);
-        assertUlpEquals(0.5, result.getQW(), 0);
+        assert0UlpEquals(0.5, result.getQ1());
+        assert0UlpEquals(0.5, result.getQ2());
+        assert0UlpEquals(0.5, result.getQ3());
+        assert0UlpEquals(0.5, result.getQW());
 
         return;
     }
@@ -217,10 +245,10 @@ public strictfp class MkQuatTest {
 
         qq = new MkQuat(2.0, 2.0, 2.0, 2.0);
         MkQuat.inverse(qq, result);
-        assertUlpEquals(-0.125, result.getQ1(), 0);
-        assertUlpEquals(-0.125, result.getQ2(), 0);
-        assertUlpEquals(-0.125, result.getQ3(), 0);
-        assertUlpEquals(0.125, result.getQW(), 0);
+        assert0UlpEquals(-0.125, result.getQ1());
+        assert0UlpEquals(-0.125, result.getQ2());
+        assert0UlpEquals(-0.125, result.getQ3());
+        assert0UlpEquals(0.125, result.getQW());
 
         return;
     }
@@ -241,10 +269,10 @@ public strictfp class MkQuatTest {
         assert0UlpEquals(0.0, qq.abs());
 
         qq = new MkQuat(1.0, 2.0, 0.0, 2.0);
-        assertUlpEquals(3.0, qq.abs(), 0);
+        assert0UlpEquals(3.0, qq.abs());
 
         qq = new MkQuat(2.0, 2.0, 2.0, 2.0);
-        assertUlpEquals(4.0, qq.abs(), 0);
+        assert0UlpEquals(4.0, qq.abs());
 
         return;
     }
@@ -348,6 +376,8 @@ public strictfp class MkQuatTest {
         assertUlpEquals(2.0, eu.getYRot(), 2);
         assertUlpEquals(3.0, eu.getZRot(), 0);
 
+        // ジンバルロック
+
         qq.setEulerYXZ(RAD_90DEG, 0.0, 0.0);
         qq.toEulerYXZ(eu, 0.0);
         assert0UlpEquals(RAD_90DEG, eu.getXRot());
@@ -365,6 +395,17 @@ public strictfp class MkQuatTest {
         assert0UlpEquals(RAD_15DEG, eu.getYRot());
         assertUlpEquals(-RAD_15DEG, eu.getZRot(), 2);
 
+        qq.setEulerYXZ(-RAD_90DEG, RAD_30DEG, 0.0);
+        qq.toEulerYXZ(eu, 0.0);
+        assert0UlpEquals(-RAD_90DEG, eu.getXRot());
+        assert0UlpEquals(0.0, eu.getYRot());
+        assertUlpEquals(RAD_30DEG, eu.getZRot(), 1);
+
+        qq.toEulerYXZ(eu, RAD_15DEG);
+        assert0UlpEquals(-RAD_90DEG, eu.getXRot());
+        assert0UlpEquals(RAD_15DEG, eu.getYRot());
+        assertUlpEquals(RAD_15DEG, eu.getZRot(), 2);
+
         qq.setEulerYXZ(RAD_90DEG, RAD_45DEG, 0.0);
         qq.toEulerYXZ(eu, 0.0);
         assert0UlpEquals(RAD_90DEG, eu.getXRot());
@@ -373,7 +414,7 @@ public strictfp class MkQuatTest {
 
         qq.setEulerYXZ(RAD_90DEG, RAD_45DEG, RAD_45DEG);
         qq.toEulerYXZ(eu, 0.0);
-        assertEquals(RAD_90DEG, eu.getXRot(), 1E-7);
+        assert0UlpEquals(RAD_90DEG, eu.getXRot());
         assert0UlpEquals(0.0, eu.getYRot());
         assertEquals(0.0, eu.getZRot(), EPSILON);
 
@@ -388,6 +429,66 @@ public strictfp class MkQuatTest {
         assertUlpEquals(RAD_30DEG, eu.getXRot(), 1);
         assertUlpEquals(RAD_45DEG, eu.getYRot(), 1);
         assertUlpEquals(RAD_45DEG, eu.getZRot(), 1);
+
+        double xRad;
+        double yRad;
+        double zRad;
+
+        xRad = StrictMath.toRadians(95);
+        yRad = StrictMath.toRadians(0);
+        zRad = StrictMath.toRadians(0);
+        qq.setEulerYXZ(xRad, yRad, zRad);
+        qq.toEulerYXZ(eu, yRad);
+        assertUlpEquals(StrictMath.toRadians(85), eu.getXRot(), 1);
+        assertUlpEquals(StrictMath.toRadians(180), eu.getYRot(), 0);
+        assertUlpEquals(StrictMath.toRadians(180), eu.getZRot(), 0);
+
+        return;
+    }
+
+    /**
+     * Test of critical case, of class MkQuat.
+     */
+    @Test
+    public void testCritical() {
+        System.out.println("critical");
+
+        EulerYXZ eu;
+        MkQuat qq;
+        double xRad;
+        double yRad;
+        double zRad;
+
+        qq = new MkQuat();
+        eu = new EulerYXZ();
+
+        xRad = StrictMath.toRadians(89);
+        yRad = StrictMath.toRadians(80);
+        zRad = StrictMath.toRadians(41);
+        qq.setEulerYXZ(xRad, yRad, zRad);
+        qq.toEulerYXZ(eu, 0.0);
+        assertUlpEquals(xRad, eu.getXRot(), 164);
+        assertUlpEquals(yRad, eu.getYRot(), 143);
+        assertUlpEquals(zRad, eu.getZRot(), 211);
+
+        // ジンバルロック判定境界ケース
+        xRad = StrictMath.toRadians(90);
+        yRad = StrictMath.toRadians(6);
+        zRad = StrictMath.toRadians(7);
+        qq.setEulerYXZ(xRad, yRad, zRad);
+        qq.toEulerYXZ(eu, yRad);
+        assert0UlpEquals(xRad, eu.getXRot());
+        assert0UlpEquals(yRad, eu.getYRot());
+        assert0UlpEquals(zRad, eu.getZRot());
+
+        xRad = StrictMath.toRadians(89.999);
+        yRad = StrictMath.toRadians(89.999);
+        zRad = StrictMath.toRadians(89.999);
+        qq.setEulerYXZ(xRad, yRad, zRad);
+        qq.toEulerYXZ(eu, yRad);
+        assertUlpEquals(xRad, eu.getXRot(), 83029);
+        assertUlpEquals(yRad, eu.getYRot(), 80108);
+        assertUlpEquals(zRad, eu.getZRot(), 80108);
 
         return;
     }
@@ -436,6 +537,14 @@ public strictfp class MkQuatTest {
         pos = new MkPos3D(1.0, 1.0, 1.0);
         result = new MkPos3D();
 
+        // No Rotation
+        qq.setEulerYXZ(0.0, 0.0, 0.0);
+        qq.rotatePos(pos, result);
+        assert0UlpEquals(1.0, result.getXpos());
+        assert0UlpEquals(1.0, result.getYpos());
+        assert0UlpEquals(1.0, result.getZpos());
+
+        // test Left Hand Rotation
         qq.setEulerYXZ(0.0, RAD_90DEG, 0.0);
         qq.rotatePos(pos, result);
         assertUlpEquals(1.0, result.getXpos(), 0);
@@ -453,6 +562,8 @@ public strictfp class MkQuatTest {
         assertUlpEquals(-1.0, result.getXpos(), 2);
         assertUlpEquals(1.0, result.getYpos(), 0);
         assertUlpEquals(1.0, result.getZpos(), 0);
+
+        // test Euler axis order
 
         qq.setEulerYXZ(RAD_90DEG, RAD_90DEG, 0.0);
         qq.rotatePos(pos, result);
@@ -491,6 +602,84 @@ public strictfp class MkQuatTest {
         assertUlpEquals(-2.0, result.getXpos(), 0);
         assertUlpEquals(1.0, result.getYpos(), 2);
         assertUlpEquals(3.0, result.getZpos(), 0);
+
+        // rotate origin point
+
+        pos = new MkPos3D(0.0, 0.0, 0.0);
+        qq.setEulerYXZ(RAD_15DEG, RAD_30DEG, RAD_45DEG);
+        qq.rotatePos(pos, result);
+        assert0UlpEquals(0.0, result.getXpos());
+        assert0UlpEquals(0.0, result.getYpos());
+        assert0UlpEquals(0.0, result.getZpos());
+
+        return;
+    }
+
+    /**
+     * Test of full matching, of class MkQuat.
+     */
+//    @Test
+    public void testFullMatch(){
+        System.out.println("full match");
+
+        for(int ix = -5; ix <= 90; ix++){
+            for(int iy = -5; iy <= 179; iy++){
+                for(int iz = -5; iz <= 179; iz++){
+                    try{
+                        rotTest(ix, iy, iz);
+                    }catch(AssertionError e){
+                        System.out.println(""+ix+":"+iy+":"+iz);
+                        throw e;
+                    }
+                }
+            }
+        }
+
+        return;
+    }
+
+    /**
+     * Test of full matching, of class MkQuat.
+     */
+//    @Test
+    public void testFullMatchRev(){
+        System.out.println("full match rev");
+
+        for(int ix = -90; ix <= 5; ix++){
+            for(int iy = -179; iy <= 5; iy++){
+                for(int iz = -179; iz <= 5; iz++){
+                    try{
+                        rotTest(ix, iy, iz);
+                    }catch(AssertionError e){
+                        System.out.println(""+ix+":"+iy+":"+iz);
+                        throw e;
+                    }
+                }
+            }
+        }
+
+        return;
+    }
+
+    private void rotTest(double ix, double iy, double iz){
+        EulerYXZ result;
+        MkQuat qq;
+
+        qq = new MkQuat();
+        result = new EulerYXZ();
+
+        double xRad = StrictMath.toRadians(ix);
+        double yRad = StrictMath.toRadians(iy);
+        double zRad = StrictMath.toRadians(iz);
+
+        qq.setEulerYXZ(xRad, yRad, zRad);
+        qq.toEulerYXZ(result, yRad);
+
+        final double DELTA = EPSILON * 164;
+
+        assertEquals(xRad, result.getXRot(), DELTA);
+        assertEquals(yRad, result.getYRot(), DELTA);
+        assertEquals(zRad, result.getZRot(), DELTA);
 
         return;
     }

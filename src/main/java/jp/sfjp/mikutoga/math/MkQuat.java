@@ -14,11 +14,18 @@ package jp.sfjp.mikutoga.math;
 public strictfp class MkQuat {
 
     private static final double HALF_PI = StrictMath.PI / 2.0;
-    private static final double EPSILON = StrictMath.ulp(1.0);
-    private static final double TDELTA = EPSILON * 4;
+    private static final double DBL_PI = StrictMath.PI * 2.0;
+    private static final int STEP_BELOW = 5;
+    private static final double BELOWONE;
 
     static{
-        assert StrictMath.ulp(StrictMath.PI) <= TDELTA;
+        double one = 1.0;
+        for(int ct=1; ct<=STEP_BELOW; ct++){
+            one = StrictMath.nextAfter(one, 0.0);
+        }
+        BELOWONE = one;
+
+        assert BELOWONE < 1.0;
     }
 
 
@@ -373,15 +380,27 @@ public strictfp class MkQuat {
         double resultY;
         double resultZ;
 
-        if     (m12 < -1.0) resultX = +HALF_PI;
-        else if(m12 > +1.0) resultX = -HALF_PI;
-        else                resultX = StrictMath.asin(-m12);
-
-        if(   StrictMath.abs(m11) <= TDELTA    // Y,Zが一意に定まらない場合
+        /*
+        private static final double EPSILON = StrictMath.ulp(1.0);
+        private static final double TDELTA = EPSILON * 4;
+        if(   StrictMath.abs(m11) <= TDELTA
            || StrictMath.abs(m22) <= TDELTA ){
+        */
+        // Y,Zが一意に定まらない場合
+        if(StrictMath.abs(m12) >= BELOWONE){
+            resultX = -StrictMath.copySign(HALF_PI, m12);
+
             resultY = oldY;
-            resultZ = StrictMath.atan2(-m01, m00) + oldY;
+
+            resultZ = StrictMath.atan2(-m01, m00);
+            if(resultX >= 0.0) resultZ += resultY;
+            else               resultZ -= resultY;
+
+            if(StrictMath.abs(resultZ) > StrictMath.PI){
+                resultZ -= StrictMath.copySign(DBL_PI, resultZ);
+            }
         }else{
+            resultX = StrictMath.asin(-m12);
             resultY = StrictMath.atan2(m02, m22);
             resultZ = StrictMath.atan2(m10, m11);
         }
