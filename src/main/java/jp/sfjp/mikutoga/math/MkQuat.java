@@ -20,7 +20,7 @@ public strictfp class MkQuat {
 
     static{
         double one = 1.0;
-        for(int ct=1; ct<=STEP_BELOW; ct++){
+        for(int ct = 1; ct <= STEP_BELOW; ct++){
             one = StrictMath.nextAfter(one, 0.0);
         }
         BELOWONE = one;

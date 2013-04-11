@@ -13,7 +13,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * 
+ *
  */
 public class MorphTypeTest {
 
@@ -47,11 +47,11 @@ public class MorphTypeTest {
 
         assertEquals(5, array.length);
 
-        assertEquals(MorphType.BASE, array[0]);
+        assertEquals(MorphType.BASE,    array[0]);
         assertEquals(MorphType.EYEBROW, array[1]);
-        assertEquals(MorphType.EYE, array[2]);
-        assertEquals(MorphType.LIP, array[3]);
-        assertEquals(MorphType.EXTRA, array[4]);
+        assertEquals(MorphType.EYE,     array[2]);
+        assertEquals(MorphType.LIP,     array[3]);
+        assertEquals(MorphType.EXTRA,   array[4]);
 
         return;
     }
@@ -112,14 +112,47 @@ public class MorphTypeTest {
     public void testGetGuiName_Locale(){
         System.out.println("getGuiName");
 
-        Locale locale = Locale.JAPANESE;
+        Locale locale;
 
-        assertEquals("base", MorphType.BASE.getGuiName(locale));
-        assertEquals("まゆ", MorphType.EYEBROW.getGuiName(locale));
-        assertEquals("目", MorphType.EYE.getGuiName(locale));
+        locale = Locale.JAPANESE;
+        assertEquals("base",   MorphType.BASE.getGuiName(locale));
+        assertEquals("まゆ",   MorphType.EYEBROW.getGuiName(locale));
+        assertEquals("目",     MorphType.EYE.getGuiName(locale));
         assertEquals("リップ", MorphType.LIP.getGuiName(locale));
         assertEquals("その他", MorphType.EXTRA.getGuiName(locale));
-        
+
+        locale = Locale.JAPAN;
+        assertEquals("まゆ",   MorphType.EYEBROW.getGuiName(locale));
+
+        locale = Locale.ITALY;
+        assertEquals("base",  MorphType.BASE.getGuiName(locale));
+        assertEquals("brow",  MorphType.EYEBROW.getGuiName(locale));
+        assertEquals("eyes",  MorphType.EYE.getGuiName(locale));
+        assertEquals("mouse", MorphType.LIP.getGuiName(locale));
+        assertEquals("other", MorphType.EXTRA.getGuiName(locale));
+
+        locale = Locale.ENGLISH;
+        assertEquals("brow",  MorphType.EYEBROW.getGuiName(locale));
+
+        locale = Locale.US;
+        assertEquals("brow",  MorphType.EYEBROW.getGuiName(locale));
+
+        return;
+    }
+
+    /**
+     * Test of isBase method, of class MorphType.
+     */
+    @Test
+    public void testIsBase(){
+        System.out.println("isBase");
+
+        assertTrue(MorphType.BASE.isBase());
+        assertFalse(MorphType.EYEBROW.isBase());
+        assertFalse(MorphType.EYE.isBase());
+        assertFalse(MorphType.LIP.isBase());
+        assertFalse(MorphType.EXTRA.isBase());
+
         return;
     }
 

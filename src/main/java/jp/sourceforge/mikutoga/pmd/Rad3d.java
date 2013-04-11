@@ -8,7 +8,8 @@
 package jp.sourceforge.mikutoga.pmd;
 
 /**
- * XYZ3軸による回転量(radian)。
+ * XYZ3軸によるジョイント回転量(radian)。
+ * オイラー角か否か詳細は不明。
  * degereeではなくradian。(直角はΠ/2)
  */
 public class Rad3d {

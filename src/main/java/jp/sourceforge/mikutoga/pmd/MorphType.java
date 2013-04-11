@@ -7,6 +7,7 @@
 
 package jp.sourceforge.mikutoga.pmd;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -34,8 +35,18 @@ public enum MorphType {
     EXTRA(0x04),
     ;
 
+    private static final ResourceBundle.Control NOFALLBACK;
     private static final String FAMILY_NAME =
             "jp.sourceforge.mikutoga.pmd.resources.MorphTypeName";
+
+    static{
+        List<String> rbforms = ResourceBundle.Control.FORMAT_DEFAULT;
+        NOFALLBACK = ResourceBundle.Control.getNoFallbackControl(rbforms);
+
+        String name = BASE.getClass().getPackage().getName();
+        assert FAMILY_NAME.startsWith(name);
+    }
+
 
     private final byte encoded;
 
@@ -89,6 +100,7 @@ public enum MorphType {
      */
     public String getGuiName(){
         Locale locale = Locale.getDefault();
+        assert locale != null;
         return getGuiName(locale);
     }
 
@@ -99,7 +111,8 @@ public enum MorphType {
      */
     public String getGuiName(Locale locale){
         if(locale == null) return getGuiName();
-        ResourceBundle rb = ResourceBundle.getBundle(FAMILY_NAME, locale);
+        ResourceBundle rb =
+                ResourceBundle.getBundle(FAMILY_NAME, locale, NOFALLBACK);
         String key = name();
         String result = rb.getString(key);
         return result;

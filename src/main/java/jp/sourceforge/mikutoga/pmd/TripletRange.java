@@ -8,7 +8,7 @@
 package jp.sourceforge.mikutoga.pmd;
 
 /**
- * XYZ三組float値の範囲制約。
+ * ジョイント用XYZ三組float値の範囲制約。
  */
 public class TripletRange {
 

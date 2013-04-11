@@ -8,7 +8,8 @@
 package jp.sourceforge.mikutoga.pmd;
 
 /**
- * XYZ3軸による回転量(degree)。
+ * XYZ3軸によるジョイント回転量(degree)。
+ * オイラー角か否か詳細は不明。
  * radianではなくdegree。(直角は90.0)
  */
 public class Deg3d {

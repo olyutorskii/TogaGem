@@ -7,6 +7,7 @@
 
 package jp.sourceforge.mikutoga.pmd;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -49,8 +50,18 @@ public enum BoneType {
     LINKEDROT(0x09),
     ;
 
+    private static final ResourceBundle.Control NOFALLBACK;
     private static final String FAMILY_NAME =
             "jp.sourceforge.mikutoga.pmd.resources.BoneTypeName";
+
+    static{
+        List<String> rbforms = ResourceBundle.Control.FORMAT_DEFAULT;
+        NOFALLBACK = ResourceBundle.Control.getNoFallbackControl(rbforms);
+
+        String name = ROTATE.getClass().getPackage().getName();
+        assert FAMILY_NAME.startsWith(name);
+    }
+
 
     private final byte encoded;
 
@@ -104,6 +115,7 @@ public enum BoneType {
      */
     public String getGuiName(){
         Locale locale = Locale.getDefault();
+        assert locale != null;
         return getGuiName(locale);
     }
 
@@ -114,7 +126,8 @@ public enum BoneType {
      */
     public String getGuiName(Locale locale){
         if(locale == null) return getGuiName();
-        ResourceBundle rb = ResourceBundle.getBundle(FAMILY_NAME, locale);
+        ResourceBundle rb =
+                ResourceBundle.getBundle(FAMILY_NAME, locale, NOFALLBACK);
         String key = name();
         String result = rb.getString(key);
         return result;
