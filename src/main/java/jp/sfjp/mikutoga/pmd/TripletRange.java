@@ -5,7 +5,7 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd;
+package jp.sfjp.mikutoga.pmd;
 
 /**
  * ジョイント用XYZ三組float値の範囲制約。

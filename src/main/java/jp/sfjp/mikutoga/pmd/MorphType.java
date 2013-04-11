@@ -1,43 +1,49 @@
 /*
- * rigid shape type
+ * morph type
  *
  * License : The MIT License
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd;
+package jp.sfjp.mikutoga.pmd;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * 剛体の形状種別。
+ * モーフ種別。
  * <ul>
- * <li>0x00:球
- * <li>0x01:箱
- * <li>0x02:カプセル
+ * <li>0:base
+ * <li>1:まゆ
+ * <li>2:目
+ * <li>3:リップ
+ * <li>4:その他
  * </ul>
  */
-public enum RigidShapeType {
+public enum MorphType {
 
-    /** 球。 */
-    SPHERE(0x00),
-    /** 箱。 */
-    BOX(0x01),
-    /** カプセル。 */
-    CAPSULE(0x02),
+    /** base。 */
+    BASE(0x00),
+    /** まゆ。 */
+    EYEBROW(0x01),
+    /** 目。 */
+    EYE(0x02),
+    /** リップ。 */
+    LIP(0x03),
+    /** その他。 */
+    EXTRA(0x04),
     ;
 
     private static final ResourceBundle.Control NOFALLBACK;
     private static final String FAMILY_NAME =
-            "jp.sourceforge.mikutoga.pmd.resources.RigidShapeTypeName";
+            "jp.sfjp.mikutoga.pmd.resources.MorphTypeName";
 
     static{
         List<String> rbforms = ResourceBundle.Control.FORMAT_DEFAULT;
         NOFALLBACK = ResourceBundle.Control.getNoFallbackControl(rbforms);
 
-        String name = SPHERE.getClass().getPackage().getName();
+        String name = BASE.getClass().getPackage().getName();
         assert FAMILY_NAME.startsWith(name);
     }
 
@@ -48,7 +54,7 @@ public enum RigidShapeType {
      * コンストラクタ。
      * @param code 符号化int値
      */
-    private RigidShapeType(int code){
+    private MorphType(int code){
         this((byte)code);
         return;
     }
@@ -57,7 +63,7 @@ public enum RigidShapeType {
      * コンストラクタ。
      * @param code 符号化byte値
      */
-    private RigidShapeType(byte code){
+    private MorphType(byte code){
         this.encoded = code;
         return;
     }
@@ -67,10 +73,10 @@ public enum RigidShapeType {
      * @param code byte値
      * @return デコードされた列挙子。該当するものがなければnull
      */
-    public static RigidShapeType decode(byte code){
-        RigidShapeType result = null;
+    public static MorphType decode(byte code){
+        MorphType result = null;
 
-        for(RigidShapeType type : values()){
+        for(MorphType type : values()){
             if(type.encode() == code){
                 result = type;
                 break;
@@ -110,6 +116,15 @@ public enum RigidShapeType {
         String key = name();
         String result = rb.getString(key);
         return result;
+    }
+
+    /**
+     * モーフ種別がbaseか否か判定する。
+     * @return baseならtrue
+     */
+    public boolean isBase(){
+        if(this == BASE) return true;
+        return false;
     }
 
 }

@@ -4,7 +4,7 @@
 package jp.sourceforge.mikutoga.typical;
 
 import java.util.List;
-import jp.sourceforge.mikutoga.pmd.MorphType;
+import jp.sfjp.mikutoga.pmd.MorphType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

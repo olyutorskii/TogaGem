@@ -1,7 +1,7 @@
 /*
  */
 
-package jp.sourceforge.mikutoga.pmd;
+package jp.sfjp.mikutoga.pmd;
 
 import org.junit.After;
 import org.junit.AfterClass;

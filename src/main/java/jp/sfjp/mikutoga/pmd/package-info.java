@@ -9,6 +9,6 @@
  * PMDモデルファイルの構成要素に相当するオブジェクト各種。
  */
 
-package jp.sourceforge.mikutoga.pmd;
+package jp.sfjp.mikutoga.pmd;
 
 /* EOF */

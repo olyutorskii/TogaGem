@@ -1,43 +1,64 @@
 /*
- * rigid behavior type
+ * bone type
  *
  * License : The MIT License
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd;
+package jp.sfjp.mikutoga.pmd;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * 剛体の振る舞い種別。
+ * ボーン種別。
  * <ul>
- * <li>0x00:ボーン追従
- * <li>0x01:物理演算
- * <li>0x02:物理演算+ボーン位置合わせ
+ * <li>0x00:回転
+ * <li>0x01:回転/移動
+ * <li>0x02:IK
+ * <li>0x03:不明
+ * <li>0x04:IK影響下(回転)
+ * <li>0x05:回転影響下
+ * <li>0x06:IK接続先
+ * <li>0x07:非表示
+ * <li>0x08:捩り
+ * <li>0x09:回転連動
  * </ul>
  */
-public enum RigidBehaviorType {
+public enum BoneType {
 
-    /** ボーン追従。 */
-    FOLLOWBONE(0x00),
-    /** 物理演算。 */
-    ONLYDYNAMICS(0x01),
-    /** 物理演算+ボーン位置合わせ。 */
-    BONEDDYNAMICS(0x02),
+    /** 回転。 */
+    ROTATE(0x00),
+    /** 回転/移動。 */
+    ROTMOV(0x01),
+    /** IK。 */
+    IK(0x02),
+    /** 不明。 */
+    UNKNOWN(0x03),
+    /** IK影響下(回転)。 */
+    UNDERIK(0x04),
+    /** 回転影響下。 */
+    UNDERROT(0x05),
+    /** IK接続先。 */
+    IKCONNECTED(0x06),
+    /** 非表示。 */
+    HIDDEN(0x07),
+    /** 捩り。 */
+    TWIST(0x08),
+    /** 回転連動。 */
+    LINKEDROT(0x09),
     ;
 
     private static final ResourceBundle.Control NOFALLBACK;
     private static final String FAMILY_NAME =
-        "jp.sourceforge.mikutoga.pmd.resources.RigidBehaviorTypeName";
+            "jp.sfjp.mikutoga.pmd.resources.BoneTypeName";
 
     static{
         List<String> rbforms = ResourceBundle.Control.FORMAT_DEFAULT;
         NOFALLBACK = ResourceBundle.Control.getNoFallbackControl(rbforms);
 
-        String name = FOLLOWBONE.getClass().getPackage().getName();
+        String name = ROTATE.getClass().getPackage().getName();
         assert FAMILY_NAME.startsWith(name);
     }
 
@@ -48,7 +69,7 @@ public enum RigidBehaviorType {
      * コンストラクタ。
      * @param code 符号化int値
      */
-    private RigidBehaviorType(int code){
+    private BoneType(int code){
         this((byte)code);
         return;
     }
@@ -57,7 +78,7 @@ public enum RigidBehaviorType {
      * コンストラクタ。
      * @param code 符号化byte値
      */
-    private RigidBehaviorType(byte code){
+    private BoneType(byte code){
         this.encoded = code;
         return;
     }
@@ -67,10 +88,10 @@ public enum RigidBehaviorType {
      * @param code byte値
      * @return デコードされた列挙子。該当するものがなければnull
      */
-    public static RigidBehaviorType decode(byte code){
-        RigidBehaviorType result = null;
+    public static BoneType decode(byte code){
+        BoneType result = null;
 
-        for(RigidBehaviorType type : values()){
+        for(BoneType type : values()){
             if(type.encode() == code){
                 result = type;
                 break;
