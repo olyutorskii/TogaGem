@@ -7,10 +7,18 @@
 
 package jp.sfjp.mikutoga.pmd;
 
+import java.text.MessageFormat;
+
 /**
  * ジョイント用XYZ三組float値の範囲制約。
  */
 public class TripletRange {
+
+    private static final String DUMP_FORM =
+               "x=[{0} - {1}]"
+            + " y=[{2} - {3}]"
+            + " z=[{4} - {5}]";
+
 
     private float xFrom;
     private float xTo;
@@ -156,27 +164,20 @@ public class TripletRange {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     */
     @Override
     public String toString(){
-        StringBuilder result = new StringBuilder();
+        String result = MessageFormat.format(
+            DUMP_FORM,
+            Float.toString(this.xFrom), Float.toString(this.xTo),
+            Float.toString(this.yFrom), Float.toString(this.yTo),
+            Float.toString(this.zFrom), Float.toString(this.zTo)
+        );
 
-        result.append("x=[")
-              .append(xFrom)
-              .append(" - ")
-              .append(xTo)
-              .append("] ");
-        result.append("y=[")
-              .append(yFrom)
-              .append(" - ")
-              .append(yTo)
-              .append("] ");
-        result.append("z=[")
-              .append(zFrom)
-              .append(" - ")
-              .append(zTo)
-              .append("]");
-
-        return result.toString();
+        return result;
     }
 
 }
