@@ -13,11 +13,11 @@ import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 
 /**
  * PMDモデルファイルのパーサ拡張その2。
- * ※独自トゥーンテクスチャファイル名対応
+ * <p>※ 独自トゥーンテクスチャファイル名対応
  */
 public class PmdParserExt2 extends PmdParserExt1 {
 
-    private PmdToonHandler toonHandler = null;
+    private PmdToonHandler toonHandler = NullHandler.HANDLER;
 
     /**
      * コンストラクタ。
@@ -33,7 +33,11 @@ public class PmdParserExt2 extends PmdParserExt1 {
      * @param handler ハンドラ
      */
     public void setToonHandler(PmdToonHandler handler){
-        this.toonHandler = handler;
+        if(handler == null){
+            this.toonHandler = NullHandler.HANDLER;
+        }else{
+            this.toonHandler = handler;
+        }
         return;
     }
 
@@ -60,11 +64,6 @@ public class PmdParserExt2 extends PmdParserExt1 {
      * @throws MmdFormatException フォーマットエラー
      */
     private void parseToonName() throws IOException, MmdFormatException{
-        if(this.toonHandler == null){
-            skip(PmdLimits.MAXBYTES_TOONFILENAME * PmdLimits.TOON_FIXEDNUM);
-            return;
-        }
-
         this.toonHandler.loopStart(PmdToonHandler.TOON_LIST,
                                    PmdLimits.TOON_FIXEDNUM );
 

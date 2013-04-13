@@ -8,31 +8,14 @@
 package sample.pmd;
 
 import jp.sfjp.mikutoga.bin.parser.ParseStage;
-import jp.sourceforge.mikutoga.pmd.parser.PmdBasicHandler;
-import jp.sourceforge.mikutoga.pmd.parser.PmdBoneHandler;
-import jp.sourceforge.mikutoga.pmd.parser.PmdEngHandler;
-import jp.sourceforge.mikutoga.pmd.parser.PmdJointHandler;
-import jp.sourceforge.mikutoga.pmd.parser.PmdMaterialHandler;
-import jp.sourceforge.mikutoga.pmd.parser.PmdMorphHandler;
-import jp.sourceforge.mikutoga.pmd.parser.PmdRigidHandler;
-import jp.sourceforge.mikutoga.pmd.parser.PmdShapeHandler;
-import jp.sourceforge.mikutoga.pmd.parser.PmdToonHandler;
+import jp.sourceforge.mikutoga.pmd.parser.PmdUnifiedHandler;
 
 /**
  * サンプルのハンドラ。
  * これはユニットテストではない。
  * 必要に応じて要所でデバッガのブレークポイントを設定しておくと便利。
  */
-public class DummyHandler
-        implements PmdBasicHandler,
-                   PmdBoneHandler,
-                   PmdShapeHandler,
-                   PmdMorphHandler,
-                   PmdMaterialHandler,
-                   PmdEngHandler,
-                   PmdToonHandler,
-                   PmdRigidHandler,
-                   PmdJointHandler {
+public class DummyHandler implements PmdUnifiedHandler {
 
     public DummyHandler(){
         super();

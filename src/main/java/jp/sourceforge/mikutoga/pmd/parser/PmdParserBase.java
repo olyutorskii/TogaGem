@@ -35,21 +35,14 @@ public class PmdParserBase extends CommonParser {
     /** 改行文字列 CRLF。 */
     protected static final String CRLF = CR + LF;  // 0x0d, 0x0a
 
-    private static final int HEADER_LENGTH = 7;
+    /** 3角ポリゴン頂点数。 */
+    private static final int TRIVTX = 3;
 
+    private static final int HEADER_LENGTH = 7;
     private static final byte[] MAGIC_BYTES = {
         (byte)0x50, (byte)0x6d, (byte)0x64,               // "Pmd"
         (byte)0x00, (byte)0x00, (byte)0x80, (byte)0x3f,   // 1.0f
     };
-
-    private static final int VERTEX_DATA_SZ      = 38;
-    private static final int SURFACE_DATA_SZ     =  6;
-    private static final int MATERIAL_DATA_SZ    = 70;
-    private static final int BONE_DATA_SZ        = 39;
-    private static final int MORPHVERTEX_DATA_SZ = 16;
-    private static final int MORPHORDER_DATA_SZ  =  2;
-    private static final int BONEGROUP_DATA_SZ   = 50;
-    private static final int GROUPEDBONE_DATA_SZ =  3;
 
 
     static{
@@ -59,11 +52,11 @@ public class PmdParserBase extends CommonParser {
 
     private final TextDecoder decoderWin31j  = new TextDecoder(CS_WIN31J);
 
-    private PmdBasicHandler basicHandler = null;
-    private PmdShapeHandler shapeHandler = null;
-    private PmdMaterialHandler materialHandler = null;
-    private PmdBoneHandler boneHandler = null;
-    private PmdMorphHandler morphHandler = null;
+    private PmdBasicHandler basicHandler =       NullHandler.HANDLER;
+    private PmdShapeHandler shapeHandler =       NullHandler.HANDLER;
+    private PmdMaterialHandler materialHandler = NullHandler.HANDLER;
+    private PmdBoneHandler boneHandler =         NullHandler.HANDLER;
+    private PmdMorphHandler morphHandler =       NullHandler.HANDLER;
 
     private int boneCount      = -1;
     private int morphCount     = -1;
@@ -80,8 +73,10 @@ public class PmdParserBase extends CommonParser {
         return;
     }
 
+
     /**
      * 文字列の最後がLF(0x0a)の場合削除する。
+     * <p>ボーングループ名対策。
      * @param name 文字列
      * @return 末尾LFが削除された文字列
      */
@@ -132,7 +127,11 @@ public class PmdParserBase extends CommonParser {
      * @param handler ハンドラ
      */
     public void setBasicHandler(PmdBasicHandler handler){
-        this.basicHandler = handler;
+        if(handler == null){
+            this.basicHandler = NullHandler.HANDLER;
+        }else{
+            this.basicHandler = handler;
+        }
         return;
     }
 
@@ -141,7 +140,11 @@ public class PmdParserBase extends CommonParser {
      * @param handler ハンドラ
      */
     public void setShapeHandler(PmdShapeHandler handler){
-        this.shapeHandler = handler;
+        if(handler == null){
+            this.shapeHandler = NullHandler.HANDLER;
+        }else{
+            this.shapeHandler = handler;
+        }
         return;
     }
 
@@ -150,7 +153,11 @@ public class PmdParserBase extends CommonParser {
      * @param handler ハンドラ
      */
     public void setMaterialHandler(PmdMaterialHandler handler){
-        this.materialHandler = handler;
+        if(handler == null){
+            this.materialHandler = NullHandler.HANDLER;
+        }else{
+            this.materialHandler = handler;
+        }
         return;
     }
 
@@ -159,7 +166,11 @@ public class PmdParserBase extends CommonParser {
      * @param handler ハンドラ
      */
     public void setBoneHandler(PmdBoneHandler handler){
-        this.boneHandler = handler;
+        if(handler == null){
+            this.boneHandler = NullHandler.HANDLER;
+        }else{
+            this.boneHandler = handler;
+        }
         return;
     }
 
@@ -168,7 +179,11 @@ public class PmdParserBase extends CommonParser {
      * @param handler ハンドラ
      */
     public void setMorphHandler(PmdMorphHandler handler){
-        this.morphHandler = handler;
+        if(handler == null){
+            this.morphHandler = NullHandler.HANDLER;
+        }else{
+            this.morphHandler = handler;
+        }
         return;
     }
 
@@ -198,8 +213,8 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * 指定されたバイト長に収まるゼロ終端(0x00)文字列を読み込む。
-     * 入力バイト列はwindows-31jエンコーディングとして解釈される。
-     * ゼロ終端以降のデータは無視されるが、
+     * <p>入力バイト列はwindows-31jエンコーディングとして解釈される。
+     * <p>ゼロ終端以降のデータは無視されるが、
      * IO入力は指定バイト数だけ読み進められる。
      * ゼロ終端が見つからないまま指定バイト数が読み込み終わった場合、
      * そこまでのデータから文字列を構成する。
@@ -224,16 +239,12 @@ public class PmdParserBase extends CommonParser {
      */
     public void parsePmd()
             throws IOException, MmdFormatException {
-        if(this.basicHandler != null){
-            this.basicHandler.pmdParseStart();
-        }
+        this.basicHandler.pmdParseStart();
 
         parseBody();
 
         boolean hasMoreData = hasMore();
-        if(this.basicHandler != null){
-            this.basicHandler.pmdParseEnd(hasMoreData);
-        }
+        this.basicHandler.pmdParseEnd(hasMoreData);
 
         return;
     }
@@ -273,16 +284,14 @@ public class PmdParserBase extends CommonParser {
             throw new MmdFormatException("unknown PMD-header type");
         }
 
-        String modelName   =
+        String modelName =
                 parsePmdText(PmdLimits.MAXBYTES_MODELNAME);
         String description =
                 parsePmdText(PmdLimits.MAXBYTES_MODELDESC);
         description = description.replace(CRLF, LF);
 
-        if(this.basicHandler != null){
-            this.basicHandler.pmdHeaderInfo(header);
-            this.basicHandler.pmdModelInfo(modelName, description);
-        }
+        this.basicHandler.pmdHeaderInfo(header);
+        this.basicHandler.pmdModelInfo(modelName, description);
 
         return;
     }
@@ -294,11 +303,6 @@ public class PmdParserBase extends CommonParser {
      */
     private void parseVertexList() throws IOException, MmdFormatException{
         int vertexNum = parseLeInt();
-
-        if(this.shapeHandler == null){
-            skip(VERTEX_DATA_SZ * vertexNum);
-            return;
-        }
 
         this.shapeHandler.loopStart(PmdShapeHandler.VERTEX_LIST, vertexNum);
 
@@ -340,13 +344,8 @@ public class PmdParserBase extends CommonParser {
      */
     private void parseSurfaceList() throws IOException, MmdFormatException{
         int vertexNum = parseLeInt();
-        if(vertexNum % 3 != 0) throw new MmdFormatException();
-        int surfaceNum = vertexNum / 3;
-
-        if(this.shapeHandler == null){
-            skip(SURFACE_DATA_SZ * surfaceNum);
-            return;
-        }
+        if(vertexNum % TRIVTX != 0) throw new MmdFormatException();
+        int surfaceNum = vertexNum / TRIVTX;
 
         this.shapeHandler.loopStart(PmdShapeHandler.SURFACE_LIST, surfaceNum);
 
@@ -373,45 +372,21 @@ public class PmdParserBase extends CommonParser {
     private void parseMaterialList() throws IOException, MmdFormatException{
         int materialNum = parseLeInt();
 
-        if(this.materialHandler == null){
-            skip(MATERIAL_DATA_SZ * materialNum);
-            return;
-        }
-
         this.materialHandler.loopStart(PmdMaterialHandler.MATERIAL_LIST,
                                        materialNum );
 
         for(int ct = 0; ct < materialNum; ct++){
-            float red;
-            float green;
-            float blue;
-
-            red   = parseLeFloat();
-            green = parseLeFloat();
-            blue  = parseLeFloat();
-            float alpha = parseLeFloat();
-            this.materialHandler.pmdMaterialDiffuse(red, green, blue, alpha);
-
-            float shininess = parseLeFloat();
-            red   = parseLeFloat();
-            green = parseLeFloat();
-            blue  = parseLeFloat();
-            this.materialHandler.pmdMaterialSpecular(red, green, blue,
-                                                     shininess);
-
-            red   = parseLeFloat();
-            green = parseLeFloat();
-            blue  = parseLeFloat();
-            this.materialHandler.pmdMaterialAmbient(red, green, blue);
+            parseColor();
 
             int toonidx = parseUByteAsInt();
             boolean hasEdge = parseBoolean();
             int surfaceCount = parseLeInt();
+
             String shadingFile =
                     parsePmdText(PmdLimits.MAXBYTES_TEXTUREFILENAME);
             String[] splitted = splitShadingFileInfo(shadingFile);
             String textureFile = splitted[0];
-            String sphereFile = splitted[1];
+            String sphereFile  = splitted[1];
 
             this.materialHandler.pmdMaterialShading(toonidx,
                                                     textureFile, sphereFile );
@@ -426,17 +401,46 @@ public class PmdParserBase extends CommonParser {
     }
 
     /**
+     * 色情報のパースと通知。
+     * @throws IOException IOエラー
+     * @throws MmdFormatException フォーマットエラー
+     */
+    private void parseColor() throws IOException, MmdFormatException{
+        float red;
+        float green;
+        float blue;
+
+        red   = parseLeFloat();
+        green = parseLeFloat();
+        blue  = parseLeFloat();
+        float alpha = parseLeFloat();
+
+        this.materialHandler.pmdMaterialDiffuse(red, green, blue, alpha);
+
+        float shininess = parseLeFloat();
+        red   = parseLeFloat();
+        green = parseLeFloat();
+        blue  = parseLeFloat();
+
+        this.materialHandler.pmdMaterialSpecular(red, green, blue,
+                                                 shininess);
+
+        red   = parseLeFloat();
+        green = parseLeFloat();
+        blue  = parseLeFloat();
+
+        this.materialHandler.pmdMaterialAmbient(red, green, blue);
+
+        return;
+    }
+
+    /**
      * ボーン情報のパースと通知。
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
     private void parseBoneList() throws IOException, MmdFormatException{
         this.boneCount = parseLeUShortAsInt();
-
-        if(this.boneHandler == null){
-            skip(BONE_DATA_SZ * this.boneCount);
-            return;
-        }
 
         this.boneHandler.loopStart(PmdBoneHandler.BONE_LIST, this.boneCount);
 
@@ -473,9 +477,7 @@ public class PmdParserBase extends CommonParser {
     private void parseIKList() throws IOException, MmdFormatException{
         int ikCount = parseLeUShortAsInt();
 
-        if(this.boneHandler != null){
-            this.boneHandler.loopStart(PmdBoneHandler.IK_LIST, ikCount);
-        }
+        this.boneHandler.loopStart(PmdBoneHandler.IK_LIST, ikCount);
 
         for(int ct = 0; ct < ikCount; ct++){
             int boneId = parseLeUShortAsInt();
@@ -486,15 +488,12 @@ public class PmdParserBase extends CommonParser {
 
             parseIKChainList(chainLength);
 
-            if(this.boneHandler != null){
-                this.boneHandler.pmdIKInfo(boneId, targetId, depth, weight);
-                this.boneHandler.loopNext(PmdBoneHandler.IK_LIST);
-            }
+            this.boneHandler.pmdIKInfo(boneId, targetId, depth, weight);
+
+            this.boneHandler.loopNext(PmdBoneHandler.IK_LIST);
         }
 
-        if(this.boneHandler != null){
-            this.boneHandler.loopEnd(PmdBoneHandler.IK_LIST);
-        }
+        this.boneHandler.loopEnd(PmdBoneHandler.IK_LIST);
 
         return;
     }
@@ -507,22 +506,17 @@ public class PmdParserBase extends CommonParser {
      */
     private void parseIKChainList(int chainLength)
             throws IOException, MmdFormatException{
-        if(this.boneHandler != null){
-            this.boneHandler.loopStart(PmdBoneHandler.IKCHAIN_LIST,
-                                       chainLength);
-        }
+        this.boneHandler.loopStart(PmdBoneHandler.IKCHAIN_LIST,
+                                   chainLength);
 
         for(int ct = 0; ct < chainLength; ct++){
             int childId = parseLeUShortAsInt();
-            if(this.boneHandler != null){
-                this.boneHandler.pmdIKChainInfo(childId);
-                this.boneHandler.loopNext(PmdBoneHandler.IKCHAIN_LIST);
-            }
+            this.boneHandler.pmdIKChainInfo(childId);
+
+            this.boneHandler.loopNext(PmdBoneHandler.IKCHAIN_LIST);
         }
 
-        if(this.boneHandler != null){
-            this.boneHandler.loopEnd(PmdBoneHandler.IKCHAIN_LIST);
-        }
+        this.boneHandler.loopEnd(PmdBoneHandler.IKCHAIN_LIST);
 
         return;
     }
@@ -535,10 +529,8 @@ public class PmdParserBase extends CommonParser {
     private void parseMorphList() throws IOException, MmdFormatException{
         this.morphCount = parseLeUShortAsInt();
 
-        if(this.morphHandler != null){
-            this.morphHandler.loopStart(PmdMorphHandler.MORPH_LIST,
-                                        this.morphCount );
-        }
+        this.morphHandler.loopStart(PmdMorphHandler.MORPH_LIST,
+                                    this.morphCount );
 
         for(int ct = 0; ct < this.morphCount; ct++){
             String morphName =
@@ -546,20 +538,14 @@ public class PmdParserBase extends CommonParser {
             int vertexCount = parseLeInt();
             byte morphType = parseByte();
 
-            if(this.morphHandler != null){
-                this.morphHandler.pmdMorphInfo(morphName, morphType);
-            }
+            this.morphHandler.pmdMorphInfo(morphName, morphType);
 
             parseMorphVertexList(vertexCount);
 
-            if(this.morphHandler != null){
-                this.morphHandler.loopNext(PmdMorphHandler.MORPH_LIST);
-            }
+            this.morphHandler.loopNext(PmdMorphHandler.MORPH_LIST);
         }
 
-        if(this.morphHandler != null){
-            this.morphHandler.loopEnd(PmdMorphHandler.MORPH_LIST);
-        }
+        this.morphHandler.loopEnd(PmdMorphHandler.MORPH_LIST);
 
         return;
     }
@@ -572,11 +558,6 @@ public class PmdParserBase extends CommonParser {
      */
     private void parseMorphVertexList(int vertexCount)
             throws IOException, MmdFormatException{
-        if(this.morphHandler == null){
-            skip(MORPHVERTEX_DATA_SZ * vertexCount);
-            return;
-        }
-
         this.morphHandler.loopStart(PmdMorphHandler.MORPHVERTEX_LIST,
                                     vertexCount );
 
@@ -586,6 +567,7 @@ public class PmdParserBase extends CommonParser {
             float yPos = parseLeFloat();
             float zPos = parseLeFloat();
             this.morphHandler.pmdMorphVertexInfo(vertexId, xPos, yPos, zPos);
+
             this.morphHandler.loopNext(PmdMorphHandler.MORPHVERTEX_LIST);
         }
 
@@ -602,11 +584,6 @@ public class PmdParserBase extends CommonParser {
     private void parseMorphOrderList()
             throws IOException, MmdFormatException{
         int morphOrderCount = parseUByteAsInt();
-
-        if(this.morphHandler == null){
-            skip(MORPHORDER_DATA_SZ * morphOrderCount);
-            return;
-        }
 
         this.morphHandler.loopStart(PmdMorphHandler.MORPHORDER_LIST,
                                     morphOrderCount );
@@ -631,11 +608,6 @@ public class PmdParserBase extends CommonParser {
     private void parseBoneGroupList()
             throws IOException, MmdFormatException{
         this.boneGroupCount = parseUByteAsInt();
-
-        if(this.boneHandler == null){
-            skip(BONEGROUP_DATA_SZ * this.boneGroupCount);
-            return;
-        }
 
         this.boneHandler.loopStart(PmdBoneHandler.BONEGROUP_LIST,
                                    this.boneGroupCount);
@@ -662,11 +634,6 @@ public class PmdParserBase extends CommonParser {
     private void parseGroupedBoneList()
             throws IOException, MmdFormatException{
         int groupedBoneCount = parseLeInt();
-
-        if(this.boneHandler == null){
-            skip(GROUPEDBONE_DATA_SZ * groupedBoneCount);
-            return;
-        }
 
         this.boneHandler.loopStart(PmdBoneHandler.GROUPEDBONE_LIST,
                                    groupedBoneCount);

@@ -13,11 +13,11 @@ import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 
 /**
  * PMDモデルファイルのパーサ拡張その1。
- * ※英名対応
+ * <p>※ 英名対応
  */
 public class PmdParserExt1 extends PmdParserBase {
 
-    private PmdEngHandler engHandler = null;
+    private PmdEngHandler engHandler = NullHandler.HANDLER;
     private boolean hasEnglishInfo = true;
 
     /**
@@ -34,7 +34,11 @@ public class PmdParserExt1 extends PmdParserBase {
      * @param handler ハンドラ
      */
     public void setEngHandler(PmdEngHandler handler){
-        this.engHandler = handler;
+        if(handler == null){
+            this.engHandler = NullHandler.HANDLER;
+        }else{
+            this.engHandler = handler;
+        }
         return;
     }
 
@@ -69,9 +73,7 @@ public class PmdParserExt1 extends PmdParserBase {
             throws IOException, MmdFormatException{
         this.hasEnglishInfo = parseBoolean();
 
-        if(this.engHandler != null){
-            this.engHandler.pmdEngEnabled(this.hasEnglishInfo);
-        }
+        this.engHandler.pmdEngEnabled(this.hasEnglishInfo);
         if( ! this.hasEnglishInfo ) return;
 
         String modelName =
@@ -80,9 +82,7 @@ public class PmdParserExt1 extends PmdParserBase {
                 parsePmdText(PmdLimits.MAXBYTES_MODELDESC);
         description = description.replace(CRLF, LF);
 
-        if(this.engHandler != null){
-            this.engHandler.pmdEngModelInfo(modelName, description);
-        }
+        this.engHandler.pmdEngModelInfo(modelName, description);
 
         return;
     }
@@ -95,11 +95,6 @@ public class PmdParserExt1 extends PmdParserBase {
     private void parseEngBoneList()
             throws IOException, MmdFormatException{
         int boneNum = getBoneCount();
-
-        if(this.engHandler == null){
-            skip(PmdLimits.MAXBYTES_BONENAME * boneNum);
-            return;
-        }
 
         this.engHandler.loopStart(PmdEngHandler.ENGBONE_LIST, boneNum);
 
@@ -125,11 +120,6 @@ public class PmdParserExt1 extends PmdParserBase {
             throws IOException, MmdFormatException{
         int morphNum = getMorphCount() - 1;  // base は英名なし
 
-        if(this.engHandler == null){
-            skip(PmdLimits.MAXBYTES_MORPHNAME * morphNum);
-            return;
-        }
-
         this.engHandler.loopStart(PmdEngHandler.ENGMORPH_LIST, morphNum);
 
         for(int ct = 0; ct < morphNum; ct++){
@@ -153,11 +143,6 @@ public class PmdParserExt1 extends PmdParserBase {
     private void parseEngBoneGroupName()
             throws IOException, MmdFormatException{
         int groupNum = getBoneGroupCount();
-
-        if(this.engHandler == null){
-            skip(PmdLimits.MAXBYTES_BONEGROUPNAME * groupNum);
-            return;
-        }
 
         this.engHandler.loopStart(PmdEngHandler.ENGBONEGROUP_LIST, groupNum);
 

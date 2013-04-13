@@ -43,7 +43,7 @@ public final class PmdLimits {
     /**
      * ボーン最大数。
      * (Id : 0 - 0xfffe)
-     * MMDがいくつまで受け入れるかはまた別の話だよ。
+     * <p>MMDがいくつまで受け入れるかはまた別の話だよ。
      */
     public static final int MAX_BONE = 65535;
 

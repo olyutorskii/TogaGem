@@ -22,7 +22,7 @@ public interface PmdEngHandler extends LoopHandler {
     /** モーフ英語名抽出ループ。 */
     ParseStage ENGMORPH_LIST = new ParseStage();
 
-    /** ボーングループ英語名抽出グループ。 */
+    /** ボーングループ英語名抽出ループ。 */
     ParseStage ENGBONEGROUP_LIST = new ParseStage();
 
     /**
@@ -45,7 +45,7 @@ public interface PmdEngHandler extends LoopHandler {
 
     /**
      * 英語ボーン名の通知を受け取る。
-     * {@link #ENGBONE_LIST}ループの構成要素
+     * <p>{@link #ENGBONE_LIST}ループの構成要素
      * @param boneName 英語ボーン名
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
@@ -54,8 +54,8 @@ public interface PmdEngHandler extends LoopHandler {
 
     /**
      * 英語モーフ名の通知を受け取る。
-     * モーフ名「base」に対応する英語名は通知されない。
-     * {@link #ENGMORPH_LIST}ループの構成要素
+     * 特殊モーフ名「base」に対応する英語名は通知されない。
+     * <p>{@link #ENGMORPH_LIST}ループの構成要素
      * @param morphName 英語モーフ名
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
@@ -64,7 +64,7 @@ public interface PmdEngHandler extends LoopHandler {
 
     /**
      * 英語ボーングループ名の通知を受け取る。
-     * {@link #ENGBONEGROUP_LIST}ループの構成要素
+     * <p>{@link #ENGBONEGROUP_LIST}ループの構成要素
      * @param groupName 英語ボーングループ名
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示

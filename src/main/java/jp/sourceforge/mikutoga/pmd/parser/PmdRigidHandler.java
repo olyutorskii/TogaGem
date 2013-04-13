@@ -13,6 +13,8 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 
 /**
  * PMDモデルの各種剛体情報の通知用ハンドラ。
+ * <p>MMDでの剛体力学では「Bullet Physics Library」が用いられる。
+ * @see <a href="http://www.bulletphysics.org/">Bullet Physics Library</a>
  */
 public interface PmdRigidHandler extends LoopHandler {
 
@@ -21,7 +23,7 @@ public interface PmdRigidHandler extends LoopHandler {
 
     /**
      * 剛体名の通知を受け取る。
-     * {@link #RIGID_LIST}ループの構成要素。
+     * <p>{@link #RIGID_LIST}ループの構成要素。
      * @param rigidName 剛体名
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
@@ -31,9 +33,10 @@ public interface PmdRigidHandler extends LoopHandler {
 
     /**
      * 剛体基本情報の通知を受け取る。
-     * {@link #RIGID_LIST}ループの構成要素。
+     * <p>{@link #RIGID_LIST}ループの構成要素。
      * @param rigidGroupId 剛体グループ番号から1引いた数。(0-15)
-     * @param linkedBoneId 接続先ボーンID
+     * @param linkedBoneId 接続先ボーンID。
+     * [ 0x0000 - 0xfffe ] に収まらない場合は接続先ボーン無し。
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
@@ -43,7 +46,7 @@ public interface PmdRigidHandler extends LoopHandler {
 
     /**
      * 剛体形状の通知を受け取る。
-     * {@link #RIGID_LIST}ループの構成要素。
+     * <p>{@link #RIGID_LIST}ループの構成要素。
      * @param shapeType 形状種別。
      * <ul>
      * <li>0x00:球
@@ -62,7 +65,7 @@ public interface PmdRigidHandler extends LoopHandler {
 
     /**
      * 剛体位置の通知を受け取る。
-     * {@link #RIGID_LIST}ループの構成要素。
+     * <p>{@link #RIGID_LIST}ループの構成要素。
      * @param posX X座標
      * @param posY Y座標
      * @param posZ Z座標
@@ -74,7 +77,7 @@ public interface PmdRigidHandler extends LoopHandler {
 
     /**
      * 剛体姿勢の通知を受け取る。
-     * {@link #RIGID_LIST}ループの構成要素。
+     * <p>{@link #RIGID_LIST}ループの構成要素。
      * @param radX X軸回転量(radian)
      * @param radY Y軸回転量(radian)
      * @param radZ Z軸回転量(radian)
@@ -86,7 +89,7 @@ public interface PmdRigidHandler extends LoopHandler {
 
     /**
      * 剛体物理系数の通知を受け取る。
-     * {@link #RIGID_LIST}ループの構成要素。
+     * <p>{@link #RIGID_LIST}ループの構成要素。
      * @param mass 質量
      * @param dampingPos 移動減衰率
      * @param dampingRot 回転減衰率
@@ -102,7 +105,7 @@ public interface PmdRigidHandler extends LoopHandler {
 
     /**
      * 剛体の振る舞い情報の通知を受け取る。
-     * {@link #RIGID_LIST}ループの構成要素。
+     * <p>{@link #RIGID_LIST}ループの構成要素。
      * @param behaveType 剛体タイプ。
      * <ul>
      * <li>0:ボーン追従
@@ -110,6 +113,7 @@ public interface PmdRigidHandler extends LoopHandler {
      * <li>2:物理演算+ボーン位置合わせ
      * </ul>
      * @param collisionMap 非衝突剛体グループビットマップ。
+     * <p>
      * (衝突グループ番号-1)位置のビット位置は1に、
      * (非衝突グループ番号-1)位置のビット位置は0になる。
      * 例)グループ1と8のみが非衝突指定の場合、0xff7eになる。
