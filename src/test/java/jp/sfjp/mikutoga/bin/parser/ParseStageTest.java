@@ -51,4 +51,18 @@ public class ParseStageTest {
         return;
     }
 
+    /**
+     *
+     */
+    @Test
+    public void testToString(){
+        System.out.println("toString");
+
+        ParseStage p = new ParseStage();
+
+        assertEquals("parse stage#:" + p.getNo(), p.toString());
+
+        return;
+    }
+
 }

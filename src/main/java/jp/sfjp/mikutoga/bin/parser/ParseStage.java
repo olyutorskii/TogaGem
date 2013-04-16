@@ -39,4 +39,14 @@ public class ParseStage {
         return this.no;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     */
+    @Override
+    public String toString(){
+        String result = "parse stage#:" + this.no;
+        return result;
+    }
+
 }
