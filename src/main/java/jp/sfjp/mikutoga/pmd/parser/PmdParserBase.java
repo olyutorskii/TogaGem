@@ -15,6 +15,7 @@ import jp.sfjp.mikutoga.bin.parser.CommonParser;
 import jp.sfjp.mikutoga.bin.parser.MmdEofException;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 import jp.sfjp.mikutoga.bin.parser.TextDecoder;
+import jp.sfjp.mikutoga.pmd.ShadingUtil;
 
 /**
  * PMDモデルファイルのパーサ基本部。
@@ -88,36 +89,6 @@ public class PmdParserBase extends CommonParser {
         }else{
             result = name;
         }
-
-        return result;
-    }
-
-    /**
-     * シェーディング用ファイル情報から
-     * テクスチャファイル名とスフィアマップファイル名を分離する。
-     * @param shadingFile シェーディング用ファイル情報
-     * @return [0]:テクスチャファイル名 [1]:スフィアマップファイル名。
-     * 該当ファイル名が無い場合は空文字列。
-     */
-    public static String[] splitShadingFileInfo(String shadingFile){
-        String[] result;
-
-        result = shadingFile.split('\\'+"*", 2);
-        assert result.length == 1 || result.length == 2;
-
-        if(result.length == 1){
-            String onlyFile = result[0];
-            result = new String[2];
-            result[0] = "";
-            result[1] = "";
-            if(onlyFile.endsWith(".sph") || onlyFile.endsWith(".spa")){
-                result[1] = onlyFile;
-            }else{
-                result[0] = onlyFile;
-            }
-        }
-
-        assert result.length == 2;
 
         return result;
     }
@@ -384,7 +355,7 @@ public class PmdParserBase extends CommonParser {
 
             String shadingFile =
                     parsePmdText(PmdLimits.MAXBYTES_TEXTUREFILENAME);
-            String[] splitted = splitShadingFileInfo(shadingFile);
+            String[] splitted = ShadingUtil.splitShadingFileInfo(shadingFile);
             String textureFile = splitted[0];
             String sphereFile  = splitted[1];
 
