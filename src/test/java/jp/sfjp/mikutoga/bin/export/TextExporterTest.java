@@ -106,8 +106,12 @@ public class TextExporterTest {
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
 
         exporter = new TextExporter(CS_UTF8);
+        // JRE 1.6 と 1.7 でびみょーに違う
+        float maxb = CS_UTF8.newEncoder().maxBytesPerChar();
+
         exporter.setCharBufSize(1);
-        exporter.setByteBufSize(4);
+        int minb = (int)( StrictMath.floor(maxb) );
+        exporter.setByteBufSize(minb);
         bout.reset();
         try{
             exporter.encodeToByteStream("あいう", bout);
@@ -117,7 +121,8 @@ public class TextExporterTest {
         assertEquals(9, bout.size());
 
         try{
-            exporter.setByteBufSize(3);
+            int failSize = minb - 1;
+            exporter.setByteBufSize(failSize);
             fail();
         }catch(IllegalArgumentException e){
             // GOOD
