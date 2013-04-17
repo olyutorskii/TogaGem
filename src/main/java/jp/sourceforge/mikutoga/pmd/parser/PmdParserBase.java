@@ -321,8 +321,8 @@ public class PmdParserBase extends CommonParser {
             float vVal = parseLeFloat();
             this.shapeHandler.pmdVertexUV(uVal, vVal);
 
-            int boneId1 = parseLeUShortAsInt();
-            int boneId2 = parseLeUShortAsInt();
+            int boneId1     = parseLeUShortAsInt();
+            int boneId2     = parseLeUShortAsInt();
             int weightForB1 = parseUByteAsInt();
             this.shapeHandler.pmdVertexWeight(boneId1, boneId2, weightForB1);
 
@@ -379,7 +379,7 @@ public class PmdParserBase extends CommonParser {
             parseColor();
 
             int toonidx = parseUByteAsInt();
-            boolean hasEdge = parseBoolean();
+            boolean hasEdge  = parseBoolean();
             int surfaceCount = parseLeInt();
 
             String shadingFile =
@@ -447,10 +447,10 @@ public class PmdParserBase extends CommonParser {
         for(int ct = 0; ct < this.boneCount; ct++){
             String boneName =
                     parsePmdText(PmdLimits.MAXBYTES_BONENAME);
-            int parentId = parseLeUShortAsInt();
-            int tailId = parseLeUShortAsInt();
+            int parentId  = parseLeUShortAsInt();
+            int tailId    = parseLeUShortAsInt();
             byte boneKind = parseByte();
-            int srcId = parseLeUShortAsInt();
+            int srcId     = parseLeUShortAsInt();
 
             this.boneHandler.pmdBoneInfo(boneName, boneKind);
             this.boneHandler.pmdBoneLink(parentId, tailId, srcId);
@@ -480,15 +480,15 @@ public class PmdParserBase extends CommonParser {
         this.boneHandler.loopStart(PmdBoneHandler.IK_LIST, ikCount);
 
         for(int ct = 0; ct < ikCount; ct++){
-            int boneId = parseLeUShortAsInt();
-            int targetId = parseLeUShortAsInt();
+            int boneId      = parseLeUShortAsInt();
+            int targetId    = parseLeUShortAsInt();
             int chainLength = parseUByteAsInt();
-            int depth = parseLeUShortAsInt();
-            float weight = parseLeFloat();
-
-            parseIKChainList(chainLength);
+            int depth       = parseLeUShortAsInt();
+            float weight    = parseLeFloat();
 
             this.boneHandler.pmdIKInfo(boneId, targetId, depth, weight);
+
+            parseIKChainList(chainLength);
 
             this.boneHandler.loopNext(PmdBoneHandler.IK_LIST);
         }
@@ -536,7 +536,7 @@ public class PmdParserBase extends CommonParser {
             String morphName =
                     parsePmdText(PmdLimits.MAXBYTES_MORPHNAME);
             int vertexCount = parseLeInt();
-            byte morphType = parseByte();
+            byte morphType  = parseByte();
 
             this.morphHandler.pmdMorphInfo(morphName, morphType);
 
@@ -639,7 +639,7 @@ public class PmdParserBase extends CommonParser {
                                    groupedBoneCount);
 
         for(int ct = 0; ct < groupedBoneCount; ct++){
-            int boneId = parseLeUShortAsInt();
+            int boneId  = parseLeUShortAsInt();
             int groupId = parseUByteAsInt();
             this.boneHandler.pmdGroupedBoneInfo(boneId, groupId);
 
