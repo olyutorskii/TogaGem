@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.pmd.parser.PmdParser;
+import jp.sfjp.mikutoga.pmd.parser.PmdParser;
 
 /**
  * パーサ利用のサンプルプログラム。

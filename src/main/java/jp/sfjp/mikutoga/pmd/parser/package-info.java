@@ -9,6 +9,6 @@
  * PMDモデルファイル用パーサライブラリ。
  */
 
-package jp.sourceforge.mikutoga.pmd.parser;
+package jp.sfjp.mikutoga.pmd.parser;
 
 /* EOF */

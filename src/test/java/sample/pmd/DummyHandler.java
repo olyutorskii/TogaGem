@@ -8,7 +8,7 @@
 package sample.pmd;
 
 import jp.sfjp.mikutoga.bin.parser.ParseStage;
-import jp.sourceforge.mikutoga.pmd.parser.PmdUnifiedHandler;
+import jp.sfjp.mikutoga.pmd.parser.PmdUnifiedHandler;
 
 /**
  * サンプルのハンドラ。

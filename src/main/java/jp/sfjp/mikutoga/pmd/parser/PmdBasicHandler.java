@@ -5,7 +5,7 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd.parser;
+package jp.sfjp.mikutoga.pmd.parser;
 
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 

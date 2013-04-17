@@ -5,7 +5,7 @@
  * Copyright(c) 2013 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd.parser;
+package jp.sfjp.mikutoga.pmd.parser;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

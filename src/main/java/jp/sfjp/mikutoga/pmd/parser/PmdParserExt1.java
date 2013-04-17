@@ -5,7 +5,7 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd.parser;
+package jp.sfjp.mikutoga.pmd.parser;
 
 import java.io.IOException;
 import java.io.InputStream;

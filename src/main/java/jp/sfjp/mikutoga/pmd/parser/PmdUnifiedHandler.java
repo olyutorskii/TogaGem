@@ -5,7 +5,7 @@
  * Copyright(c) 2013 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.pmd.parser;
+package jp.sfjp.mikutoga.pmd.parser;
 
 /**
  * PMDパーサ用の統合ハンドラ。
