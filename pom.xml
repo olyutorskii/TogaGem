@@ -165,7 +165,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.0</version>
+                <version>3.1</version>
                 <configuration>
                     <source>1.6</source>  <!-- for NetBeans IDE -->
                     <target>1.6</target>
@@ -233,7 +233,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.14</version>
+                <version>2.14.1</version>
                 <configuration>
                     <skipTests>false</skipTests>
                     <enableAssertions>true</enableAssertions>
@@ -262,7 +262,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.7.1</version>  <!-- 3.0 is buggy -->
+                <version>3.0.1</version>
                 <configuration>
                     <targetJdk>${maven.compiler.target}</targetJdk>
                     <rulesets>
@@ -416,7 +416,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.14</version>
+                <version>2.14.1</version>
                 <configuration>
                     <showSuccess>false</showSuccess>
                 </configuration>
@@ -462,7 +462,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.7.1</version>  <!-- 3.0 is buggy -->
+                <version>3.0.1</version>
                 <configuration>
                     <skip>false</skip>
                     <targetJdk>${maven.compiler.target}</targetJdk>
