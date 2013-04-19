@@ -15,6 +15,7 @@ import jp.sfjp.mikutoga.bin.parser.CommonParser;
 import jp.sfjp.mikutoga.bin.parser.MmdEofException;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 import jp.sfjp.mikutoga.bin.parser.TextDecoder;
+import jp.sfjp.mikutoga.pmd.PmdLimits;
 import jp.sfjp.mikutoga.pmd.ShadingUtil;
 
 /**

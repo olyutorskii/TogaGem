@@ -5,7 +5,7 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sfjp.mikutoga.pmd.parser;
+package jp.sfjp.mikutoga.pmd;
 
 /**
  * PMDファイルフォーマットの各種リミット値その他定数。
