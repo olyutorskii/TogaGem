@@ -9,7 +9,8 @@
 
 <!DOCTYPE typicalBone [
     <!ELEMENT typicalBone (bone*) >
-    <!ELEMENT bone (primary+, global*) >
+    <!ELEMENT bone (root?, primary+, global*) >
+    <!ELEMENT root EMPTY >
     <!ELEMENT primary EMPTY >
     <!ELEMENT global EMPTY >
 
@@ -22,6 +23,7 @@
 
 
     <bone>
+        <root />
         <primary name="&#x30BB;&#x30F3;&#x30BF;&#x30FC;" />  <!-- センター -->
         <global name="center" />
     </bone>
@@ -312,11 +314,13 @@
     </bone>
 
     <bone>
+        <root />
         <primary name="&#x5DE6;&#x8DB3;&#xFF29;&#xFF2B;" />  <!-- 左足ＩＫ -->
         <global name="leg IK_L" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#x53F3;&#x8DB3;&#xFF29;&#xFF2B;" />  <!-- 右足ＩＫ -->
         <global name="leg IK_R" />
     </bone>
@@ -332,76 +336,91 @@
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;01" />  <!-- ﾎﾞｰﾝ01 -->
         <global name="bone01" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;02" />  <!-- ﾎﾞｰﾝ02 -->
         <global name="bone02" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;03" />  <!-- ﾎﾞｰﾝ03 -->
         <global name="bone03" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;04" />  <!-- ﾎﾞｰﾝ04 -->
         <global name="bone04" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;05" />  <!-- ﾎﾞｰﾝ05 -->
         <global name="bone05" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;06" />  <!-- ﾎﾞｰﾝ06 -->
         <global name="bone06" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;07" />  <!-- ﾎﾞｰﾝ07 -->
         <global name="bone07" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;08" />  <!-- ﾎﾞｰﾝ08 -->
         <global name="bone08" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;09" />  <!-- ﾎﾞｰﾝ09 -->
         <global name="bone09" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;10" />  <!-- ﾎﾞｰﾝ10 -->
         <global name="bone10" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;11" />  <!-- ﾎﾞｰﾝ11 -->
         <global name="bone11" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;12" />  <!-- ﾎﾞｰﾝ12 -->
         <global name="bone12" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;13" />  <!-- ﾎﾞｰﾝ13 -->
         <global name="bone13" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;14" />  <!-- ﾎﾞｰﾝ14 -->
         <global name="bone14" />
     </bone>
 
     <bone>
+        <root />
         <primary name="&#xFF8E;&#xFF9E;&#xFF70;&#xFF9D;15" />  <!-- ﾎﾞｰﾝ15 -->
         <global name="bone15" />
     </bone>

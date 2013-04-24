@@ -5,15 +5,13 @@
  * Copyright(c) 2011 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.typical;
+package jp.sfjp.mikutoga.typical;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -31,18 +29,23 @@ public final class TypicalBone extends I18nAlias {
     private static final Class<?> THISCLASS = TypicalBone.class;
     private static final String BONE_XML = "resources/typicalBone.xml";
 
-    private static final List<TypicalBone> TYP_BONE_LIST =
-            new LinkedList<TypicalBone>();
-    private static final Map<String, TypicalBone> PRIMARY_MAP =
-            new HashMap<String, TypicalBone>();
-    private static final Map<String, TypicalBone> GLOBAL_MAP =
-            new HashMap<String, TypicalBone>();
+    private static final String ELEM_BONE    = "bone";
+    private static final String ELEM_ROOT    = "root";
+    private static final String ELEM_PRIMARY = "primary";
+    private static final String ELEM_GLOBAL  = "global";
+    private static final String ATTR_NAME    = "name";
 
-    private static final List<TypicalBone> TYP_BONE_UNMODLIST =
-            Collections.unmodifiableList(TYP_BONE_LIST);
+    private static final List<TypicalBone> BONE_LIST =
+            new LinkedList<TypicalBone>();
+    private static final AliasMap<TypicalBone> BONE_ALIAS_MAP =
+            new AliasMap<TypicalBone>();
+
+    private static final List<TypicalBone> BONE_UNMODLIST =
+            Collections.unmodifiableList(BONE_LIST);
 
     static{
         InputStream is = THISCLASS.getResourceAsStream(BONE_XML);
+
         Element top;
         try{
             top = I18nAlias.loadXml(is);
@@ -60,15 +63,19 @@ public final class TypicalBone extends I18nAlias {
     }
 
 
+    private boolean isRoot;
+
+
     /**
      * コンストラクタ。
      * <p>各初期数が0以下の場合は、
      * 状況に応じて伸長する連結リストが用意される。
-     * @param primaryNo プライマリ名初期数。
-     * @param globalNo グローバル名初期数。
+     * @param primaryNum プライマリ名初期数。
+     * @param globalNum グローバル名初期数。
      */
-    private TypicalBone(int primaryNo, int globalNo){
-        super(primaryNo, globalNo);
+    private TypicalBone(int primaryNum, int globalNum){
+        super(primaryNum, globalNum);
+        assert this.getClass() == THISCLASS;
         return;
     }
 
@@ -78,12 +85,13 @@ public final class TypicalBone extends I18nAlias {
      * @param top 最上位要素
      */
     private static void parse(Element top) {
-        NodeList boneList = top.getElementsByTagName("bone");
+        NodeList boneList = top.getElementsByTagName(ELEM_BONE);
         int boneNo = boneList.getLength();
         for(int idx = 0; idx < boneNo; idx++){
-            Element bone = (Element) boneList.item(idx);
-            TypicalBone typBone = parseBone(bone);
-            TYP_BONE_LIST.add(typBone);
+            Element boneElem = (Element) boneList.item(idx);
+            TypicalBone typBone = parseBone(boneElem);
+            BONE_LIST.add(typBone);
+            BONE_ALIAS_MAP.addAlias(typBone);
         }
 
         return;
@@ -91,49 +99,48 @@ public final class TypicalBone extends I18nAlias {
 
     /**
      * bone要素を解読する。
-     * @param bone bone要素
+     * @param boneElem bone要素
      * @return ボーン情報
      */
-    private static TypicalBone parseBone(Element bone){
-        NodeList primaryNodes = bone.getElementsByTagName("primary");
-        NodeList globalNodes  = bone.getElementsByTagName("global");
+    private static TypicalBone parseBone(Element boneElem){
+        NodeList primaryNodes = boneElem.getElementsByTagName(ELEM_PRIMARY);
+        NodeList globalNodes  = boneElem.getElementsByTagName(ELEM_GLOBAL);
         int primaryNo = primaryNodes.getLength();
         int globalNo  = globalNodes.getLength();
 
-        TypicalBone typBone = new TypicalBone(primaryNo, globalNo);
+        assert primaryNo > 0;
+
+        TypicalBone bone = new TypicalBone(primaryNo, globalNo);
 
         for(int idx = 0; idx < primaryNo; idx++){
-            Element primary = (Element) primaryNodes.item(idx);
-            String name = primary.getAttribute("name");
-            typBone.addPrimaryName(name);
+            Element primaryElem = (Element) primaryNodes.item(idx);
+            String name = primaryElem.getAttribute(ATTR_NAME);
+            bone.addPrimaryName(name);
         }
 
         for(int idx = 0; idx < globalNo; idx++){
-            Element global = (Element) globalNodes.item(idx);
-            String name = global.getAttribute("name");
-            typBone.addGlobalName(name);
+            Element globalElem = (Element) globalNodes.item(idx);
+            String name = globalElem.getAttribute(ATTR_NAME);
+            bone.addGlobalName(name);
         }
 
-        for(String primaryName : typBone.getPrimaryList()){
-            String key = normalize(primaryName).intern();
-            PRIMARY_MAP.put(key, typBone);
+        NodeList rootNodes = boneElem.getElementsByTagName(ELEM_ROOT);
+        if(rootNodes.getLength() > 0){
+            bone.isRoot = true;
+        }else{
+            bone.isRoot = false;
         }
 
-        for(String globalName : typBone.getGlobalList()){
-            String key = normalize(globalName).intern();
-            GLOBAL_MAP.put(key, typBone);
-        }
-
-        return typBone;
+        return bone;
     }
 
     /**
-     * 全ボーン情報を一意に順序付ける設定を行う。
+     * 全ボーン情報に通し番号を付ける。
      * <p>XMLでの定義順が反映される。
      */
     private static void numbering(){
         int order = 0;
-        for(TypicalBone bone : TYP_BONE_LIST){
+        for(TypicalBone bone : BONE_LIST){
             bone.setOrderNo(order++);
         }
 
@@ -144,8 +151,8 @@ public final class TypicalBone extends I18nAlias {
      * 全ボーンの不変リストを返す。
      * @return 全ボーンのリスト
      */
-    public static List<TypicalBone> getBoneList(){
-        return TYP_BONE_UNMODLIST;
+    public static List<TypicalBone> getTypicalBoneList(){
+        return BONE_UNMODLIST;
     }
 
     /**
@@ -155,8 +162,7 @@ public final class TypicalBone extends I18nAlias {
      * @return モーフ情報。見つからなければnull
      */
     public static TypicalBone findWithPrimary(String primaryName){
-        String key = normalize(primaryName);
-        TypicalBone result = PRIMARY_MAP.get(key);
+        TypicalBone result = BONE_ALIAS_MAP.getAliasByPrimary(primaryName);
         return result;
     }
 
@@ -167,8 +173,7 @@ public final class TypicalBone extends I18nAlias {
      * @return モーフ情報。見つからなければnull
      */
     public static TypicalBone findWithGlobal(String globalName){
-        String key = normalize(globalName);
-        TypicalBone result = GLOBAL_MAP.get(key);
+        TypicalBone result = BONE_ALIAS_MAP.getAliasByGlobal(globalName);
         return result;
     }
 
@@ -178,10 +183,8 @@ public final class TypicalBone extends I18nAlias {
      * @return グローバル名。見つからなければnull
      */
     public static String primary2global(String primaryName){
-        TypicalBone bone = findWithPrimary(primaryName);
-        if(bone == null) return null;
-        String global = bone.getTopGlobalName();
-        return global;
+        String globalName = BONE_ALIAS_MAP.primary2global(primaryName);
+        return globalName;
     }
 
     /**
@@ -190,10 +193,19 @@ public final class TypicalBone extends I18nAlias {
      * @return プライマリ名。見つからなければnull
      */
     public static String global2primary(String globalName){
-        TypicalBone bone = findWithGlobal(globalName);
-        if(bone == null) return null;
-        String primary = bone.getTopPrimaryName();
-        return primary;
+        String primaryName = BONE_ALIAS_MAP.global2primary(globalName);
+        return primaryName;
+    }
+
+
+    /**
+     * このボーンが親を持たないルートボーンとして扱われる慣習なのか
+     * 判定する。
+     * <p>※「全親」ボーンに関する慣習は無視される。
+     * @return 親を持たなければtrue
+     */
+    public boolean isRoot(){
+        return this.isRoot;
     }
 
 }

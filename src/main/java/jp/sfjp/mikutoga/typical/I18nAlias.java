@@ -5,11 +5,10 @@
  * Copyright(c) 2011 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.typical;
+package jp.sfjp.mikutoga.typical;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,10 +23,15 @@ import org.xml.sax.SAXException;
 
 /**
  * 国際化&別名管理オブジェクトの実装基板。
+ * <p>別名管理オブジェクトは、
+ * 各々のリストの先頭が代表名となる、
+ * プライマリ名の不変リストとグローバル名の不変リストを持つ。
  * <p>国産モデルではプライマリ名に日本語名が収められることが多い。
  * プライマリ名は必ず一つ以上なければならない。
  * <p>国産モデルではグローバル名に英語名が収められることが多いが、
  * プライマリ名と同一の日本語名が収められている場合も多い。
+ * <p>別名管理オブジェクトは、
+ * インスタンス間での順序を定義するためのオーダー番号を持つ。
  */
 class I18nAlias {
 
@@ -38,39 +42,39 @@ class I18nAlias {
 
     private int orderNo;
 
-    private final List<String> primaryList;
-    private final List<String> globalList;
+    private final List<String> primaryNameList;
+    private final List<String> globalNameList;
 
-    private final List<String> umodPrimaryList;
-    private final List<String> umodGlobalList;
+    private final List<String> umodPrimaryNameList;
+    private final List<String> umodGlobalNameList;
 
 
     /**
      * コンストラクタ。
      * <p>各初期数が0以下の場合は、
      * 状況に応じて伸長する連結リストが用意される。
-     * @param primaryNo プライマリ名初期数。
-     * @param globalNo グローバル名初期数。
+     * @param primaryNum プライマリ名初期数。
+     * @param globalNum グローバル名初期数。
      */
-    protected I18nAlias(int primaryNo, int globalNo){
+    protected I18nAlias(int primaryNum, int globalNum){
         super();
 
-        if(primaryNo <= 0){
-            this.primaryList = new LinkedList<String>();
+        if(primaryNum <= 0){
+            this.primaryNameList = new LinkedList<String>();
         }else{
-            this.primaryList = new ArrayList<String>(primaryNo);
+            this.primaryNameList = new ArrayList<String>(primaryNum);
         }
 
-        if(globalNo <= 0){
-            this.globalList  = new LinkedList<String>();
+        if(globalNum <= 0){
+            this.globalNameList  = new LinkedList<String>();
         }else{
-            this.globalList  = new ArrayList<String>(globalNo);
+            this.globalNameList  = new ArrayList<String>(globalNum);
         }
 
-        this.umodPrimaryList =
-                Collections.unmodifiableList(this.primaryList);
-        this.umodGlobalList =
-                Collections.unmodifiableList(this.globalList);
+        this.umodPrimaryNameList =
+                Collections.unmodifiableList(this.primaryNameList);
+        this.umodGlobalNameList =
+                Collections.unmodifiableList(this.globalNameList);
 
         return;
     }
@@ -98,7 +102,6 @@ class I18nAlias {
             throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory;
         factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(true);
 
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(is);
@@ -106,21 +109,6 @@ class I18nAlias {
         Element top = doc.getDocumentElement();
 
         return top;
-    }
-
-    /**
-     * NFKC正規化された文字列を返す。
-     * <ul>
-     * <li>「ﾎﾞｰﾝ」は「ボーン」になる
-     * <li>「ホ゛ーン９」は「ボーン9」になる
-     * </ul>
-     * @param name 正規化対象文字列
-     * @return 正規化済み文字列
-     */
-    protected static String normalize(CharSequence name){
-        String result;
-        result = Normalizer.normalize(name, Normalizer.Form.NFKC);
-        return result;
     }
 
 
@@ -143,10 +131,11 @@ class I18nAlias {
 
     /**
      * プライマリ名の代表をひとつ返す。
+     * <p>必ず存在しなければならない。
      * @return 最初のプライマリ名
      */
     public String getTopPrimaryName(){
-        String result = this.primaryList.get(0);
+        String result = this.primaryNameList.get(0);
         return result;
     }
 
@@ -155,43 +144,44 @@ class I18nAlias {
      * @return 最初のグローバル名。ひとつもなければnull
      */
     public String getTopGlobalName(){
-        String result;
-        if(this.globalList.isEmpty()) result = null;
-        else                          result = this.globalList.get(0);
+        if(this.globalNameList.isEmpty()) return null;
+
+        String result = this.globalNameList.get(0);
+
         return result;
     }
 
     /**
-     * プライマリ名の全エイリアス文字列リストを返す。
-     * @return 全プライマリ名リスト。(不可変)
+     * プライマリ名の全別名リストを返す。
+     * @return 全別名リスト。(不可変)
      */
-    public List<String> getPrimaryList(){
-        return this.umodPrimaryList;
+    public List<String> getPrimaryNameList(){
+        return this.umodPrimaryNameList;
     }
 
     /**
      * プライマリ名を追加。
-     * @param name プライマリ名
+     * @param primaryName プライマリ名
      */
-    protected void addPrimaryName(String name){
-        this.primaryList.add(name);
+    protected void addPrimaryName(String primaryName){
+        this.primaryNameList.add(primaryName);
         return;
     }
 
     /**
-     * グローバル名の全エイリアス文字列リストを返す。
-     * @return 全グローバル名リスト。(不可変)
+     * グローバル名の全別名リストを返す。
+     * @return 全別名リスト。(不可変)
      */
-    public List<String> getGlobalList(){
-        return this.umodGlobalList;
+    public List<String> getGlobalNameList(){
+        return this.umodGlobalNameList;
     }
 
     /**
      * グローバル名を追加。
-     * @param name グローバル名
+     * @param globalName グローバル名
      */
-    protected void addGlobalName(String name){
-        this.globalList.add(name);
+    protected void addGlobalName(String globalName){
+        this.globalNameList.add(globalName);
         return;
     }
 

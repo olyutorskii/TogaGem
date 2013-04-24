@@ -1,7 +1,7 @@
 /*
  */
 
-package jp.sourceforge.mikutoga.typical;
+package jp.sfjp.mikutoga.typical;
 
 import java.util.List;
 import jp.sfjp.mikutoga.pmd.MorphType;
@@ -37,7 +37,7 @@ public class TypicalMorphTest {
     }
 
     /**
-     * Test of getTypedMorphList method, of class TypicalMorph.
+     * Test of getTypicalMorphList method, of class TypicalMorph.
      */
     @Test
     public void testGetTypedMorphList() {
@@ -45,16 +45,16 @@ public class TypicalMorphTest {
 
         List<TypicalMorph> morphList;
 
-        morphList = TypicalMorph.getTypedMorphList(MorphType.EYEBROW);
+        morphList = TypicalMorph.getTypicalMorphList(MorphType.EYEBROW);
         assertEquals(6, morphList.size());
 
-        morphList = TypicalMorph.getTypedMorphList(MorphType.EYE);
+        morphList = TypicalMorph.getTypicalMorphList(MorphType.EYE);
         assertEquals(7, morphList.size());
 
-        morphList = TypicalMorph.getTypedMorphList(MorphType.LIP);
+        morphList = TypicalMorph.getTypicalMorphList(MorphType.LIP);
         assertEquals(12, morphList.size());
 
-        morphList = TypicalMorph.getTypedMorphList(MorphType.EXTRA);
+        morphList = TypicalMorph.getTypicalMorphList(MorphType.EXTRA);
         assertEquals(2, morphList.size());
 
         return;
@@ -74,10 +74,10 @@ public class TypicalMorphTest {
         assertEquals(MorphType.LIP, result.getMorphType());
         assertEquals("あ", result.getTopPrimaryName());
         assertEquals("a", result.getTopGlobalName());
-        assertEquals(1, result.getPrimaryList().size());
-        assertEquals("あ", result.getPrimaryList().get(0));
-        assertEquals(1, result.getGlobalList().size());
-        assertEquals("a", result.getGlobalList().get(0));
+        assertEquals(1, result.getPrimaryNameList().size());
+        assertEquals("あ", result.getPrimaryNameList().get(0));
+        assertEquals(1, result.getGlobalNameList().size());
+        assertEquals("a", result.getGlobalNameList().get(0));
 
         TypicalMorph result1;
         TypicalMorph result2;
@@ -88,11 +88,11 @@ public class TypicalMorphTest {
         assertEquals(MorphType.EXTRA, result1.getMorphType());
         assertEquals("べー", result1.getTopPrimaryName());
         assertEquals("tongue", result1.getTopGlobalName());
-        assertEquals(2, result1.getPrimaryList().size());
-        assertEquals("べー", result1.getPrimaryList().get(0));
-        assertEquals("ぺろっ", result1.getPrimaryList().get(1));
-        assertEquals(1, result1.getGlobalList().size());
-        assertEquals("tongue", result1.getGlobalList().get(0));
+        assertEquals(2, result1.getPrimaryNameList().size());
+        assertEquals("べー", result1.getPrimaryNameList().get(0));
+        assertEquals("ぺろっ", result1.getPrimaryNameList().get(1));
+        assertEquals(1, result1.getGlobalNameList().size());
+        assertEquals("tongue", result1.getGlobalNameList().get(0));
 
         return;
     }
@@ -176,28 +176,28 @@ public class TypicalMorphTest {
 
         List<TypicalMorph> morphList;
 
-        morphList = TypicalMorph.getTypedMorphList(MorphType.EYEBROW);
+        morphList = TypicalMorph.getTypicalMorphList(MorphType.EYEBROW);
 
         for(TypicalMorph morph : morphList){
             MorphType type = morph.getMorphType();
             assertEquals(MorphType.EYEBROW, type);
         }
 
-        morphList = TypicalMorph.getTypedMorphList(MorphType.EYE);
+        morphList = TypicalMorph.getTypicalMorphList(MorphType.EYE);
 
         for(TypicalMorph morph : morphList){
             MorphType type = morph.getMorphType();
             assertEquals(MorphType.EYE, type);
         }
 
-        morphList = TypicalMorph.getTypedMorphList(MorphType.LIP);
+        morphList = TypicalMorph.getTypicalMorphList(MorphType.LIP);
 
         for(TypicalMorph morph : morphList){
             MorphType type = morph.getMorphType();
             assertEquals(MorphType.LIP, type);
         }
 
-        morphList = TypicalMorph.getTypedMorphList(MorphType.EXTRA);
+        morphList = TypicalMorph.getTypicalMorphList(MorphType.EXTRA);
 
         for(TypicalMorph morph : morphList){
             MorphType type = morph.getMorphType();

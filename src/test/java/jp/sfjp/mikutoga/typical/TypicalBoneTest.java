@@ -1,7 +1,7 @@
 /*
  */
 
-package jp.sourceforge.mikutoga.typical;
+package jp.sfjp.mikutoga.typical;
 
 import java.util.List;
 import org.junit.After;
@@ -47,10 +47,10 @@ public class TypicalBoneTest {
 
         assertEquals("頭", result.getTopPrimaryName());
         assertEquals("head", result.getTopGlobalName());
-        assertEquals(1, result.getPrimaryList().size());
-        assertEquals("頭", result.getPrimaryList().get(0));
-        assertEquals(1, result.getGlobalList().size());
-        assertEquals("head", result.getGlobalList().get(0));
+        assertEquals(1, result.getPrimaryNameList().size());
+        assertEquals("頭", result.getPrimaryNameList().get(0));
+        assertEquals(1, result.getGlobalNameList().size());
+        assertEquals("head", result.getGlobalNameList().get(0));
 
         return;
     }
@@ -122,7 +122,7 @@ public class TypicalBoneTest {
     }
 
     /**
-     * Test of getBoneList method, of class TypicalBone.
+     * Test of getTypicalBoneList method, of class TypicalBone.
      */
     @Test
     public void testGetBoneList() {
@@ -130,7 +130,7 @@ public class TypicalBoneTest {
 
         List<TypicalBone> boneList;
 
-        boneList = TypicalBone.getBoneList();
+        boneList = TypicalBone.getTypicalBoneList();
 
         assertNotNull(boneList);
         assertEquals(77, boneList.size());
@@ -143,6 +143,33 @@ public class TypicalBoneTest {
 
         assertEquals("center", bone1st.getTopGlobalName());
         assertEquals("bone15", boneLast.getTopGlobalName());
+
+        return;
+    }
+
+    /**
+     * Test of isRoot method, of class TypicalBone.
+     */
+    @Test
+    public void testIsRoot() {
+        System.out.println("isRoot");
+
+        TypicalBone bone;
+
+        bone = TypicalBone.findWithPrimary("センター");
+        assertTrue(bone.isRoot());
+
+        bone = TypicalBone.findWithPrimary("頭");
+        assertFalse(bone.isRoot());
+
+        bone = TypicalBone.findWithPrimary("右足IK");
+        assertTrue(bone.isRoot());
+
+        bone = TypicalBone.findWithPrimary("左足IK");
+        assertTrue(bone.isRoot());
+
+        bone = TypicalBone.findWithPrimary("ボーン01");
+        assertTrue(bone.isRoot());
 
         return;
     }

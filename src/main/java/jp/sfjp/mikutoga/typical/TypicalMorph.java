@@ -5,14 +5,13 @@
  * Copyright(c) 2011 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.typical;
+package jp.sfjp.mikutoga.typical;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,19 +33,25 @@ public final class TypicalMorph extends I18nAlias {
     private static final Class<?> THISCLASS = TypicalMorph.class;
     private static final String MORPH_XML = "resources/typicalMorph.xml";
 
+    private static final String ELEM_MORPHGROUP = "morphGroup";
+    private static final String ELEM_MORPH      = "morph";
+    private static final String ATTR_TYPE       = "type";
+    private static final String ELEM_PRIMARY    = "primary";
+    private static final String ELEM_GLOBAL     = "global";
+    private static final String ATTR_NAME       = "name";
+
     private static final List<TypicalMorph> EMPTY = Collections.emptyList();
 
     private static final Map<MorphType, List<TypicalMorph>> TYPED_MAP =
             new EnumMap<MorphType, List<TypicalMorph>>(MorphType.class);
 
-    private static final Map<String, TypicalMorph> PRIMARY_MAP =
-            new HashMap<String, TypicalMorph>();
-    private static final Map<String, TypicalMorph> GLOBAL_MAP =
-            new HashMap<String, TypicalMorph>();
+    private static final AliasMap<TypicalMorph> MORPH_ALIAS_MAP =
+            new AliasMap<TypicalMorph>();
 
 
     static{
         InputStream is = THISCLASS.getResourceAsStream(MORPH_XML);
+
         Element top;
         try{
             top = I18nAlias.loadXml(is);
@@ -72,12 +77,16 @@ public final class TypicalMorph extends I18nAlias {
      * <p>各初期数が0以下の場合は、
      * 状況に応じて伸長する連結リストが用意される。
      * @param type モーフ種別
-     * @param primaryNo プライマリ名初期数。
-     * @param globalNo グローバル名初期数。
+     * @param primaryNum プライマリ名初期数。
+     * @param globalNum グローバル名初期数。
      */
-    private TypicalMorph(MorphType type, int primaryNo, int globalNo){
-        super(primaryNo, globalNo);
+    private TypicalMorph(MorphType type, int primaryNum, int globalNum){
+        super(primaryNum, globalNum);
+
         this.type = type;
+
+        assert this.getClass() == THISCLASS;
+
         return;
     }
 
@@ -87,11 +96,11 @@ public final class TypicalMorph extends I18nAlias {
      * @param top 最上位要素
      */
     private static void parse(Element top) {
-        NodeList groupList = top.getElementsByTagName("morphGroup");
+        NodeList groupList = top.getElementsByTagName(ELEM_MORPHGROUP);
         int groupNo = groupList.getLength();
         for(int idx = 0; idx < groupNo; idx++){
-            Element group = (Element) groupList.item(idx);
-            parseGroup(group);
+            Element groupElem = (Element) groupList.item(idx);
+            parseGroup(groupElem);
         }
 
         // 必要に応じモーフ枠に不変空リスト登録
@@ -106,21 +115,22 @@ public final class TypicalMorph extends I18nAlias {
 
     /**
      * モーフグループ構造を解読する。
-     * @param group morphGroup要素
+     * @param groupElem morphGroup要素
      */
-    private static void parseGroup(Element group){
-        String typeAttr = group.getAttribute("type");
+    private static void parseGroup(Element groupElem){
+        String typeAttr = groupElem.getAttribute(ATTR_TYPE);
         MorphType morphType = MorphType.valueOf(typeAttr);
 
-        NodeList morphList = group.getElementsByTagName("morph");
+        NodeList morphList = groupElem.getElementsByTagName(ELEM_MORPH);
         int morphNo = morphList.getLength();
         List<TypicalMorph> groupedList =
                 new ArrayList<TypicalMorph>(morphNo);
 
         for(int idx = 0; idx < morphNo; idx++){
-            Element morph = (Element) morphList.item(idx);
-            TypicalMorph common = parseMorph(morph, morphType);
-            groupedList.add(common);
+            Element morphElem = (Element) morphList.item(idx);
+            TypicalMorph morph = parseMorph(morphElem, morphType);
+            groupedList.add(morph);
+            MORPH_ALIAS_MAP.addAlias(morph);
         }
 
         groupedList = Collections.unmodifiableList(groupedList);
@@ -131,65 +141,58 @@ public final class TypicalMorph extends I18nAlias {
 
     /**
      * morph要素を解読する。
-     * @param morph morph要素
+     * @param morphElem morph要素
      * @param mtype モーフ種別
      * @return モーフ情報
      */
-    private static TypicalMorph parseMorph(Element morph, MorphType mtype){
-        NodeList primaryNodes = morph.getElementsByTagName("primary");
-        NodeList globalNodes  = morph.getElementsByTagName("global");
+    private static TypicalMorph parseMorph(Element morphElem,
+                                             MorphType mtype ){
+        NodeList primaryNodes = morphElem.getElementsByTagName(ELEM_PRIMARY);
+        NodeList globalNodes  = morphElem.getElementsByTagName(ELEM_GLOBAL);
         int primaryNo = primaryNodes.getLength();
         int globalNo  = globalNodes.getLength();
 
-        TypicalMorph typMorph = new TypicalMorph(mtype, primaryNo, globalNo);
+        assert primaryNo > 0;
+
+        TypicalMorph morph = new TypicalMorph(mtype, primaryNo, globalNo);
 
         for(int idx = 0; idx < primaryNo; idx++){
-            Element primary = (Element) primaryNodes.item(idx);
-            String name = primary.getAttribute("name");
-            typMorph.addPrimaryName(name);
+            Element primaryElem = (Element) primaryNodes.item(idx);
+            String primaryName = primaryElem.getAttribute(ATTR_NAME);
+            morph.addPrimaryName(primaryName);
         }
 
         for(int idx = 0; idx < globalNo; idx++){
-            Element global = (Element) globalNodes.item(idx);
-            String name = global.getAttribute("name");
-            typMorph.addGlobalName(name);
+            Element globalElem = (Element) globalNodes.item(idx);
+            String globalName = globalElem.getAttribute(ATTR_NAME);
+            morph.addGlobalName(globalName);
         }
 
-        for(String primaryName : typMorph.getPrimaryList()){
-            String key = normalize(primaryName).intern();
-            PRIMARY_MAP.put(key, typMorph);
-        }
-
-        for(String globalName : typMorph.getGlobalList()){
-            String key = normalize(globalName).intern();
-            GLOBAL_MAP.put(key, typMorph);
-        }
-
-        return typMorph;
+        return morph;
     }
 
     /**
-     * 全モーフ情報を一意に順序付ける設定を行う。
+     * 全モーフ情報に通し番号を付ける。
      * <p>同一グループ内ではXMLでの定義順が反映される。
      */
     private static void numbering(){
         int order = 0;
         for(MorphType morphType : MorphType.values()){
-            for(TypicalMorph common : TYPED_MAP.get(morphType)){
-                common.setOrderNo(order++);
+            for(TypicalMorph morph : TYPED_MAP.get(morphType)){
+                morph.setOrderNo(order++);
             }
         }
 
         return;
     }
 
-
     /**
-     * 種別ごとのモーフ情報リストを取得する。
+     * 種別ごとのモーフ情報不変リストを取得する。
      * @param morphType モーフ種別
-     * @return モーフ情報リスト
+     * @return モーフ情報不変リスト
      */
-    public static List<TypicalMorph> getTypedMorphList(MorphType morphType){
+    public static List<TypicalMorph> getTypicalMorphList(
+            MorphType morphType ){
         List<TypicalMorph> result = TYPED_MAP.get(morphType);
         return result;
     }
@@ -201,8 +204,7 @@ public final class TypicalMorph extends I18nAlias {
      * @return モーフ情報。見つからなければnull
      */
     public static TypicalMorph findWithPrimary(String primaryName){
-        String key = normalize(primaryName);
-        TypicalMorph result = PRIMARY_MAP.get(key);
+        TypicalMorph result = MORPH_ALIAS_MAP.getAliasByPrimary(primaryName);
         return result;
     }
 
@@ -213,8 +215,7 @@ public final class TypicalMorph extends I18nAlias {
      * @return モーフ情報。見つからなければnull
      */
     public static TypicalMorph findWithGlobal(String globalName){
-        String key = normalize(globalName);
-        TypicalMorph result = GLOBAL_MAP.get(key);
+        TypicalMorph result = MORPH_ALIAS_MAP.getAliasByGlobal(globalName);
         return result;
     }
 
@@ -224,10 +225,8 @@ public final class TypicalMorph extends I18nAlias {
      * @return グローバル名。見つからなければnull
      */
     public static String primary2global(String primaryName){
-        TypicalMorph morph = findWithPrimary(primaryName);
-        if(morph == null) return null;
-        String global = morph.getTopGlobalName();
-        return global;
+        String globalName = MORPH_ALIAS_MAP.primary2global(primaryName);
+        return globalName;
     }
 
     /**
@@ -236,10 +235,8 @@ public final class TypicalMorph extends I18nAlias {
      * @return プライマリ名。見つからなければnull
      */
     public static String global2primary(String globalName){
-        TypicalMorph morph = findWithGlobal(globalName);
-        if(morph == null) return null;
-        String primary = morph.getTopPrimaryName();
-        return primary;
+        String primaryName = MORPH_ALIAS_MAP.global2primary(globalName);
+        return primaryName;
     }
 
 
