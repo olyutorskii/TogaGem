@@ -35,7 +35,7 @@ public interface FrameNumbered {
      * フレーム番号の昇順を定義づける。
      */
     @SuppressWarnings("serial")
-    static class FrameComparator
+    class FrameComparator
             implements Comparator<FrameNumbered> {
 
         /**
