@@ -18,7 +18,7 @@ import jp.sfjp.mikutoga.pmd.PmdLimits;
  */
 public class PmdParserExt2 extends PmdParserExt1 {
 
-    private PmdToonHandler toonHandler = NullHandler.HANDLER;
+    private PmdToonHandler toonHandler = PmdUnifiedHandler.EMPTY;
 
     /**
      * コンストラクタ。
@@ -35,7 +35,7 @@ public class PmdParserExt2 extends PmdParserExt1 {
      */
     public void setToonHandler(PmdToonHandler handler){
         if(handler == null){
-            this.toonHandler = NullHandler.HANDLER;
+            this.toonHandler = PmdUnifiedHandler.EMPTY;
         }else{
             this.toonHandler = handler;
         }

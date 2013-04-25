@@ -7,6 +7,8 @@
 
 package jp.sfjp.mikutoga.pmd.parser;
 
+import jp.sfjp.mikutoga.corelib.EmptyProxyFactory;
+
 /**
  * PMDパーサ用の統合ハンドラ。
  */
@@ -20,4 +22,10 @@ public interface PmdUnifiedHandler
             PmdToonHandler,
             PmdRigidHandler,
             PmdJointHandler {
+
+    /** 何もしない統合ハンドラ。 */
+    PmdUnifiedHandler EMPTY =
+            (PmdUnifiedHandler)
+            ( EmptyProxyFactory.buildEmptyProxy(PmdUnifiedHandler.class) );
+
 }

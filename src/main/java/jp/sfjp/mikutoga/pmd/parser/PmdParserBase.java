@@ -54,11 +54,11 @@ public class PmdParserBase extends CommonParser {
 
     private final TextDecoder decoderWin31j  = new TextDecoder(CS_WIN31J);
 
-    private PmdBasicHandler basicHandler =       NullHandler.HANDLER;
-    private PmdShapeHandler shapeHandler =       NullHandler.HANDLER;
-    private PmdMaterialHandler materialHandler = NullHandler.HANDLER;
-    private PmdBoneHandler boneHandler =         NullHandler.HANDLER;
-    private PmdMorphHandler morphHandler =       NullHandler.HANDLER;
+    private PmdBasicHandler basicHandler =       PmdUnifiedHandler.EMPTY;
+    private PmdShapeHandler shapeHandler =       PmdUnifiedHandler.EMPTY;
+    private PmdMaterialHandler materialHandler = PmdUnifiedHandler.EMPTY;
+    private PmdBoneHandler boneHandler =         PmdUnifiedHandler.EMPTY;
+    private PmdMorphHandler morphHandler =       PmdUnifiedHandler.EMPTY;
 
     private int boneCount      = -1;
     private int morphCount     = -1;
@@ -100,7 +100,7 @@ public class PmdParserBase extends CommonParser {
      */
     public void setBasicHandler(PmdBasicHandler handler){
         if(handler == null){
-            this.basicHandler = NullHandler.HANDLER;
+            this.basicHandler = PmdUnifiedHandler.EMPTY;
         }else{
             this.basicHandler = handler;
         }
@@ -113,7 +113,7 @@ public class PmdParserBase extends CommonParser {
      */
     public void setShapeHandler(PmdShapeHandler handler){
         if(handler == null){
-            this.shapeHandler = NullHandler.HANDLER;
+            this.shapeHandler = PmdUnifiedHandler.EMPTY;
         }else{
             this.shapeHandler = handler;
         }
@@ -126,7 +126,7 @@ public class PmdParserBase extends CommonParser {
      */
     public void setMaterialHandler(PmdMaterialHandler handler){
         if(handler == null){
-            this.materialHandler = NullHandler.HANDLER;
+            this.materialHandler = PmdUnifiedHandler.EMPTY;
         }else{
             this.materialHandler = handler;
         }
@@ -139,7 +139,7 @@ public class PmdParserBase extends CommonParser {
      */
     public void setBoneHandler(PmdBoneHandler handler){
         if(handler == null){
-            this.boneHandler = NullHandler.HANDLER;
+            this.boneHandler = PmdUnifiedHandler.EMPTY;
         }else{
             this.boneHandler = handler;
         }
@@ -152,7 +152,7 @@ public class PmdParserBase extends CommonParser {
      */
     public void setMorphHandler(PmdMorphHandler handler){
         if(handler == null){
-            this.morphHandler = NullHandler.HANDLER;
+            this.morphHandler = PmdUnifiedHandler.EMPTY;
         }else{
             this.morphHandler = handler;
         }

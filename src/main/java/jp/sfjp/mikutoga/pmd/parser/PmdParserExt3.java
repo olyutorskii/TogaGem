@@ -18,8 +18,8 @@ import jp.sfjp.mikutoga.pmd.PmdLimits;
  */
 public class PmdParserExt3 extends PmdParserExt2 {
 
-    private PmdRigidHandler rigidHandler = NullHandler.HANDLER;
-    private PmdJointHandler jointHandler = NullHandler.HANDLER;
+    private PmdRigidHandler rigidHandler = PmdUnifiedHandler.EMPTY;
+    private PmdJointHandler jointHandler = PmdUnifiedHandler.EMPTY;
 
     /**
      * コンストラクタ。
@@ -36,7 +36,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
      */
     public void setRigidHandler(PmdRigidHandler handler){
         if(handler == null){
-            this.rigidHandler = NullHandler.HANDLER;
+            this.rigidHandler = PmdUnifiedHandler.EMPTY;
         }else{
             this.rigidHandler = handler;
         }
@@ -49,7 +49,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
      */
     public void setJointHandler(PmdJointHandler handler){
         if(handler == null){
-            this.jointHandler = NullHandler.HANDLER;
+            this.jointHandler = PmdUnifiedHandler.EMPTY;
         }else{
             this.jointHandler = handler;
         }

@@ -1,42 +1,47 @@
 /*
- * PMD nothing handler
+ * nothing proxy factory
  *
  * License : The MIT License
  * Copyright(c) 2013 MikuToga Partners
  */
 
-package jp.sfjp.mikutoga.pmd.parser;
+package jp.sfjp.mikutoga.corelib;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
- * 何もしない統合ハンドラを提供する。
+ * 何もしないインタフェース実装を生成する。
  */
-public final class NullHandler{
+public final class EmptyProxyFactory {
 
-    /** 何もしない統合ハンドラ。 */
-    public static final PmdUnifiedHandler HANDLER;
-
-    static{
-        Class types[] = { PmdUnifiedHandler.class };
-        ClassLoader loader = types[0].getClassLoader();
-        InvocationHandler nothing = new Nothing();
-
-        Object proxy = Proxy.newProxyInstance(loader, types, nothing);
-        assert proxy instanceof PmdUnifiedHandler;
-
-        HANDLER = (PmdUnifiedHandler) proxy;
-    }
+    /** 何もせず何も返さないInvoker。 */
+    public static InvocationHandler NOTHING_INVOKER = new Nothing();
 
 
     /**
      * ダミーコンストラクタ。
      */
-    private NullHandler(){
+    private EmptyProxyFactory(){
         assert false;
         throw new AssertionError();
+    }
+
+
+    /**
+     * 何もしないインタフェース実装のインスタンスを生成する。
+     * <p>インタフェースの各メソッド戻り値はvoidでなければならない。
+     * @param types インタフェース群
+     * @return インタフェースを実装したインスタンス。
+     */
+    public static Object buildEmptyProxy(Class<?>... types){
+        ClassLoader loader = types[0].getClassLoader();
+
+        Object proxy =
+                Proxy.newProxyInstance(loader, types, NOTHING_INVOKER);
+
+        return proxy;
     }
 
 

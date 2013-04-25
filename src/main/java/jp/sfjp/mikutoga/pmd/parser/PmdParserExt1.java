@@ -18,7 +18,7 @@ import jp.sfjp.mikutoga.pmd.PmdLimits;
  */
 public class PmdParserExt1 extends PmdParserBase {
 
-    private PmdEngHandler engHandler = NullHandler.HANDLER;
+    private PmdEngHandler engHandler = PmdUnifiedHandler.EMPTY;
     private boolean hasEnglishInfo = true;
 
     /**
@@ -36,7 +36,7 @@ public class PmdParserExt1 extends PmdParserBase {
      */
     public void setEngHandler(PmdEngHandler handler){
         if(handler == null){
-            this.engHandler = NullHandler.HANDLER;
+            this.engHandler = PmdUnifiedHandler.EMPTY;
         }else{
             this.engHandler = handler;
         }
