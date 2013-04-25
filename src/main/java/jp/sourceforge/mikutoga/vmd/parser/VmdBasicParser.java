@@ -43,7 +43,7 @@ class VmdBasicParser extends CommonParser{
 
     private final byte[] motionIntplt = new byte[BZTOTAL_SIZE];
 
-    private VmdBasicHandler handler = null;
+    private VmdBasicHandler handler = VmdUnifiedHandler.EMPTY;
 
     private boolean hasStageActName = false;
     private boolean strictMode = true;
@@ -73,7 +73,12 @@ class VmdBasicParser extends CommonParser{
      * @param basicHandler ハンドラ
      */
     void setBasicHandler(VmdBasicHandler basicHandler){
-        this.handler = basicHandler;
+        if(basicHandler == null){
+            this.handler = VmdUnifiedHandler.EMPTY;
+        }else{
+            this.handler = basicHandler;
+        }
+
         return;
     }
 
@@ -139,9 +144,7 @@ class VmdBasicParser extends CommonParser{
             throw new MmdFormatException("unknown VMD-header type");
         }
 
-        if(this.handler != null){
-            this.handler.vmdHeaderInfo(header);
-        }
+        this.handler.vmdHeaderInfo(header);
 
         return;
     }
@@ -158,9 +161,7 @@ class VmdBasicParser extends CommonParser{
             this.hasStageActName = true;
         }
 
-        if(this.handler != null){
-            this.handler.vmdModelName(modelName);
-        }
+        this.handler.vmdModelName(modelName);
 
         return;
     }
@@ -173,11 +174,6 @@ class VmdBasicParser extends CommonParser{
     private void parseVmdBoneMotion()
             throws IOException, MmdFormatException{
         int boneMotionNo = parseLeInt();
-
-        if(this.handler == null){
-            skip(VmdConst.BONEMOTION_DATA_SZ * boneMotionNo);
-            return;
-        }
 
         this.handler.loopStart(
                 VmdBasicHandler.BONEMOTION_LIST, boneMotionNo);
@@ -215,11 +211,6 @@ class VmdBasicParser extends CommonParser{
      */
     private void parseVmdMotionInterpolation()
             throws IOException, MmdFormatException{
-        if(this.handler == null){
-            skip(this.motionIntplt.length);
-            return;
-        }
-
         parseByteArray(this.motionIntplt);
 
         if(this.strictMode){
@@ -305,11 +296,6 @@ class VmdBasicParser extends CommonParser{
      */
     private void parseVmdMorph() throws IOException, MmdFormatException{
         int morphMotionNo = parseLeInt();
-
-        if(this.handler == null){
-            skip(VmdConst.MORPH_DATA_SZ * morphMotionNo);
-            return;
-        }
 
         this.handler.loopStart(
                 VmdBasicHandler.MORPH_LIST, morphMotionNo);

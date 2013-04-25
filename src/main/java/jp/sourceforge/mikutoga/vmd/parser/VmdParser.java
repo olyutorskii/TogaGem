@@ -22,7 +22,7 @@ public class VmdParser {
     private final VmdCameraParser   cameraParser;
     private final VmdLightingParser lightingParser;
 
-    private VmdBasicHandler basicHandler  = null;
+    private VmdBasicHandler basicHandler  = VmdUnifiedHandler.EMPTY;
     private boolean strictMode = true;
 
 
@@ -59,7 +59,13 @@ public class VmdParser {
      */
     public void setBasicHandler(VmdBasicHandler handler){
         this.basicParser.setBasicHandler(handler);
-        this.basicHandler = handler;
+
+        if(handler == null){
+            this.basicHandler = VmdUnifiedHandler.EMPTY;
+        }else{
+            this.basicHandler = handler;
+        }
+
         return;
     }
 
@@ -103,16 +109,12 @@ public class VmdParser {
      * @throws MmdFormatException フォーマットエラー
      */
     public void parseVmd() throws IOException, MmdFormatException {
-        if(this.basicHandler != null){
-            this.basicHandler.vmdParseStart();
-        }
+        this.basicHandler.vmdParseStart();
 
         parseBody();
 
         boolean hasMoreData = this.lightingParser.hasMore();
-        if(this.basicHandler != null){
-            this.basicHandler.vmdParseEnd(hasMoreData);
-        }
+        this.basicHandler.vmdParseEnd(hasMoreData);
 
         return;
     }

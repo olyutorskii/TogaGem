@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import jp.sfjp.mikutoga.bin.parser.CommonParser;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.vmd.VmdConst;
 
 /**
  * VMDモーションファイルのライティング情報パーサ。
@@ -20,7 +19,7 @@ import jp.sourceforge.mikutoga.vmd.VmdConst;
  */
 class VmdLightingParser extends CommonParser {
 
-    private VmdLightingHandler handler = null;
+    private VmdLightingHandler handler = VmdUnifiedHandler.EMPTY;
 
 
     /**
@@ -38,7 +37,12 @@ class VmdLightingParser extends CommonParser {
      * @param lightingHandler ハンドラ
      */
     void setLightingHandler(VmdLightingHandler lightingHandler){
-        this.handler = lightingHandler;
+        if(lightingHandler == null){
+            this.handler = VmdUnifiedHandler.EMPTY;
+        }else{
+            this.handler = lightingHandler;
+        }
+
         return;
     }
 
@@ -63,11 +67,6 @@ class VmdLightingParser extends CommonParser {
      */
     private void parseVmdLighting() throws IOException, MmdFormatException{
         int lightMotionNo = parseLeInt();
-
-        if(this.handler == null){
-            skip(VmdConst.LUMINOUS_DATA_SZ * lightMotionNo);
-            return;
-        }
 
         this.handler.loopStart(VmdLightingHandler.LUMINOUS_LIST,
                 lightMotionNo);
@@ -101,11 +100,6 @@ class VmdLightingParser extends CommonParser {
      */
     private void parseVmdShadow() throws IOException, MmdFormatException{
         int shadowMotionNo = parseLeInt();
-
-        if(this.handler == null){
-            skip(VmdConst.SHADOW_DATA_SZ * shadowMotionNo);
-            return;
-        }
 
         this.handler.loopStart(VmdLightingHandler.SHADOW_LIST,
                 shadowMotionNo);

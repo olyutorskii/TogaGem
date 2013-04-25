@@ -50,31 +50,6 @@ public final class VmdConst {
      */
     public static final String MORPHNAME_BASE = "base";
 
-    /**
-     * ボーンモーションデータの個別サイズ。バイト単位。
-     */
-    public static final int BONEMOTION_DATA_SZ = 111;
-
-    /**
-     * モーフデータの個別サイズ。バイト単位。
-     */
-    public static final int MORPH_DATA_SZ = 23;
-
-    /**
-     * カメラデータの個別サイズ。バイト単位。
-     */
-    public static final int CAMERA_DATA_SZ = 61;
-
-    /**
-     * 光源データの個別サイズ。バイト単位。
-     */
-    public static final int LUMINOUS_DATA_SZ = 28;
-
-    /**
-     * 影演出データの個別サイズ。バイト単位。
-     */
-    public static final int SHADOW_DATA_SZ = 9;
-
 
     private static final Charset CS_ASCII = Charset.forName("US-ASCII");
     private static final byte[] MAGIC_BYTES;

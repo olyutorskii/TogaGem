@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import jp.sfjp.mikutoga.bin.parser.CommonParser;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.vmd.VmdConst;
 
 /**
  * VMDモーションファイルのカメラモーションパーサ。
@@ -26,7 +25,7 @@ class VmdCameraParser extends CommonParser{
     private final byte[] xyzIntplt = new byte[BZXYZ_SIZE];
     private final byte[] etcIntplt = new byte[BZETC_SIZE];
 
-    private VmdCameraHandler handler = null;
+    private VmdCameraHandler handler = VmdUnifiedHandler.EMPTY;
 
 
     /**
@@ -44,7 +43,12 @@ class VmdCameraParser extends CommonParser{
      * @param cameraHandler ハンドラ
      */
     void setCameraHandler(VmdCameraHandler cameraHandler){
-        this.handler = cameraHandler;
+        if(cameraHandler == null){
+            this.handler = VmdUnifiedHandler.EMPTY;
+        }else{
+            this.handler = cameraHandler;
+        }
+
         return;
     }
 
@@ -55,11 +59,6 @@ class VmdCameraParser extends CommonParser{
      */
     void parse() throws IOException, MmdFormatException {
         int cameraMotionNo = parseLeInt();
-
-        if(this.handler == null){
-            skip(VmdConst.CAMERA_DATA_SZ * cameraMotionNo);
-            return;
-        }
 
         this.handler.loopStart(VmdCameraHandler.CAMERA_LIST, cameraMotionNo);
 
@@ -102,11 +101,6 @@ class VmdCameraParser extends CommonParser{
      */
     private void parseCameraXyzInterpolation()
             throws IOException, MmdFormatException{
-        if(this.handler == null){
-            skip(this.xyzIntplt.length);
-            return;
-        }
-
         parseByteArray(this.xyzIntplt);
 
         int idx = 0;
@@ -142,11 +136,6 @@ class VmdCameraParser extends CommonParser{
      */
     private void parseCameraEtcInterpolation()
             throws IOException, MmdFormatException{
-        if(this.handler == null){
-            skip(this.etcIntplt.length);
-            return;
-        }
-
         parseByteArray(this.etcIntplt);
 
         int idx = 0;
