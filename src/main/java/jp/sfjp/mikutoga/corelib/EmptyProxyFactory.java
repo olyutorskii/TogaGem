@@ -17,7 +17,7 @@ import java.lang.reflect.Proxy;
 public final class EmptyProxyFactory {
 
     /** 何もせず何も返さないInvoker。 */
-    public static InvocationHandler NOTHING_INVOKER = new Nothing();
+    public static final InvocationHandler NOTHING_INVOKER = new Nothing();
 
 
     /**

@@ -5,22 +5,23 @@
  * Copyright(c) 2011 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.vmd.parser;
+package jp.sfjp.mikutoga.vmd.parser;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.Charset;
-import jp.sfjp.mikutoga.bin.parser.CommonParser;
+import jp.sfjp.mikutoga.bin.parser.BinParser;
 import jp.sfjp.mikutoga.bin.parser.MmdEofException;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
+import jp.sfjp.mikutoga.bin.parser.ProxyParser;
 import jp.sfjp.mikutoga.bin.parser.TextDecoder;
-import jp.sourceforge.mikutoga.vmd.VmdConst;
+import jp.sfjp.mikutoga.vmd.VmdConst;
+import jp.sfjp.mikutoga.vmd.VmdUniq;
 
 /**
  * VMDモーションファイルの基本部パーサ。
  * <p>ボーンのモーション情報およびモーフモーション情報のパース処理を含む。
  */
-class VmdBasicParser extends CommonParser{
+class VmdBasicParser extends ProxyParser{
 
     /**
      * VMDで用いられる文字エンコーディング(windows-31j)。
@@ -28,6 +29,7 @@ class VmdBasicParser extends CommonParser{
      * デコード結果はUCS-2集合に収まるはず。
      */
     public static final Charset CS_WIN31J = Charset.forName("windows-31j");
+    private static final Charset CS_ASCII = Charset.forName("US-ASCII");
 
     private static final int BZ_SIZE = 4;           // 4byte Bezier parameter
     private static final int BZXYZR_SIZE = BZ_SIZE * 4; // XYZR Bezier
@@ -37,6 +39,8 @@ class VmdBasicParser extends CommonParser{
     private static final String ERRMSG_INVINTPLT =
             "there is potential inconsistency in motion interpolation data. "
             +"(Strict-mode)";
+    private static final String ERRMSG_UK_HEADER =
+            "unknown VMD-header type";
 
 
     private final TextDecoder decoderWin31j  = new TextDecoder(CS_WIN31J);
@@ -46,15 +50,15 @@ class VmdBasicParser extends CommonParser{
     private VmdBasicHandler handler = VmdUnifiedHandler.EMPTY;
 
     private boolean hasStageActName = false;
-    private boolean strictMode = true;
+    private boolean redundantCheck = false;
 
 
     /**
      * コンストラクタ。
-     * @param source 入力ソース
+     * @param parser 委譲先パーサ
      */
-    VmdBasicParser(InputStream source){
-        super(source);
+    VmdBasicParser(BinParser parser){
+        super(parser);
         this.decoderWin31j.setZeroChopMode(true);
         return;
     }
@@ -83,14 +87,12 @@ class VmdBasicParser extends CommonParser{
     }
 
     /**
-     * 厳密なパース(Strict-mode)を行うか否か設定する。
-     * デフォルトではStrict-modeはオン。
-     * <p>Strict-mode下では、
-     * ボーンモーションの冗長な補間情報の一貫性チェックが行わる。
-     * @param mode Strict-modeに設定したければtrue
+     * ボーンモーション補間情報冗長部のチェックを行うか否か設定する。
+     * デフォルトではチェックを行わない。
+     * @param mode チェックさせたければtrue
      */
-    void setStrictMode(boolean mode){
-        this.strictMode = mode;
+    void setRedundantCheck(boolean mode){
+        this.redundantCheck = mode;
         return;
     }
 
@@ -107,7 +109,7 @@ class VmdBasicParser extends CommonParser{
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
      * @throws MmdFormatException 不正な文字エンコーディングが検出された。
      */
-    protected String parseVmdText(int byteLen)
+    private String parseVmdText(int byteLen)
             throws IOException,
                    MmdEofException,
                    MmdFormatException {
@@ -140,8 +142,11 @@ class VmdBasicParser extends CommonParser{
         byte[] header = new byte[VmdConst.HEADER_LENGTH];
         parseByteArray(header);
 
-        if( ! VmdConst.startsWithMagic(header) ){
-            throw new MmdFormatException("unknown VMD-header type");
+        byte[] magic = (VmdConst.MAGIC_TXT + '\0').getBytes(CS_ASCII);
+        for(int idx = 0; idx < magic.length; idx++){
+            if(header.length <= idx || header[idx] != magic[idx]){
+                throw new MmdFormatException(ERRMSG_UK_HEADER);
+            }
         }
 
         this.handler.vmdHeaderInfo(header);
@@ -157,7 +162,7 @@ class VmdBasicParser extends CommonParser{
     private void parseVmdModelName() throws IOException, MmdFormatException{
         String modelName = parseVmdText(VmdConst.MODELNAME_MAX);
 
-        if(VmdConst.isStageActName(modelName)){
+        if(VmdUniq.isStageActName(modelName)){
             this.hasStageActName = true;
         }
 
@@ -213,7 +218,7 @@ class VmdBasicParser extends CommonParser{
             throws IOException, MmdFormatException{
         parseByteArray(this.motionIntplt);
 
-        if(this.strictMode){
+        if(this.redundantCheck){
             checkIntpltStrict();
         }
 
@@ -251,6 +256,7 @@ class VmdBasicParser extends CommonParser{
 
     /**
      * 補間情報の冗長箇所の整合性チェックを行う。
+     * <p>※ MMDの版数によって微妙に詳細が異なる場合がある。
      * @throws MmdFormatException 冗長箇所の不整合を検出した。
      */
     private void checkIntpltStrict() throws MmdFormatException{

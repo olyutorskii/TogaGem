@@ -18,11 +18,9 @@ import java.nio.charset.MalformedInputException;
 import java.nio.charset.UnmappableCharacterException;
 
 /**
- * 各種バイナリファイルパーサの共通実装。
- * <p>バイト列、各種プリミティブ型値およびエンコードされた文字列を読み込む。
- * <p>long,double、およびビッグエンディアン形式のデータは未サポート。
+ * 入力ストリームをソースとするバイナリパーサ実装。
  */
-public class CommonParser {
+public class CommonParser implements BinParser{
 
     private static final String ERRMSG_ILLENC =
             "illegal character encoding";
@@ -77,19 +75,21 @@ public class CommonParser {
 
 
     /**
-     * 入力ソースの読み込み位置を返す。
-     * @return 入力ソースの読み込み位置。単位はbyte。
+     * {@inheritDoc}
+     * @return {@inheritDoc}
      */
-    protected long getPosition(){
+    @Override
+    public long getPosition(){
         long result = this.position;
         return result;
     }
 
     /**
-     * 入力ソースにまだデータが残っているか判定する。
-     * @return まだ読み込んでいないデータが残っていればtrue
-     * @throws IOException IOエラー
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
      */
+    @Override
     public boolean hasMore() throws IOException{
         int bVal;
 
@@ -109,13 +109,13 @@ public class CommonParser {
     }
 
     /**
-     * 入力ソースを読み飛ばす。
-     * @param skipLength 読み飛ばすバイト数。
-     * @throws IOException IOエラー
-     * @throws MmdEofException 読み飛ばす途中でストリーム終端に達した。
-     * @see InputStream#skip(long)
+     * {@inheritDoc}
+     * @param skipLength {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     * @throws MmdEofException {@inheritDoc}
      */
-    protected void skip(long skipLength)
+    @Override
+    public void skip(long skipLength)
             throws IOException, MmdEofException {
         long remain = skipLength;
 
@@ -132,20 +132,20 @@ public class CommonParser {
     }
 
     /**
-     * byte配列を読み込む。
-     * @param dst 格納先配列
-     * @param off 読み込み開始オフセット
-     * @param length 読み込みバイト数
-     * @throws IOException IOエラー
-     * @throws NullPointerException 配列がnull
-     * @throws IndexOutOfBoundsException 引数が配列属性と矛盾
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see InputStream#read(byte[], int, int)
+     * {@inheritDoc}
+     * @param dst {@inheritDoc}
+     * @param off {@inheritDoc}
+     * @param length {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     * @throws IndexOutOfBoundsException {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     * @throws MmdEofException {@inheritDoc}
      */
-    protected void parseByteArray(byte[] dst, int off, int length)
-            throws IOException,
-                   NullPointerException,
+    @Override
+    public void parseByteArray(byte[] dst, int off, int length)
+            throws NullPointerException,
                    IndexOutOfBoundsException,
+                   IOException,
                    MmdEofException {
         int remain = length;
         int offset = off;
@@ -164,16 +164,15 @@ public class CommonParser {
     }
 
     /**
-     * byte配列を読み込む。
-     * <p>配列要素全ての読み込みが試みられる。
-     * @param dst 格納先配列
-     * @throws IOException IOエラー
-     * @throws NullPointerException 配列がnull
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
-     * @see InputStream#read(byte[])
+     * {@inheritDoc}
+     * @param dst {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     * @throws MmdEofException {@inheritDoc}
      */
-    protected void parseByteArray(byte[] dst)
-            throws IOException, NullPointerException, MmdEofException{
+    @Override
+    public void parseByteArray(byte[] dst)
+            throws NullPointerException, IOException, MmdEofException{
         parseByteArray(dst, 0, dst.length);
         return;
     }
@@ -191,12 +190,13 @@ public class CommonParser {
     }
 
     /**
-     * byte値を読み込む。
-     * @return 読み込んだbyte値
-     * @throws IOException IOエラー
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     * @throws MmdEofException {@inheritDoc}
      */
-    protected byte parseByte()
+    @Override
+    public byte parseByte()
             throws IOException, MmdEofException{
         int bData = this.is.read();
         if(bData < 0){
@@ -210,25 +210,25 @@ public class CommonParser {
     }
 
     /**
-     * 符号無し値としてbyte値を読み込み、int型に変換して返す。
-     * <p>符号は拡張されない。(0xffは0x000000ffとなる)
-     * @return 読み込まれた値のint値
-     * @throws IOException IOエラー
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     * @throws MmdEofException {@inheritDoc}
      */
-    protected int parseUByteAsInt()
+    @Override
+    public int parseUByteAsInt()
             throws IOException, MmdEofException{
         return parseByte() & MASK_8BIT;
     }
 
     /**
-     * byte値を読み込み、boolean型に変換して返す。
-     * <p>0x00は偽、それ以外は真と解釈される。
-     * @return 読み込まれた値のboolean値
-     * @throws IOException IOエラー
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     * @throws MmdEofException {@inheritDoc}
      */
-    protected boolean parseBoolean()
+    @Override
+    public boolean parseBoolean()
             throws IOException, MmdEofException{
         byte result = parseByte();
         if(result == 0x00) return false;
@@ -236,13 +236,13 @@ public class CommonParser {
     }
 
     /**
-     * short値を読み込む。
-     * <p>short値はリトルエンディアンで格納されていると仮定される。
-     * @return 読み込んだshort値
-     * @throws IOException IOエラー
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     * @throws MmdEofException {@inheritDoc}
      */
-    protected short parseLeShort()
+    @Override
+    public short parseLeShort()
             throws IOException, MmdEofException{
         fillBuffer(BYTES_SHORT);
         short result = this.leBuf.getShort(0);
@@ -250,26 +250,25 @@ public class CommonParser {
     }
 
     /**
-     * 符号無し値としてshort値を読み込み、int型に変換して返す。
-     * <p>符号は拡張されない。(0xffffは0x0000ffffとなる)
-     * <p>short値はリトルエンディアンで格納されていると仮定される。
-     * @return 読み込まれた値のint値
-     * @throws IOException IOエラー
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     * @throws MmdEofException {@inheritDoc}
      */
-    protected int parseLeUShortAsInt()
+    @Override
+    public int parseLeUShortAsInt()
             throws IOException, MmdEofException{
         return parseLeShort() & MASK_16BIT;
     }
 
     /**
-     * int値を読み込む。
-     * <p>int値はリトルエンディアンで格納されていると仮定される。
-     * @return 読み込んだint値
-     * @throws IOException IOエラー
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     * @throws MmdEofException {@inheritDoc}
      */
-    protected int parseLeInt()
+    @Override
+    public int parseLeInt()
             throws IOException, MmdEofException{
         fillBuffer(BYTES_INT);
         int result = this.leBuf.getInt(0);
@@ -277,13 +276,13 @@ public class CommonParser {
     }
 
     /**
-     * float値を読み込む。
-     * <p>float値はリトルエンディアンで格納されていると仮定される。
-     * @return 読み込んだfloat値
-     * @throws IOException IOエラー
-     * @throws MmdEofException 読み込む途中でストリーム終端に達した。
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     * @throws MmdEofException {@inheritDoc}
      */
-    protected float parseLeFloat()
+    @Override
+    public float parseLeFloat()
             throws IOException, MmdEofException{
         fillBuffer(BYTES_FLOAT);
         float result = this.leBuf.getFloat(0);
@@ -291,15 +290,16 @@ public class CommonParser {
     }
 
     /**
-     * 固定バイト長の文字列を読み込む。
-     * @param decoder 文字デコーダ
-     * @param byteLen 読み込む固定バイト長
-     * @return 文字列
-     * @throws IOException 入力エラー
-     * @throws MmdEofException 固定長バイト列を読む前に末端に達した。
-     * @throws MmdFormatException 文字エンコーディングに関するエラー
+     * {@inheritDoc}
+     * @param decoder {@inheritDoc}
+     * @param byteLen {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     * @throws MmdEofException {@inheritDoc}
+     * @throws MmdFormatException {@inheritDoc}
      */
-    protected String parseString(TextDecoder decoder, int byteLen)
+    @Override
+    public String parseString(TextDecoder decoder, int byteLen)
             throws IOException, MmdEofException, MmdFormatException {
         if(this.btextBuf == null || this.btextBuf.capacity() < byteLen){
             this.btextBuf = ByteBuffer.allocate(byteLen);

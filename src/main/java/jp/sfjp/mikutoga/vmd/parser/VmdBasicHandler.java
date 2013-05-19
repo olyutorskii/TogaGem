@@ -5,7 +5,7 @@
  * Copyright(c) 2011 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.vmd.parser;
+package jp.sfjp.mikutoga.vmd.parser;
 
 import jp.sfjp.mikutoga.bin.parser.LoopHandler;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;

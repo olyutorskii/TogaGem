@@ -10,7 +10,7 @@ package jp.sfjp.mikutoga.pmd.parser;
 import java.io.IOException;
 import java.io.InputStream;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
-import jp.sfjp.mikutoga.pmd.PmdLimits;
+import jp.sfjp.mikutoga.pmd.PmdConst;
 
 /**
  * PMDモデルファイルのパーサ拡張その2。
@@ -66,11 +66,11 @@ public class PmdParserExt2 extends PmdParserExt1 {
      */
     private void parseToonName() throws IOException, MmdFormatException{
         this.toonHandler.loopStart(PmdToonHandler.TOON_LIST,
-                                   PmdLimits.TOON_FIXEDNUM );
+                                   PmdConst.TOON_FIXEDNUM );
 
-        for(int ct = 0; ct < PmdLimits.TOON_FIXEDNUM; ct++){
+        for(int ct = 0; ct < PmdConst.TOON_FIXEDNUM; ct++){
             String toonName =
-                    parsePmdText(PmdLimits.MAXBYTES_TOONFILENAME);
+                    parsePmdText(PmdConst.MAXBYTES_TOONFILENAME);
             this.toonHandler.pmdToonFileInfo(toonName);
 
             this.toonHandler.loopNext(PmdToonHandler.TOON_LIST);

@@ -15,7 +15,7 @@ import jp.sfjp.mikutoga.bin.parser.CommonParser;
 import jp.sfjp.mikutoga.bin.parser.MmdEofException;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 import jp.sfjp.mikutoga.bin.parser.TextDecoder;
-import jp.sfjp.mikutoga.pmd.PmdLimits;
+import jp.sfjp.mikutoga.pmd.PmdConst;
 import jp.sfjp.mikutoga.pmd.ShadingUtil;
 
 /**
@@ -257,9 +257,9 @@ public class PmdParserBase extends CommonParser {
         }
 
         String modelName =
-                parsePmdText(PmdLimits.MAXBYTES_MODELNAME);
+                parsePmdText(PmdConst.MAXBYTES_MODELNAME);
         String description =
-                parsePmdText(PmdLimits.MAXBYTES_MODELDESC);
+                parsePmdText(PmdConst.MAXBYTES_MODELDESC);
         description = description.replace(CRLF, LF);
 
         this.basicHandler.pmdHeaderInfo(header);
@@ -355,7 +355,7 @@ public class PmdParserBase extends CommonParser {
             int surfaceCount = parseLeInt();
 
             String shadingFile =
-                    parsePmdText(PmdLimits.MAXBYTES_TEXTUREFILENAME);
+                    parsePmdText(PmdConst.MAXBYTES_TEXTUREFILENAME);
             String[] splitted = ShadingUtil.splitShadingFileInfo(shadingFile);
             String textureFile = splitted[0];
             String sphereFile  = splitted[1];
@@ -418,7 +418,7 @@ public class PmdParserBase extends CommonParser {
 
         for(int ct = 0; ct < this.boneCount; ct++){
             String boneName =
-                    parsePmdText(PmdLimits.MAXBYTES_BONENAME);
+                    parsePmdText(PmdConst.MAXBYTES_BONENAME);
             int parentId  = parseLeUShortAsInt();
             int tailId    = parseLeUShortAsInt();
             byte boneKind = parseByte();
@@ -506,7 +506,7 @@ public class PmdParserBase extends CommonParser {
 
         for(int ct = 0; ct < this.morphCount; ct++){
             String morphName =
-                    parsePmdText(PmdLimits.MAXBYTES_MORPHNAME);
+                    parsePmdText(PmdConst.MAXBYTES_MORPHNAME);
             int vertexCount = parseLeInt();
             byte morphType  = parseByte();
 
@@ -586,7 +586,7 @@ public class PmdParserBase extends CommonParser {
 
         for(int ct = 0; ct < this.boneGroupCount; ct++){
             String groupName =
-                    parsePmdText(PmdLimits.MAXBYTES_BONEGROUPNAME);
+                    parsePmdText(PmdConst.MAXBYTES_BONEGROUPNAME);
             groupName = chopLastLF(groupName);
             this.boneHandler.pmdBoneGroupInfo(groupName);
 

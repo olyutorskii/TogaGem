@@ -156,6 +156,21 @@ public class XmlResourceResolver
     }
 
     /**
+     * ローカル版リソース参照解決を登録する。
+     * @param lsc ローカル版リソース参照解決
+     */
+    public void putRedirected(LocalXmlResource lsc){
+        URI original = lsc.getOriginalResource();
+        if(original == null) return;
+
+        URI local = lsc.getLocalResource();
+
+        putRedirected(original, local);
+
+        return;
+    }
+
+    /**
      * 別リゾルバの登録内容を追加登録する。
      * @param other 別リゾルバ
      */

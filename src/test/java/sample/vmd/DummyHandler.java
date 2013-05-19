@@ -9,19 +9,15 @@ package sample.vmd;
 
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 import jp.sfjp.mikutoga.bin.parser.ParseStage;
-import jp.sourceforge.mikutoga.vmd.VmdConst;
-import jp.sourceforge.mikutoga.vmd.parser.VmdBasicHandler;
-import jp.sourceforge.mikutoga.vmd.parser.VmdCameraHandler;
-import jp.sourceforge.mikutoga.vmd.parser.VmdLightingHandler;
+import jp.sfjp.mikutoga.vmd.VmdUniq;
+import jp.sfjp.mikutoga.vmd.parser.VmdUnifiedHandler;
 
 /**
  * サンプルのハンドラ。
  * これはユニットテストではない。
  * 必要に応じて要所でデバッガのブレークポイントを設定しておくと便利。
  */
-public class DummyHandler implements VmdBasicHandler,
-                                       VmdLightingHandler,
-                                       VmdCameraHandler {
+public class DummyHandler implements VmdUnifiedHandler {
 
     public DummyHandler(){
         super();
@@ -68,7 +64,7 @@ public class DummyHandler implements VmdBasicHandler,
     @Override
     public void vmdModelName(String modelName) throws MmdFormatException{
         println("modelname = " + modelName);
-        println("isStageAct="+VmdConst.isStageActName(modelName));
+        println("isStageAct="+VmdUniq.isStageActName(modelName));
     }
 
     @Override
@@ -115,7 +111,7 @@ public class DummyHandler implements VmdBasicHandler,
 
     @Override
     public void vmdMorphMotion(String morphName, int keyFrameNo, float flex){
-        if(VmdConst.isBaseMorphName(morphName)) return;
+        if(VmdUniq.isBaseMorphName(morphName)) return;
         println(morphName+":"+keyFrameNo+" flex="+flex);
         return;
     }

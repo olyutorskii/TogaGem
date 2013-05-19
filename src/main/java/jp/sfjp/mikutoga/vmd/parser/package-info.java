@@ -12,6 +12,6 @@
  * 各種データの出現に応じてコールバックメソッドを次々と呼び出してくれる。
  */
 
-package jp.sourceforge.mikutoga.vmd.parser;
+package jp.sfjp.mikutoga.vmd.parser;
 
 /* EOF */

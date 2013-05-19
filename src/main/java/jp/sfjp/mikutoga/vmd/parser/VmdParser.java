@@ -5,10 +5,12 @@
  * Copyright(c) 2011 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.vmd.parser;
+package jp.sfjp.mikutoga.vmd.parser;
 
 import java.io.IOException;
 import java.io.InputStream;
+import jp.sfjp.mikutoga.bin.parser.BinParser;
+import jp.sfjp.mikutoga.bin.parser.CommonParser;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 
 /**
@@ -23,7 +25,9 @@ public class VmdParser {
     private final VmdLightingParser lightingParser;
 
     private VmdBasicHandler basicHandler  = VmdUnifiedHandler.EMPTY;
-    private boolean strictMode = true;
+
+    private boolean ignoreName = true;
+    private boolean redundantCheck = false;
 
 
     /**
@@ -37,9 +41,11 @@ public class VmdParser {
         if(source == null) throw new NullPointerException();
         this.source = source;
 
-        this.basicParser    = new VmdBasicParser(source);
-        this.cameraParser   = new VmdCameraParser(source);
-        this.lightingParser = new VmdLightingParser(source);
+        BinParser parser = new CommonParser(this.source);
+
+        this.basicParser    = new VmdBasicParser(parser);
+        this.cameraParser   = new VmdCameraParser(parser);
+        this.lightingParser = new VmdLightingParser(parser);
 
         return;
     }
@@ -88,18 +94,28 @@ public class VmdParser {
     }
 
     /**
-     * 厳密なパース(Strict-mode)を行うか否か設定する。
-     * デフォルトではStrict-modeはオン。
-     * <p>Strict-mode下では、
-     * ボーンモーションの冗長な補間情報の一貫性チェックが行われ、
-     * モデル名がなんであろうとカメラ・ライティングデータのパースを試みる。
+     * カメラ・ライティングデータのパースを試みるか否かの判断で、
+     * 特殊モデル名判定を無視するか否か設定する。
+     * デフォルトではモデル名を無視。
      * <p>※MMDVer7.30前後のVMD出力不具合を回避したい場合は、
-     * Strict-modeをオフにするとパースに成功する場合がある。
-     * @param mode Strict-modeに設定したければtrue
+     * オフにするとパースに成功する場合がある。
+     * @param mode モデル名を無視するならtrue
      */
-    public void setStrictMode(boolean mode){
-        this.strictMode = mode;
-        this.basicParser.setStrictMode(this.strictMode);
+    public void setIgnoreName(boolean mode){
+        this.ignoreName = mode;
+        return;
+    }
+
+    /**
+     * ボーンモーション補間情報冗長部のチェックを行うか否か設定する。
+     * デフォルトではチェックを行わない。
+     * <p>※MMDVer7.30前後のVMD出力不具合を回避したい場合は、
+     * オフにするとパースに成功する場合がある。
+     * @param mode チェックさせたければtrue
+     */
+    public void setRedundantCheck(boolean mode){
+        this.redundantCheck = mode;
+        this.basicParser.setRedundantCheck(mode);
         return;
     }
 
@@ -109,6 +125,9 @@ public class VmdParser {
      * @throws MmdFormatException フォーマットエラー
      */
     public void parseVmd() throws IOException, MmdFormatException {
+        setIgnoreName(this.ignoreName);
+        setRedundantCheck(this.redundantCheck);
+
         this.basicHandler.vmdParseStart();
 
         parseBody();
@@ -130,7 +149,7 @@ public class VmdParser {
     private void parseBody() throws IOException, MmdFormatException{
         this.basicParser.parse();
 
-        if(this.basicParser.hasStageActName() || this.strictMode){
+        if(this.basicParser.hasStageActName() || this.ignoreName){
             this.cameraParser.parse();
             this.lightingParser.parse();
         }

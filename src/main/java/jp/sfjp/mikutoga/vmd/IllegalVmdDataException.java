@@ -5,7 +5,7 @@
  * Copyright(c) 2011 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.vmd;
+package jp.sfjp.mikutoga.vmd;
 
 /**
  * VMDモーションデータの不備を発見した場合の例外。

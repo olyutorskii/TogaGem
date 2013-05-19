@@ -10,7 +10,7 @@ package jp.sfjp.mikutoga.pmd.parser;
 import java.io.IOException;
 import java.io.InputStream;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
-import jp.sfjp.mikutoga.pmd.PmdLimits;
+import jp.sfjp.mikutoga.pmd.PmdConst;
 
 /**
  * PMDモデルファイルのパーサ拡張その1。
@@ -78,9 +78,9 @@ public class PmdParserExt1 extends PmdParserBase {
         if( ! this.hasEnglishInfo ) return;
 
         String modelName =
-                parsePmdText(PmdLimits.MAXBYTES_MODELNAME);
+                parsePmdText(PmdConst.MAXBYTES_MODELNAME);
         String description =
-                parsePmdText(PmdLimits.MAXBYTES_MODELDESC);
+                parsePmdText(PmdConst.MAXBYTES_MODELDESC);
         description = description.replace(CRLF, LF);
 
         this.engHandler.pmdEngModelInfo(modelName, description);
@@ -101,7 +101,7 @@ public class PmdParserExt1 extends PmdParserBase {
 
         for(int ct = 0; ct < boneNum; ct++){
             String boneName =
-                    parsePmdText(PmdLimits.MAXBYTES_BONENAME);
+                    parsePmdText(PmdConst.MAXBYTES_BONENAME);
             this.engHandler.pmdEngBoneInfo(boneName);
 
             this.engHandler.loopNext(PmdEngHandler.ENGBONE_LIST);
@@ -125,7 +125,7 @@ public class PmdParserExt1 extends PmdParserBase {
 
         for(int ct = 0; ct < morphNum; ct++){
             String morphName =
-                    parsePmdText(PmdLimits.MAXBYTES_MORPHNAME);
+                    parsePmdText(PmdConst.MAXBYTES_MORPHNAME);
             this.engHandler.pmdEngMorphInfo(morphName);
 
             this.engHandler.loopNext(PmdEngHandler.ENGMORPH_LIST);
@@ -149,7 +149,7 @@ public class PmdParserExt1 extends PmdParserBase {
 
         for(int ct = 0; ct < groupNum; ct++){
             String boneGroupName =
-                    parsePmdText(PmdLimits.MAXBYTES_BONEGROUPNAME);
+                    parsePmdText(PmdConst.MAXBYTES_BONEGROUPNAME);
             this.engHandler.pmdEngBoneGroupInfo(boneGroupName);
 
             this.engHandler.loopNext(PmdEngHandler.ENGBONEGROUP_LIST);

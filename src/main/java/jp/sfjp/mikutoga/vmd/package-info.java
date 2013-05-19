@@ -10,6 +10,6 @@
  * VMDファイル(*.vmd)操作関連の共通資産。
  */
 
-package jp.sourceforge.mikutoga.vmd;
+package jp.sfjp.mikutoga.vmd;
 
 /* EOF */

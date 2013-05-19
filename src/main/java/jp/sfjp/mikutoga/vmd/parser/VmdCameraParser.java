@@ -5,17 +5,17 @@
  * Copyright(c) 2011 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.vmd.parser;
+package jp.sfjp.mikutoga.vmd.parser;
 
 import java.io.IOException;
-import java.io.InputStream;
-import jp.sfjp.mikutoga.bin.parser.CommonParser;
+import jp.sfjp.mikutoga.bin.parser.BinParser;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
+import jp.sfjp.mikutoga.bin.parser.ProxyParser;
 
 /**
  * VMDモーションファイルのカメラモーションパーサ。
  */
-class VmdCameraParser extends CommonParser{
+class VmdCameraParser extends ProxyParser{
 
     private static final int BZ_SIZE = 4;           // 4byte Bezier parameter
     private static final int BZXYZ_SIZE = BZ_SIZE * 3; // XYZ Bezier
@@ -30,10 +30,10 @@ class VmdCameraParser extends CommonParser{
 
     /**
      * コンストラクタ。
-     * @param source 入力ソース
+     * @param parser 委譲先パーサ
      */
-    VmdCameraParser(InputStream source){
-        super(source);
+    VmdCameraParser(BinParser parser){
+        super(parser);
         return;
     }
 

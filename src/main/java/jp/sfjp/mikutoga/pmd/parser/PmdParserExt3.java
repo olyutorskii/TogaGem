@@ -10,7 +10,7 @@ package jp.sfjp.mikutoga.pmd.parser;
 import java.io.IOException;
 import java.io.InputStream;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
-import jp.sfjp.mikutoga.pmd.PmdLimits;
+import jp.sfjp.mikutoga.pmd.PmdConst;
 
 /**
  * PMDモデルファイルのパーサ拡張その3。
@@ -86,7 +86,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
 
         for(int ct = 0; ct < rigidNum; ct++){
             String rigidName =
-                    parsePmdText(PmdLimits.MAXBYTES_RIGIDNAME);
+                    parsePmdText(PmdConst.MAXBYTES_RIGIDNAME);
             this.rigidHandler.pmdRigidName(rigidName);
 
             int linkedBoneId   = parseLeUShortAsInt();
@@ -168,7 +168,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
 
         for(int ct = 0; ct < jointNum; ct++){
             String jointName =
-                    parsePmdText(PmdLimits.MAXBYTES_JOINTNAME);
+                    parsePmdText(PmdConst.MAXBYTES_JOINTNAME);
             this.jointHandler.pmdJointName(jointName);
 
             int rigidIdA = parseLeInt();

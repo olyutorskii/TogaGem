@@ -5,7 +5,7 @@
  * Copyright(c) 2011 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.vmd;
+package jp.sfjp.mikutoga.vmd;
 
 /**
  * FrameNumberedの抽象実装クラス。

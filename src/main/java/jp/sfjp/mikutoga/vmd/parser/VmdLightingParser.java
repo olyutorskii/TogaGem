@@ -5,29 +5,29 @@
  * Copyright(c) 2011 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.vmd.parser;
+package jp.sfjp.mikutoga.vmd.parser;
 
 import java.io.IOException;
-import java.io.InputStream;
-import jp.sfjp.mikutoga.bin.parser.CommonParser;
+import jp.sfjp.mikutoga.bin.parser.BinParser;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
+import jp.sfjp.mikutoga.bin.parser.ProxyParser;
 
 /**
  * VMDモーションファイルのライティング情報パーサ。
  * 照明光源演出データと影演出データを含む。
  * <p>古い版のVMDファイルには影演出データが記述されていない場合がある。
  */
-class VmdLightingParser extends CommonParser {
+class VmdLightingParser extends ProxyParser {
 
     private VmdLightingHandler handler = VmdUnifiedHandler.EMPTY;
 
 
     /**
      * コンストラクタ。
-     * @param source 入力ソース
+     * @param parser 委譲先パーサ
      */
-    VmdLightingParser(InputStream source){
-        super(source);
+    VmdLightingParser(BinParser parser){
+        super(parser);
         return;
     }
 

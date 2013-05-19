@@ -10,7 +10,7 @@ package jp.sfjp.mikutoga.pmd;
 /**
  * PMDファイルフォーマットの各種リミット値その他定数。
  */
-public final class PmdLimits {
+public final class PmdConst {
 
     /** モデル名最大長。バイト単位。 */
     public static final int MAXBYTES_MODELNAME = 20;
@@ -57,7 +57,7 @@ public final class PmdLimits {
     /**
      * 隠しコンストラクタ。
      */
-    private PmdLimits(){
+    private PmdConst(){
         super();
         assert false;
         throw new AssertionError();

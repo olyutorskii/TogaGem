@@ -18,8 +18,10 @@ public class ParseStage {
 
     private static final AtomicInteger LAST_NO = new AtomicInteger(0);
 
+
     /** 全インスタンスに割り振られたユニークな番号。変更不可。 */
-    public final int no;
+    private final int no;
+
 
     /**
      * コンストラクタ。
@@ -30,6 +32,7 @@ public class ParseStage {
         assert this.no >= 0;
         return;
     }
+
 
     /**
      * 各インスタンスに割り当てられたユニークな通し番号を返す。

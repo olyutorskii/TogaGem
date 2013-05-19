@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.vmd.parser.VmdParser;
+import jp.sfjp.mikutoga.vmd.parser.VmdParser;
 
 /**
  * パーサ利用のサンプルプログラム。
@@ -66,7 +66,8 @@ public class DummyMain {
         VmdParser parser = new VmdParser(source);
 
         setupHandler(parser);
-        parser.setStrictMode(true);
+        parser.setIgnoreName(true);
+        parser.setRedundantCheck(false);
 
         try{
             parser.parseVmd();
