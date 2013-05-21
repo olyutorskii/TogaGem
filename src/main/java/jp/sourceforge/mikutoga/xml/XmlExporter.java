@@ -14,10 +14,10 @@ import java.io.IOException;
 /**
  * XMLエクスポータ基本機能のセット。
  */
-public interface XmlExporter extends Flushable, Closeable{
+public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
-     * 1文字出力する。
+     * 1文字を生出力する。
      * @param ch 文字
      * @return this本体
      * @throws IOException 出力エラー
@@ -25,7 +25,7 @@ public interface XmlExporter extends Flushable, Closeable{
     XmlExporter putRawCh(char ch) throws IOException;
 
     /**
-     * 文字列を出力する。
+     * 文字列を生出力する。
      * @param seq 文字列
      * @return this本体
      * @throws IOException 出力エラー
@@ -264,19 +264,18 @@ public interface XmlExporter extends Flushable, Closeable{
     XmlExporter putCloseEmpty() throws IOException;
 
     /**
-     * int値をXMLスキーマ準拠の形式で出力する。
+     * xsd:int値をXMLスキーマ準拠の形式で出力する。
      * @param iVal int値
      * @return this本体
      * @throws IOException 出力エラー
-     * @see java.lang.Integer#toString(int)
-     * @see <a href="http://www.w3.org/TR/xmlschema11-2/#integer">
-     * XML Schema 1.1 Datatypes integer
+     * @see <a href="http://www.w3.org/TR/xmlschema11-2/#int">
+     * XML Schema 1.1 Datatypes int
      * </a>
      */
     XmlExporter putXsdInt(int iVal) throws IOException;
 
     /**
-     * float値をXMLスキーマ準拠の形式で出力する。
+     * xsd:float値をXMLスキーマ準拠の形式で出力する。
      * @param fVal float値
      * @return this本体
      * @throws IOException 出力エラー

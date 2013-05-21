@@ -19,14 +19,70 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * コンストラクタ。
-     * @param proxy 委譲先
+     * @param delegate 委譲先
      */
-    public ProxyXmlExporter(XmlExporter proxy){
+    public ProxyXmlExporter(XmlExporter delegate){
         super();
-        this.delegate = proxy;
+        this.delegate = delegate;
         return;
     }
 
+
+    /**
+     * {@inheritDoc}
+     * @param ch {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     */
+    @Override
+    public Appendable append(char ch) throws IOException{
+        return this.delegate.append(ch);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @param seq {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     */
+    @Override
+    public Appendable append(CharSequence seq) throws IOException{
+        return this.delegate.append(seq);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @param seq {@inheritDoc}
+     * @param start {@inheritDoc}
+     * @param end {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     */
+    @Override
+    public Appendable append(CharSequence seq, int start, int end)
+            throws IOException{
+        return this.delegate.append(seq, start, end);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     */
+    @Override
+    public void flush() throws IOException{
+        this.delegate.flush();
+        return;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     */
+    @Override
+    public void close() throws IOException{
+        this.delegate.close();
+        return;
+    }
 
     /**
      * {@inheritDoc}
@@ -48,26 +104,6 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
     @Override
     public XmlExporter putRawText(CharSequence seq) throws IOException{
         return this.delegate.putRawText(seq);
-    }
-
-    /**
-     * {@inheritDoc}
-     * @throws IOException {@inheritDoc}
-     */
-    @Override
-    public void flush() throws IOException{
-        this.delegate.flush();
-        return;
-    }
-
-    /**
-     * {@inheritDoc}
-     * @throws IOException {@inheritDoc}
-     */
-    @Override
-    public void close() throws IOException{
-        this.delegate.close();
-        return;
     }
 
     /**

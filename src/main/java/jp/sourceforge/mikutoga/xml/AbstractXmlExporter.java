@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 import javax.xml.bind.DatatypeConverter;
 
 /**
- * XMLエクスポータの半実装。
+ * Appendable実装に依存したXMLエクスポータの半実装。
  * UCS4は未サポート。
  */
 abstract class AbstractXmlExporter implements XmlExporter{
@@ -109,6 +109,36 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     * @param ch {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     */
+    @Override
+    public abstract Appendable append(char ch) throws IOException;
+
+    /**
+     * {@inheritDoc}
+     * @param seq {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     */
+    @Override
+    public abstract Appendable append(CharSequence seq) throws IOException;
+
+    /**
+     * {@inheritDoc}
+     * @param seq {@inheritDoc}
+     * @param start {@inheritDoc}
+     * @param end {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     */
+    @Override
+    public abstract Appendable append(CharSequence seq, int start, int end)
+            throws IOException;
+
+    /**
+     * {@inheritDoc}
      * @throws IOException {@inheritDoc}
      */
     @Override
@@ -121,6 +151,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
     @Override
     public abstract void close() throws IOException;
 
+
     /**
      * {@inheritDoc}
      * @param ch {@inheritDoc}
@@ -128,8 +159,10 @@ abstract class AbstractXmlExporter implements XmlExporter{
      * @throws IOException {@inheritDoc}
      */
     @Override
-    public abstract XmlExporter putRawCh(char ch)
-            throws IOException;
+    public XmlExporter putRawCh(char ch) throws IOException{
+        append(ch);
+        return this;
+    }
 
     /**
      * {@inheritDoc}
@@ -138,9 +171,11 @@ abstract class AbstractXmlExporter implements XmlExporter{
      * @throws IOException {@inheritDoc}
      */
     @Override
-    public abstract XmlExporter putRawText(CharSequence seq)
-            throws IOException;
-
+    public XmlExporter putRawText(CharSequence seq)
+            throws IOException{
+        append(seq);
+        return this;
+    }
 
     /**
      * {@inheritDoc}

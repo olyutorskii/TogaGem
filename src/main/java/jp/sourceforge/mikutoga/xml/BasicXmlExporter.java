@@ -7,60 +7,39 @@
 
 package jp.sourceforge.mikutoga.xml;
 
-import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.Flushable;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.nio.charset.Charset;
 
 /**
  * Appendable用XMLエクスポータ実装。
  */
 public class BasicXmlExporter extends AbstractXmlExporter{
 
-    /** デフォルトエンコーディング。 */
-    private static final Charset CS_UTF8 = Charset.forName("UTF-8");
-
-
-    private final Appendable appendable;
+    private Appendable appendable = null;
 
 
     /**
      * コンストラクタ。
-     * 文字エンコーディングはUTF-8が用いられる。
-     * @param stream 出力ストリーム
      */
-    public BasicXmlExporter(OutputStream stream){
-        this(stream, CS_UTF8);
-        return;
-    }
-
-    /**
-     * コンストラクタ。
-     * @param stream 出力ストリーム
-     * @param charSet 文字エンコーディング指定
-     */
-    public BasicXmlExporter(OutputStream stream, Charset charSet){
-        this(
-            new BufferedWriter(
-                new OutputStreamWriter(stream, charSet)
-            )
-        );
-        return;
-    }
-
-    /**
-     * コンストラクタ。
-     * @param appendable 文字列出力
-     */
-    public BasicXmlExporter(Appendable appendable){
+    public BasicXmlExporter(){
         super();
-        this.appendable = appendable;
         return;
     }
 
+
+    /**
+     * 出力先アペンダを指定する。
+     * @param app 出力先
+     * @throws NullPointerException 引数がnull
+     */
+    public void setAppendable(Appendable app) throws NullPointerException{
+        if(app == null) throw new NullPointerException();
+
+        this.appendable = app;
+
+        return;
+    }
 
     /**
      * {@inheritDoc}
@@ -69,9 +48,8 @@ public class BasicXmlExporter extends AbstractXmlExporter{
      * @throws IOException {@inheritDoc}
      */
     @Override
-    public BasicXmlExporter putRawCh(char ch) throws IOException{
-        this.appendable.append(ch);
-        return this;
+    public Appendable append(char ch) throws IOException{
+        return this.appendable.append(ch);
     }
 
     /**
@@ -81,9 +59,22 @@ public class BasicXmlExporter extends AbstractXmlExporter{
      * @throws IOException {@inheritDoc}
      */
     @Override
-    public BasicXmlExporter putRawText(CharSequence seq) throws IOException{
-        this.appendable.append(seq);
-        return this;
+    public Appendable append(CharSequence seq) throws IOException{
+        return this.appendable.append(seq);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @param seq {@inheritDoc}
+     * @param start {@inheritDoc}
+     * @param end {@inheritDoc}
+     * @return {@inheritDoc}
+     * @throws IOException {@inheritDoc}
+     */
+    @Override
+    public Appendable append(CharSequence seq, int start, int end)
+            throws IOException{
+        return this.appendable.append(seq, start, end);
     }
 
     /**
