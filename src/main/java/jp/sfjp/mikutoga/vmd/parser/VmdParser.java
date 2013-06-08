@@ -23,10 +23,10 @@ public class VmdParser {
     private final VmdBasicParser    basicParser;
     private final VmdCameraParser   cameraParser;
     private final VmdLightingParser lightingParser;
+    private final VmdBoolParser     boolParser;
 
     private VmdBasicHandler basicHandler  = VmdUnifiedHandler.EMPTY;
 
-    private boolean ignoreName = true;
     private boolean redundantCheck = false;
 
 
@@ -46,6 +46,7 @@ public class VmdParser {
         this.basicParser    = new VmdBasicParser(parser);
         this.cameraParser   = new VmdCameraParser(parser);
         this.lightingParser = new VmdLightingParser(parser);
+        this.boolParser     = new VmdBoolParser(parser);
 
         return;
     }
@@ -94,15 +95,11 @@ public class VmdParser {
     }
 
     /**
-     * カメラ・ライティングデータのパースを試みるか否かの判断で、
-     * 特殊モデル名判定を無視するか否か設定する。
-     * デフォルトではモデル名を無視。
-     * <p>※MMDVer7.30前後のVMD出力不具合を回避したい場合は、
-     * オフにするとパースに成功する場合がある。
-     * @param mode モデル名を無視するならtrue
+     * ON/OFF情報通知用ハンドラを登録する。
+     * @param boolHandler ハンドラ
      */
-    public void setIgnoreName(boolean mode){
-        this.ignoreName = mode;
+    public void setBoolHandler(VmdBoolHandler boolHandler){
+        this.boolParser.setBoolHandler(boolHandler);
         return;
     }
 
@@ -111,6 +108,7 @@ public class VmdParser {
      * デフォルトではチェックを行わない。
      * <p>※MMDVer7.30前後のVMD出力不具合を回避したい場合は、
      * オフにするとパースに成功する場合がある。
+     * <p>※MMD Ver7.39x64以降はチェック回避必須。
      * @param mode チェックさせたければtrue
      */
     public void setRedundantCheck(boolean mode){
@@ -125,7 +123,6 @@ public class VmdParser {
      * @throws MmdFormatException フォーマットエラー
      */
     public void parseVmd() throws IOException, MmdFormatException {
-        setIgnoreName(this.ignoreName);
         setRedundantCheck(this.redundantCheck);
 
         this.basicHandler.vmdParseStart();
@@ -140,18 +137,19 @@ public class VmdParser {
 
     /**
      * VMDファイル本体のパースを開始する。
-     * <p>モデル名がボーンモーション用と推測され、
-     * かつパーサがStrict-modeでない場合、
-     * カメラ、ライティングデータのパースは行われない。
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
     private void parseBody() throws IOException, MmdFormatException{
         this.basicParser.parse();
 
-        if(this.basicParser.hasStageActName() || this.ignoreName){
+        if(this.cameraParser.hasMore()){
             this.cameraParser.parse();
             this.lightingParser.parse();
+        }
+
+        if(this.boolParser.hasMore()){
+            this.boolParser.parse();
         }
 
         return;

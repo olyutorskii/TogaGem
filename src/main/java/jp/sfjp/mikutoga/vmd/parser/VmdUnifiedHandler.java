@@ -15,7 +15,8 @@ import jp.sfjp.mikutoga.corelib.EmptyProxyFactory;
 public interface VmdUnifiedHandler
     extends VmdBasicHandler,
             VmdCameraHandler,
-            VmdLightingHandler {
+            VmdLightingHandler,
+            VmdBoolHandler {
 
     /** 何もしない統合ハンドラ。 */
     VmdUnifiedHandler EMPTY =

@@ -5,7 +5,7 @@
  * Copyright(c) 2011 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.xml;
+package jp.sfjp.mikutoga.xml;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

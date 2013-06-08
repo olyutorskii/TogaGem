@@ -5,7 +5,7 @@
  * Copyright(c) 2013 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.xml;
+package jp.sfjp.mikutoga.xml;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

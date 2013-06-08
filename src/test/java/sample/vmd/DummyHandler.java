@@ -218,6 +218,20 @@ public class DummyHandler implements VmdUnifiedHandler {
         return;
     }
 
+    @Override
+    public void vmdModelSight(boolean show, int keyFrameNo){
+        println("modelSight : frame#=" + keyFrameNo + " show=" + show);
+        return;
+    }
+
+    @Override
+    public void vmdIkSwitch(String boneName,
+                              boolean validIk,
+                              int keyFrameNo ){
+        println("IKSwitch : frame#=" + keyFrameNo + " bone=" + boneName + " valid=" + validIk);
+        return;
+    }
+
     private void println(String msg){
         System.out.println(msg);
         return;

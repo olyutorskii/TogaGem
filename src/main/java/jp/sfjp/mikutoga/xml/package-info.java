@@ -9,6 +9,6 @@
  * MikuToga XML共通ライブラリ。
  */
 
-package jp.sourceforge.mikutoga.xml;
+package jp.sfjp.mikutoga.xml;
 
 /* EOF */

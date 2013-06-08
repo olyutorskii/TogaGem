@@ -5,7 +5,7 @@
  * Copyright(c) 2013 olyutorskii
  */
 
-package jp.sourceforge.mikutoga.xml;
+package jp.sfjp.mikutoga.xml;
 
 import java.net.URI;
 

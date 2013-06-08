@@ -5,7 +5,7 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.xml;
+package jp.sfjp.mikutoga.xml;
 
 /**
  *　意図しないXML文書を検出した際の例外。

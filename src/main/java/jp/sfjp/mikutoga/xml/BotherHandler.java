@@ -5,7 +5,7 @@
  * Copyright(c) 2010 MikuToga Partners
  */
 
-package jp.sourceforge.mikutoga.xml;
+package jp.sfjp.mikutoga.xml;
 
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;

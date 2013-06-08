@@ -27,8 +27,8 @@ public class DummyMain {
     private static final DummyHandler handler = new DummyHandler();
 
     static{
-//        VMDFILE = "D:\\Test\\test.vmd";
-        VMDFILE = "D:\\Test\\camera.vmd";
+        VMDFILE = "D:\\Test\\test.vmd";
+//        VMDFILE = "D:\\Test\\camera.vmd";
     }
 
     private static InputStream buildSource(String fname){
@@ -52,6 +52,7 @@ public class DummyMain {
         parser.setBasicHandler(handler);
         parser.setLightingHandler(handler);
         parser.setCameraHandler(handler);
+        parser.setBoolHandler(handler);
 
         return;
     }
@@ -66,7 +67,6 @@ public class DummyMain {
         VmdParser parser = new VmdParser(source);
 
         setupHandler(parser);
-        parser.setIgnoreName(true);
         parser.setRedundantCheck(false);
 
         try{

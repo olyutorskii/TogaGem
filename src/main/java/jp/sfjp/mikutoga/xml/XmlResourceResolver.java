@@ -5,7 +5,7 @@
  * Copyright(c) 2009 olyutorskii
  */
 
-package jp.sourceforge.mikutoga.xml;
+package jp.sfjp.mikutoga.xml;
 
 import java.io.IOException;
 import java.io.InputStream;

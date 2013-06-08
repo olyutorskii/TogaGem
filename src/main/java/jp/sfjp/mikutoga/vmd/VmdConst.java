@@ -37,6 +37,13 @@ public final class VmdConst {
      */
     public static final int MORPHNAME_MAX = 15;
 
+    /**
+     * IK ON/OFFスイッチ用ボーン名最大長。バイト単位。
+     * <p>※MikuMikuDance Ver7.40からの機能。
+     * <p>モーション指定用ボーン名と長さが違うので注意。
+     */
+    public static final int IKSWBONENAME_MAX = 20;
+
 
     /**
      * 隠しコンストラクタ。
