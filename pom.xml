@@ -87,6 +87,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <locale>en</locale>
+        <site.locales>${locale}</site.locales>
+        <javadoc.locale>${locale}</javadoc.locale>
+
+        <surefire-plugin.version>3.0.0-M3</surefire-plugin.version>
+        
         <project.mainconf>${project.basedir}/src/main/config</project.mainconf>
 
         <checkstyle.config.location>${project.mainconf}/checks.xml</checkstyle.config.location>
@@ -101,7 +107,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
 
@@ -115,6 +121,36 @@
         <pluginManagement/>
 
         <plugins>
+
+
+            <!-- clean lifecycle -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${project.basedir}</directory>
+                            <includes>
+                                <include>**/*~</include>
+                                <include>**/*.swp</include>
+                                <include>**/*.DS_Store</include>
+                                <include>**/._*</include>
+                                <include>**/__MACOSX</include>
+                                <include>**/Thumbs.db</include>
+                                <include>**/desktop.ini</include>
+                                <include>**/core</include>
+                                <include>**/hs_err_pid*</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+
+            <!-- default lifecycle -->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -142,44 +178,31 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.4</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>${project.basedir}</directory>
-                            <includes>
-                                <include>**/.DS_Store</include>
-                                <include>**/_MACOSX</include>
-                                <include>**/Thumbs.db</include>
-                                <include>**/thumbs.db</include>
-                                <include>**/Desktop.ini</include>
-                                <include>**/desktop.ini</include>
-                                <include>**/core</include>
-                            </includes>
-                        </fileset>
-                    </filesets>
-                </configuration>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.8.0</version>
                 <configuration>
                     <source>1.8</source>  <!-- for NetBeans IDE -->
                     <target>1.8</target>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
                     <compilerArguments>
                         <Xlint/>
                     </compilerArguments>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire-plugin.version}</version>
+                <configuration>
+                    <enableAssertions>true</enableAssertions>
                 </configuration>
             </plugin>
 
@@ -198,19 +221,8 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/main/assembly/descriptor.xml</descriptor>
-                    </descriptors>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
+                <version>3.0.1</version>
                 <configuration>
                     <includePom>true</includePom>
                     <archive>
@@ -232,29 +244,39 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.0.0-M1</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.14.1</version>
-                <configuration>
-                    <skipTests>false</skipTests>
-                    <enableAssertions>true</enableAssertions>
-                </configuration>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0-M1</version>
             </plugin>
+
+
+            <!-- site lifecycle -->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.7.1</version>
                 <configuration>
-                    <generateReports>true</generateReports>
-                    <locales>ja</locales>
-                    <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
-                    <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
+                    <locales>${site.locales}</locales>
+                </configuration>
+            </plugin>
+
+
+            <!-- goals without lifecycle -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/descriptor.xml</descriptor>
+                    </descriptors>
                 </configuration>
             </plugin>
 
@@ -340,7 +362,7 @@
                     <exclude>**/version.properties</exclude>
 
                     <exclude>**/.DS_Store</exclude>
-                    <exclude>**/_MACOSX</exclude>
+                    <exclude>**/__MACOSX</exclude>
                     <exclude>**/Thumbs.db</exclude>
                     <exclude>**/thumbs.db</exclude>
                     <exclude>**/Desktop.ini</exclude>
@@ -360,7 +382,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.7</version>
+                <version>3.0.0</version>
                 <configuration>
                     <linkOnly>true</linkOnly>
                     <offline>true</offline>
@@ -370,20 +392,21 @@
                         <reports>
                             <report>index</report>
                             <report>summary</report>
-                            <report>license</report>
-                            <report>dependencies</report>
-                            <report>plugins</report>
-                            <report>scm</report>
-                            <report>project-team</report>
-<!--
-                            <report>dependency-convergence</report>
+                            <report>licenses</report>
                             <report>dependency-info</report>
+                            <report>dependencies</report>
+                            <report>dependency-convergence</report>
+                            <report>plugins</report>
+                            <report>plugin-management</report>
+                            <report>team</report>
+                            <report>issue-management</report>
+                            <report>scm</report>
+<!--
                             <report>dependency-management</report>
                             <report>distribution-management</report>
-                            <report>issue-tracking</report>
-                            <report>mailing-list</report>
+                            <report>ci-management</report>
+                            <report>mailing-lists</report>
                             <report>modules</report>
-                            <report>plugin-management</report>
 -->
                         </reports>
                     </reportSet>
@@ -500,18 +523,6 @@
                     <xmlOutput>true</xmlOutput>
                     <!-- excludeFilterFile/ -->
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>javancss-maven-plugin</artifactId>
-                <version>2.0</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jdepend-maven-plugin</artifactId>
-                <version>2.0-beta-2</version>
             </plugin>
 
         </plugins>
