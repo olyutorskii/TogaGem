@@ -90,6 +90,7 @@
         <locale>en</locale>
         <site.locales>${locale}</site.locales>
         <javadoc.locale>${locale}</javadoc.locale>
+        <spotbugs.jvmArgs>-Duser.language=${locale}</spotbugs.jvmArgs>
 
         <surefire-plugin.version>3.0.0-M3</surefire-plugin.version>
         <jacoco-plugin.version>0.8.3</jacoco-plugin.version>
@@ -99,6 +100,12 @@
         <checkstyle.config.location>${project.basedir}/config/checkstyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>${project.basedir}/config/checkstyle/checkstyle-suppressions.xml</checkstyle.suppressions.location>
         <checkstyle.enable.rss>false</checkstyle.enable.rss>
+
+        <spotbugs-plugin.version>3.1.11</spotbugs-plugin.version>
+        <spotbugs.effort>Max</spotbugs.effort>
+        <spotbugs.threshold>Low</spotbugs.threshold>
+        <!-- for Jenkins -->
+        <spotbugs.xmlOutput>true</spotbugs.xmlOutput>
 
     </properties>
 
@@ -344,17 +351,9 @@
             </plugin>
 
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.5.2</version>
-                <configuration>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <!-- for Jenkins -->
-                    <findbugsXmlOutput>true</findbugsXmlOutput>
-                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
-                    <xmlOutput>true</xmlOutput>
-                </configuration>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${spotbugs-plugin.version}</version>
             </plugin>
 
         </plugins>
@@ -542,19 +541,9 @@
             </plugin>
 
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.5.2</version>
-                <configuration>
-                    <skip>true</skip>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <!-- for Jenkins -->
-                    <findbugsXmlOutput>true</findbugsXmlOutput>
-                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
-                    <xmlOutput>true</xmlOutput>
-                    <!-- excludeFilterFile/ -->
-                </configuration>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${spotbugs-plugin.version}</version>
             </plugin>
 
         </plugins>
