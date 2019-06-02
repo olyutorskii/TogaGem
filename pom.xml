@@ -96,7 +96,8 @@
         
         <project.mainconf>${project.basedir}/src/main/config</project.mainconf>
 
-        <checkstyle.config.location>${project.mainconf}/checks.xml</checkstyle.config.location>
+        <checkstyle.config.location>${project.basedir}/config/checkstyle/checkstyle.xml</checkstyle.config.location>
+        <checkstyle.suppressions.location>${project.basedir}/config/checkstyle/checkstyle-suppressions.xml</checkstyle.suppressions.location>
         <checkstyle.enable.rss>false</checkstyle.enable.rss>
 
     </properties>
@@ -334,9 +335,10 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.0.1</version>
                 <configuration>
-                    <targetJdk>${maven.compiler.target}</targetJdk>
+                    <!--targetJdk>${maven.compiler.target}</targetJdk-->
+                    <targetJdk>1.6</targetJdk>
                     <rulesets>
-                        <ruleset>${project.mainconf}/pmdrules.xml</ruleset>
+                        <ruleset>${project.basedir}/config/pmd/pmdrules.xml</ruleset>
                     </rulesets>
                 </configuration>
             </plugin>
@@ -523,9 +525,10 @@
                 <version>3.0.1</version>
                 <configuration>
                     <skip>false</skip>
-                    <targetJdk>${maven.compiler.target}</targetJdk>
+                    <!--targetJdk>${maven.compiler.target}</targetJdk-->
+                    <targetJdk>1.6</targetJdk>
                     <rulesets>
-                        <ruleset>${project.mainconf}/pmdrules.xml</ruleset>
+                        <ruleset>${project.basedir}/config/pmd/pmdrules.xml</ruleset>
                     </rulesets>
                 </configuration>
                 <reportSets>
