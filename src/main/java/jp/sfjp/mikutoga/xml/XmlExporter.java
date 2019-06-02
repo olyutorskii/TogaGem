@@ -134,7 +134,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
     /**
      * 指定された文字を16進2桁の文字参照形式で出力する。
      * <p>「A」は「&amp;#x41;」になる。
-     * <p>2桁で出力できない場合(>0x00ff)は4桁で出力する。
+     * <p>2桁で出力できない場合(&gt;0x00ff)は4桁で出力する。
      * @param ch 文字
      * @return this本体
      * @throws IOException 出力エラー
