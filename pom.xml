@@ -92,9 +92,12 @@
         <javadoc.locale>${locale}</javadoc.locale>
         <spotbugs.jvmArgs>-Duser.language=${locale}</spotbugs.jvmArgs>
 
+        <!-- Walk around: JDK 11 javadoc + Maven -->
+        <detectJavaApiLink>false</detectJavaApiLink>
+
         <surefire-plugin.version>3.0.0-M3</surefire-plugin.version>
         <jacoco-plugin.version>0.8.3</jacoco-plugin.version>
-        
+
         <project.mainconf>${project.basedir}/src/main/config</project.mainconf>
 
         <checkstyle.config.location>${project.basedir}/config/checkstyle/checkstyle.xml</checkstyle.config.location>
@@ -126,8 +129,14 @@
     <pluginRepositories/>
 
     <build>
-        
-        <pluginManagement/>
+
+        <pluginManagement>
+
+            <plugins>
+
+            </plugins>
+
+        </pluginManagement>
 
         <plugins>
 
@@ -446,13 +455,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9</version>
+                <version>3.1.0</version>
                 <configuration>
-                    <skip>false</skip>
+                    <author>false</author>
                     <notimestamp>true</notimestamp>
                     <quiet>true</quiet>
                     <show>protected</show>
-                    <stylesheet>maven</stylesheet>
+                    <header>${project.name} ${project.version} API</header>
+                    <version>true</version>
+                    <locale>${javadoc.locale}</locale>
+                    <!-- for JDK11 javadoc -->
+                    <additionalJOption>-J-Duser.language=${javadoc.locale}</additionalJOption>
                 </configuration>
                 <reportSets>
                     <reportSet>
@@ -466,10 +479,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <skip>false</skip>
-                </configuration>
+                <version>3.0.0</version>
             </plugin>
 
             <plugin>
