@@ -62,13 +62,13 @@ MikuTogaプロジェクトは、MMDによる3Dアニメーション制作を支�
 ./src/test/java/sample/
     パーサ利用のサンプルプログラム。
 
-./src/main/config/
+./config/
     各種ビルド・構成管理に必要なファイル群。
 
-./src/main/config/checks.xml
+./config/checkstyle/checkstyle.xml
     Checkstyle用configファイル。
 
-./src/main/config/pmdrules.xml
+./config/pmd/pmdrules.xml
     PMD用ルール定義ファイル。
 
 
