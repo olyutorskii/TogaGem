@@ -39,8 +39,6 @@
     </rule>
 
     <rule ref="category/java/design.xml" >
-        <exclude name="AvoidThrowingNullPointerException" />
-        <exclude name="AvoidUncheckedExceptionsInSignatures" />
         <exclude name="LawOfDemeter" />
         <exclude name="LoosePackageCoupling" />
     </rule>

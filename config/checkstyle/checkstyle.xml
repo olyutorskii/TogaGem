@@ -339,33 +339,13 @@
             />
         </module>
         <module name="GenericWhitespace" />
-        <module name="MethodParamPad">
-            <property
-                name="tokens"
-                value="CTOR_DEF, LITERAL_NEW, METHOD_DEF, SUPER_CTOR_CALL"
-            />
-        </module>
+        <module name="MethodParamPad" />
         <module name="NoLineWrap" />
-        <module name="NoWhitespaceAfter">
-            <property name="allowLineBreaks" value="false" />
-            <property name="tokens" value="INC, DEC, DOT" />
-        </module>
-        <module name="NoWhitespaceBefore">
-            <property name="allowLineBreaks" value="false" />
-            <property name="tokens" value="COMMA, POST_INC, POST_DEC" />
-        </module>
+        <module name="NoWhitespaceAfter" />
+        <module name="NoWhitespaceBefore" />
         <module name="OperatorWrap" />
-        <module name="ParenPad">
-            <property name="option" value="nospace" />
-            <property
-                name="tokens"
-                value="CTOR_CALL, METHOD_CALL, SUPER_CTOR_CALL"
-            />
-        </module>
-        <module name="SeparatorWrap">
-            <property name="tokens" value="DOT" />
-            <property name="option" value="nl" />
-        </module>
+        <module name="ParenPad" />
+        <module name="SeparatorWrap" />
         <module name="SingleSpaceSeparator" />
         <module name="TypecastParenPad" />
         <module name="WhitespaceAfter" >
