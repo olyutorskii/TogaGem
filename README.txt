@@ -27,14 +27,14 @@ MikuTogaプロジェクトは、MMDによる3Dアニメーション制作を支�
 
 === 実行環境 ===
 
- - TogaGemはJava言語(JLS3)で記述されたプログラムです。
- - TogaGemはJRE1.6に準拠したJava実行環境で利用できるように作られています。
-   原則として、JRE1.6に準拠した実行系であれば、プラットフォームを選びません。
+ - TogaGemはJava言語(JavaSE8)で記述されたプログラムです。
+ - TogaGemはJavaSE8に準拠したJava実行環境で利用できるように作られています。
+   原則として、JavaSE8に準拠した実行系であれば、プラットフォームを選びません。
 
 
 === 開発プロジェクト運営元 ===
 
-  http://sourceforge.jp/projects/mikutoga/ まで。
+  https://ja.osdn.net/projects/mikutoga/ まで。
 
 
 === ディレクトリ内訳構成 ===
@@ -50,9 +50,6 @@ MikuTogaプロジェクトは、MMDによる3Dアニメーション制作を支�
 ./LICENSE.txt
     ライセンスに関して。
 
-./SCM.txt
-    ソースコード管理に関して。
-
 ./pom.xml
     Maven3用プロジェクト構成定義ファイル。
 
@@ -65,13 +62,13 @@ MikuTogaプロジェクトは、MMDによる3Dアニメーション制作を支�
 ./src/test/java/sample/
     パーサ利用のサンプルプログラム。
 
-./src/main/config/
+./config/
     各種ビルド・構成管理に必要なファイル群。
 
-./src/main/config/checks.xml
+./config/checkstyle/checkstyle.xml
     Checkstyle用configファイル。
 
-./src/main/config/pmdrules.xml
+./config/pmd/pmdrules.xml
     PMD用ルール定義ファイル。
 
 
