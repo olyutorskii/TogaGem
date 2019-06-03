@@ -7,7 +7,6 @@
 
 package jp.sfjp.mikutoga.xml;
 
-import javax.xml.bind.DatatypeConverter;
 import org.xml.sax.Attributes;
 
 /**
@@ -57,7 +56,7 @@ public final class SaxAttr {
             throws IllegalArgumentException{
         String attrVal = attr.getValue(name);
         boolean bVal;
-        bVal = DatatypeConverter.parseBoolean(attrVal);
+        bVal = DatatypeIo.parseBoolean(attrVal);
         return bVal;
     }
 
@@ -77,7 +76,7 @@ public final class SaxAttr {
         if(attrVal == null) return def;
 
         boolean bVal;
-        bVal = DatatypeConverter.parseBoolean(attrVal);
+        bVal = DatatypeIo.parseBoolean(attrVal);
 
         return bVal;
     }
@@ -93,7 +92,7 @@ public final class SaxAttr {
             throws NumberFormatException{
         String attrVal = attr.getValue(name);
         byte bVal;
-        bVal = DatatypeConverter.parseByte(attrVal);
+        bVal = DatatypeIo.parseByte(attrVal);
         return bVal;
     }
 
@@ -108,7 +107,7 @@ public final class SaxAttr {
             throws NumberFormatException {
         String attrVal = attr.getValue(name);
         float fVal;
-        fVal = DatatypeConverter.parseFloat(attrVal);
+        fVal = DatatypeIo.parseFloat(attrVal);
         return fVal;
     }
 
@@ -123,7 +122,7 @@ public final class SaxAttr {
             throws NumberFormatException {
         String attrVal = attr.getValue(name);
         int iVal;
-        iVal = DatatypeConverter.parseInt(attrVal);
+        iVal = DatatypeIo.parseInt(attrVal);
         return iVal;
     }
 

@@ -9,7 +9,6 @@ package jp.sfjp.mikutoga.xml;
 
 import java.text.MessageFormat;
 import java.util.Iterator;
-import javax.xml.bind.DatatypeConverter;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -223,7 +222,7 @@ public final class DomNsUtils {
 
         boolean result;
         try{
-            result = DatatypeConverter.parseBoolean(value);
+            result = DatatypeIo.parseBoolean(value);
         }catch(IllegalArgumentException e){
             String message = MessageFormat.format(ERRMSG_INVATTR,
                                                   localName,
@@ -250,7 +249,7 @@ public final class DomNsUtils {
 
         int result;
         try{
-            result = DatatypeConverter.parseInt(value);
+            result = DatatypeIo.parseInt(value);
         }catch(NumberFormatException e){
             String message = MessageFormat.format(ERRMSG_INVATTR,
                                                   localName,
@@ -277,7 +276,7 @@ public final class DomNsUtils {
 
         float result;
         try{
-            result = DatatypeConverter.parseFloat(value);
+            result = DatatypeIo.parseFloat(value);
         }catch(NumberFormatException e){
             String message = MessageFormat.format(ERRMSG_INVATTR,
                                                   localName,
