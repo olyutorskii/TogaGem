@@ -105,7 +105,6 @@
         <checkstyle.enable.rss>false</checkstyle.enable.rss>
 
         <pmd-plugin.version>3.12.0</pmd-plugin.version>
-        <pmd.analysisCache>true</pmd.analysisCache>
 
         <spotbugs-plugin.version>3.1.11</spotbugs-plugin.version>
         <spotbugs.effort>Max</spotbugs.effort>

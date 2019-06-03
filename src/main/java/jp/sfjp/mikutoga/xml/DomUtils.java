@@ -11,7 +11,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import javax.xml.bind.DatatypeConverter;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -72,7 +71,7 @@ public final class DomUtils {
 
         boolean result;
         try{
-            result = DatatypeConverter.parseBoolean(value);
+            result = DatatypeIo.parseBoolean(value);
         }catch(IllegalArgumentException e){
             String message =
                     "Invalid boolean attribute form "
@@ -96,7 +95,7 @@ public final class DomUtils {
 
         int result;
         try{
-            result = DatatypeConverter.parseInt(value);
+            result = DatatypeIo.parseInt(value);
         }catch(IllegalArgumentException e){
             String message =
                     "Invalid integer attribute form "
@@ -120,7 +119,7 @@ public final class DomUtils {
 
         float result;
         try{
-            result = DatatypeConverter.parseFloat(value);
+            result = DatatypeIo.parseFloat(value);
         }catch(IllegalArgumentException e){
             String message =
                     "Invalid float attribute form "

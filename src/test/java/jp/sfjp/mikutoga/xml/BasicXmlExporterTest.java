@@ -13,7 +13,6 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author silva
  */
 public class BasicXmlExporterTest {
 
