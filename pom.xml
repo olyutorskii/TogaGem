@@ -16,7 +16,7 @@
     <groupId>jp.sourceforge.mikutoga</groupId>
     <artifactId>togagem</artifactId>
 
-    <version>3.101.106</version>
+    <version>3.120.2</version>
 
     <packaging>jar</packaging>
     <name>TogaGem</name>
@@ -96,16 +96,15 @@
         <detectJavaApiLink>false</detectJavaApiLink>
 
         <surefire-plugin.version>3.0.0-M3</surefire-plugin.version>
-        <jacoco-plugin.version>0.8.3</jacoco-plugin.version>
+        <jacoco-plugin.version>0.8.4</jacoco-plugin.version>
 
-        <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
-        <checkstyleruntime.version>8.20</checkstyleruntime.version>
+        <checkstyle-plugin.version>3.1.0</checkstyle-plugin.version>
+        <checkstyleruntime.version>8.21</checkstyleruntime.version>
         <checkstyle.config.location>${project.basedir}/config/checkstyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>${project.basedir}/config/checkstyle/checkstyle-suppressions.xml</checkstyle.suppressions.location>
         <checkstyle.enable.rss>false</checkstyle.enable.rss>
 
         <pmd-plugin.version>3.12.0</pmd-plugin.version>
-        <pmd.analysisCache>true</pmd.analysisCache>
 
         <spotbugs-plugin.version>3.1.11</spotbugs-plugin.version>
         <spotbugs.effort>Max</spotbugs.effort>
@@ -202,8 +201,7 @@
                                     <version>[3.3.9,)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <!-- JAXB -->
-                                    <version>1.8</version>
+                                    <version>[1.8,)</version>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
@@ -220,7 +218,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>  <!-- for NetBeans IDE -->
                     <target>1.8</target>
@@ -285,7 +283,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.1.2</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -303,7 +301,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.1.0</version>
                 <configuration>
                     <includePom>true</includePom>
                     <archive>

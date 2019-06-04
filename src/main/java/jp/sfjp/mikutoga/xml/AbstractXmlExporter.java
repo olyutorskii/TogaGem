@@ -8,9 +8,6 @@
 package jp.sfjp.mikutoga.xml;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.xml.bind.DatatypeConverter;
 
 /**
  * Appendable実装に依存したXMLエクスポータの半実装。
@@ -34,9 +31,6 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     private static final String COMM_START = "<!--";
     private static final String COMM_END   =   "-->";
-
-    private static final Pattern NUM_FUZZY =
-            Pattern.compile("([^.]*\\.[0-9][0-9]*?)0+");
 
     private static final String REF_HEX = "&#x";
     private static final int HEX_EXP = 4;    // 2 ** 4 == 16
@@ -82,28 +76,6 @@ abstract class AbstractXmlExporter implements XmlExporter{
             return true;
         }
         return false;
-    }
-
-    /**
-     * 冗長な実数出力を抑止する。
-     * <p>DatatypeConverterにおけるJDK1.6系と1.7系の仕様変更を吸収する。
-     * <p>0.001fは"0.0010"ではなく"0.001"と出力される。
-     * <p>指数表記での冗長桁は無視する。
-     * @param numTxt 実数表記
-     * @return 冗長桁が抑止された実数表記
-     * @see javax.xml.bind.DatatypeConverter
-     */
-    protected static String chopFuzzyZero(String numTxt){
-        String result;
-
-        Matcher matcher = NUM_FUZZY.matcher(numTxt);
-        if(matcher.matches()){
-            result = matcher.group(1);
-        }else{
-            result = numTxt;
-        }
-
-        return result;
     }
 
 
@@ -617,7 +589,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
      */
     @Override
     public XmlExporter putXsdInt(int iVal) throws IOException{
-        String value = DatatypeConverter.printInt(iVal);
+        String value = DatatypeIo.printInt(iVal);
         putRawText(value);
         return this;
     }
@@ -630,8 +602,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
      */
     @Override
     public XmlExporter putXsdFloat(float fVal) throws IOException{
-        String value = DatatypeConverter.printFloat(fVal);
-        value = chopFuzzyZero(value);
+        String value = DatatypeIo.printFloat(fVal);
         putRawText(value);
         return this;
     }
