@@ -16,7 +16,7 @@
     <groupId>jp.sourceforge.mikutoga</groupId>
     <artifactId>togagem</artifactId>
 
-    <version>3.101.107-SNAPSHOT</version>
+    <version>3.120.2</version>
 
     <packaging>jar</packaging>
     <name>TogaGem</name>
@@ -201,8 +201,7 @@
                                     <version>[3.3.9,)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <!-- JAXB -->
-                                    <version>1.8</version>
+                                    <version>[1.8,)</version>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>

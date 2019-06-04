@@ -41,12 +41,22 @@ public strictfp class MkQuatTest {
     public void tearDown() {
     }
 
-    private void assert0UlpEquals(double expected, double result){
+    /**
+     * StrictMath.toRadians(6) results are not same between JDK8 & JDK9.
+     */
+    private static double toRadians(double deg){
+        double result = deg * 0.01745329251994329576924;
+//        assert StrictMath.toRadians(6) == 0.10471975511965977; //JDK8
+//        assert StrictMath.toRadians(6) == 0.10471975511965978; //JDK9
+        return result;
+    }
+
+    private static void assert0UlpEquals(double expected, double result){
         assertUlpEquals(expected, result, 0);
         return;
     }
 
-    private void assertUlpEquals(double expected, double result, int ulpNum){
+    private static void assertUlpEquals(double expected, double result, int ulpNum){
         double ulpExpected = StrictMath.ulp(expected);
         double ulpResult   = StrictMath.ulp(result);
         double ulp = StrictMath.max(ulpExpected, ulpResult);
@@ -434,14 +444,14 @@ public strictfp class MkQuatTest {
         double yRad;
         double zRad;
 
-        xRad = StrictMath.toRadians(95);
-        yRad = StrictMath.toRadians(0);
-        zRad = StrictMath.toRadians(0);
+        xRad = toRadians(95);
+        yRad = toRadians(0);
+        zRad = toRadians(0);
         qq.setEulerYXZ(xRad, yRad, zRad);
         qq.toEulerYXZ(eu, yRad);
-        assertUlpEquals(StrictMath.toRadians(85), eu.getXRot(), 1);
-        assertUlpEquals(StrictMath.toRadians(180), eu.getYRot(), 0);
-        assertUlpEquals(StrictMath.toRadians(180), eu.getZRot(), 0);
+        assertUlpEquals(toRadians(85), eu.getXRot(), 1);
+        assertUlpEquals(toRadians(180), eu.getYRot(), 0);
+        assertUlpEquals(toRadians(180), eu.getZRot(), 0);
 
         return;
     }
@@ -462,9 +472,9 @@ public strictfp class MkQuatTest {
         qq = new MkQuat();
         eu = new EulerYXZ();
 
-        xRad = StrictMath.toRadians(89);
-        yRad = StrictMath.toRadians(80);
-        zRad = StrictMath.toRadians(41);
+        xRad = toRadians(89);
+        yRad = toRadians(80);
+        zRad = toRadians(41);
         qq.setEulerYXZ(xRad, yRad, zRad);
         qq.toEulerYXZ(eu, 0.0);
         assertUlpEquals(xRad, eu.getXRot(), 164);
@@ -472,23 +482,23 @@ public strictfp class MkQuatTest {
         assertUlpEquals(zRad, eu.getZRot(), 211);
 
         // ジンバルロック判定境界ケース
-        xRad = StrictMath.toRadians(90);
-        yRad = StrictMath.toRadians(6);
-        zRad = StrictMath.toRadians(7);
+        xRad = toRadians(90);
+        yRad = toRadians(6);
+        zRad = toRadians(7);
         qq.setEulerYXZ(xRad, yRad, zRad);
         qq.toEulerYXZ(eu, yRad);
         assert0UlpEquals(xRad, eu.getXRot());
         assert0UlpEquals(yRad, eu.getYRot());
-        assert0UlpEquals(zRad, eu.getZRot());
+        assertUlpEquals(zRad, eu.getZRot(), 1);
 
-        xRad = StrictMath.toRadians(89.999);
-        yRad = StrictMath.toRadians(89.999);
-        zRad = StrictMath.toRadians(89.999);
+        xRad = toRadians(89.999);
+        yRad = toRadians(89.999);
+        zRad = toRadians(89.999);
         qq.setEulerYXZ(xRad, yRad, zRad);
         qq.toEulerYXZ(eu, yRad);
         assertUlpEquals(xRad, eu.getXRot(), 83029);
-        assertUlpEquals(yRad, eu.getYRot(), 80108);
-        assertUlpEquals(zRad, eu.getZRot(), 80108);
+        assertUlpEquals(yRad, eu.getYRot(), 91782);
+        assertUlpEquals(zRad, eu.getZRot(), 91782);
 
         return;
     }
@@ -668,9 +678,9 @@ public strictfp class MkQuatTest {
         qq = new MkQuat();
         result = new EulerYXZ();
 
-        double xRad = StrictMath.toRadians(ix);
-        double yRad = StrictMath.toRadians(iy);
-        double zRad = StrictMath.toRadians(iz);
+        double xRad = toRadians(ix);
+        double yRad = toRadians(iy);
+        double zRad = toRadians(iz);
 
         qq.setEulerYXZ(xRad, yRad, zRad);
         qq.toEulerYXZ(result, yRad);
