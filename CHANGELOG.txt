@@ -4,8 +4,8 @@
 TogaGem 変更履歴
 
 
-X.XXX.XXX (XXXX-XX-XX)
-    ・replacing JAXB.
+3.120.2 (2019-06-04)
+    ・replacing JAXB DatatypeConverter.
 
 3.101.106 (2019-06-02)
     ・必須環境をJavaSE8に引き上げ。
