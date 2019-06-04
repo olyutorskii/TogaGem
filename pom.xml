@@ -201,8 +201,7 @@
                                     <version>[3.3.9,)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <!-- JAXB -->
-                                    <version>1.8</version>
+                                    <version>[1.8,)</version>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
