@@ -6,7 +6,7 @@
 
 <!--
     Checkstyle modules
-    for Checkstyle 8.20 or later
+    for Checkstyle 8.21 or later
 
     [ https://checkstyle.org/ ]
 
@@ -20,11 +20,12 @@
     <property name="localeCountry" value="JP" />
     <property name="localeLanguage" value="en" />
     <!--property name="localeLanguage" value="ja" /-->
-    <property name="fileExtensions" value="java, xml, properties" />
+    <property name="fileExtensions" value="java, properties, xml, xsd, md, txt" />
     <property name="severity" value="error" />
 
 
     <!-- Filters -->
+
     <module name="SeverityMatchFilter" />
     <!--module name="SuppressionFilter" /-->
     <module name="SuppressWarningsFilter" />
@@ -32,6 +33,7 @@
 
 
     <!-- Headers -->
+
     <module name="Header">
         <property name="header" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;" />
         <property name="fileExtensions" value="xml" />
@@ -44,18 +46,21 @@
 
 
     <!-- Javadoc Comments -->
+
     <module name="JavadocPackage" />
 
 
     <!-- Miscellaneous -->
+
     <module name="NewlineAtEndOfFile">
-        <property name="fileExtensions" value="java" />
+        <property name="fileExtensions" value="java, properties, xml, xsd, md, txt" />
     </module>
     <module name="Translation" />
     <module name="UniqueProperties" />
 
 
     <!-- Regexp -->
+
     <module name="RegexpMultiline">
         <property name="format" value="[\u000b\f\u001a]" />
     </module>
@@ -70,10 +75,12 @@
 
 
     <!-- Size Violations -->
+
     <module name="FileLength" />
 
 
     <!-- Whitespace -->
+
     <module name="FileTabCharacter" />
 
 
@@ -188,7 +195,9 @@
         <module name="SuperClone" />
         <module name="SuperFinalize" />
         <module name="UnnecessaryParentheses" />
-        <module name="VariableDeclarationUsageDistance" />
+        <module name="VariableDeclarationUsageDistance">
+            <property name="allowedDistance" value="5"/>
+        </module>
 
 
     <!-- Imports -->
@@ -220,6 +229,8 @@
         <module name="JavadocVariable">
             <property name="scope" value="protected" />
         </module>
+        <module name="MissingJavadocMethod" />
+        <module name="MissingJavadocType" />
         <module name="NonEmptyAtclauseDescription" />
         <module name="SingleLineJavadoc" />
         <module name="SummaryJavadocCheck" />
@@ -344,8 +355,17 @@
         <module name="NoWhitespaceAfter" />
         <module name="NoWhitespaceBefore" />
         <module name="OperatorWrap" />
-        <module name="ParenPad" />
-        <module name="SeparatorWrap" />
+        <module name="ParenPad">
+            <property name="option" value="nospace" />
+            <property
+                name="tokens"
+                value="CTOR_CALL, METHOD_CALL, SUPER_CTOR_CALL"
+            />
+        </module>
+        <module name="SeparatorWrap">
+            <property name="tokens" value="DOT"/>
+            <property name="option" value="nl"/>
+        </module>
         <module name="SingleSpaceSeparator" />
         <module name="TypecastParenPad" />
         <module name="WhitespaceAfter" >
