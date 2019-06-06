@@ -4,6 +4,9 @@
 TogaGem 変更履歴
 
 
+3.121.2 (2019-06-06)
+    ・DatatypeIo is public now, for replacing JAXB.
+
 3.120.2 (2019-06-04)
     ・replacing JAXB DatatypeConverter.
 
