@@ -20,7 +20,7 @@ package jp.sfjp.mikutoga.xml;
  * JavaSE8:DatatypeConverter
  * </a>
  */
-final class DatatypeIo {
+public final class DatatypeIo {
 
     /**
      * Hidden constructor.
