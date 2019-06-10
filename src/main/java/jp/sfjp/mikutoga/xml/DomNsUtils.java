@@ -15,8 +15,11 @@ import org.w3c.dom.Node;
 
 /**
  * DOMユーティリティ(名前空間対応)。
+ *
  * <p>各種名前空間引数にnullが渡された場合、全ての名前空間にマッチする。
+ *
  * <p>各種ローカル名引数にnullが渡された場合、全てのローカル名にマッチする。
+ *
  * <p>ノードの持つ名前空間がnullの場合、全ての名前空間引数にマッチする。
  */
 public final class DomNsUtils {
@@ -121,7 +124,9 @@ public final class DomNsUtils {
 
     /**
      * 指定された名前空間とローカル名に合致する最初の直下子要素を返す。
+     *
      * <p>見つからなければ例外を投げる。
+     *
      * @param parent 親要素
      * @param nsuri 名前空間URI
      * @param localName ローカル名

@@ -19,6 +19,7 @@ import jp.sfjp.mikutoga.vmd.VmdUniq;
 
 /**
  * VMDモーションファイルの基本部パーサ。
+ *
  * <p>ボーンのモーション情報およびモーフモーション情報のパース処理を含む。
  */
 class VmdBasicParser extends ProxyParser{
@@ -256,7 +257,9 @@ class VmdBasicParser extends ProxyParser{
 
     /**
      * 補間情報の冗長箇所の整合性チェックを行う。
+     *
      * <p>※ MMDの版数によって微妙に詳細が異なる場合がある。
+     *
      * @throws MmdFormatException 冗長箇所の不整合を検出した。
      */
     private void checkIntpltStrict() throws MmdFormatException{

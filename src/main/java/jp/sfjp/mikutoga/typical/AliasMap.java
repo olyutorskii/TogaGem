@@ -41,11 +41,13 @@ class AliasMap<T extends I18nAlias> {
 
     /**
      * NFKC正規化されたUnicode文字列を返す。
+     *
      * <p>等価な全半角、濁点、丸付き数字などの表現の正規化を目的とする。
      * <ul>
      * <li>「ﾎﾞｰﾝ」は「ボーン」になる
      * <li>「ホ゛ーン９」は「ボーン9」になる
      * </ul>
+     *
      * @param name 正規化対象文字列
      * @return 正規化済み文字列
      */
@@ -58,9 +60,12 @@ class AliasMap<T extends I18nAlias> {
 
     /**
      * 別名管理オブジェクトを登録。
+     *
      * <p>キーとなる名前は、事前にNFKC正規化で
      * 揺らぎ表記が吸収されたプライマリ名およびグローバル名。
+     *
      * <p>登録キーが衝突した時は後の方が有効となる。
+     *
      * @param alias 別名管理オブジェクト
      */
     void addAlias(T alias){
@@ -71,8 +76,11 @@ class AliasMap<T extends I18nAlias> {
 
     /**
      * 別名管理オブジェクトと正規化プライマリ名を対応づける。
+     *
      * <p>事前にNFKC正規化されたプライマリ名が登録キーとなる。
+     *
      * <p>登録キーが衝突した時は後の方が有効となる。
+     *
      * @param alias 別名管理オブジェクト
      */
     private void addPrimary(T alias){
@@ -86,8 +94,11 @@ class AliasMap<T extends I18nAlias> {
 
     /**
      * 別名管理オブジェクトと正規化グローバル名を対応づける。
+     *
      * <p>事前にNFKC正規化されたグローバル名が登録キーとなる。
+     *
      * <p>登録キーが衝突した時は後の方が有効となる。
+     *
      * @param alias 別名管理オブジェクト
      */
     private void addGlobal(T alias){
@@ -101,8 +112,11 @@ class AliasMap<T extends I18nAlias> {
 
     /**
      * 名前から別名管理オブジェクトを得る。
+     *
      * <p>プライマリ名、グローバル名の順で検索される。
+     *
      * <p>名前は事前にNFKC正規化された後、検索キーとなる。
+     *
      * @param name 名前
      * @return 別名管理オブジェクト。見つからなければnull
      */
@@ -117,7 +131,9 @@ class AliasMap<T extends I18nAlias> {
 
     /**
      * プライマリ名から別名管理オブジェクトを得る。
+     *
      * <p>プライマリ名は事前にNFKC正規化された後、検索キーとなる。
+     *
      * @param primaryName プライマリ名
      * @return 別名管理オブジェクト。見つからなければnull
      */
@@ -129,7 +145,9 @@ class AliasMap<T extends I18nAlias> {
 
     /**
      * グローバル名から別名管理オブジェクトを得る。
+     *
      * <p>グローバル名は事前にNFKC正規化された後、検索キーとなる。
+     *
      * @param globalName グローバル名
      * @return 別名管理オブジェクト。見つからなければnull
      */
@@ -141,7 +159,9 @@ class AliasMap<T extends I18nAlias> {
 
     /**
      * プライマリ名から代表グローバル名を得る。
+     *
      * <p>プライマリ名は事前にNFKC正規化された後、検索キーとなる。
+     *
      * @param primaryName プライマリ名
      * @return 代表グローバル名。見つからなければnull
      */
@@ -154,11 +174,13 @@ class AliasMap<T extends I18nAlias> {
 
     /**
      * グローバル名から代表プライマリ名を得る。
+     *
      * <p>グローバル名は事前にNFKC正規化された後、検索キーとなる。
+     *
      * @param globalName グローバル名
      * @return 代表プライマリ名。見つからなければnull
      */
-     String global2primary(String globalName){
+    String global2primary(String globalName){
         T alias = getAliasByGlobal(globalName);
         if(alias == null) return null;
         String primary = alias.getTopPrimaryName();

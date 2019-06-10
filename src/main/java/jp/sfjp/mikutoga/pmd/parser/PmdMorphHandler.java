@@ -27,7 +27,9 @@ public interface PmdMorphHandler extends LoopHandler {
 
     /**
      * モーフ情報の通知を受け取る。
+     *
      * <p>{@link #MORPH_LIST}ループの構成要素
+     *
      * @param morphName モーフ名
      * @param morphType モーフ種別。
      * <ul>
@@ -45,8 +47,11 @@ public interface PmdMorphHandler extends LoopHandler {
 
     /**
      * モーフ形状の通知を受け取る。
+     *
      * <p>{@link #MORPH_LIST}ループの下位{@link #MORPHVERTEX_LIST}の構成要素。
+     *
      * <p>※ base型頂点IDの出現順がモーフ頂点IDとなる。
+     *
      * @param serialId base型の場合は頂点ID、それ以外はモーフ頂点ID
      * @param xPos base型の場合はX座標、それ以外はX軸変位
      * @param yPos base型の場合はY座標、それ以外はY軸変位
@@ -60,7 +65,9 @@ public interface PmdMorphHandler extends LoopHandler {
 
     /**
      * 各モーフ種別内のGUI表示順の通知を受け取る。
+     *
      * <p>{@link #MORPHORDER_LIST}ループの構成要素
+     *
      * @param morphId モーフ通し番号。同一モーフ種別内の大小関係のみ意味がある。
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示

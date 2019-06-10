@@ -13,7 +13,9 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 
 /**
  * PMDモデルの各種形状(頂点、面)の通知用ハンドラ。
+ *
  * <p>0から始まる頂点ID順に頂点は出現する。
+ *
  * <p>0から始まる面ID順に面は出現する。
  */
 public interface PmdShapeHandler extends LoopHandler {
@@ -25,7 +27,9 @@ public interface PmdShapeHandler extends LoopHandler {
 
     /**
      * 頂点の座標の通知を受け取る。
+     *
      * <p>{@link #VERTEX_LIST}ループの構成要素
+     *
      * @param xPos X座標
      * @param yPos Y座標
      * @param zPos Z座標
@@ -37,8 +41,11 @@ public interface PmdShapeHandler extends LoopHandler {
 
     /**
      * 頂点の法線情報の通知を受け取る。
+     *
      * <p>{@link #VERTEX_LIST}ループの構成要素
+     *
      * <p>※単位ベクトル化必須？
+     *
      * @param xVec 法線ベクトルX成分
      * @param yVec 法線ベクトルY成分
      * @param zVec 法線ベクトルZ成分
@@ -51,7 +58,9 @@ public interface PmdShapeHandler extends LoopHandler {
     /**
      * 頂点のUVマッピング情報の通知を受け取る。
      * (頂点UV)
+     *
      * <p>{@link #VERTEX_LIST}ループの構成要素
+     *
      * @param uVal テクスチャのU座標
      * @param vVal テクスチャのV座標
      * @throws MmdFormatException 不正フォーマットによる
@@ -62,7 +71,9 @@ public interface PmdShapeHandler extends LoopHandler {
 
     /**
      * 頂点のボーン間ウェイトバランス情報の通知を受け取る。
+     *
      * <p>{@link #VERTEX_LIST}ループの構成要素
+     *
      * @param boneId1 ボーンその1識別ID
      * @param boneId2 ボーンその2識別ID
      * @param weightForB1 ボーンその1への影響度。0(min)～100(max)
@@ -76,7 +87,9 @@ public interface PmdShapeHandler extends LoopHandler {
     /**
      * 頂点のエッジ表現情報の通知を受け取る。
      * 材質単位でのエッジ表現指定に優先される。
+     *
      * <p>{@link #VERTEX_LIST}ループの構成要素
+     *
      * @param hideEdge エッジ無効ならtrue
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
@@ -86,8 +99,11 @@ public interface PmdShapeHandler extends LoopHandler {
 
     /**
      * 3つの頂点から構成される面情報の通知を受け取る。
+     *
      * <p>{@link #SURFACE_LIST}ループの構成要素。
+     *
      * <p>3頂点の指定順は、面カリングにおいて意味を持つ。
+     *
      * @param vertexId1 頂点IDその1
      * @param vertexId2 頂点IDその1
      * @param vertexId3 頂点IDその1

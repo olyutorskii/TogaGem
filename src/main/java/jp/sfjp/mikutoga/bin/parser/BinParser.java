@@ -11,19 +11,23 @@ import java.io.IOException;
 
 /**
  * バイナリパーサの共通インタフェース。
+ *
  * <p>バイト列、各種プリミティブ型値およびエンコードされた文字列を読み込む。
+ *
  * <p>long,double、およびビッグエンディアン形式のデータは未サポート。
  */
 public interface BinParser {
 
     /**
      * 入力ソースの読み込み位置を返す。
+     *
      * @return 入力ソースの読み込み位置。単位はbyte。
      */
     long getPosition();
 
     /**
      * 入力ソースにまだデータが残っているか判定する。
+     *
      * @return まだ読み込んでいないデータが残っていればtrue
      * @throws IOException IOエラー
      */
@@ -31,6 +35,7 @@ public interface BinParser {
 
     /**
      * 入力ソースを読み飛ばす。
+     *
      * @param skipLength 読み飛ばすバイト数。
      * @throws IOException IOエラー
      * @throws MmdEofException 読み飛ばす途中でストリーム終端に達した。
@@ -40,6 +45,7 @@ public interface BinParser {
 
     /**
      * byte配列を読み込む。
+     *
      * @param dst 格納先配列
      * @param off 読み込み開始オフセット
      * @param length 読み込みバイト数
@@ -57,7 +63,9 @@ public interface BinParser {
 
     /**
      * byte配列を読み込む。
+     *
      * <p>配列要素全ての読み込みが試みられる。
+     *
      * @param dst 格納先配列
      * @throws NullPointerException 配列がnull
      * @throws IOException IOエラー
@@ -69,6 +77,7 @@ public interface BinParser {
 
     /**
      * byte値を読み込む。
+     *
      * @return 読み込んだbyte値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
@@ -77,7 +86,9 @@ public interface BinParser {
 
     /**
      * 符号無し値としてbyte値を読み込み、int型に変換して返す。
+     *
      * <p>符号は拡張されない。(0xffは0x000000ffとなる)
+     *
      * @return 読み込まれた値のint値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
@@ -86,7 +97,9 @@ public interface BinParser {
 
     /**
      * byte値を読み込み、boolean型に変換して返す。
+     *
      * <p>0x00は偽、それ以外は真と解釈される。
+     *
      * @return 読み込まれた値のboolean値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
@@ -95,7 +108,9 @@ public interface BinParser {
 
     /**
      * short値を読み込む。
+     *
      * <p>short値はリトルエンディアンで格納されていると仮定される。
+     *
      * @return 読み込んだshort値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
@@ -104,8 +119,11 @@ public interface BinParser {
 
     /**
      * 符号無し値としてshort値を読み込み、int型に変換して返す。
+     *
      * <p>符号は拡張されない。(0xffffは0x0000ffffとなる)
+     *
      * <p>short値はリトルエンディアンで格納されていると仮定される。
+     *
      * @return 読み込まれた値のint値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
@@ -114,7 +132,9 @@ public interface BinParser {
 
     /**
      * int値を読み込む。
+     *
      * <p>int値はリトルエンディアンで格納されていると仮定される。
+     *
      * @return 読み込んだint値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
@@ -123,7 +143,9 @@ public interface BinParser {
 
     /**
      * float値を読み込む。
+     *
      * <p>float値はリトルエンディアンで格納されていると仮定される。
+     *
      * @return 読み込んだfloat値
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。

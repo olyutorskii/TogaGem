@@ -34,7 +34,9 @@ public interface PmdBoneHandler extends LoopHandler {
 
     /**
      * ボーン定義情報の通知を受け取る。
+     *
      * <p>{@link #BONE_LIST}ループの構成要素。
+     *
      * @param boneName ボーン名
      * @param boneKind ボーン種別。
      * <ul>
@@ -58,7 +60,9 @@ public interface PmdBoneHandler extends LoopHandler {
 
     /**
      * ボーン間接続情報の通知を受け取る。
+     *
      * <p>{@link #BONE_LIST}ループの構成要素。
+     *
      * @param parentId 親(前)ボーンID。無い場合は0xffff。
      * @param tailId 子(次)ボーンID。末端の場合は0。
      * 捩りボーンの場合は軸方向のボーンID、
@@ -73,7 +77,9 @@ public interface PmdBoneHandler extends LoopHandler {
 
     /**
      * ボーン位置情報の通知を受け取る。
+     *
      * <p>{@link #BONE_LIST}ループの構成要素。
+     *
      * @param xPos X座標
      * @param yPos Y座標
      * @param zPos Z座標
@@ -85,7 +91,9 @@ public interface PmdBoneHandler extends LoopHandler {
 
     /**
      * IKボーン情報の通知を受け取る。
+     *
      * <p>{@link #IK_LIST}ループの構成要素。
+     *
      * @param boneId IKボーンID
      * @param targetId IKボーンが最初に接続するIK接続先ボーンID
      * @param depth 再帰演算の深さ
@@ -98,7 +106,9 @@ public interface PmdBoneHandler extends LoopHandler {
 
     /**
      * IKチェイン要素の通知を受け取る。
+     *
      * <p>{@link #IK_LIST}ループの下位{@link #IKCHAIN_LIST}ループの構成要素。
+     *
      * @param childId IK影響下ボーンID
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
@@ -108,7 +118,9 @@ public interface PmdBoneHandler extends LoopHandler {
 
     /**
      * ボーングループ名定義の通知を受け取る。
+     *
      * <p>{@link #BONEGROUP_LIST}ループの構成要素。
+     *
      * @param groupName ボーングループ名。末尾のLF(0x0a)は削除される。
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
@@ -117,7 +129,9 @@ public interface PmdBoneHandler extends LoopHandler {
 
     /**
      * ボーングループ内訳の通知を受け取る。
+     *
      * <p>{@link #GROUPEDBONE_LIST}ループの構成要素。
+     *
      * @param boneId グループに所属するボーンのID
      * @param groupId ボーンが所属するボーングループIDに1を足した数
      * @throws MmdFormatException 不正フォーマットによる

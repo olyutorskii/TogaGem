@@ -9,7 +9,9 @@ package jp.sfjp.mikutoga.math;
 
 /**
  * 三次元位置情報。
+ *
  * <p>直交座標を三つの倍精度値で表す。
+ *
  * <p>具体的にはボーン位置やカメラターゲット位置など。
  */
 public strictfp class MkPos3D {
@@ -29,6 +31,7 @@ public strictfp class MkPos3D {
 
     /**
      * コンストラクタ。
+     *
      * @param xPosArg X軸座標
      * @param yPosArg Y軸座標
      * @param zPosArg Z軸座標
@@ -42,6 +45,7 @@ public strictfp class MkPos3D {
 
     /**
      * X軸座標を返す。
+     *
      * @return X軸座標
      */
     public double getXpos() {
@@ -50,6 +54,7 @@ public strictfp class MkPos3D {
 
     /**
      * Y軸座標を返す。
+     *
      * @return Y軸座標
      */
     public double getYpos() {
@@ -58,6 +63,7 @@ public strictfp class MkPos3D {
 
     /**
      * Z軸座標を返す。
+     *
      * @return Z軸座標
      */
     public double getZpos() {
@@ -66,6 +72,7 @@ public strictfp class MkPos3D {
 
     /**
      * X軸座標を設定する。
+     *
      * @param xPosArg X軸座標
      */
     public void setXpos(double xPosArg){
@@ -75,6 +82,7 @@ public strictfp class MkPos3D {
 
     /**
      * Y軸座標を設定する。
+     *
      * @param yPosArg Y軸座標
      */
     public void setYpos(double yPosArg){
@@ -84,6 +92,7 @@ public strictfp class MkPos3D {
 
     /**
      * Z軸座標を設定する。
+     *
      * @param zPosArg Z軸座標
      */
     public void setZpos(double zPosArg){
@@ -93,6 +102,7 @@ public strictfp class MkPos3D {
 
     /**
      * 座標を設定する。
+     *
      * @param xPosArg X軸座標
      * @param yPosArg Y軸座標
      * @param zPosArg Z軸座標
@@ -106,6 +116,7 @@ public strictfp class MkPos3D {
 
     /**
      * この点が原点(0,0,0)か否か判定する。
+     *
      * @return 原点ならtrue
      */
     public boolean isOriginPoint(){

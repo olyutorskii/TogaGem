@@ -31,8 +31,6 @@
     <suppress files="" checks="ImportControl" />
 
     <!-- Javadoc Comments -->
-    <suppress files="" checks="JavadocParagraph" />
-    <suppress files="" checks="JavadocTagContinuationIndentation" />
     <suppress files="" checks="SummaryJavadocCheck" />
 
     <!-- Miscellaneous -->

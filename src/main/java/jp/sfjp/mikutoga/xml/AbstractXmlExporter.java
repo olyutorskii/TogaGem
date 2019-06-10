@@ -64,7 +64,9 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * ASCIIコード相当(UCS:Basic-Latin)の文字か否か判定する。
+     *
      * <p>※ Basic-Latinには各種制御文字も含まれる。
+     *
      * @param ch 判定対象文字
      * @return Basic-Latin文字ならtrue
      * <a href="http://www.unicode.org/charts/PDF/U0000.pdf">

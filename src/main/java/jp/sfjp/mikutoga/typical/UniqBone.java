@@ -39,13 +39,16 @@ public final class UniqBone {
     /**
      * IK演算時の回転方向に制限を受ける「ひざボーン」か否か、
      * ボーン名で判定する。
+     *
      * <p>ボーンのプライマリ名が「左ひざ」もしくは「右ひざ」で始まれば
      * ひざボーンとする。
+     *
      * <p>ひざボーン名の例
      * <ul>
      * <li>「左ひざ」
      * <li>「左ひざげり」
      * </ul>
+     *
      * <p>ひざボーン名ではない例
      * <ul>
      * <li>「左ひ」
@@ -57,6 +60,7 @@ public final class UniqBone {
      * <li>「左膝」
      * <li>「Knee_L」
      * </ul>
+     *
      * @param boneNameJp プライマリボーン名
      * @return ひざボーンならtrue
      */

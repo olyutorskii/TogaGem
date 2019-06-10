@@ -14,6 +14,7 @@ import jp.sfjp.mikutoga.pmd.PmdConst;
 
 /**
  * PMDモデルファイルのパーサ拡張その1。
+ *
  * <p>※ 英名対応
  */
 public class PmdParserExt1 extends PmdParserBase {

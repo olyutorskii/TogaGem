@@ -21,7 +21,9 @@ public interface PmdJointHandler extends LoopHandler {
 
     /**
      * ジョイント名の通知を受け取る。
+     *
      * <p>{@link #JOINT_LIST}ループの構成要素。
+     *
      * @param jointName ジョイント名
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示。
@@ -31,7 +33,9 @@ public interface PmdJointHandler extends LoopHandler {
 
     /**
      * ジョイントが繋ぐ接続剛体IDの通知を受け取る。
+     *
      * <p>{@link #JOINT_LIST}ループの構成要素。
+     *
      * @param rigidIdA 接続剛体AのID
      * @param rigidIdB 接続剛体BのID
      * @throws MmdFormatException 不正フォーマットによる
@@ -42,7 +46,9 @@ public interface PmdJointHandler extends LoopHandler {
 
     /**
      * ジョイント位置の通知を受け取る。
+     *
      * <p>{@link #JOINT_LIST}ループの構成要素。
+     *
      * @param posX X座標
      * @param posY Y座標
      * @param posZ Z座標
@@ -54,7 +60,9 @@ public interface PmdJointHandler extends LoopHandler {
 
     /**
      * ジョイント回転姿勢の通知を受け取る。
+     *
      * <p>{@link #JOINT_LIST}ループの構成要素。
+     *
      * @param radX X軸回転量(radian)
      * @param radY Y軸回転量(radian)
      * @param radZ Z軸回転量(radian)
@@ -66,8 +74,11 @@ public interface PmdJointHandler extends LoopHandler {
 
     /**
      * ジョイント移動制限の通知を受け取る。
+     *
      * <p>{@link #JOINT_LIST}ループの構成要素。
+     *
      * <p>※ [制限端 その1 &lt;= その2] 条件を満たす必要はあるか？
+     *
      * @param posXlim1 X座標制限端その1
      * @param posXlim2 X座標制限端その2
      * @param posYlim1 Y座標制限端その1
@@ -84,8 +95,11 @@ public interface PmdJointHandler extends LoopHandler {
 
     /**
      * ジョイント回転制限の通知を受け取る。
+     *
      * <p>{@link #JOINT_LIST}ループの構成要素。
+     *
      * <p>※ [制限端 その1 &lt;= その2] 条件を満たす必要はあるか？
+     *
      * @param radXlim1 X軸制限端その1(radian)
      * @param radXlim2 X軸制限端その2(radian)
      * @param radYlim1 Y軸制限端その1(radian)
@@ -102,7 +116,9 @@ public interface PmdJointHandler extends LoopHandler {
 
     /**
      * ジョイントのばね移動情報の通知を受け取る。
+     *
      * <p>{@link #JOINT_LIST}ループの構成要素。
+     *
      * @param elasticPosX X座標
      * @param elasticPosY Y座標
      * @param elasticPosZ Z座標
@@ -116,7 +132,9 @@ public interface PmdJointHandler extends LoopHandler {
 
     /**
      * ジョイントのばね回転情報の通知を受け取る。
+     *
      * <p>{@link #JOINT_LIST}ループの構成要素。
+     *
      * @param elasticDegX X軸変量(degree)
      * @param elasticDegY Y軸変量(degree)
      * @param elasticDegZ Z軸変量(degree)

@@ -14,6 +14,7 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 /**
  * VMDモーションファイルの各種ON/OFF情報(モデル表示・IK有効無効)
  * の通知用ハンドラ。
+ *
  * <p>MikuMikuDance Ver7.40よりVMDファイルに導入された新仕様。
  */
 public interface VmdBoolHandler extends LoopHandler {
@@ -27,7 +28,9 @@ public interface VmdBoolHandler extends LoopHandler {
 
     /**
      * モデルの表示フラグを通知する。
+     *
      * <p>{@link #MODELSIGHT_LIST}ループの構成要素。
+     *
      * @param show モデルの表示が行われる場合true
      * @param keyFrameNo キーフレーム番号
      * @throws MmdFormatException 不正フォーマットによる
@@ -38,8 +41,10 @@ public interface VmdBoolHandler extends LoopHandler {
 
     /**
      * IKボーン別のIK処理のON/OFFを通知する。
+     *
      * <p>{@link #MODELSIGHT_LIST}ループの下位
      * {@link #IKSW_LIST}ループの構成要素。
+     *
      * @param boneName IKボーン名
      * @param validIk IK処理が無効になる場合false
      * @param keyFrameNo キーフレーム番号

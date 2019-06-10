@@ -18,6 +18,7 @@ import java.text.MessageFormat;
 
 /**
  * バイナリデータの出力を行う汎用エクスポーター。
+ *
  * <p>基本的にリトルエンディアン形式で出力される。
  */
 public class BinaryExporter implements Closeable, Flushable{
@@ -257,12 +258,18 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * 詰め物パディングを出力する。
+     *
      * @param filler byte型配列によるパディングデータの並び。
-     * <p>指定パディング長より長い部分は出力されない。
-     * 指定パディング長に満たない場合は最後の要素が繰り返し出力される。
-     * <p>配列長が0の場合は何も出力されない。
+     *
+     *     <p>指定パディング長より長い部分は出力されない。
+     *     指定パディング長に満たない場合は最後の要素が繰り返し出力される。
+     *
+     *     <p>配列長が0の場合は何も出力されない。
+     *
      * @param fillerLength パディング長。
-     * <p>パディング長が0以下の場合は何も出力されない。
+     *
+     *     <p>パディング長が0以下の場合は何も出力されない。
+     *
      * @return this
      * @throws IOException 出力エラー
      */
@@ -294,8 +301,8 @@ public class BinaryExporter implements Closeable, Flushable{
      * @return this
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException テキスト出力エラー。
-     * 出力が固定長を超えようとした、
-     * もしくは不正なエンコードが行われたかのいずれか。
+     *     出力が固定長を超えようとした、
+     *     もしくは不正なエンコードが行われたかのいずれか。
      */
     public BinaryExporter dumpFixedW31j(CharSequence text,
                                           int fixedLength,
@@ -338,8 +345,8 @@ public class BinaryExporter implements Closeable, Flushable{
      * @return エンコードバイト列長
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException テキスト出力エラー。
-     * 出力が固定長を超えようとした、
-     * もしくは不正なエンコードが行われたかのいずれか。
+     *     出力が固定長を超えようとした、
+     *     もしくは不正なエンコードが行われたかのいずれか。
      */
     public int dumpHollerithUtf16LE(CharSequence text)
             throws IOException, IllegalTextExportException{

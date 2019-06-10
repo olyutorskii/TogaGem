@@ -21,7 +21,9 @@ public interface PmdToonHandler extends LoopHandler {
 
     /**
      * 独自トゥーンテクスチャファイル名の通知を受け取る。
+     *
      * <p>{@link #TOON_LIST}ループの構成要素
+     *
      * @param toonName 独自トゥーンテクスチャファイル名
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示

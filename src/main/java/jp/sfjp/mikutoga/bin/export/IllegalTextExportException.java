@@ -11,11 +11,11 @@ import java.nio.charset.CharacterCodingException;
 
 /**
  * バイナリファイルへの不正なテキスト情報の出力が検出された場合の例外。
- * <p>
- * {@link java.nio.charset.CharacterCodingException}に由来する異常系を
+ *
+ * <p>{@link java.nio.charset.CharacterCodingException}に由来する異常系を
  * {@link java.io.IOException}から分離するために設計された。
- * <p>
- * 異常系の発生した理由としては
+ *
+ * <p>異常系の発生した理由としては
  * <ul>
  * <li>所定のフォーマットに対し文字列が長すぎる。
  * <li>文字エンコーディングできない文字が含まれている

@@ -206,7 +206,7 @@ public class XmlResourceResolver
      * @param originalURI オリジナルURI
      * @return 入力ストリーム。リダイレクト先が未登録の場合はnull
      * @throws java.io.IOException 入出力エラー。
-     * もしくはリソースが見つからない。
+     *     もしくはリソースが見つからない。
      */
     private InputStream getXMLResourceAsStream(URI originalURI)
             throws IOException{

@@ -58,8 +58,8 @@ public final class SchemaUtil {
                     XMLConstants.W3C_XML_SCHEMA_NS_URI
                 );
 
-//      schemaFactory.setFeature(name, value);
-//      schemaFactory.setProperty(name, object);
+        // schemaFactory.setFeature(name, value);
+        // schemaFactory.setProperty(name, object);
 
         schemaFactory.setErrorHandler(BotherHandler.HANDLER);
         schemaFactory.setResourceResolver(resolver);
@@ -109,7 +109,9 @@ public final class SchemaUtil {
 
     /**
      * ローカルスキーマをロードする。
+     *
      * <p>任意のリゾルバを指定可能
+     *
      * @param resolver リゾルバ
      * @param resArray ローカルスキーマ情報並び
      * @return スキーマ

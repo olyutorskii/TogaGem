@@ -31,7 +31,9 @@ public final class EmptyProxyFactory {
 
     /**
      * 何もしないインタフェース実装のインスタンスを生成する。
+     *
      * <p>インタフェースの各メソッド戻り値はvoidでなければならない。
+     *
      * @param types インタフェース群
      * @return インタフェースを実装したインスタンス。
      */

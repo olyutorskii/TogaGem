@@ -9,6 +9,7 @@ package jp.sfjp.mikutoga.bin.parser;
 
 /**
  * MMD関連ファイルのパース異常系。
+ *
  * <p>必要に応じて、パースに失敗した位置を保持する。
  */
 @SuppressWarnings("serial")

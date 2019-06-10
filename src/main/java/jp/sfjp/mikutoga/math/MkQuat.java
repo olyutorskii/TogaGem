@@ -9,6 +9,7 @@ package jp.sfjp.mikutoga.math;
 
 /**
  * クォータニオンによる回転表現。
+ *
  * <p>虚部q1,q2,q3と実部qwから構成される。
  */
 public strictfp class MkQuat {
@@ -37,6 +38,7 @@ public strictfp class MkQuat {
 
     /**
      * コンストラクタ。
+     *
      * <p>虚部が全て0.0、実部が1.0となる。
      */
     public MkQuat(){
@@ -46,6 +48,7 @@ public strictfp class MkQuat {
 
     /**
      * コンストラクタ。
+     *
      * @param q コピー元クォータニオン
      */
     public MkQuat(MkQuat q){
@@ -55,6 +58,7 @@ public strictfp class MkQuat {
 
     /**
      * コンストラクタ。
+     *
      * @param q1 虚部1
      * @param q2 虚部2
      * @param q3 虚部3
@@ -72,8 +76,11 @@ public strictfp class MkQuat {
 
     /**
      * クォータニオン積を求め格納する。
+     *
      * <p>クォータニオン積では交換則が成り立たない。
+     *
      * <p>引数は同一インスタンスを含んでもよい。
+     *
      * @param qA 積前項
      * @param qB 積後項
      * @param result 積の格納先
@@ -111,7 +118,9 @@ public strictfp class MkQuat {
 
     /**
      * 共役(共軛)クォータニオンを求め格納する。
+     *
      * <p>引数は同一インスタンスでもよい。
+     *
      * @param q クォータニオン
      * @param result 格納先
      */
@@ -125,7 +134,9 @@ public strictfp class MkQuat {
 
     /**
      * 単位クォータニオンを求め格納する。
+     *
      * <p>引数は同一インスタンスでもよい。
+     *
      * @param q クォータニオン
      * @param result 格納先
      */
@@ -147,9 +158,12 @@ public strictfp class MkQuat {
 
     /**
      * 逆元クォータニオンを求め格納する。
+     *
      * <p>対象クォータニオンの絶対値が小さい場合、
      * 無限大が虚部実部に入る可能性がある。
+     *
      * <p>引数は同一インスタンスでもよい。
+     *
      * @param q クォータニオン
      * @param result 格納先
      */
@@ -274,8 +288,11 @@ public strictfp class MkQuat {
 
     /**
      * 位置情報を読み込む。
+     *
      * <p>虚部q1,q2,q3にX,Y,Z軸の変量が入る。
+     *
      * <p>実部には0が入る。
+     *
      * @param xPos X位置
      * @param yPos Y位置
      * @param zPos Z位置
@@ -290,8 +307,11 @@ public strictfp class MkQuat {
 
     /**
      * 位置情報を読み込む。
+     *
      * <p>虚部q1,q2,q3にX,Y,Z軸の変量が入る。
+     *
      * <p>実部には0が入る。
+     *
      * @param pos 位置情報
      */
     public void setPos3D(MkPos3D pos){
@@ -301,8 +321,10 @@ public strictfp class MkQuat {
 
     /**
      * YXZオイラー角を読み込む。
+     *
      * <p>Y軸回転、X軸回転、Z軸回転の順に
      * 個別回転クォータニオンの積をとったものと等しい。
+     *
      * @param xRot X軸回転量(ラジアン)。第2軸
      * @param yRot Y軸回転量(ラジアン)。第1軸
      * @param zRot Z軸回転量(ラジアン)。第3軸
@@ -330,8 +352,10 @@ public strictfp class MkQuat {
 
     /**
      * YXZオイラー角を読み込む。
+     *
      * <p>Y軸回転、X軸回転、Z軸回転の順に
      * 個別回転クォータニオンの積をとったものと等しい。
+     *
      * @param rot YXZオイラー角
      */
     public void setEulerYXZ(EulerYXZ rot){
@@ -341,10 +365,12 @@ public strictfp class MkQuat {
 
     /**
      * クォータニオンをYXZオイラー角へと変換する。
+     *
      * <p>ジンバルロック時のYZ配分が指定可能。
+     *
      * @param result YXZオイラー角
      * @param oldY ジンバルロック時(オイラー角Xが直角etc.)
-     * に使われるY軸回転量
+     *     に使われるY軸回転量
      */
     public void toEulerYXZ(EulerYXZ result, double oldY){
         double qx = this.q1;
@@ -372,8 +398,8 @@ public strictfp class MkQuat {
         double m11 = 1.0 - 2.0 * (qx2 + qz2);
         double m12 = 2.0 * (qyz - qwx);
 
-//      double m20 = 2.0 * (qxz - qwy);
-//      double m21 = 2.0 * (qwx + qyz);
+        // double m20 = 2.0 * (qxz - qwy);
+        // double m21 = 2.0 * (qwx + qyz);
         double m22 = 1.0 - 2.0 * (qx2 + qy2);
 
         double resultX;
@@ -461,14 +487,14 @@ public strictfp class MkQuat {
         double rprrQ1;
         double rprrQ2;
         double rprrQ3;
-//      double rprrQW;
 
         rprrQ1 = rpQ2 * rrQ3 - rpQ3 * rrQ2 + rpQW * rrQ1 + rpQ1 * rrQW;
         rprrQ2 = rpQ3 * rrQ1 - rpQ1 * rrQ3 + rpQW * rrQ2 + rpQ2 * rrQW;
         rprrQ3 = rpQ1 * rrQ2 - rpQ2 * rrQ1 + rpQW * rrQ3 + rpQ3 * rrQW;
-//      rprrQW = rpQW * rrQW - rpQ1 * rrQ1 - rpQ2 * rrQ2 - rpQ3 * rrQ3;
 
-//      assert rprrQW == 0.0;
+        // double rprrQW;
+        // rprrQW = rpQW * rrQW - rpQ1 * rrQ1 - rpQ2 * rrQ2 - rpQ3 * rrQ3;
+        // assert rprrQW == 0.0;
 
         result.setXpos(rprrQ1);
         result.setYpos(rprrQ2);

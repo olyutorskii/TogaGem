@@ -23,9 +23,12 @@ import org.xml.sax.SAXException;
 
 /**
  * 一般的な標準モーフに関する情報。
+ *
  * <p>各モーフ情報はひとつ以上のプライマリ名(≒日本語名)と
  * ゼロ個以上のグローバル名(≒英語名)を持つ。
+ *
  * <p>選択基準は独断。
+ *
  * <p>和英対訳はMMD Ver7.39の同梱モデルにほぼ準拠。
  */
 public final class TypicalMorph extends I18nAlias {
@@ -74,8 +77,10 @@ public final class TypicalMorph extends I18nAlias {
 
     /**
      * コンストラクタ。
+     *
      * <p>各初期数が0以下の場合は、
      * 状況に応じて伸長する連結リストが用意される。
+     *
      * @param type モーフ種別
      * @param primaryNum プライマリ名初期数。
      * @param globalNum グローバル名初期数。
@@ -173,6 +178,7 @@ public final class TypicalMorph extends I18nAlias {
 
     /**
      * 全モーフ情報に通し番号を付ける。
+     *
      * <p>同一グループ内ではXMLでの定義順が反映される。
      */
     private static void numbering(){

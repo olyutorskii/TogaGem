@@ -14,8 +14,11 @@ import org.w3c.dom.Node;
 
 /**
  * 兄弟要素間用Iterator。
+ *
  * <p>同じ親と名前空間とローカル名を持つ要素同士を「兄弟要素」とする。
+ *
  * <p>ノードの持つ名前空間がnullの場合、全ての名前空間引数にマッチする。
+ *
  * <p>削除操作は未サポート。
  */
 public class SiblingElemIterator implements Iterator<Element> {
@@ -47,8 +50,11 @@ public class SiblingElemIterator implements Iterator<Element> {
 
     /**
      * コンストラクタ。
+     *
      * <p>名前空間引数にnullが渡された場合、全ての名前空間にマッチする。
+     *
      * <p>ローカル名引数にnullが渡された場合、全てのローカル名にマッチする。
+     *
      * @param parent 親要素
      * @param nsuri 子要素の名前空間URI
      * @param localName 子要素のローカル名
