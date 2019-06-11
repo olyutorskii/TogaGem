@@ -23,7 +23,7 @@ public interface BinParser {
      *
      * @return 入力ソースの読み込み位置。単位はbyte。
      */
-    long getPosition();
+    public abstract long getPosition();
 
     /**
      * 入力ソースにまだデータが残っているか判定する。
@@ -31,7 +31,7 @@ public interface BinParser {
      * @return まだ読み込んでいないデータが残っていればtrue
      * @throws IOException IOエラー
      */
-    boolean hasMore() throws IOException;
+    public abstract boolean hasMore() throws IOException;
 
     /**
      * 入力ソースを読み飛ばす。
@@ -41,7 +41,8 @@ public interface BinParser {
      * @throws MmdEofException 読み飛ばす途中でストリーム終端に達した。
      * @see java.io.InputStream#skip(long)
      */
-    void skip(long skipLength) throws IOException, MmdEofException;
+    public abstract void skip(long skipLength)
+            throws IOException, MmdEofException;
 
     /**
      * byte配列を読み込む。
@@ -55,7 +56,7 @@ public interface BinParser {
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
      * @see java.io.InputStream#read(byte[], int, int)
      */
-    void parseByteArray(byte[] dst, int off, int length)
+    public abstract void parseByteArray(byte[] dst, int off, int length)
             throws NullPointerException,
                    IndexOutOfBoundsException,
                    IOException,
@@ -72,7 +73,7 @@ public interface BinParser {
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
      * @see java.io.InputStream#read(byte[])
      */
-    void parseByteArray(byte[] dst)
+    public abstract void parseByteArray(byte[] dst)
             throws NullPointerException, IOException, MmdEofException;
 
     /**
@@ -82,7 +83,7 @@ public interface BinParser {
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
      */
-    byte parseByte() throws IOException, MmdEofException;
+    public abstract byte parseByte() throws IOException, MmdEofException;
 
     /**
      * 符号無し値としてbyte値を読み込み、int型に変換して返す。
@@ -93,7 +94,7 @@ public interface BinParser {
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
      */
-    int parseUByteAsInt() throws IOException, MmdEofException;
+    public abstract int parseUByteAsInt() throws IOException, MmdEofException;
 
     /**
      * byte値を読み込み、boolean型に変換して返す。
@@ -104,7 +105,8 @@ public interface BinParser {
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
      */
-    boolean parseBoolean() throws IOException, MmdEofException;
+    public abstract boolean parseBoolean()
+            throws IOException, MmdEofException;
 
     /**
      * short値を読み込む。
@@ -115,7 +117,7 @@ public interface BinParser {
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
      */
-    short parseLeShort() throws IOException, MmdEofException;
+    public abstract short parseLeShort() throws IOException, MmdEofException;
 
     /**
      * 符号無し値としてshort値を読み込み、int型に変換して返す。
@@ -128,7 +130,8 @@ public interface BinParser {
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
      */
-    int parseLeUShortAsInt() throws IOException, MmdEofException;
+    public abstract int parseLeUShortAsInt()
+            throws IOException, MmdEofException;
 
     /**
      * int値を読み込む。
@@ -139,7 +142,7 @@ public interface BinParser {
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
      */
-    int parseLeInt() throws IOException, MmdEofException;
+    public abstract int parseLeInt() throws IOException, MmdEofException;
 
     /**
      * float値を読み込む。
@@ -150,7 +153,7 @@ public interface BinParser {
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
      */
-    float parseLeFloat() throws IOException, MmdEofException;
+    public abstract float parseLeFloat() throws IOException, MmdEofException;
 
     /**
      * 固定バイト長の文字列を読み込む。
@@ -161,7 +164,7 @@ public interface BinParser {
      * @throws MmdEofException 固定長バイト列を読む前に末端に達した。
      * @throws MmdFormatException 文字エンコーディングに関するエラー
      */
-    String parseString(TextDecoder decoder, int byteLen)
+    public abstract String parseString(TextDecoder decoder, int byteLen)
             throws IOException, MmdEofException, MmdFormatException;
 
 }

@@ -21,7 +21,7 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 public interface PmdRigidHandler extends LoopHandler {
 
     /** 剛体情報抽出ループ。 */
-    ParseStage RIGID_LIST = new ParseStage();
+    public static final ParseStage RIGID_LIST = new ParseStage();
 
     /**
      * 剛体名の通知を受け取る。
@@ -32,7 +32,7 @@ public interface PmdRigidHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void pmdRigidName(String rigidName)
+    public abstract void pmdRigidName(String rigidName)
         throws MmdFormatException;
 
     /**
@@ -46,7 +46,7 @@ public interface PmdRigidHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void pmdRigidInfo(int rigidGroupId,
+    public abstract void pmdRigidInfo(int rigidGroupId,
                         int linkedBoneId)
         throws MmdFormatException;
 
@@ -67,7 +67,7 @@ public interface PmdRigidHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void pmdRigidShape(byte shapeType,
+    public abstract void pmdRigidShape(byte shapeType,
                          float width, float height, float depth)
         throws MmdFormatException;
 
@@ -82,7 +82,7 @@ public interface PmdRigidHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void pmdRigidPosition(float posX, float posY, float posZ)
+    public abstract void pmdRigidPosition(float posX, float posY, float posZ)
         throws MmdFormatException;
 
     /**
@@ -96,7 +96,7 @@ public interface PmdRigidHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void pmdRigidRotation(float radX, float radY, float radZ)
+    public abstract void pmdRigidRotation(float radX, float radY, float radZ)
         throws MmdFormatException;
 
     /**
@@ -112,7 +112,7 @@ public interface PmdRigidHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void pmdRigidPhysics(float mass,
+    public abstract void pmdRigidPhysics(float mass,
                            float dampingPos, float dampingRot,
                            float restitution, float friction )
         throws MmdFormatException;
@@ -135,7 +135,7 @@ public interface PmdRigidHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void pmdRigidBehavior(byte behaveType, short collisionMap)
+    public abstract void pmdRigidBehavior(byte behaveType, short collisionMap)
         throws MmdFormatException;
 
 }

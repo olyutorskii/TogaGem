@@ -29,7 +29,7 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 public interface VmdCameraHandler extends LoopHandler {
 
     /** カメラデータ抽出ループ識別子。 */
-    ParseStage CAMERA_LIST = new ParseStage();
+    public static final ParseStage CAMERA_LIST = new ParseStage();
 
 
     /**
@@ -41,7 +41,7 @@ public interface VmdCameraHandler extends LoopHandler {
      * @throws MmdFormatException
      *     不正フォーマットによるパース処理の中断をパーサに指示
      */
-    void vmdCameraMotion(int keyFrameNo)
+    public abstract void vmdCameraMotion(int keyFrameNo)
             throws MmdFormatException;
 
     /**
@@ -59,7 +59,7 @@ public interface VmdCameraHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void vmdCameraRange(float range)
+    public abstract void vmdCameraRange(float range)
             throws MmdFormatException;
 
     /**
@@ -73,7 +73,7 @@ public interface VmdCameraHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void vmdCameraPosition(float xPos, float yPos, float zPos)
+    public abstract void vmdCameraPosition(float xPos, float yPos, float zPos)
             throws MmdFormatException;
 
     /**
@@ -112,7 +112,8 @@ public interface VmdCameraHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void vmdCameraRotation(float latitude, float longitude, float roll)
+    public abstract void vmdCameraRotation(
+            float latitude, float longitude, float roll)
             throws MmdFormatException;
 
     /**
@@ -127,7 +128,8 @@ public interface VmdCameraHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void vmdCameraProjection(int angle, boolean hasPerspective)
+    public abstract void vmdCameraProjection(
+            int angle, boolean hasPerspective)
             throws MmdFormatException;
 
     /**
@@ -143,7 +145,8 @@ public interface VmdCameraHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void vmdCameraIntpltXpos(byte p1x, byte p1y, byte p2x, byte p2y)
+    public abstract void vmdCameraIntpltXpos(
+            byte p1x, byte p1y, byte p2x, byte p2y)
             throws MmdFormatException;
 
     /**
@@ -159,7 +162,8 @@ public interface VmdCameraHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void vmdCameraIntpltYpos(byte p1x, byte p1y, byte p2x, byte p2y)
+    public abstract void vmdCameraIntpltYpos(
+            byte p1x, byte p1y, byte p2x, byte p2y)
             throws MmdFormatException;
 
     /**
@@ -175,7 +179,8 @@ public interface VmdCameraHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void vmdCameraIntpltZpos(byte p1x, byte p1y, byte p2x, byte p2y)
+    public abstract void vmdCameraIntpltZpos(
+            byte p1x, byte p1y, byte p2x, byte p2y)
             throws MmdFormatException;
 
     /**
@@ -193,7 +198,8 @@ public interface VmdCameraHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void vmdCameraIntpltRotation(byte p1x, byte p1y, byte p2x, byte p2y)
+    public abstract void vmdCameraIntpltRotation(
+            byte p1x, byte p1y, byte p2x, byte p2y)
             throws MmdFormatException;
 
     /**
@@ -209,7 +215,8 @@ public interface VmdCameraHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void vmdCameraIntpltRange(byte p1x, byte p1y, byte p2x, byte p2y)
+    public abstract void vmdCameraIntpltRange(
+            byte p1x, byte p1y, byte p2x, byte p2y)
             throws MmdFormatException;
 
     /**
@@ -225,7 +232,8 @@ public interface VmdCameraHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void vmdCameraIntpltProjection(byte p1x, byte p1y, byte p2x, byte p2y)
+    public abstract void vmdCameraIntpltProjection(
+            byte p1x, byte p1y, byte p2x, byte p2y)
             throws MmdFormatException;
 
 }

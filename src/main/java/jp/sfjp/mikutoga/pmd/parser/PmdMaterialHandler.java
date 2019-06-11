@@ -18,7 +18,7 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 public interface PmdMaterialHandler extends LoopHandler {
 
     /** 材質抽出ループ。 */
-    ParseStage MATERIAL_LIST = new ParseStage();
+    public static final ParseStage MATERIAL_LIST = new ParseStage();
 
     /**
      * 材質の拡散光成分の通知を受け取る。
@@ -32,8 +32,8 @@ public interface PmdMaterialHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void pmdMaterialDiffuse(float red, float green, float blue,
-                               float alpha )
+    public abstract void pmdMaterialDiffuse(
+            float red, float green, float blue, float alpha)
             throws MmdFormatException;
 
     /**
@@ -48,8 +48,8 @@ public interface PmdMaterialHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void pmdMaterialSpecular(float red, float green, float blue,
-                                float shininess)
+    public abstract void pmdMaterialSpecular(
+            float red, float green, float blue, float shininess)
             throws MmdFormatException;
 
     /**
@@ -63,7 +63,8 @@ public interface PmdMaterialHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void pmdMaterialAmbient(float red, float green, float blue)
+    public abstract void pmdMaterialAmbient(
+            float red, float green, float blue)
             throws MmdFormatException;
 
     /**
@@ -80,7 +81,7 @@ public interface PmdMaterialHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */
-    void pmdMaterialShading(int toonIdx,
+    public abstract void pmdMaterialShading(int toonIdx,
                                String textureFile, String sphereFile )
             throws MmdFormatException;
 
@@ -101,7 +102,7 @@ public interface PmdMaterialHandler extends LoopHandler {
      *     パース処理の中断をパーサに指示
      * @see PmdShapeHandler#pmdSurfaceTriangle(int, int, int)
      */
-    void pmdMaterialInfo(boolean hasEdge, int vertexNum)
+    public abstract void pmdMaterialInfo(boolean hasEdge, int vertexNum)
             throws MmdFormatException;
 
 }

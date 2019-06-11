@@ -22,7 +22,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putRawCh(char ch) throws IOException;
+    public abstract XmlExporter putRawCh(char ch) throws IOException;
 
     /**
      * 文字列を生出力する。
@@ -30,14 +30,15 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putRawText(CharSequence seq) throws IOException;
+    public abstract XmlExporter putRawText(CharSequence seq)
+            throws IOException;
 
     /**
      * 空白を出力する。
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter sp() throws IOException;
+    public abstract XmlExporter sp() throws IOException;
 
     /**
      * 空白を指定回数出力する。
@@ -45,27 +46,28 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter sp(int count) throws IOException;
+    public abstract XmlExporter sp(int count) throws IOException;
 
     /**
      * 改行文字列を返す。
      * @return 改行文字列
      */
-    String getNewLine();
+    public abstract String getNewLine();
 
     /**
      * 改行文字列を設定する。
      * @param newLine 改行文字列
      * @throws NullPointerException 引数がnull
      */
-    void setNewLine(String newLine) throws NullPointerException;
+    public abstract void setNewLine(String newLine)
+            throws NullPointerException;
 
     /**
      * 改行を出力する。
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter ln() throws IOException;
+    public abstract XmlExporter ln() throws IOException;
 
     /**
      * 改行を指定回数出力する。
@@ -73,13 +75,13 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter ln(int count) throws IOException;
+    public abstract XmlExporter ln(int count) throws IOException;
 
     /**
      * インデント単位文字列を返す。
      * @return インデント単位文字列
      */
-    String getIndentUnit();
+    public abstract String getIndentUnit();
 
     /**
      * インデント単位文字列を設定する。
@@ -89,18 +91,19 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @param indUnit インデント単位文字列。
      * @throws NullPointerException 引数がnull
      */
-    void setIndentUnit(String indUnit) throws NullPointerException;
+    public abstract void setIndentUnit(String indUnit)
+            throws NullPointerException;
 
     /**
      * インデントレベルを一段下げる。
      */
-    void pushNest();
+    public abstract void pushNest();
 
     /**
      * インデントレベルを一段上げる。
      * インデントレベル0の状態をさらに上げようとした場合、何も起こらない。
      */
-    void popNest();
+    public abstract void popNest();
 
     /**
      * インデントレベルを返す。
@@ -109,7 +112,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      *
      * @return インデントレベル
      */
-    int getIndentLevel();
+    public abstract int getIndentLevel();
 
     /**
      * インデントを出力する。
@@ -117,7 +120,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter ind() throws IOException;
+    public abstract XmlExporter ind() throws IOException;
 
     /**
      * BasicLatin文字だけを出力する状態か判定する。
@@ -126,7 +129,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      *
      * @return BasicLatin文字だけで出力するならtrue
      */
-    boolean isBasicLatinOnlyOut();
+    public abstract boolean isBasicLatinOnlyOut();
 
     /**
      * BasicLatin文字だけで出力するか設定する。
@@ -138,7 +141,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      *
      * @param bool BasicLatin文字だけで出力するならtrue
      */
-    void setBasicLatinOnlyOut(boolean bool);
+    public abstract void setBasicLatinOnlyOut(boolean bool);
 
     /**
      * 指定された文字を16進2桁の文字参照形式で出力する。
@@ -154,7 +157,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * W3C XML1.1 Character Reference
      * </a>
      */
-    XmlExporter putCharRef2Hex(char ch) throws IOException;
+    public abstract XmlExporter putCharRef2Hex(char ch) throws IOException;
 
     /**
      * 指定された文字を16進4桁の文字参照形式で出力する。
@@ -170,7 +173,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * W3C XML1.1 Character Reference
      * </a>
      */
-    XmlExporter putCharRef4Hex(char ch) throws IOException;
+    public abstract XmlExporter putCharRef4Hex(char ch) throws IOException;
 
     /**
      * 要素の中身および属性値中身を出力する。
@@ -181,7 +184,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putCh(char ch) throws IOException;
+    public abstract XmlExporter putCh(char ch) throws IOException;
 
     /**
      * 要素の中身および属性値中身を出力する。
@@ -199,7 +202,8 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putContent(CharSequence content) throws IOException;
+    public abstract XmlExporter putContent(CharSequence content)
+            throws IOException;
 
     /**
      * コメントの内容を出力する。
@@ -221,7 +225,8 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * Unicode 6.2 Controll Pictures
      * </a>
      */
-    XmlExporter putCommentContent(CharSequence comment) throws IOException;
+    public abstract XmlExporter putCommentContent(CharSequence comment)
+            throws IOException;
 
     /**
      * 1行コメントを出力する。
@@ -230,7 +235,8 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putLineComment(CharSequence comment) throws IOException;
+    public abstract XmlExporter putLineComment(CharSequence comment)
+            throws IOException;
 
     /**
      * ブロックコメントを出力する。
@@ -247,7 +253,8 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putBlockComment(CharSequence comment) throws IOException;
+    public abstract XmlExporter putBlockComment(CharSequence comment)
+            throws IOException;
 
     /**
      * 開始タグ開き表記を出力する。
@@ -255,14 +262,15 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putOpenSTag(CharSequence tagName) throws IOException;
+    public abstract XmlExporter putOpenSTag(CharSequence tagName)
+            throws IOException;
 
     /**
      * 開始タグ閉じ表記を出力する。
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putCloseSTag() throws IOException;
+    public abstract XmlExporter putCloseSTag() throws IOException;
 
     /**
      * 属性の無いシンプルな開始タグ表記を出力する。
@@ -270,7 +278,8 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putSimpleSTag(CharSequence tagName) throws IOException;
+    public abstract XmlExporter putSimpleSTag(CharSequence tagName)
+            throws IOException;
 
     /**
      * 終了タグ表記を出力する。
@@ -278,7 +287,8 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putETag(CharSequence tagName) throws IOException;
+    public abstract XmlExporter putETag(CharSequence tagName)
+            throws IOException;
 
     /**
      * 属性の無い単出タグ表記を出力する。
@@ -286,14 +296,15 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putSimpleEmpty(CharSequence tagName) throws IOException;
+    public abstract XmlExporter putSimpleEmpty(CharSequence tagName)
+            throws IOException;
 
     /**
      * 単出タグ閉じ表記を出力する。
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putCloseEmpty() throws IOException;
+    public abstract XmlExporter putCloseEmpty() throws IOException;
 
     /**
      * xsd:int値をXMLスキーマ準拠の形式で出力する。
@@ -304,7 +315,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * XML Schema 1.1 Datatypes int
      * </a>
      */
-    XmlExporter putXsdInt(int iVal) throws IOException;
+    public abstract XmlExporter putXsdInt(int iVal) throws IOException;
 
     /**
      * xsd:float値をXMLスキーマ準拠の形式で出力する。
@@ -315,7 +326,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * XML Schema 1.1 Datatypes float Lexical Mapping
      * </a>
      */
-    XmlExporter putXsdFloat(float fVal) throws IOException;
+    public abstract XmlExporter putXsdFloat(float fVal) throws IOException;
 
     /**
      * int型属性値を出力する。
@@ -324,7 +335,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putIntAttr(CharSequence attrName, int iVal)
+    public abstract XmlExporter putIntAttr(CharSequence attrName, int iVal)
             throws IOException;
 
     /**
@@ -334,7 +345,8 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putFloatAttr(CharSequence attrName, float fVal)
+    public abstract XmlExporter putFloatAttr(
+            CharSequence attrName, float fVal)
             throws IOException;
 
     /**
@@ -344,7 +356,8 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    XmlExporter putAttr(CharSequence attrName, CharSequence content)
+    public abstract XmlExporter putAttr(
+            CharSequence attrName, CharSequence content)
             throws IOException;
 
 }

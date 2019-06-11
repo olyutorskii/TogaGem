@@ -21,12 +21,12 @@ public interface LocalXmlResource {
      * オリジナル版XMLリソースのURIを返す。
      * @return オリジナル版リソースのURL。
      */
-    URI getOriginalResource();
+    public abstract URI getOriginalResource();
 
     /**
      * ローカル版XMLリソースのURIを返す。
      * @return ローカル版リソースのURL。
      */
-    URI getLocalResource();
+    public abstract URI getLocalResource();
 
 }

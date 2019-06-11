@@ -19,7 +19,7 @@ public interface PmdBasicHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdParseStart()
+    public abstract void pmdParseStart()
             throws MmdFormatException;
 
     /**
@@ -29,7 +29,7 @@ public interface PmdBasicHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdParseEnd(boolean hasMoreData)
+    public abstract void pmdParseEnd(boolean hasMoreData)
             throws MmdFormatException;
 
     /**
@@ -38,7 +38,7 @@ public interface PmdBasicHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdHeaderInfo(byte[] header)
+    public abstract void pmdHeaderInfo(byte[] header)
             throws MmdFormatException;
 
     /**
@@ -48,7 +48,7 @@ public interface PmdBasicHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdModelInfo(String modelName, String description)
+    public abstract void pmdModelInfo(String modelName, String description)
             throws MmdFormatException;
 
 }
