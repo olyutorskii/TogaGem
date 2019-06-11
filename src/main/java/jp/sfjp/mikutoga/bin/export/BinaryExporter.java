@@ -70,8 +70,8 @@ public class BinaryExporter implements Closeable, Flushable{
 
     private final byte[] barray;
 
-    private final TextExporter texporter_w31j;
-    private final TextExporter texporter_u16le;
+    private final TextExporter texporterW31j;
+    private final TextExporter texporterU16le;
     private final ByteArrayOutputStream xos;
 
 
@@ -88,8 +88,8 @@ public class BinaryExporter implements Closeable, Flushable{
 
         this.barray = new byte[BUFSZ_PRIM];
 
-        this.texporter_w31j  = new TextExporter(CS_WIN31J);
-        this.texporter_u16le = new TextExporter(CS_UTF16LE);
+        this.texporterW31j  = new TextExporter(CS_WIN31J);
+        this.texporterU16le = new TextExporter(CS_UTF16LE);
         this.xos = new ByteArrayOutputStream();
 
         return;
@@ -314,7 +314,7 @@ public class BinaryExporter implements Closeable, Flushable{
         int encodedSize;
         try{
             encodedSize =
-                    this.texporter_w31j.encodeToByteStream(text, this.xos);
+                    this.texporterW31j.encodeToByteStream(text, this.xos);
         }catch(CharacterCodingException e){
             throw new IllegalTextExportException(ERRMSG_ILLENC, e);
         }
@@ -356,7 +356,7 @@ public class BinaryExporter implements Closeable, Flushable{
         int encodedSize;
         try{
             encodedSize =
-                    this.texporter_u16le.encodeToByteStream(text, this.xos);
+                    this.texporterU16le.encodeToByteStream(text, this.xos);
         }catch(CharacterCodingException e){
             assert false;  // これはない
             throw new IllegalTextExportException(ERRMSG_ILLENC, e);
