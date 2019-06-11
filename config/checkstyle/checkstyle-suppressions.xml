@@ -38,7 +38,7 @@
     <suppress files="" checks="TrailingComment" />
 
     <!-- Modifier -->
-    <suppress files="" checks="InterfaceMemberImpliedModifier" />
+    <suppress files="" checks="RedundantModifier" />
 
     <!-- Whitespace -->
     <suppress files="" checks="SingleSpaceSeparator" />

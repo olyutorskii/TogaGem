@@ -17,7 +17,7 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 public interface PmdJointHandler extends LoopHandler {
 
     /** ジョイント情報抽出ループ。 */
-    ParseStage JOINT_LIST = new ParseStage();
+    public static final ParseStage JOINT_LIST = new ParseStage();
 
     /**
      * ジョイント名の通知を受け取る。
@@ -28,7 +28,7 @@ public interface PmdJointHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示。
      */
-    void pmdJointName(String jointName)
+    public abstract void pmdJointName(String jointName)
         throws MmdFormatException;
 
     /**
@@ -41,7 +41,7 @@ public interface PmdJointHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示。
      */
-    void pmdJointLink(int rigidIdA, int rigidIdB)
+    public abstract void pmdJointLink(int rigidIdA, int rigidIdB)
         throws MmdFormatException;
 
     /**
@@ -55,7 +55,7 @@ public interface PmdJointHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示。
      */
-    void pmdJointPosition(float posX, float posY, float posZ)
+    public abstract void pmdJointPosition(float posX, float posY, float posZ)
         throws MmdFormatException;
 
     /**
@@ -69,7 +69,7 @@ public interface PmdJointHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示。
      */
-    void pmdJointRotation(float radX, float radY, float radZ)
+    public abstract void pmdJointRotation(float radX, float radY, float radZ)
         throws MmdFormatException;
 
     /**
@@ -88,7 +88,7 @@ public interface PmdJointHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示。
      */
-    void pmdPositionLimit(float posXlim1, float posXlim2,
+    public abstract void pmdPositionLimit(float posXlim1, float posXlim2,
                             float posYlim1, float posYlim2,
                             float posZlim1, float posZlim2 )
         throws MmdFormatException;
@@ -109,7 +109,7 @@ public interface PmdJointHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示。
      */
-    void pmdRotationLimit(float radXlim1, float radXlim2,
+    public abstract void pmdRotationLimit(float radXlim1, float radXlim2,
                             float radYlim1, float radYlim2,
                             float radZlim1, float radZlim2 )
         throws MmdFormatException;
@@ -125,7 +125,7 @@ public interface PmdJointHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示。
      */
-    void pmdElasticPosition(float elasticPosX,
+    public abstract void pmdElasticPosition(float elasticPosX,
                                float elasticPosY,
                                float elasticPosZ )
         throws MmdFormatException;
@@ -141,7 +141,7 @@ public interface PmdJointHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示。
      */
-    void pmdElasticRotation(float elasticDegX,
+    public abstract void pmdElasticRotation(float elasticDegX,
                                float elasticDegY,
                                float elasticDegZ )
         throws MmdFormatException;

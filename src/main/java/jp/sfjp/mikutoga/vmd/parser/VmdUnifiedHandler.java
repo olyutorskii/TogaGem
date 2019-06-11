@@ -19,7 +19,7 @@ public interface VmdUnifiedHandler
             VmdBoolHandler {
 
     /** 何もしない統合ハンドラ。 */
-    VmdUnifiedHandler EMPTY =
+    public static final VmdUnifiedHandler EMPTY =
             (VmdUnifiedHandler)
             ( EmptyProxyFactory.buildEmptyProxy(VmdUnifiedHandler.class) );
 

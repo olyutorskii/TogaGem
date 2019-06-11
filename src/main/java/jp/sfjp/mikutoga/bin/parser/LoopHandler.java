@@ -24,7 +24,8 @@ public interface LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void loopStart(ParseStage stage, int loops) throws MmdFormatException;
+    public abstract void loopStart(ParseStage stage, int loops)
+            throws MmdFormatException;
 
     /**
      * ループ構造の1イテレーション終了の通知を受け取る。
@@ -36,7 +37,8 @@ public interface LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void loopNext(ParseStage stage) throws MmdFormatException;
+    public abstract void loopNext(ParseStage stage)
+            throws MmdFormatException;
 
     /**
      * ループ構造終了の通知を受け取る。
@@ -47,6 +49,7 @@ public interface LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void loopEnd(ParseStage stage) throws MmdFormatException;
+    public abstract void loopEnd(ParseStage stage)
+            throws MmdFormatException;
 
 }

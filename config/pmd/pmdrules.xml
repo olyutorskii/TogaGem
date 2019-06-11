@@ -29,6 +29,7 @@
         <exclude name="OnlyOneReturn" />
         <exclude name="ShortVariable" />
         <exclude name="UnnecessaryLocalBeforeReturn" />
+        <exclude name="UnnecessaryModifier" />
         <exclude name="UnnecessaryReturn" />
     </rule>
     <rule ref="category/java/codestyle.xml/ClassNamingConventions" >

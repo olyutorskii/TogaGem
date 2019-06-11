@@ -18,19 +18,19 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 public interface PmdBoneHandler extends LoopHandler {
 
     /** ボーン定義抽出ループ。 */
-    ParseStage BONE_LIST = new ParseStage();
+    public static final ParseStage BONE_LIST = new ParseStage();
 
     /** IKリスト抽出ループ。 */
-    ParseStage IK_LIST = new ParseStage();
+    public static final ParseStage IK_LIST = new ParseStage();
 
     /** IKチェーンリスト抽出ループ。 */
-    ParseStage IKCHAIN_LIST = new ParseStage();
+    public static final ParseStage IKCHAIN_LIST = new ParseStage();
 
     /** ボーングループ名抽出ループ。 */
-    ParseStage BONEGROUP_LIST = new ParseStage();
+    public static final ParseStage BONEGROUP_LIST = new ParseStage();
 
     /** ボーングループ内訳抽出ループ。 */
-    ParseStage GROUPEDBONE_LIST = new ParseStage();
+    public static final ParseStage GROUPEDBONE_LIST = new ParseStage();
 
     /**
      * ボーン定義情報の通知を受け取る。
@@ -55,7 +55,7 @@ public interface PmdBoneHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdBoneInfo(String boneName, byte boneKind)
+    public abstract void pmdBoneInfo(String boneName, byte boneKind)
             throws MmdFormatException;
 
     /**
@@ -72,7 +72,7 @@ public interface PmdBoneHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdBoneLink(int parentId, int tailId, int ikId)
+    public abstract void pmdBoneLink(int parentId, int tailId, int ikId)
             throws MmdFormatException;
 
     /**
@@ -86,7 +86,7 @@ public interface PmdBoneHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdBonePosition(float xPos, float yPos, float zPos)
+    public abstract void pmdBonePosition(float xPos, float yPos, float zPos)
             throws MmdFormatException;
 
     /**
@@ -101,7 +101,9 @@ public interface PmdBoneHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdIKInfo(int boneId, int targetId, int depth, float weight)
+    public abstract void pmdIKInfo(
+            int boneId, int targetId,
+            int depth, float weight)
             throws MmdFormatException;
 
     /**
@@ -113,7 +115,7 @@ public interface PmdBoneHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdIKChainInfo(int childId)
+    public abstract void pmdIKChainInfo(int childId)
             throws MmdFormatException;
 
     /**
@@ -125,7 +127,8 @@ public interface PmdBoneHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdBoneGroupInfo(String groupName) throws MmdFormatException;
+    public abstract void pmdBoneGroupInfo(String groupName)
+            throws MmdFormatException;
 
     /**
      * ボーングループ内訳の通知を受け取る。
@@ -137,7 +140,7 @@ public interface PmdBoneHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdGroupedBoneInfo(int boneId, int groupId)
+    public abstract void pmdGroupedBoneInfo(int boneId, int groupId)
             throws MmdFormatException;
 
 }

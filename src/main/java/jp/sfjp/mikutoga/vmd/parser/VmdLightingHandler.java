@@ -22,10 +22,10 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 public interface VmdLightingHandler extends LoopHandler {
 
     /** 照明光源データ抽出ループ識別子。 */
-    ParseStage LUMINOUS_LIST = new ParseStage();
+    public static final ParseStage LUMINOUS_LIST = new ParseStage();
 
     /** セルフシャドウデータ抽出ループ識別子。 */
-    ParseStage SHADOW_LIST = new ParseStage();
+    public static final ParseStage SHADOW_LIST = new ParseStage();
 
 
     /**
@@ -37,7 +37,7 @@ public interface VmdLightingHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void vmdLuminousMotion(int keyFrameNo)
+    public abstract void vmdLuminousMotion(int keyFrameNo)
             throws MmdFormatException;
 
     /**
@@ -61,7 +61,7 @@ public interface VmdLightingHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void vmdLuminousColor(float rVal, float gVal, float bVal)
+    public abstract void vmdLuminousColor(float rVal, float gVal, float bVal)
             throws MmdFormatException;
 
     /**
@@ -87,7 +87,8 @@ public interface VmdLightingHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void vmdLuminousDirection(float xVec, float yVec, float zVec)
+    public abstract void vmdLuminousDirection(
+            float xVec, float yVec, float zVec)
             throws MmdFormatException;
 
     /**
@@ -99,7 +100,7 @@ public interface VmdLightingHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void vmdShadowMotion(int keyFrameNo)
+    public abstract void vmdShadowMotion(int keyFrameNo)
             throws MmdFormatException;
 
     /**
@@ -117,7 +118,7 @@ public interface VmdLightingHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void vmdShadowMode(byte shadowMode)
+    public abstract void vmdShadowMode(byte shadowMode)
             throws MmdFormatException;
 
     /**
@@ -134,7 +135,7 @@ public interface VmdLightingHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void vmdShadowScopeRaw(float shadowScope)
+    public abstract void vmdShadowScopeRaw(float shadowScope)
             throws MmdFormatException;
 
 }

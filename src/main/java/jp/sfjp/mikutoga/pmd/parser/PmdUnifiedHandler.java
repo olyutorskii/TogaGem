@@ -24,7 +24,7 @@ public interface PmdUnifiedHandler
             PmdJointHandler {
 
     /** 何もしない統合ハンドラ。 */
-    PmdUnifiedHandler EMPTY =
+    public static final PmdUnifiedHandler EMPTY =
             (PmdUnifiedHandler)
             ( EmptyProxyFactory.buildEmptyProxy(PmdUnifiedHandler.class) );
 

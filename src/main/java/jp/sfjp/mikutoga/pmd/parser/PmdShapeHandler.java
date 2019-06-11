@@ -21,9 +21,9 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 public interface PmdShapeHandler extends LoopHandler {
 
     /** 頂点抽出ループ。 */
-    ParseStage VERTEX_LIST = new ParseStage();
+    public static final ParseStage VERTEX_LIST = new ParseStage();
     /** 面抽出ループ。 */
-    ParseStage SURFACE_LIST = new ParseStage();
+    public static final ParseStage SURFACE_LIST = new ParseStage();
 
     /**
      * 頂点の座標の通知を受け取る。
@@ -36,7 +36,7 @@ public interface PmdShapeHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdVertexPosition(float xPos, float yPos, float zPos)
+    public abstract void pmdVertexPosition(float xPos, float yPos, float zPos)
             throws MmdFormatException;
 
     /**
@@ -52,7 +52,7 @@ public interface PmdShapeHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdVertexNormal(float xVec, float yVec, float zVec)
+    public abstract void pmdVertexNormal(float xVec, float yVec, float zVec)
             throws MmdFormatException;
 
     /**
@@ -66,7 +66,7 @@ public interface PmdShapeHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdVertexUV(float uVal, float vVal )
+    public abstract void pmdVertexUV(float uVal, float vVal )
             throws MmdFormatException;
 
     /**
@@ -81,7 +81,8 @@ public interface PmdShapeHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdVertexWeight(int boneId1, int boneId2, int weightForB1)
+    public abstract void pmdVertexWeight(
+            int boneId1, int boneId2, int weightForB1)
             throws MmdFormatException;
 
     /**
@@ -94,7 +95,7 @@ public interface PmdShapeHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdVertexEdge(boolean hideEdge)
+    public abstract void pmdVertexEdge(boolean hideEdge)
             throws MmdFormatException;
 
     /**
@@ -110,7 +111,8 @@ public interface PmdShapeHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdSurfaceTriangle(int vertexId1, int vertexId2, int vertexId3)
+    public abstract void pmdSurfaceTriangle(
+            int vertexId1, int vertexId2, int vertexId3)
             throws MmdFormatException;
 
 }

@@ -20,10 +20,10 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 public interface VmdBoolHandler extends LoopHandler {
 
     /** モデル表示スイッチ抽出ループ識別子。 */
-    ParseStage MODELSIGHT_LIST = new ParseStage();
+    public static final ParseStage MODELSIGHT_LIST = new ParseStage();
 
     /** IK有効スイッチ抽出ループ識別子。 */
-    ParseStage IKSW_LIST = new ParseStage();
+    public static final ParseStage IKSW_LIST = new ParseStage();
 
 
     /**
@@ -36,7 +36,7 @@ public interface VmdBoolHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void vmdModelSight(boolean show, int keyFrameNo)
+    public abstract void vmdModelSight(boolean show, int keyFrameNo)
             throws MmdFormatException;
 
     /**
@@ -51,7 +51,8 @@ public interface VmdBoolHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void vmdIkSwitch(String boneName, boolean validIk, int keyFrameNo)
+    public abstract void vmdIkSwitch(
+            String boneName, boolean validIk, int keyFrameNo)
             throws MmdFormatException;
 
 }

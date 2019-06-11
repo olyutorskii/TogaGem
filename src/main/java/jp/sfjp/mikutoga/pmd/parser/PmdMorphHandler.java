@@ -17,13 +17,13 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 public interface PmdMorphHandler extends LoopHandler {
 
     /** モーフ抽出ループ。 */
-    ParseStage MORPH_LIST = new ParseStage();
+    public static final ParseStage MORPH_LIST = new ParseStage();
 
     /** モーフ頂点抽出ループ。 */
-    ParseStage MORPHVERTEX_LIST = new ParseStage();
+    public static final ParseStage MORPHVERTEX_LIST = new ParseStage();
 
     /** モーフ出現順抽出ループ。 */
-    ParseStage MORPHORDER_LIST = new ParseStage();
+    public static final ParseStage MORPHORDER_LIST = new ParseStage();
 
     /**
      * モーフ情報の通知を受け取る。
@@ -42,7 +42,7 @@ public interface PmdMorphHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdMorphInfo(String morphName, byte morphType)
+    public abstract void pmdMorphInfo(String morphName, byte morphType)
             throws MmdFormatException;
 
     /**
@@ -59,7 +59,7 @@ public interface PmdMorphHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdMorphVertexInfo(int serialId,
+    public abstract void pmdMorphVertexInfo(int serialId,
                                float xPos, float yPos, float zPos)
             throws MmdFormatException;
 
@@ -72,6 +72,7 @@ public interface PmdMorphHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdMorphOrderInfo(int morphId) throws MmdFormatException;
+    public abstract void pmdMorphOrderInfo(int morphId)
+            throws MmdFormatException;
 
 }

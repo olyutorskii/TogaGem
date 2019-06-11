@@ -17,13 +17,13 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 public interface PmdEngHandler extends LoopHandler {
 
     /** ボーン英語名抽出ループ。 */
-    ParseStage ENGBONE_LIST = new ParseStage();
+    public static final ParseStage ENGBONE_LIST = new ParseStage();
 
     /** モーフ英語名抽出ループ。 */
-    ParseStage ENGMORPH_LIST = new ParseStage();
+    public static final ParseStage ENGMORPH_LIST = new ParseStage();
 
     /** ボーングループ英語名抽出ループ。 */
-    ParseStage ENGBONEGROUP_LIST = new ParseStage();
+    public static final ParseStage ENGBONEGROUP_LIST = new ParseStage();
 
     /**
      * PMD英語情報の有無の通知を受け取る。
@@ -31,7 +31,8 @@ public interface PmdEngHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdEngEnabled(boolean hasEnglishInfo) throws MmdFormatException;
+    public abstract void pmdEngEnabled(boolean hasEnglishInfo)
+            throws MmdFormatException;
 
     /**
      * PMD英語基本情報の通知を受け取る。
@@ -40,7 +41,7 @@ public interface PmdEngHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdEngModelInfo(String modelName, String description)
+    public abstract void pmdEngModelInfo(String modelName, String description)
             throws MmdFormatException;
 
     /**
@@ -52,7 +53,8 @@ public interface PmdEngHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdEngBoneInfo(String boneName) throws MmdFormatException;
+    public abstract void pmdEngBoneInfo(String boneName)
+            throws MmdFormatException;
 
     /**
      * 英語モーフ名の通知を受け取る。
@@ -64,7 +66,8 @@ public interface PmdEngHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdEngMorphInfo(String morphName) throws MmdFormatException;
+    public abstract void pmdEngMorphInfo(String morphName)
+            throws MmdFormatException;
 
     /**
      * 英語ボーングループ名の通知を受け取る。
@@ -75,6 +78,7 @@ public interface PmdEngHandler extends LoopHandler {
      * @throws MmdFormatException 不正フォーマットによる
      * パース処理の中断をパーサに指示
      */
-    void pmdEngBoneGroupInfo(String groupName) throws MmdFormatException;
+    public abstract void pmdEngBoneGroupInfo(String groupName)
+            throws MmdFormatException;
 
 }
