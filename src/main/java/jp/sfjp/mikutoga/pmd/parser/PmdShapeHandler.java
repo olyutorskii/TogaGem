@@ -33,8 +33,8 @@ public interface PmdShapeHandler extends LoopHandler {
      * @param xPos X座標
      * @param yPos Y座標
      * @param zPos Z座標
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdVertexPosition(float xPos, float yPos, float zPos)
             throws MmdFormatException;
@@ -49,8 +49,8 @@ public interface PmdShapeHandler extends LoopHandler {
      * @param xVec 法線ベクトルX成分
      * @param yVec 法線ベクトルY成分
      * @param zVec 法線ベクトルZ成分
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdVertexNormal(float xVec, float yVec, float zVec)
             throws MmdFormatException;
@@ -63,8 +63,8 @@ public interface PmdShapeHandler extends LoopHandler {
      *
      * @param uVal テクスチャのU座標
      * @param vVal テクスチャのV座標
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdVertexUV(float uVal, float vVal )
             throws MmdFormatException;
@@ -77,9 +77,9 @@ public interface PmdShapeHandler extends LoopHandler {
      * @param boneId1 ボーンその1識別ID
      * @param boneId2 ボーンその2識別ID
      * @param weightForB1 ボーンその1への影響度。0(min)～100(max)
-     * ボーンその2への影響度は100からの引き算で求める。
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     *     ボーンその2への影響度は100からの引き算で求める。
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdVertexWeight(
             int boneId1, int boneId2, int weightForB1)
@@ -92,8 +92,8 @@ public interface PmdShapeHandler extends LoopHandler {
      * <p>{@link #VERTEX_LIST}ループの構成要素
      *
      * @param hideEdge エッジ無効ならtrue
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdVertexEdge(boolean hideEdge)
             throws MmdFormatException;
@@ -108,8 +108,8 @@ public interface PmdShapeHandler extends LoopHandler {
      * @param vertexId1 頂点IDその1
      * @param vertexId2 頂点IDその1
      * @param vertexId3 頂点IDその1
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdSurfaceTriangle(
             int vertexId1, int vertexId2, int vertexId3)

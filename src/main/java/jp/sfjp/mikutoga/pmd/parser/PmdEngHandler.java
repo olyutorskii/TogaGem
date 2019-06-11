@@ -28,8 +28,8 @@ public interface PmdEngHandler extends LoopHandler {
     /**
      * PMD英語情報の有無の通知を受け取る。
      * @param hasEnglishInfo 英語情報が含まれればtrue
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdEngEnabled(boolean hasEnglishInfo)
             throws MmdFormatException;
@@ -38,8 +38,8 @@ public interface PmdEngHandler extends LoopHandler {
      * PMD英語基本情報の通知を受け取る。
      * @param modelName モデル名
      * @param description モデルの説明文。改行CRLFは"\n"に変換される。
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdEngModelInfo(String modelName, String description)
             throws MmdFormatException;
@@ -50,8 +50,8 @@ public interface PmdEngHandler extends LoopHandler {
      * <p>{@link #ENGBONE_LIST}ループの構成要素
      *
      * @param boneName 英語ボーン名
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdEngBoneInfo(String boneName)
             throws MmdFormatException;
@@ -63,8 +63,8 @@ public interface PmdEngHandler extends LoopHandler {
      * <p>{@link #ENGMORPH_LIST}ループの構成要素
      *
      * @param morphName 英語モーフ名
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdEngMorphInfo(String morphName)
             throws MmdFormatException;
@@ -75,8 +75,8 @@ public interface PmdEngHandler extends LoopHandler {
      * <p>{@link #ENGBONEGROUP_LIST}ループの構成要素
      *
      * @param groupName 英語ボーングループ名
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdEngBoneGroupInfo(String groupName)
             throws MmdFormatException;

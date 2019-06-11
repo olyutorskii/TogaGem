@@ -21,8 +21,8 @@ public interface LoopHandler {
      *
      * @param stage ループ種別
      * @param loops ループ予定回数。未知の場合は負の値。
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void loopStart(ParseStage stage, int loops)
             throws MmdFormatException;
@@ -34,8 +34,8 @@ public interface LoopHandler {
      * 0回ループでは決して呼ばれない。
      *
      * @param stage ループ種別
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void loopNext(ParseStage stage)
             throws MmdFormatException;
@@ -46,8 +46,8 @@ public interface LoopHandler {
      * <p>0回ループの場合も含め一度呼ばれる。
      *
      * @param stage ループ種別
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void loopEnd(ParseStage stage)
             throws MmdFormatException;

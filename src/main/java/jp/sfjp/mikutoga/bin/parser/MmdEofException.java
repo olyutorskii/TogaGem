@@ -33,7 +33,7 @@ public class MmdEofException extends MmdFormatException {
     /**
      * コンストラクタ。
      * @param position 入力ソース先頭からのエラー位置。(バイト単位)
-     * 負の値を与えると、エラー位置は無効と解釈される。
+     *     負の値を与えると、エラー位置は無効と解釈される。
      */
     public MmdEofException(long position){
         this(null, position);
@@ -44,7 +44,7 @@ public class MmdEofException extends MmdFormatException {
      * コンストラクタ。
      * @param message エラーメッセージ
      * @param position 入力ソース先頭からのエラー位置。(バイト単位)
-     * 負の値を与えると、エラー位置は無効と解釈される。
+     *     負の値を与えると、エラー位置は無効と解釈される。
      */
     public MmdEofException(String message, long position){
         super(message, position);

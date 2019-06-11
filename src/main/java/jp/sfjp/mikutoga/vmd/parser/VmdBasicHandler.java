@@ -39,18 +39,18 @@ public interface VmdBasicHandler extends LoopHandler {
 
     /**
      * VMDファイルのパース処理開始の通知を受け取る。
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdParseStart()
             throws MmdFormatException;
 
     /**
      * VMDファイルのパース処理終了の通知を受け取る。
-     * @param hasMoreData 入力ソースに
-     * まだ読み込まれていないデータがあればtrue
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @param hasMoreData
+     *     入力ソースにまだ読み込まれていないデータがあればtrue
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdParseEnd(boolean hasMoreData)
             throws MmdFormatException;
@@ -58,8 +58,8 @@ public interface VmdBasicHandler extends LoopHandler {
     /**
      * VMDファイルの固定長ヘッダを通知する。
      * @param header ヘッダ情報
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdHeaderInfo(byte[] header)
             throws MmdFormatException;
@@ -72,8 +72,8 @@ public interface VmdBasicHandler extends LoopHandler {
      * 特殊なモデル名が使われる。
      *
      * @param modelName モデル名
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdModelName(String modelName)
             throws MmdFormatException;
@@ -85,8 +85,8 @@ public interface VmdBasicHandler extends LoopHandler {
      *
      * @param boneName ボーン名
      * @param keyFrameNo キーフレーム番号
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdBoneMotion(String boneName, int keyFrameNo)
             throws MmdFormatException;
@@ -101,8 +101,8 @@ public interface VmdBasicHandler extends LoopHandler {
      * @param xPos X座標
      * @param yPos Y座標
      * @param zPos Z座標
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdBonePosition(float xPos, float yPos, float zPos)
             throws MmdFormatException;
@@ -123,8 +123,8 @@ public interface VmdBasicHandler extends LoopHandler {
      * @param qy クォータニオン虚部 Y
      * @param qz クォータニオン虚部 Z
      * @param qw クォータニオン実部 W
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdBoneRotationQt(
             float qx, float qy, float qz, float qw)
@@ -141,8 +141,8 @@ public interface VmdBasicHandler extends LoopHandler {
      * @param xP1y P1点のY座標
      * @param xP2x P2点のX座標
      * @param xP2y P2点のY座標
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdBoneIntpltXpos(
             byte xP1x, byte xP1y, byte xP2x, byte xP2y)
@@ -159,8 +159,8 @@ public interface VmdBasicHandler extends LoopHandler {
      * @param yP1y P1点のY座標
      * @param yP2x P2点のX座標
      * @param yP2y P2点のY座標
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdBoneIntpltYpos(
             byte yP1x, byte yP1y, byte yP2x, byte yP2y)
@@ -177,8 +177,8 @@ public interface VmdBasicHandler extends LoopHandler {
      * @param zP1y P1点のY座標
      * @param zP2x P2点のX座標
      * @param zP2y P2点のY座標
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdBoneIntpltZpos(
             byte zP1x, byte zP1y, byte zP2x, byte zP2y)
@@ -197,8 +197,8 @@ public interface VmdBasicHandler extends LoopHandler {
      * @param rP1y P1点のY座標
      * @param rP2x P2点のX座標
      * @param rP2y P2点のY座標
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdBoneIntpltRot(
             byte rP1x, byte rP1y, byte rP2x, byte rP2y)
@@ -213,8 +213,8 @@ public interface VmdBasicHandler extends LoopHandler {
      * @param morphName モーフ名。特殊モーフ名「base」は無視してもよい？
      * @param keyFrameNo フレーム番号
      * @param flex モーフ変量。通常は0.0以上1.0以下。
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdMorphMotion(
             String morphName, int keyFrameNo, float flex)

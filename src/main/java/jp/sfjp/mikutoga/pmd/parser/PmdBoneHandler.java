@@ -51,9 +51,9 @@ public interface PmdBoneHandler extends LoopHandler {
      * <li>8:捩り
      * <li>9:回転連動
      * </ul>
-     * ※8,9はMMD4.0から？
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     *     ※8,9はMMD4.0から？
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdBoneInfo(String boneName, byte boneKind)
             throws MmdFormatException;
@@ -65,12 +65,12 @@ public interface PmdBoneHandler extends LoopHandler {
      *
      * @param parentId 親(前)ボーンID。無い場合は0xffff。
      * @param tailId 子(次)ボーンID。末端の場合は0。
-     * 捩りボーンの場合は軸方向のボーンID、
-     * 回転連動ボーンの場合は影響元ボーンID
+     *     捩りボーンの場合は軸方向のボーンID、
+     *     回転連動ボーンの場合は影響元ボーンID
      * @param ikId 影響IKボーンID。未指定の場合は0。
-     * ※回転連動では影響度(0-100)、負や100以上もOK!
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     *     ※回転連動では影響度(0-100)、負や100以上もOK!
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdBoneLink(int parentId, int tailId, int ikId)
             throws MmdFormatException;
@@ -83,8 +83,8 @@ public interface PmdBoneHandler extends LoopHandler {
      * @param xPos X座標
      * @param yPos Y座標
      * @param zPos Z座標
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdBonePosition(float xPos, float yPos, float zPos)
             throws MmdFormatException;
@@ -98,8 +98,8 @@ public interface PmdBoneHandler extends LoopHandler {
      * @param targetId IKボーンが最初に接続するIK接続先ボーンID
      * @param depth 再帰演算の深さ
      * @param weight 制限角度強度
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdIKInfo(
             int boneId, int targetId,
@@ -112,8 +112,8 @@ public interface PmdBoneHandler extends LoopHandler {
      * <p>{@link #IK_LIST}ループの下位{@link #IKCHAIN_LIST}ループの構成要素。
      *
      * @param childId IK影響下ボーンID
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdIKChainInfo(int childId)
             throws MmdFormatException;
@@ -124,8 +124,8 @@ public interface PmdBoneHandler extends LoopHandler {
      * <p>{@link #BONEGROUP_LIST}ループの構成要素。
      *
      * @param groupName ボーングループ名。末尾のLF(0x0a)は削除される。
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdBoneGroupInfo(String groupName)
             throws MmdFormatException;
@@ -137,8 +137,8 @@ public interface PmdBoneHandler extends LoopHandler {
      *
      * @param boneId グループに所属するボーンのID
      * @param groupId ボーンが所属するボーングループIDに1を足した数
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdGroupedBoneInfo(int boneId, int groupId)
             throws MmdFormatException;

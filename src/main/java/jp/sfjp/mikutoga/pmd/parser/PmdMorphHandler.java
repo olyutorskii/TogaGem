@@ -39,8 +39,8 @@ public interface PmdMorphHandler extends LoopHandler {
      * <li>3:リップ
      * <li>4:その他
      * </ul>
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdMorphInfo(String morphName, byte morphType)
             throws MmdFormatException;
@@ -56,8 +56,8 @@ public interface PmdMorphHandler extends LoopHandler {
      * @param xPos base型の場合はX座標、それ以外はX軸変位
      * @param yPos base型の場合はY座標、それ以外はY軸変位
      * @param zPos base型の場合はZ座標、それ以外はZ軸変位
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdMorphVertexInfo(int serialId,
                                float xPos, float yPos, float zPos)
@@ -69,8 +69,8 @@ public interface PmdMorphHandler extends LoopHandler {
      * <p>{@link #MORPHORDER_LIST}ループの構成要素
      *
      * @param morphId モーフ通し番号。同一モーフ種別内の大小関係のみ意味がある。
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void pmdMorphOrderInfo(int morphId)
             throws MmdFormatException;

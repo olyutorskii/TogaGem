@@ -33,8 +33,8 @@ public interface VmdBoolHandler extends LoopHandler {
      *
      * @param show モデルの表示が行われる場合true
      * @param keyFrameNo キーフレーム番号
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdModelSight(boolean show, int keyFrameNo)
             throws MmdFormatException;
@@ -48,8 +48,8 @@ public interface VmdBoolHandler extends LoopHandler {
      * @param boneName IKボーン名
      * @param validIk IK処理が無効になる場合false
      * @param keyFrameNo キーフレーム番号
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdIkSwitch(
             String boneName, boolean validIk, int keyFrameNo)

@@ -34,8 +34,8 @@ public interface VmdLightingHandler extends LoopHandler {
      * <p>{@link #LUMINOUS_LIST}ループの構成要素。
      *
      * @param keyFrameNo キーフレーム番号
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdLuminousMotion(int keyFrameNo)
             throws MmdFormatException;
@@ -58,8 +58,8 @@ public interface VmdLightingHandler extends LoopHandler {
      * @param rVal 赤成分(0.0以上1.0以下)
      * @param gVal 緑成分(0.0以上1.0以下)
      * @param bVal 青成分(0.0以上1.0以下)
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdLuminousColor(float rVal, float gVal, float bVal)
             throws MmdFormatException;
@@ -84,8 +84,8 @@ public interface VmdLightingHandler extends LoopHandler {
      * @param xVec 方向ベクトルX軸成分
      * @param yVec 方向ベクトルY軸成分
      * @param zVec 方向ベクトルZ軸成分
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdLuminousDirection(
             float xVec, float yVec, float zVec)
@@ -97,8 +97,8 @@ public interface VmdLightingHandler extends LoopHandler {
      * <p>{@link #SHADOW_LIST}ループの構成要素。
      *
      * @param keyFrameNo キーフレーム番号
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdShadowMotion(int keyFrameNo)
             throws MmdFormatException;
@@ -115,8 +115,8 @@ public interface VmdLightingHandler extends LoopHandler {
      * <li>2 : mode2 影描画の質をカメラからの距離に応じて劣化させる
      * ことにより、カメラに近いオブジェクトの影描画の質を向上させる。
      * </ul>
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdShadowMode(byte shadowMode)
             throws MmdFormatException;
@@ -132,8 +132,8 @@ public interface VmdLightingHandler extends LoopHandler {
      * <p>{@link #SHADOW_LIST}ループの構成要素。
      *
      * @param shadowScope 距離情報。
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
     public abstract void vmdShadowScopeRaw(float shadowScope)
             throws MmdFormatException;
