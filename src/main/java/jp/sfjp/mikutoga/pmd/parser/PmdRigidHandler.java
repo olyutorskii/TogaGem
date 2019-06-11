@@ -131,7 +131,7 @@ public interface PmdRigidHandler extends LoopHandler {
      * @param collisionMap 非衝突剛体グループビットマップ。
      *     <p>(衝突グループ番号-1)位置のビット位置は1に、
      *     (非衝突グループ番号-1)位置のビット位置は0になる。
-     *     例)グループ1と8のみが非衝突指定の場合、0xff7eになる。
+     *     例)グループ1と8のみが非衝突指定の場合、0xff7eになる。</p>
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
      */

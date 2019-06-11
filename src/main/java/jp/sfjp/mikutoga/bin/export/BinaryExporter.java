@@ -262,13 +262,14 @@ public class BinaryExporter implements Closeable, Flushable{
      * @param filler byte型配列によるパディングデータの並び。
      *
      *     <p>指定パディング長より長い部分は出力されない。
-     *     指定パディング長に満たない場合は最後の要素が繰り返し出力される。
+     *     指定パディング長に満たない場合は
+     *     最後の要素が繰り返し出力される。</p>
      *
-     *     <p>配列長が0の場合は何も出力されない。
+     *     <p>配列長が0の場合は何も出力されない。</p>
      *
      * @param fillerLength パディング長。
      *
-     *     <p>パディング長が0以下の場合は何も出力されない。
+     *     <p>パディング長が0以下の場合は何も出力されない。</p>
      *
      * @return this
      * @throws IOException 出力エラー

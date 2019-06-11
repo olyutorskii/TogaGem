@@ -95,7 +95,7 @@ public interface PmdMaterialHandler extends LoopHandler {
      *     3で割ると、材質に属する面の数を表す。
      *
      *     <p>通算した面数を面情報通知順と突き合わせることにより、
-     *     材質に属する面の集合を得ることが可能。
+     *     材質に属する面の集合を得ることが可能。</p>
      *
      * @throws MmdFormatException 不正フォーマットによる
      *     パース処理の中断をパーサに指示
