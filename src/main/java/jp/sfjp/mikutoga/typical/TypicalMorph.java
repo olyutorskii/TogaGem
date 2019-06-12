@@ -58,11 +58,7 @@ public final class TypicalMorph extends I18nAlias {
         Element top;
         try{
             top = I18nAlias.loadXml(is);
-        }catch(ParserConfigurationException e){
-            throw new ExceptionInInitializerError(e);
-        }catch(SAXException e){
-            throw new ExceptionInInitializerError(e);
-        }catch(IOException e){
+        }catch(ParserConfigurationException | SAXException | IOException e){
             throw new ExceptionInInitializerError(e);
         }
 
