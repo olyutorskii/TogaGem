@@ -61,6 +61,18 @@ public strictfp class MkPos2DTest {
         assertEquals(3.0, pos.getXpos(), 0.0);
         assertEquals(4.0, pos.getYpos(), 0.0);
 
+        pos.setPosition(1.0, 0.0);
+        assertFalse(pos.isOriginPoint());
+
+        pos.setPosition(0.0, 1.0);
+        assertFalse(pos.isOriginPoint());
+
+        pos.setPosition(0.0, 0.0);
+        assertTrue(pos.isOriginPoint());
+
+        pos.setPosition(-0.0, -0.0);
+        assertTrue(pos.isOriginPoint());
+
         pos = new MkPos2D(5.0, 6.0);
         assertEquals(5.0, pos.getXpos(), 0.0);
         assertEquals(6.0, pos.getYpos(), 0.0);

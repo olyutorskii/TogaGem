@@ -97,9 +97,9 @@ public strictfp class MkPos2D {
      * @return 原点ならtrue
      */
     public boolean isOriginPoint(){
-        if(this.xPos != 0.0) return false;
-        if(this.yPos != 0.0) return false;
-        return true;
+        boolean result =
+                this.xPos == 0.0 && this.yPos == 0.0;
+        return result;
     }
 
     /**
