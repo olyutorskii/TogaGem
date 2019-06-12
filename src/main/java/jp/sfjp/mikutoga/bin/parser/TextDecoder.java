@@ -56,7 +56,7 @@ public class TextDecoder {
 
         this.decoder = decoder;
         this.decoder.reset();
-        this.decoder.onMalformedInput     (CodingErrorAction.REPORT);
+        this.decoder.onMalformedInput(     CodingErrorAction.REPORT);
         this.decoder.onUnmappableCharacter(CodingErrorAction.REPORT);
 
         return;

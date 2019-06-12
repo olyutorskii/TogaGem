@@ -39,6 +39,7 @@
         <property name="fileExtensions" value="xml" />
     </module>
     <module name="RegexpHeader">
+        <!-- /* ... */ -->
         <property name="header" value="^/\*$\n^ \*( .*)?$\n^ \*/$\n" />
         <property name="multiLines" value="2" />
         <property name="fileExtensions" value="java" />
@@ -188,7 +189,10 @@
         <module name="RequireThis">
             <property name="checkMethods" value="false" />
         </module>
-        <module name="ReturnCount" />
+        <module name="ReturnCount">
+            <property name="max" value="5" />
+            <property name="maxForVoid" value="5" />
+        </module>
         <module name="SimplifyBooleanExpression" />
         <module name="SimplifyBooleanReturn" />
         <module name="StringLiteralEquality" />
@@ -352,16 +356,17 @@
         <module name="GenericWhitespace" />
         <module name="MethodParamPad" />
         <module name="NoLineWrap" />
-        <module name="NoWhitespaceAfter" />
-        <module name="NoWhitespaceBefore" />
-        <module name="OperatorWrap" />
-        <module name="ParenPad">
-            <property name="option" value="nospace" />
+        <module name="NoWhitespaceAfter">
             <property
                 name="tokens"
-                value="CTOR_CALL, METHOD_CALL, SUPER_CTOR_CALL"
+                value="AT, INC, DEC, UNARY_MINUS, UNARY_PLUS, DOT"
             />
         </module>
+        <module name="NoWhitespaceBefore">
+            <property name="allowLineBreaks" value="true" />
+        </module>
+        <module name="OperatorWrap" />
+        <module name="ParenPad" />
         <module name="SeparatorWrap">
             <property name="tokens" value="DOT"/>
             <property name="option" value="nl"/>

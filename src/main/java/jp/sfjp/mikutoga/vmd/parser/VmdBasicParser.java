@@ -250,7 +250,7 @@ class VmdBasicParser extends ProxyParser{
         this.handler.vmdBoneIntpltXpos(xP1x, xP1y, xP2x, xP2y);
         this.handler.vmdBoneIntpltYpos(yP1x, yP1y, yP2x, yP2y);
         this.handler.vmdBoneIntpltZpos(zP1x, zP1y, zP2x, zP2y);
-        this.handler.vmdBoneIntpltRot (rP1x, rP1y, rP2x, rP2y);
+        this.handler.vmdBoneIntpltRot( rP1x, rP1y, rP2x, rP2y);
 
         return;
     }

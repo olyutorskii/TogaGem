@@ -41,6 +41,7 @@
     <suppress files="" checks="RedundantModifier" />
 
     <!-- Whitespace -->
+    <suppress files="" checks="ParenPad" />
     <suppress files="" checks="SingleSpaceSeparator" />
 
 </suppressions>
