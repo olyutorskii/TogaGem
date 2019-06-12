@@ -32,8 +32,8 @@ class AliasMap<T extends I18nAlias> {
     AliasMap(){
         super();
 
-        this.primaryAliasMap = new HashMap<String, T>();
-        this.globalAliasMap  = new HashMap<String, T>();
+        this.primaryAliasMap = new HashMap<>();
+        this.globalAliasMap  = new HashMap<>();
 
         return;
     }

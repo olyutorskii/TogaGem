@@ -58,7 +58,7 @@ public class XmlResourceResolver
         assert this.getClass().equals(THISCLASS);
 
         Map<URI, URI> map;
-        map = new HashMap<URI, URI>();
+        map = new HashMap<>();
         map = Collections.synchronizedMap(map);
         this.uriMap = map;
 

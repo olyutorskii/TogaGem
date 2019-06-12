@@ -219,7 +219,7 @@ public final class DomUtils {
      */
     public static List<Element> getChildList(Element parent,
                                                String childTag){
-        List<Element> result = new LinkedList<Element>();
+        List<Element> result = new LinkedList<>();
 
         for(Node node = parent.getFirstChild();
             node != null;

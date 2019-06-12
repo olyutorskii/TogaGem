@@ -95,7 +95,7 @@ public final class SchemaUtil {
      */
     private static Source[] toLocalSourceArray(LocalXmlResource[] resArray)
             throws MalformedURLException, IOException{
-        List<Source> sourceList = new ArrayList<Source>(resArray.length);
+        List<Source> sourceList = new ArrayList<>(resArray.length);
 
         for(LocalXmlResource resource : resArray){
             Source localSource = toLocalSource(resource);

@@ -46,10 +46,10 @@ public final class TypicalMorph extends I18nAlias {
     private static final List<TypicalMorph> EMPTY = Collections.emptyList();
 
     private static final Map<MorphType, List<TypicalMorph>> TYPED_MAP =
-            new EnumMap<MorphType, List<TypicalMorph>>(MorphType.class);
+            new EnumMap<>(MorphType.class);
 
     private static final AliasMap<TypicalMorph> MORPH_ALIAS_MAP =
-            new AliasMap<TypicalMorph>();
+            new AliasMap<>();
 
 
     static{
@@ -129,7 +129,7 @@ public final class TypicalMorph extends I18nAlias {
         NodeList morphList = groupElem.getElementsByTagName(ELEM_MORPH);
         int morphNo = morphList.getLength();
         List<TypicalMorph> groupedList =
-                new ArrayList<TypicalMorph>(morphNo);
+                new ArrayList<>(morphNo);
 
         for(int idx = 0; idx < morphNo; idx++){
             Element morphElem = (Element) morphList.item(idx);

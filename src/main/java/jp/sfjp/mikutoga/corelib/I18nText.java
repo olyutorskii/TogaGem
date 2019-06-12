@@ -48,8 +48,7 @@ public class I18nText implements CharSequence {
     /**
      * キーはISO639、値は多言語テキスト。
      */
-    private final Map<String, String> nameMap =
-            new HashMap<String, String>();
+    private final Map<String, String> nameMap = new HashMap<>();
 
 
     /**
@@ -238,7 +237,7 @@ public class I18nText implements CharSequence {
      */
     public List<String> lang639CodeList(){
         Set<String> set = this.nameMap.keySet();
-        List<String> result = new ArrayList<String>(set.size());
+        List<String> result = new ArrayList<>(set.size());
 
         for(String lang : set){
             if(lang.equals(CODE639_PRIMARY)) result.add(lang);

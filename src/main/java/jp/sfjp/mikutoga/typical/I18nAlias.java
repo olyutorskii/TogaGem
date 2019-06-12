@@ -66,15 +66,15 @@ class I18nAlias {
         super();
 
         if(primaryNum <= 0){
-            this.primaryNameList = new LinkedList<String>();
+            this.primaryNameList = new LinkedList<>();
         }else{
-            this.primaryNameList = new ArrayList<String>(primaryNum);
+            this.primaryNameList = new ArrayList<>(primaryNum);
         }
 
         if(globalNum <= 0){
-            this.globalNameList  = new LinkedList<String>();
+            this.globalNameList  = new LinkedList<>();
         }else{
-            this.globalNameList  = new ArrayList<String>(globalNum);
+            this.globalNameList  = new ArrayList<>(globalNum);
         }
 
         this.umodPrimaryNameList =

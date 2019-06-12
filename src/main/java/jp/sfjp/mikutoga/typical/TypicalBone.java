@@ -39,9 +39,9 @@ public final class TypicalBone extends I18nAlias {
     private static final String ATTR_NAME    = "name";
 
     private static final List<TypicalBone> BONE_LIST =
-            new LinkedList<TypicalBone>();
+            new LinkedList<>();
     private static final AliasMap<TypicalBone> BONE_ALIAS_MAP =
-            new AliasMap<TypicalBone>();
+            new AliasMap<>();
 
     private static final List<TypicalBone> BONE_UNMODLIST =
             Collections.unmodifiableList(BONE_LIST);
