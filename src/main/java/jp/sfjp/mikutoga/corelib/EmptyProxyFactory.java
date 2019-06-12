@@ -38,11 +38,24 @@ public final class EmptyProxyFactory {
      * @return インタフェースを実装したインスタンス。
      */
     public static Object buildEmptyProxy(Class<?>... types){
-        ClassLoader loader = types[0].getClassLoader();
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        Object proxy = buildEmptyProxy(loader, types);
+        return proxy;
+    }
 
+    /**
+     * 何もしないインタフェース実装のインスタンスを生成する。
+     *
+     * <p>インタフェースの各メソッド戻り値はvoidでなければならない。
+     *
+     * @param loader class-loader
+     * @param types インタフェース群
+     * @return インタフェースを実装したインスタンス。
+     */
+    public static Object buildEmptyProxy(
+            ClassLoader loader, Class<?>... types){
         Object proxy =
                 Proxy.newProxyInstance(loader, types, NOTHING_INVOKER);
-
         return proxy;
     }
 
