@@ -77,6 +77,7 @@ public class XmlResourceResolver
     /**
      * 絶対URIと相対URIを合成したURIを返す。
      * 正規化も行われる。
+     *
      * @param base 絶対URIでなければならない。nullでもよい。
      * @param relative 絶対URIでもよいがその場合baseは無視される。null可。
      * @return 合成結果のURLオブジェクト。必ず絶対URIになる。
@@ -102,8 +103,24 @@ public class XmlResourceResolver
         }else{
             relativeURI = EMPTY_URI;
         }
+        
+        URI result = buildBaseRelativeURI(baseURI, relativeURI);
+        return result;
+    }
 
+    /**
+     * 絶対URIと相対URIを合成したURIを返す。
+     * 正規化も行われる。
+     *
+     * @param baseURI 絶対URIでなければならない。nullでもよい。
+     * @param relativeURI 絶対URIでもよいがその場合baseは無視される。
+     * @return 合成結果のURLオブジェクト。必ず絶対URIになる。
+     * @throws java.lang.IllegalArgumentException 絶対URIが生成できない。
+     */
+    private static URI buildBaseRelativeURI(URI baseURI, URI relativeURI)
+            throws IllegalArgumentException {
         URI resultURI;
+
         if(baseURI == null || relativeURI.isAbsolute()){
             resultURI = relativeURI;
         }else{

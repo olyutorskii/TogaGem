@@ -379,14 +379,10 @@ abstract class AbstractXmlExporter implements XmlExporter{
         case CH_GT: escTxt = "&gt;";   break;
         case CH_DQ: escTxt = "&quot;"; break;
         case CH_SQ: escTxt = "&apos;"; break;
-        default:    escTxt = null;     break;
+        default:    return putRawCh(ch);
         }
 
-        if(escTxt != null){
-            putRawText(escTxt);
-        }else{
-            putRawCh(ch);
-        }
+        putRawText(escTxt);
 
         return this;
     }
