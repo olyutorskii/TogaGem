@@ -93,7 +93,7 @@ public final class SchemaUtil {
      * @throws MalformedURLException 不正なURI
      * @throws IOException オープンエラー
      */
-    private static Source[] toLocalSourceArray(LocalXmlResource[] resArray)
+    private static Source[] toLocalSourceArray(LocalXmlResource... resArray)
             throws MalformedURLException, IOException{
         List<Source> sourceList = new ArrayList<>(resArray.length);
 
