@@ -30,7 +30,35 @@ import org.xml.sax.SAXNotSupportedException;
  */
 public final class SchemaUtil {
 
+
+    /** XML Schema. */
+    public static final String SCHEMA_XML =
+            "http://www.w3.org/2001/xml.xsd";
+
+    /** XSD namespace. */
+    public static final String NS_XSD =
+            "http://www.w3.org/2001/XMLSchema-instance";
+
+    private static final String LOCAL_SCHEMA_XML =
+            "resources/xmlspace.xsd";
+
+    private static final URI URI_XSD_ORIG;
+    private static final URI URI_XSD_LOCAL;
+
     private static final String ALLOWED_USCHEMA = "http";
+
+    private static final Class<?> THISCLASS = SchemaUtil.class;
+
+
+    static{
+        URL redirectRes = THISCLASS.getResource(LOCAL_SCHEMA_XML);
+        String redirectResName = redirectRes.toString();
+
+        URI_XSD_ORIG  = URI.create(SCHEMA_XML);
+        URI_XSD_LOCAL = URI.create(redirectResName);
+
+        assert ALLOWED_USCHEMA.equalsIgnoreCase(URI_XSD_ORIG.getScheme());
+    }
 
 
     /**
@@ -41,6 +69,17 @@ public final class SchemaUtil {
         throw new AssertionError();
     }
 
+
+    /**
+     * build xml.xsd redirection info.
+     *
+     * @return resolver
+     */
+    public static XmlResourceResolver buildXmlXsdResolver(){
+        XmlResourceResolver result = new XmlResourceResolver();
+        result.putRedirected(URI_XSD_ORIG, URI_XSD_LOCAL);
+        return result;
+    }
 
     /**
      * Build SchemaFactory for XML Schema but safety.

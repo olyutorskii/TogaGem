@@ -7,6 +7,7 @@ TogaGem 変更履歴
 X.XXX.X (XXXX-XX-XX)
     * Split entity resolver from resource resolver to prevent XXE vulnerability.
     * Make Schema-factory safe to prevent XXE vulnerability.
+    * Move out xml-xsd info from resolver.
 
 3.121.2 (2019-06-06)
     ・DatatypeIo is public now, for replacing JAXB.

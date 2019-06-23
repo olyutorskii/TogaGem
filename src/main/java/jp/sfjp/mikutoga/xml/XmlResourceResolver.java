@@ -27,20 +27,7 @@ import org.w3c.dom.ls.LSResourceResolver;
 public class XmlResourceResolver
         implements LSResourceResolver{
 
-    /** XML Schema. */
-    public static final String SCHEMA_XML =
-            "http://www.w3.org/2001/xml.xsd";
-
-    /** XSD名前空間。 */
-    public static final String NS_XSD =
-            "http://www.w3.org/2001/XMLSchema-instance";
-
-    private static final String LOCAL_SCHEMA_XML =
-            "resources/xmlspace.xsd";
-
     private static final URI EMPTY_URI = URI.create("");
-
-    private static final Class<?> THISCLASS = XmlResourceResolver.class;
 
 
     private final Map<URI, URI> uriMap;
@@ -52,20 +39,10 @@ public class XmlResourceResolver
     public XmlResourceResolver(){
         super();
 
-        assert this.getClass().equals(THISCLASS);
-
         Map<URI, URI> map;
         map = new HashMap<>();
         map = Collections.synchronizedMap(map);
         this.uriMap = map;
-
-        URL redirectRes = THISCLASS.getResource(LOCAL_SCHEMA_XML);
-        String redirectResName = redirectRes.toString();
-
-        URI originalURI = URI.create(SCHEMA_XML);
-        URI redirectURI = URI.create(redirectResName);
-
-        putRedirectedImpl(originalURI, redirectURI);
 
         return;
     }
