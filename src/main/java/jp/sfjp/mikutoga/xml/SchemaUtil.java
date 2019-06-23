@@ -95,14 +95,10 @@ public final class SchemaUtil {
      * This special limit considers access to
      * importing http://www.w3.org/2001/xml.xsd
      * in top of common xml schema file.
-     * If HTTP access controll is needed, customize resolver yourself.
      *
-     * @param resolver Custom resolver for reading xml schema.
-     *     Resolve reference to nothing if null.
      * @return schema factory
      */
-    public static SchemaFactory newSchemaFactory(
-            LSResourceResolver resolver ){
+    public static SchemaFactory newSchemaFactory(){
         SchemaFactory schemaFactory;
         schemaFactory = SchemaFactory.newInstance(
                 XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -128,6 +124,7 @@ public final class SchemaUtil {
             assert false;
         }
 
+        LSResourceResolver resolver = buildXmlXsdResolver();
         schemaFactory.setResourceResolver(resolver);
 
         schemaFactory.setErrorHandler(BotherHandler.HANDLER);
@@ -180,20 +177,10 @@ public final class SchemaUtil {
      *
      * <p>任意のリゾルバを指定可能
      *
-     * @param resolver リゾルバ
      * @param resArray ローカルスキーマ情報並び
      * @return スキーマ
      */
-    public static Schema newSchema(
-            XmlResourceResolver resolver,
-            LocalXmlResource... resArray){
-        XmlResourceResolver totalResolver = buildXmlXsdResolver();
-        totalResolver.putRedirected(resolver);
-
-        for(LocalXmlResource resource : resArray){
-            totalResolver.putRedirected(resource);
-        }
-
+    public static Schema newSchema(LocalXmlResource... resArray){
         Source[] sources;
         try{
             sources = toLocalSourceArray(resArray);
@@ -202,7 +189,7 @@ public final class SchemaUtil {
             throw new AssertionError(e);
         }
 
-        SchemaFactory schemaFactory = newSchemaFactory(totalResolver);
+        SchemaFactory schemaFactory = newSchemaFactory();
 
         Schema result;
         try{
