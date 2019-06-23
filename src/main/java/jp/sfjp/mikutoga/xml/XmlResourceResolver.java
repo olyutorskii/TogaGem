@@ -18,9 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 /**
  * URL変換マップに従い、XML文書からの外部参照をリダイレクトする。
@@ -28,7 +25,7 @@ import org.xml.sax.SAXException;
  * 主な用途は外部スキーマのリソース化など。
  */
 public class XmlResourceResolver
-        implements LSResourceResolver, EntityResolver {
+        implements LSResourceResolver{
 
     /** XML Schema. */
     public static final String SCHEMA_XML =
@@ -103,7 +100,7 @@ public class XmlResourceResolver
         }else{
             relativeURI = EMPTY_URI;
         }
-        
+
         URI result = buildBaseRelativeURI(baseURI, relativeURI);
         return result;
     }
@@ -278,36 +275,6 @@ public class XmlResourceResolver
         return input;
     }
 
-    /**
-     * {@inheritDoc}
-     * URL変換したあとの入力ソースを返す。
-     * @param publicId {@inheritDoc}
-     * @param systemId {@inheritDoc}
-     * @return {@inheritDoc}
-     * @throws org.xml.sax.SAXException {@inheritDoc}
-     * @throws java.io.IOException {@inheritDoc}
-     */
-    @Override
-    public InputSource resolveEntity(String publicId, String systemId)
-            throws SAXException, IOException{
-        if(systemId == null) return null;
-
-        URI originalUri;
-        try{
-            originalUri = new URI(systemId);
-        }catch(URISyntaxException e){
-            return null;
-        }
-
-        InputStream is = getXMLResourceAsStream(originalUri);
-        if(is == null) return null;
-
-        InputSource source = new InputSource(is);
-        source.setPublicId(publicId);
-        source.setSystemId(systemId);
-
-        return source;
-    }
 
     /**
      * JRE1.5用LSInput実装。
