@@ -22,11 +22,16 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 
 /**
  * XMLスキーマの各種ビルダ。
  */
 public final class SchemaUtil {
+
+    private static final String ALLOWED_USCHEMA = "http";
+
 
     /**
      * 隠しコンストラクタ。
@@ -38,31 +43,55 @@ public final class SchemaUtil {
 
 
     /**
-     * XML Schema 用のスキーマファクトリを返す。
-     * @return スキーマファクトリ
-     */
-    public static SchemaFactory newSchemaFactory(){
-        SchemaFactory result = newSchemaFactory(null);
-        return result;
-    }
-
-    /**
-     * XML Schema 用のスキーマファクトリを返す。
-     * @param resolver カスタムリゾルバ。nullも可。
-     * @return スキーマファクトリ
+     * Build SchemaFactory for XML Schema but safety.
+     *
+     * <p>Includes some considerations for XXE vulnerabilities.
+     *
+     * <p>Restrict access to
+     * External Entity Reference &amp; external DTDs
+     * in xml schema file.
+     *
+     * <p>Restrict access to External schema file access in xml schema file,
+     * but HTTP access is allowed.
+     * This special limit considers access to
+     * importing http://www.w3.org/2001/xml.xsd
+     * in top of common xml schema file.
+     * If HTTP access controll is needed, customize resolver yourself.
+     *
+     * @param resolver Custom resolver for reading xml schema.
+     *     Resolve reference to nothing if null.
+     * @return schema factory
      */
     public static SchemaFactory newSchemaFactory(
             LSResourceResolver resolver ){
-        SchemaFactory schemaFactory =
-                SchemaFactory.newInstance(
-                    XMLConstants.W3C_XML_SCHEMA_NS_URI
-                );
+        SchemaFactory schemaFactory;
+        schemaFactory = SchemaFactory.newInstance(
+                XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-        // schemaFactory.setFeature(name, value);
-        // schemaFactory.setProperty(name, object);
+        try{
+            // Prevent denial of service attack.
+            schemaFactory.setFeature(
+                    XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        }catch(SAXNotRecognizedException | SAXNotSupportedException e){
+            // FEATURE MUST BE SUPPORTED
+            assert false;
+        }
+
+        try{
+            // Disallow external entity reference &amp; external DTD access.
+            schemaFactory.setProperty(
+                    XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            // Allow only HTTP external schema file.
+            schemaFactory.setProperty(
+                    XMLConstants.ACCESS_EXTERNAL_SCHEMA, ALLOWED_USCHEMA);
+        }catch(SAXNotRecognizedException | SAXNotSupportedException e){
+            // PROPERTY MUST BE SUPPORTED JAXP1.5 or later
+            assert false;
+        }
+
+        schemaFactory.setResourceResolver(resolver);
 
         schemaFactory.setErrorHandler(BotherHandler.HANDLER);
-        schemaFactory.setResourceResolver(resolver);
 
         return schemaFactory;
     }
