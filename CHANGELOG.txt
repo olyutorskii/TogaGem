@@ -5,6 +5,7 @@ TogaGem 変更履歴
 
 
 X.XXX.X (XXXX-XX-XX)
+    * Prevent XXE vulnerabilities.
     * Split entity resolver from resource resolver to prevent XXE vulnerability.
     * Make Schema-factory safe to prevent XXE vulnerability.
     * Move out xml-xsd info from resolver.

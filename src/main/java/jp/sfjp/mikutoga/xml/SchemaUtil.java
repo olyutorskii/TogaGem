@@ -26,7 +26,7 @@ import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 
 /**
- * XMLスキーマの各種ビルダ。
+ * XML schema (XSD) utilities.
  */
 public final class SchemaUtil {
 
@@ -62,7 +62,7 @@ public final class SchemaUtil {
 
 
     /**
-     * 隠しコンストラクタ。
+     * Hidden constructor.
      */
     private SchemaUtil(){
         assert false;
@@ -184,10 +184,14 @@ public final class SchemaUtil {
      * @param resArray ローカルスキーマ情報並び
      * @return スキーマ
      */
-    public static Schema newSchema(XmlResourceResolver resolver,
-                                    LocalXmlResource... resArray ){
+    public static Schema newSchema(
+            XmlResourceResolver resolver,
+            LocalXmlResource... resArray){
+        XmlResourceResolver totalResolver = buildXmlXsdResolver();
+        totalResolver.putRedirected(resolver);
+
         for(LocalXmlResource resource : resArray){
-            resolver.putRedirected(resource);
+            totalResolver.putRedirected(resource);
         }
 
         Source[] sources;
@@ -198,7 +202,7 @@ public final class SchemaUtil {
             throw new AssertionError(e);
         }
 
-        SchemaFactory schemaFactory = newSchemaFactory(resolver);
+        SchemaFactory schemaFactory = newSchemaFactory(totalResolver);
 
         Schema result;
         try{
