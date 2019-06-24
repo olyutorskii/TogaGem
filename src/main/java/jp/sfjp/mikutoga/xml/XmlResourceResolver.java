@@ -9,13 +9,15 @@ package jp.sfjp.mikutoga.xml;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.bootstrap.DOMImplementationRegistry;
+import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
@@ -29,8 +31,21 @@ public class XmlResourceResolver
 
     private static final URI EMPTY_URI = URI.create("");
 
+    private static final DOMImplementationLS DOM_LS;
+
 
     private final Map<URI, URI> uriMap;
+
+
+    static{
+        try{
+            DOM_LS = buildDomImplLS();
+        }catch(   ClassNotFoundException
+                | IllegalAccessException
+                | InstantiationException e){
+            throw new ExceptionInInitializerError(e);
+        }
+    }
 
 
     /**
@@ -47,6 +62,42 @@ public class XmlResourceResolver
         return;
     }
 
+
+    /**
+     * return DOMImplementationLS implement.
+     *
+     * @return DOMImplementationLS implement
+     * @throws ClassNotFoundException no class
+     * @throws InstantiationException no object
+     * @throws IllegalAccessException no grant
+     */
+    private static DOMImplementationLS buildDomImplLS() throws
+            ClassNotFoundException,
+            InstantiationException,
+            IllegalAccessException {
+        DOMImplementationRegistry domReg;
+        DOMImplementation         domImp;
+        DOMImplementationLS       domImpLs;
+
+        domReg = DOMImplementationRegistry.newInstance();
+        domImp = domReg.getDOMImplementation("LS 3.0");
+
+        Object feature = domImp.getFeature("LS", "3.0");
+        assert feature instanceof DOMImplementationLS;
+        domImpLs = (DOMImplementationLS) feature;
+
+        return domImpLs;
+    }
+
+    /**
+     * return LSInput implement.
+     *
+     * @return LSInput implement
+     */
+    public static LSInput createLSInput(){
+        LSInput input = DOM_LS.createLSInput();
+        return input;
+    }
 
     /**
      * 絶対URIと相対URIを合成したURIを返す。
@@ -110,19 +161,11 @@ public class XmlResourceResolver
         return resultURI;
     }
 
-    /**
-     * LSInput実装を生成する。
-     * @return LSInput実装
-     */
-    public static LSInput createLSInput(){
-        LSInput input = new LSInputImpl();
-        return input;
-    }
-
 
     /**
      * オリジナルURIとリダイレクト先のURIを登録する。
      * オリジナルURIへのアクセスはリダイレクトされる。
+     *
      * @param original オリジナルURI
      * @param redirect リダイレクトURI
      */
@@ -138,6 +181,7 @@ public class XmlResourceResolver
     /**
      * オリジナルURIとリダイレクト先のURIを登録する。
      * オリジナルURIへのアクセスはリダイレクトされる。
+     *
      * @param original オリジナルURI
      * @param redirect リダイレクトURI
      */
@@ -148,6 +192,7 @@ public class XmlResourceResolver
 
     /**
      * ローカル版リソース参照解決を登録する。
+     *
      * @param lsc ローカル版リソース参照解決
      */
     public void putRedirected(LocalXmlResource lsc){
@@ -163,6 +208,7 @@ public class XmlResourceResolver
 
     /**
      * 別リゾルバの登録内容を追加登録する。
+     *
      * @param other 別リゾルバ
      */
     public void putRedirected(XmlResourceResolver other){
@@ -172,6 +218,7 @@ public class XmlResourceResolver
 
     /**
      * 登録済みリダイレクト先URIを返す。
+     *
      * @param original オリジナルURI
      * @return リダイレクト先URI。未登録の場合はnull
      */
@@ -183,6 +230,7 @@ public class XmlResourceResolver
 
     /**
      * 登録済みリダイレクト先URIを返す。
+     *
      * @param original オリジナルURI
      * @return リダイレクト先URI。未登録の場合はオリジナルを返す
      */
@@ -194,6 +242,7 @@ public class XmlResourceResolver
 
     /**
      * 登録済みリダイレクト先リソースの入力ストリームを得る。
+     *
      * @param originalURI オリジナルURI
      * @return 入力ストリーム。リダイレクト先が未登録の場合はnull
      * @throws java.io.IOException 入出力エラー。
@@ -212,7 +261,9 @@ public class XmlResourceResolver
 
     /**
      * {@inheritDoc}
-     * URL変換したあとの入力ソースを返す。
+     *
+     * <p>URL変換したあとの入力ソースを返す。
+     *
      * @param type {@inheritDoc}
      * @param namespaceURI {@inheritDoc}
      * @param publicId {@inheritDoc}
@@ -250,184 +301,6 @@ public class XmlResourceResolver
         input.setByteStream(is);
 
         return input;
-    }
-
-
-    /**
-     * JRE1.5用LSInput実装。
-     * JRE1.6なら
-     * org.w3c.dom.ls.DOMImplementationLS#createLSInput()
-     * で生成可能かも。
-     */
-    private static final class LSInputImpl implements LSInput {
-
-        private String baseURI = null;
-        private InputStream byteStream = null;
-        private boolean certifiedText = false;
-        private Reader characterStream = null;
-        private String encoding = null;
-        private String publicId = null;
-        private String stringData = null;
-        private String systemId = null;
-
-        /**
-         * コンストラクタ。
-         */
-        LSInputImpl(){
-            super();
-            return;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @return {@inheritDoc}
-         */
-        @Override
-        public String getBaseURI(){
-            return this.baseURI;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @param baseURI {@inheritDoc}
-         */
-        @Override
-        public void setBaseURI(String baseURI){
-            this.baseURI = baseURI;
-            return;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @return {@inheritDoc}
-         */
-        @Override
-        public InputStream getByteStream(){
-            return this.byteStream;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @param byteStream {@inheritDoc}
-         */
-        @Override
-        public void setByteStream(InputStream byteStream){
-            this.byteStream = byteStream;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @return {@inheritDoc}
-         */
-        @Override
-        public boolean getCertifiedText(){
-            return this.certifiedText;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @param certifiedText {@inheritDoc}
-         */
-        @Override
-        public void setCertifiedText(boolean certifiedText){
-            this.certifiedText = certifiedText;
-            return;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @return {@inheritDoc}
-         */
-        @Override
-        public Reader getCharacterStream(){
-            return this.characterStream;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @param characterStream {@inheritDoc}
-         */
-        @Override
-        public void setCharacterStream(Reader characterStream){
-            this.characterStream = characterStream;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @return {@inheritDoc}
-         */
-        @Override
-        public String getEncoding(){
-            return this.encoding;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @param encoding {@inheritDoc}
-         */
-        @Override
-        public void setEncoding(String encoding){
-            this.encoding = encoding;
-            return;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @return {@inheritDoc}
-         */
-        @Override
-        public String getPublicId(){
-            return this.publicId;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @param publicId {@inheritDoc}
-         */
-        @Override
-        public void setPublicId(String publicId){
-            this.publicId = publicId;
-            return;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @return {@inheritDoc}
-         */
-        @Override
-        public String getStringData(){
-            return this.stringData;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @param stringData {@inheritDoc}
-         */
-        @Override
-        public void setStringData(String stringData){
-            this.stringData = stringData;
-            return;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @return {@inheritDoc}
-         */
-        @Override
-        public String getSystemId(){
-            return this.systemId;
-        }
-
-        /**
-         * {@inheritDoc}
-         * @param systemId {@inheritDoc}
-         */
-        @Override
-        public void setSystemId(String systemId){
-            this.systemId = systemId;
-            return;
-        }
-
     }
 
 }
