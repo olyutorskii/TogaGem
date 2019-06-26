@@ -99,14 +99,14 @@
         <jacoco-plugin.version>0.8.4</jacoco-plugin.version>
 
         <checkstyle-plugin.version>3.1.0</checkstyle-plugin.version>
-        <checkstyleruntime.version>8.21</checkstyleruntime.version>
+        <checkstyleruntime.version>8.22</checkstyleruntime.version>
         <checkstyle.config.location>${project.basedir}/config/checkstyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>${project.basedir}/config/checkstyle/checkstyle-suppressions.xml</checkstyle.suppressions.location>
         <checkstyle.enable.rss>false</checkstyle.enable.rss>
 
         <pmd-plugin.version>3.12.0</pmd-plugin.version>
 
-        <spotbugs-plugin.version>3.1.11</spotbugs-plugin.version>
+        <spotbugs-plugin.version>3.1.12</spotbugs-plugin.version>
         <spotbugs.effort>Max</spotbugs.effort>
         <spotbugs.threshold>Low</spotbugs.threshold>
         <!-- for Jenkins -->

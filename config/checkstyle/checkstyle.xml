@@ -6,7 +6,7 @@
 
 <!--
     Checkstyle modules
-    for Checkstyle 8.21 or later
+    for Checkstyle 8.22 or later
 
     [ https://checkstyle.org/ ]
 
@@ -56,6 +56,7 @@
     <module name="NewlineAtEndOfFile">
         <property name="fileExtensions" value="java, properties, xml, xsd, md, txt" />
     </module>
+    <module name="OrderedProperties" />
     <module name="Translation" />
     <module name="UniqueProperties" />
 
@@ -199,6 +200,8 @@
         <module name="SuperClone" />
         <module name="SuperFinalize" />
         <module name="UnnecessaryParentheses" />
+        <module name="UnnecessarySemicolonInEnumeration" />
+        <module name="UnnecessarySemicolonInTryWithResources" />
         <module name="VariableDeclarationUsageDistance">
             <property name="allowedDistance" value="5"/>
         </module>
@@ -234,6 +237,7 @@
             <property name="scope" value="protected" />
         </module>
         <module name="MissingJavadocMethod" />
+        <module name="MissingJavadocPackage" />
         <module name="MissingJavadocType" />
         <module name="NonEmptyAtclauseDescription" />
         <module name="SingleLineJavadoc" />
