@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -42,6 +43,15 @@ class I18nAlias {
     /** オーダ番号によるコンパレータ。 */
     public static final Comparator<I18nAlias> ORDER_COMPARATOR =
             new OrderComparator();
+
+    private static final String F_DISALLOW_DOCTYPE_DECL =
+            "http://apache.org/xml/features/disallow-doctype-decl";
+    private static final String F_EXTERNAL_GENERAL_ENTITIES =
+            "http://xml.org/sax/features/external-general-entities";
+    private static final String F_EXTERNAL_PARAMETER_ENTITIES =
+            "http://xml.org/sax/features/external-parameter-entities";
+    private static final String F_LOAD_EXTERNAL_DTD =
+            "http://apache.org/xml/features/nonvalidating/load-external-dtd";
 
 
     private int orderNo;
@@ -109,6 +119,20 @@ class I18nAlias {
             throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory;
         factory = DocumentBuilderFactory.newInstance();
+
+        factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        factory.setFeature(F_EXTERNAL_GENERAL_ENTITIES, false);
+        factory.setFeature(F_EXTERNAL_PARAMETER_ENTITIES, false);
+        factory.setFeature(F_LOAD_EXTERNAL_DTD, false);
+
+        // unsafe but we use DOCTYPE
+        factory.setFeature(F_DISALLOW_DOCTYPE_DECL, false);
+
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
+        factory.setXIncludeAware(false);
+        factory.setExpandEntityReferences(false);
 
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(is);

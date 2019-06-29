@@ -6,7 +6,7 @@
 
 <!--
     Checkstyle suppressions
-    for Checkstyle 8.20 or later
+    for Checkstyle 8.22 or later
 
     [ https://checkstyle.org/ ]
 
@@ -35,6 +35,7 @@
 
     <!-- Miscellaneous -->
     <suppress files="" checks="FinalParameters" />
+    <suppress files="" checks="OrderedProperties" />
     <suppress files="" checks="TrailingComment" />
 
     <!-- Modifier -->
