@@ -19,6 +19,7 @@ import jp.sfjp.mikutoga.vmd.VmdUniq;
 
 /**
  * VMDモーションファイルの基本部パーサ。
+ *
  * <p>ボーンのモーション情報およびモーフモーション情報のパース処理を含む。
  */
 class VmdBasicParser extends ProxyParser{
@@ -249,14 +250,16 @@ class VmdBasicParser extends ProxyParser{
         this.handler.vmdBoneIntpltXpos(xP1x, xP1y, xP2x, xP2y);
         this.handler.vmdBoneIntpltYpos(yP1x, yP1y, yP2x, yP2y);
         this.handler.vmdBoneIntpltZpos(zP1x, zP1y, zP2x, zP2y);
-        this.handler.vmdBoneIntpltRot (rP1x, rP1y, rP2x, rP2y);
+        this.handler.vmdBoneIntpltRot( rP1x, rP1y, rP2x, rP2y);
 
         return;
     }
 
     /**
      * 補間情報の冗長箇所の整合性チェックを行う。
+     *
      * <p>※ MMDの版数によって微妙に詳細が異なる場合がある。
+     *
      * @throws MmdFormatException 冗長箇所の不整合を検出した。
      */
     private void checkIntpltStrict() throws MmdFormatException{

@@ -10,7 +10,9 @@ package jp.sfjp.mikutoga.math;
 /**
  * YXZオイラー角。
  * 三次元空間での方向及び姿勢を定義する。
+ *
  * <p>回転量はラジアンで表される。
+ *
  * <p>※XYZオイラー角ではない。
  */
 public strictfp class EulerYXZ {
@@ -22,6 +24,7 @@ public strictfp class EulerYXZ {
 
     /**
      * コンストラクタ。
+     *
      * <p>三軸とも回転量0の状態になる。
      */
     public EulerYXZ(){
@@ -31,6 +34,7 @@ public strictfp class EulerYXZ {
 
     /**
      * コンストラクタ。
+     *
      * @param xRot X軸回転量。(ラジアン)
      * @param yRot Y軸回転量。(ラジアン)
      * @param zRot Z軸回転量。(ラジアン)
@@ -45,6 +49,7 @@ public strictfp class EulerYXZ {
 
     /**
      * X軸回転量を返す。
+     *
      * @return X軸回転量を返す。(ラジアン)
      */
     public double getXRot(){
@@ -53,6 +58,7 @@ public strictfp class EulerYXZ {
 
     /**
      * Y軸回転量を返す。
+     *
      * @return Y軸回転量を返す。(ラジアン)
      */
     public double getYRot(){
@@ -61,6 +67,7 @@ public strictfp class EulerYXZ {
 
     /**
      * Z軸回転量を返す。
+     *
      * @return Z軸回転量を返す。(ラジアン)
      */
     public double getZRot(){
@@ -69,6 +76,7 @@ public strictfp class EulerYXZ {
 
     /**
      * X軸回転量を設定する。
+     *
      * @param xRotArg X軸回転量。(ラジアン)
      */
     public void setXRot(double xRotArg){
@@ -78,6 +86,7 @@ public strictfp class EulerYXZ {
 
     /**
      * Y軸回転量を設定する。
+     *
      * @param yRotArg Y軸回転量。(ラジアン)
      */
     public void setYRot(double yRotArg){
@@ -87,6 +96,7 @@ public strictfp class EulerYXZ {
 
     /**
      * Z軸回転量を設定する。
+     *
      * @param zRotArg Z軸回転量。(ラジアン)
      */
     public void setZRot(double zRotArg){
@@ -96,6 +106,7 @@ public strictfp class EulerYXZ {
 
     /**
      * 三軸の回転量を設定する。
+     *
      * @param xRotArg X軸回転量。(ラジアン)
      * @param yRotArg Y軸回転量。(ラジアン)
      * @param zRotArg Z軸回転量。(ラジアン)
@@ -109,6 +120,7 @@ public strictfp class EulerYXZ {
 
     /**
      * パラメータ情報の文字列化。
+     *
      * @param x x値
      * @param y y値
      * @param z z値

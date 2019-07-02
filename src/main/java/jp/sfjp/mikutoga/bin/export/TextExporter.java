@@ -28,13 +28,15 @@ public class TextExporter {
     /** デフォルトの出力バッファサイズ(単位:byte)。 */
     public static final int DEFBUFSZ_BYTE = 128;
 
+    private static final String DUMMYTXT = "";
+
 
     private final CharsetEncoder encoder;
     private CharBuffer cbuf = CharBuffer.allocate(DEFBUFSZ_CHAR);
     private byte[] barray = new byte[DEFBUFSZ_BYTE];
     private ByteBuffer bbuf = ByteBuffer.wrap(this.barray);
 
-    private CharSequence textData;
+    private CharSequence textData = DUMMYTXT;
     private int textLength;
     private int inPos;
 
@@ -126,7 +128,7 @@ public class TextExporter {
         try{
             total = dumpTextImpl(os);
         }finally{
-            this.textData = null;
+            this.textData = DUMMYTXT;
         }
 
         return total;
@@ -193,6 +195,7 @@ public class TextExporter {
 
     /**
      * 入力バッファに文字を埋める。
+     *
      * <p>入力バッファが一杯になるか
      * 入力文字列がなくなるまでバッファが埋められる。
      */
@@ -261,7 +264,9 @@ public class TextExporter {
 
     /**
      * 与えられた文字列のエンコード結果を格納先バイトストリームへ格納する。
+     *
      * <p>エンコード結果は格納先ストリームに追記される。
+     *
      * @param text 文字列
      * @param bos 格納先ストリーム
      * @return エンコードしたバイト数。

@@ -48,7 +48,7 @@ public enum RigidBehaviorType {
      * コンストラクタ。
      * @param code 符号化int値
      */
-    private RigidBehaviorType(int code){
+    RigidBehaviorType(int code){
         this((byte)code);
         return;
     }
@@ -57,7 +57,7 @@ public enum RigidBehaviorType {
      * コンストラクタ。
      * @param code 符号化byte値
      */
-    private RigidBehaviorType(byte code){
+    RigidBehaviorType(byte code){
         this.encoded = code;
         return;
     }

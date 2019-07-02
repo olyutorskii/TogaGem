@@ -11,7 +11,9 @@ import java.util.regex.Pattern;
 
 /**
  * シェーディング情報の各種ユーティリティ。
+ *
  * <p>※ スフィアマップファイルの中身はBMP(DIB)形式。
+ *
  * <p><a href="http://en.wikipedia.org/wiki/BMP_file_format">
  * BMP file format </a>
  */
@@ -37,8 +39,10 @@ public final class ShadingUtil {
 
     /**
      * スフィアマップファイル名か否か判定する。
+     *
      * <p>拡張子が「.sph」(乗算)もしくは「.spa」(加算)なら
      * スフィアマップファイル名と判定する。
+     *
      * @param fname ファイル名
      * @return スフィアマップファイルならtrue
      */
@@ -51,14 +55,16 @@ public final class ShadingUtil {
     /**
      * シェーディング用ファイル情報文字列から
      * テクスチャファイル名とスフィアマップファイル名を分離する。
+     *
      * <p>2つのファイル名は単一の「*」で区切られ、
      * 前部がテクスチャファイル名、後部がスフィアマップファイル名となる。
      * 「*」がなく末尾が「.sph」か「.spa」なら
      * スフィアマップファイル名のみ、
      * 末尾がどちらでもなければテクスチャファイル名のみとなる。
+     *
      * @param shadingFile シェーディング用ファイル情報
      * @return [0]:テクスチャファイル名 [1]:スフィアマップファイル名。
-     * 該当ファイル名が無い場合は空文字列。
+     *     該当ファイル名が無い場合は空文字列。
      */
     public static String[] splitShadingFileInfo(String shadingFile) {
         String[] result;

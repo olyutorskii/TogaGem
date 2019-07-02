@@ -22,6 +22,11 @@ package jp.sfjp.mikutoga.xml;
  */
 public final class DatatypeIo {
 
+    private static final String XSD_POS_INF = "INF";
+    private static final String XSD_NEG_INF = "-INF";
+    private static final String JAVA_INF = "Infinity";
+
+
     /**
      * Hidden constructor.
      */
@@ -53,9 +58,9 @@ public final class DatatypeIo {
         String result;
 
         if(fVal == Float.POSITIVE_INFINITY){
-            result = "INF";
+            result = XSD_POS_INF;
         }else if(fVal == Float.NEGATIVE_INFINITY){
-            result = "-INF";
+            result = XSD_NEG_INF;
         }else{
             result = String.valueOf(fVal);
         }
@@ -202,11 +207,11 @@ public final class DatatypeIo {
         String trimmed = xsdTrim(xsdVal).toString();
 
         float result;
-        if("INF".equals(trimmed)){
+        if(XSD_POS_INF.equals(trimmed)){
             result = Float.POSITIVE_INFINITY;
-        }else if("-INF".equals(trimmed)){
+        }else if(XSD_NEG_INF.equals(trimmed)){
             result = Float.NEGATIVE_INFINITY;
-        }else if(trimmed.endsWith("Infinity")){
+        }else if(trimmed.endsWith(JAVA_INF)){
             throw new NumberFormatException(trimmed);
         }else if(trimmed.contains("x") || trimmed.contains("X")){
             // HexFloatingPointLiteral

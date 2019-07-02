@@ -491,6 +491,15 @@ public strictfp class MkQuatTest {
         assert0UlpEquals(yRad, eu.getYRot());
         assertUlpEquals(zRad, eu.getZRot(), 1);
 
+        xRad = toRadians(90);
+        yRad = toRadians(-120);
+        zRad = toRadians(120);
+        qq.setEulerYXZ(xRad, yRad, zRad);
+        qq.toEulerYXZ(eu, yRad);
+        assert0UlpEquals(xRad, eu.getXRot());
+        assert0UlpEquals(yRad, eu.getYRot());
+        assertUlpEquals(zRad, eu.getZRot(), 1);
+
         xRad = toRadians(89.999);
         yRad = toRadians(89.999);
         zRad = toRadians(89.999);

@@ -43,6 +43,7 @@ public final class PmdConst {
     /**
      * ボーン最大数。
      * (Id : 0 - 0xfffe)
+     *
      * <p>MMDがいくつまで受け入れるかはまた別の話だよ。
      */
     public static final int MAX_BONE = 65535;

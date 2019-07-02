@@ -70,6 +70,21 @@ public strictfp class MkPos3DTest {
         assertEquals(5.0, pos.getYpos(), 0.0);
         assertEquals(6.0, pos.getZpos(), 0.0);
 
+        pos.setPosition(0.0, 0.0, 0.0);
+        assertTrue(pos.isOriginPoint());
+
+        pos.setPosition(1.0, 0.0, 0.0);
+        assertFalse(pos.isOriginPoint());
+
+        pos.setPosition(0.0, 1.0, 0.0);
+        assertFalse(pos.isOriginPoint());
+
+        pos.setPosition(0.0, 0.0, 1.0);
+        assertFalse(pos.isOriginPoint());
+
+        pos.setPosition(-0.0, -0.0, -0.0);
+        assertTrue(pos.isOriginPoint());
+
         pos = new MkPos3D(7.0, 8.0, 9.0);
         assertEquals(7.0, pos.getXpos(), 0.0);
         assertEquals(8.0, pos.getYpos(), 0.0);

@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,13 +24,17 @@ import org.xml.sax.SAXException;
 
 /**
  * 国際化&amp;別名管理オブジェクトの実装基板。
+ *
  * <p>別名管理オブジェクトは、
  * 各々のリストの先頭が代表名となる、
  * プライマリ名の不変リストとグローバル名の不変リストを持つ。
+ *
  * <p>国産モデルではプライマリ名に日本語名が収められることが多い。
  * プライマリ名は必ず一つ以上なければならない。
+ *
  * <p>国産モデルではグローバル名に英語名が収められることが多いが、
  * プライマリ名と同一の日本語名が収められている場合も多い。
+ *
  * <p>別名管理オブジェクトは、
  * インスタンス間での順序を定義するためのオーダー番号を持つ。
  */
@@ -38,6 +43,15 @@ class I18nAlias {
     /** オーダ番号によるコンパレータ。 */
     public static final Comparator<I18nAlias> ORDER_COMPARATOR =
             new OrderComparator();
+
+    private static final String F_DISALLOW_DOCTYPE_DECL =
+            "http://apache.org/xml/features/disallow-doctype-decl";
+    private static final String F_EXTERNAL_GENERAL_ENTITIES =
+            "http://xml.org/sax/features/external-general-entities";
+    private static final String F_EXTERNAL_PARAMETER_ENTITIES =
+            "http://xml.org/sax/features/external-parameter-entities";
+    private static final String F_LOAD_EXTERNAL_DTD =
+            "http://apache.org/xml/features/nonvalidating/load-external-dtd";
 
 
     private int orderNo;
@@ -51,8 +65,10 @@ class I18nAlias {
 
     /**
      * コンストラクタ。
+     *
      * <p>各初期数が0以下の場合は、
      * 状況に応じて伸長する連結リストが用意される。
+     *
      * @param primaryNum プライマリ名初期数。
      * @param globalNum グローバル名初期数。
      */
@@ -60,15 +76,15 @@ class I18nAlias {
         super();
 
         if(primaryNum <= 0){
-            this.primaryNameList = new LinkedList<String>();
+            this.primaryNameList = new LinkedList<>();
         }else{
-            this.primaryNameList = new ArrayList<String>(primaryNum);
+            this.primaryNameList = new ArrayList<>(primaryNum);
         }
 
         if(globalNum <= 0){
-            this.globalNameList  = new LinkedList<String>();
+            this.globalNameList  = new LinkedList<>();
         }else{
-            this.globalNameList  = new ArrayList<String>(globalNum);
+            this.globalNameList  = new ArrayList<>(globalNum);
         }
 
         this.umodPrimaryNameList =
@@ -81,6 +97,7 @@ class I18nAlias {
 
     /**
      * コンストラクタ。
+     *
      * <p>プライマリ名、グローバル名共、
      * 状況に応じて伸長する連結リストが用意される。
      */
@@ -102,6 +119,20 @@ class I18nAlias {
             throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory;
         factory = DocumentBuilderFactory.newInstance();
+
+        factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        factory.setFeature(F_EXTERNAL_GENERAL_ENTITIES, false);
+        factory.setFeature(F_EXTERNAL_PARAMETER_ENTITIES, false);
+        factory.setFeature(F_LOAD_EXTERNAL_DTD, false);
+
+        // unsafe but we use DOCTYPE
+        factory.setFeature(F_DISALLOW_DOCTYPE_DECL, false);
+
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
+        factory.setXIncludeAware(false);
+        factory.setExpandEntityReferences(false);
 
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(is);
@@ -131,7 +162,9 @@ class I18nAlias {
 
     /**
      * プライマリ名の代表をひとつ返す。
+     *
      * <p>必ず存在しなければならない。
+     *
      * @return 最初のプライマリ名
      */
     public String getTopPrimaryName(){

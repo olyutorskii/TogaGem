@@ -18,6 +18,7 @@ import java.text.MessageFormat;
 
 /**
  * バイナリデータの出力を行う汎用エクスポーター。
+ *
  * <p>基本的にリトルエンディアン形式で出力される。
  */
 public class BinaryExporter implements Closeable, Flushable{
@@ -69,8 +70,8 @@ public class BinaryExporter implements Closeable, Flushable{
 
     private final byte[] barray;
 
-    private final TextExporter texporter_w31j;
-    private final TextExporter texporter_u16le;
+    private final TextExporter texporterW31j;
+    private final TextExporter texporterU16le;
     private final ByteArrayOutputStream xos;
 
 
@@ -87,8 +88,8 @@ public class BinaryExporter implements Closeable, Flushable{
 
         this.barray = new byte[BUFSZ_PRIM];
 
-        this.texporter_w31j  = new TextExporter(CS_WIN31J);
-        this.texporter_u16le = new TextExporter(CS_UTF16LE);
+        this.texporterW31j  = new TextExporter(CS_WIN31J);
+        this.texporterU16le = new TextExporter(CS_UTF16LE);
         this.xos = new ByteArrayOutputStream();
 
         return;
@@ -257,12 +258,19 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * 詰め物パディングを出力する。
+     *
      * @param filler byte型配列によるパディングデータの並び。
-     * <p>指定パディング長より長い部分は出力されない。
-     * 指定パディング長に満たない場合は最後の要素が繰り返し出力される。
-     * <p>配列長が0の場合は何も出力されない。
+     *
+     *     <p>指定パディング長より長い部分は出力されない。
+     *     指定パディング長に満たない場合は
+     *     最後の要素が繰り返し出力される。</p>
+     *
+     *     <p>配列長が0の場合は何も出力されない。</p>
+     *
      * @param fillerLength パディング長。
-     * <p>パディング長が0以下の場合は何も出力されない。
+     *
+     *     <p>パディング長が0以下の場合は何も出力されない。</p>
+     *
      * @return this
      * @throws IOException 出力エラー
      */
@@ -294,8 +302,8 @@ public class BinaryExporter implements Closeable, Flushable{
      * @return this
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException テキスト出力エラー。
-     * 出力が固定長を超えようとした、
-     * もしくは不正なエンコードが行われたかのいずれか。
+     *     出力が固定長を超えようとした、
+     *     もしくは不正なエンコードが行われたかのいずれか。
      */
     public BinaryExporter dumpFixedW31j(CharSequence text,
                                           int fixedLength,
@@ -306,7 +314,7 @@ public class BinaryExporter implements Closeable, Flushable{
         int encodedSize;
         try{
             encodedSize =
-                    this.texporter_w31j.encodeToByteStream(text, this.xos);
+                    this.texporterW31j.encodeToByteStream(text, this.xos);
         }catch(CharacterCodingException e){
             throw new IllegalTextExportException(ERRMSG_ILLENC, e);
         }
@@ -338,8 +346,8 @@ public class BinaryExporter implements Closeable, Flushable{
      * @return エンコードバイト列長
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException テキスト出力エラー。
-     * 出力が固定長を超えようとした、
-     * もしくは不正なエンコードが行われたかのいずれか。
+     *     出力が固定長を超えようとした、
+     *     もしくは不正なエンコードが行われたかのいずれか。
      */
     public int dumpHollerithUtf16LE(CharSequence text)
             throws IOException, IllegalTextExportException{
@@ -348,7 +356,7 @@ public class BinaryExporter implements Closeable, Flushable{
         int encodedSize;
         try{
             encodedSize =
-                    this.texporter_u16le.encodeToByteStream(text, this.xos);
+                    this.texporterU16le.encodeToByteStream(text, this.xos);
         }catch(CharacterCodingException e){
             assert false;  // これはない
             throw new IllegalTextExportException(ERRMSG_ILLENC, e);

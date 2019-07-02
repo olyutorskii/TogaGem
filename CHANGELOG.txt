@@ -4,6 +4,10 @@
 TogaGem 変更履歴
 
 
+3.122.2 (2019-07-02)
+    * Prevent XXE vulnerabilities with XML-schema(XSD).
+    * Remove discarded XML classes.
+
 3.121.2 (2019-06-06)
     ・DatatypeIo is public now, for replacing JAXB.
 

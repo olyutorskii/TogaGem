@@ -69,7 +69,7 @@ public enum BoneType {
      * コンストラクタ。
      * @param code 符号化int値
      */
-    private BoneType(int code){
+    BoneType(int code){
         this((byte)code);
         return;
     }
@@ -78,7 +78,7 @@ public enum BoneType {
      * コンストラクタ。
      * @param code 符号化byte値
      */
-    private BoneType(byte code){
+    BoneType(byte code){
         this.encoded = code;
         return;
     }

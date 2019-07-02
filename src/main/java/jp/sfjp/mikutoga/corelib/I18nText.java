@@ -48,8 +48,7 @@ public class I18nText implements CharSequence {
     /**
      * キーはISO639、値は多言語テキスト。
      */
-    private final Map<String, String> nameMap =
-            new HashMap<String, String>();
+    private final Map<String, String> nameMap = new HashMap<>();
 
 
     /**
@@ -155,9 +154,12 @@ public class I18nText implements CharSequence {
 
     /**
      * プライマリ文字列を返す。
+     *
      * <p>見つからなければグローバル文字列を返す。
      * それでも見つからなければ長さ0の空文字列を返す。
+     *
      * <p>※決してnullは返さない。
+     *
      * @return 文字列
      */
     public String getText(){
@@ -178,11 +180,15 @@ public class I18nText implements CharSequence {
 
     /**
      * 実行環境のデフォルトロケールに応じた文字列を返す。
+     *
      * <p>見つからなければグローバル文字列、プライマリ文字列の順に返す。
      * それでも見つからなければ適当な言語コードの文字列を返す。
      * それでも見つからなければ長さ0の空文字列を返す。
+     *
      * <p>デフォルトロケールの確認はその都度行われる。
+     *
      * <p>※決してnullは返さない。
+     *
      * @return 文字列
      */
     public String getLocalizedText(){
@@ -231,7 +237,7 @@ public class I18nText implements CharSequence {
      */
     public List<String> lang639CodeList(){
         Set<String> set = this.nameMap.keySet();
-        List<String> result = new ArrayList<String>(set.size());
+        List<String> result = new ArrayList<>(set.size());
 
         for(String lang : set){
             if(lang.equals(CODE639_PRIMARY)) result.add(lang);
