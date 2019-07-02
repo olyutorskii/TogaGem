@@ -17,6 +17,7 @@ import jp.sfjp.mikutoga.vmd.VmdConst;
 /**
  * VMDモーションファイルの各種ON/OFF情報(モデル表示・IK有効無効)
  * パーサ。
+ *
  * <p>MikuMikuDance Ver7.40以降でサポート
  */
 class VmdBoolParser extends ProxyParser {

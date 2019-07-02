@@ -15,19 +15,20 @@ import java.util.Comparator;
 public interface FrameNumbered {
 
     /** 昇順での比較子。 */
-    Comparator<FrameNumbered> COMPARATOR = new FrameComparator();
+    public static final Comparator<FrameNumbered> COMPARATOR =
+            new FrameComparator();
 
     /**
      * フレーム番号を設定する。
      * @param num フレーム番号
      */
-    void setFrameNumber(int num);
+    public abstract void setFrameNumber(int num);
 
     /**
      * フレーム番号を返す。
      * @return フレーム番号
      */
-    int getFrameNumber();
+    public abstract int getFrameNumber();
 
 
     /**
@@ -35,7 +36,7 @@ public interface FrameNumbered {
      * フレーム番号の昇順を定義づける。
      */
     @SuppressWarnings("serial")
-    class FrameComparator
+    public static class FrameComparator
             implements Comparator<FrameNumbered> {
 
         /**

@@ -36,6 +36,78 @@ public class BasicXmlExporterTest {
     }
 
     /**
+     * Test of putCharRef2Hex method, of class BasicXmlExporter.
+     * @throws IOException
+     */
+    @Test
+    public void testPutCharRef2Hex() throws IOException{
+        System.out.println("putCharRef2Hex");
+
+        BasicXmlExporter instance;
+        StringBuffer buf;
+
+        instance = new BasicXmlExporter();
+
+        buf = new StringBuffer();
+        instance.setAppendable(buf);
+        instance.putCharRef2Hex('\u0000');
+        assertEquals("&#x00;", buf.toString());
+
+        buf = new StringBuffer();
+        instance.setAppendable(buf);
+        instance.putCharRef2Hex('A');
+        assertEquals("&#x41;", buf.toString());
+
+        buf = new StringBuffer();
+        instance.setAppendable(buf);
+        instance.putCharRef2Hex('\u00ff');
+        assertEquals("&#xFF;", buf.toString());
+
+        buf = new StringBuffer();
+        instance.setAppendable(buf);
+        instance.putCharRef2Hex('\u0100');
+        assertEquals("&#x0100;", buf.toString());
+
+        return;
+    }
+
+    /**
+     * Test of putCh method, of class BasicXmlExporter.
+     * @throws IOException
+     */
+    @Test
+    public void testPutCh() throws IOException{
+        System.out.println("putCh");
+
+        BasicXmlExporter instance;
+        StringBuffer buf;
+
+        instance = new BasicXmlExporter();
+
+        buf = new StringBuffer();
+        instance.setAppendable(buf);
+        instance.putCh('A');
+        assertEquals("A", buf.toString());
+
+        buf = new StringBuffer();
+        instance.setAppendable(buf);
+        instance.putCh('B').putCh('7').putCh('あ');
+        assertEquals("B7あ", buf.toString());
+
+        buf = new StringBuffer();
+        instance.setAppendable(buf);
+        instance.putCh('&').putCh('<').putCh('>').putCh('"').putCh('\'');
+        assertEquals("&amp;&lt;&gt;&quot;&apos;", buf.toString());
+
+        buf = new StringBuffer();
+        instance.setAppendable(buf);
+        instance.putCh('\b');
+        assertEquals("&#x08;", buf.toString());
+
+        return;
+    }
+
+    /**
      * Test of append method, of class BasicXmlExporter.
      */
     @Test

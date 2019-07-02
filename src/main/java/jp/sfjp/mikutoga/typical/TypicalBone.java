@@ -19,9 +19,12 @@ import org.xml.sax.SAXException;
 
 /**
  * 一般的な標準ボーン構成に関する情報。
+ *
  * <p>各ボーン情報はひとつ以上のプライマリ名(≒日本語名)と
  * ゼロ個以上のグローバル名(≒英語名)を持つ。
+ *
  * <p>選択基準は独断。
+ *
  * <p>和英対訳はMMD Ver7.39の同梱モデルにほぼ準拠。
  */
 public final class TypicalBone extends I18nAlias {
@@ -36,9 +39,9 @@ public final class TypicalBone extends I18nAlias {
     private static final String ATTR_NAME    = "name";
 
     private static final List<TypicalBone> BONE_LIST =
-            new LinkedList<TypicalBone>();
+            new LinkedList<>();
     private static final AliasMap<TypicalBone> BONE_ALIAS_MAP =
-            new AliasMap<TypicalBone>();
+            new AliasMap<>();
 
     private static final List<TypicalBone> BONE_UNMODLIST =
             Collections.unmodifiableList(BONE_LIST);
@@ -49,11 +52,7 @@ public final class TypicalBone extends I18nAlias {
         Element top;
         try{
             top = I18nAlias.loadXml(is);
-        }catch(ParserConfigurationException e){
-            throw new ExceptionInInitializerError(e);
-        }catch(SAXException e){
-            throw new ExceptionInInitializerError(e);
-        }catch(IOException e){
+        }catch(ParserConfigurationException | SAXException | IOException e){
             throw new ExceptionInInitializerError(e);
         }
 
@@ -68,8 +67,10 @@ public final class TypicalBone extends I18nAlias {
 
     /**
      * コンストラクタ。
+     *
      * <p>各初期数が0以下の場合は、
      * 状況に応じて伸長する連結リストが用意される。
+     *
      * @param primaryNum プライマリ名初期数。
      * @param globalNum グローバル名初期数。
      */
@@ -136,6 +137,7 @@ public final class TypicalBone extends I18nAlias {
 
     /**
      * 全ボーン情報に通し番号を付ける。
+     *
      * <p>XMLでの定義順が反映される。
      */
     private static void numbering(){
@@ -201,7 +203,9 @@ public final class TypicalBone extends I18nAlias {
     /**
      * このボーンが親を持たないルートボーンとして扱われる慣習なのか
      * 判定する。
+     *
      * <p>※「全親」ボーンに関する慣習は無視される。
+     *
      * @return 親を持たなければtrue
      */
     public boolean isRoot(){

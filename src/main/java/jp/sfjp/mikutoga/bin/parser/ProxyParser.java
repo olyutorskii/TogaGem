@@ -11,6 +11,7 @@ import java.io.IOException;
 
 /**
  * 委譲パーサ。
+ *
  * <p>別のパーサにパース処理を委譲する。
  */
 public class ProxyParser implements BinParser{

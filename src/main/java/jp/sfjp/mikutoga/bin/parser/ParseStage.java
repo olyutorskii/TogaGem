@@ -11,7 +11,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * パース処理の進行ステージ種別を表す。
+ *
  * <p>ループ構造の識別に用いられる。
+ *
  * <p>enum型と異なり、実行時での要素の追加が可能。
  */
 public class ParseStage {
