@@ -16,7 +16,7 @@
     <groupId>jp.sourceforge.mikutoga</groupId>
     <artifactId>togagem</artifactId>
 
-    <version>3.122.2</version>
+    <version>3.122.3-SNAPSHOT</version>
 
     <packaging>jar</packaging>
     <name>TogaGem</name>
