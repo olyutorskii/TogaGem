@@ -6,7 +6,7 @@
 
 <!--
     Checkstyle suppressions
-    for Checkstyle 8.22 or later
+    for Checkstyle 8.29 or later
 
     [ https://checkstyle.org/ ]
 
@@ -23,9 +23,12 @@
     <suppress files="" checks="DesignForExtension" />
 
     <!-- Coding -->
+    <suppress files="" checks="AvoidNoArgumentSuperConstructorCall" />
     <suppress files="" checks="ExplicitInitialization" />
     <suppress files="" checks="FinalLocalVariable" />
     <suppress files="" checks="MagicNumber" />
+    <suppress files="" checks="NoArrayTrailingComma" />
+    <suppress files="" checks="NoEnumTrailingComma" />
 
     <!-- Imports -->
     <suppress files="" checks="ImportControl" />
