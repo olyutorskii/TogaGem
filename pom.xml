@@ -26,12 +26,12 @@
 -->TogaGem is a sub-project of MikuToga project. <!--
 --></description>
 
-    <url>https://ja.osdn.net/projects/mikutoga/devel/</url>
+    <url>https://github.com/olyutorskii/TogaGem</url>
     <inceptionYear>2010</inceptionYear>
 
     <organization>
         <name>MikuToga Partners</name>
-        <url>https://ja.osdn.net/projects/mikutoga/devel/</url>
+        <url>https://github.com/olyutorskii/TogaGem</url>
     </organization>
 
     <licenses>
@@ -45,9 +45,9 @@
     <developers>
         <developer>
             <id>olyutorskii</id>
-            <url>https://sites.google.com/site/olyutorskiipit/</url>
+            <url>https://github.com/olyutorskii</url>
             <organization>MikuToga Partners</organization>
-            <organizationUrl>https://ja.osdn.net/projects/mikutoga/devel/</organizationUrl>
+            <organizationUrl>https://github.com/olyutorskii/TogaGem</organizationUrl>
             <roles>
                 <role>Project Founder</role>
                 <role>Java Developer</role>
@@ -63,18 +63,25 @@
     <modules/>
 
     <scm>
-        <connection>scm:git:git://git.osdn.net/gitroot/mikutoga/TogaGem.git</connection>
-        <developerConnection>scm:git:https://scm.osdn.net/gitroot/mikutoga/TogaGem.git</developerConnection>
-        <url>https://osdn.net/projects/mikutoga/scm/git/TogaGem/</url>
+        <connection>scm:git:https://github.com/olyutorskii/TogaGem.git</connection>
+        <developerConnection>scm:git:git@github.com:olyutorskii/TogaGem.git</developerConnection>
+        <url>https://github.com/olyutorskii/TogaGem</url>
     </scm>
 
     <issueManagement>
-        <system>OSDN.net</system>
-        <url>https://ja.osdn.net/projects/mikutoga/ticket/</url>
+        <system>GitHub</system>
+        <url>https://github.com/olyutorskii/TogaGem/issues</url>
     </issueManagement>
 
     <ciManagement/>
-    <distributionManagement/>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/olyutorskii/TogaGem</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
