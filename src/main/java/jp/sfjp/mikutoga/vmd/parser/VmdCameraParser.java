@@ -157,8 +157,8 @@ class VmdCameraParser extends ProxyParser{
 
         assert idx == this.etcIntplt.length;
 
-        this.handler.vmdCameraIntpltRotation  (rP1x, rP1y, rP2x, rP2y);
-        this.handler.vmdCameraIntpltRange     (dP1x, dP1y, dP2x, dP2y);
+        this.handler.vmdCameraIntpltRotation(  rP1x, rP1y, rP2x, rP2y);
+        this.handler.vmdCameraIntpltRange(     dP1x, dP1y, dP2x, dP2y);
         this.handler.vmdCameraIntpltProjection(pP1x, pP1y, pP2x, pP2y);
 
         return;

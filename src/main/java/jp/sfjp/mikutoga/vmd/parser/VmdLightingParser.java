@@ -15,6 +15,7 @@ import jp.sfjp.mikutoga.bin.parser.ProxyParser;
 /**
  * VMDモーションファイルのライティング情報パーサ。
  * 照明光源演出データと影演出データを含む。
+ *
  * <p>古い版のVMDファイルには影演出データが記述されていない場合がある。
  */
 class VmdLightingParser extends ProxyParser {
@@ -48,7 +49,9 @@ class VmdLightingParser extends ProxyParser {
 
     /**
      * ライティングデータのパースと通知。
+     *
      * <p>影演出データが無ければ読みに行かない。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */

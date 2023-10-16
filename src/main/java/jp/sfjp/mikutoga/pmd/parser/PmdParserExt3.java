@@ -14,6 +14,7 @@ import jp.sfjp.mikutoga.pmd.PmdConst;
 
 /**
  * PMDモデルファイルのパーサ拡張その3。
+ *
  * <p>※ 剛体情報対応
  */
 public class PmdParserExt3 extends PmdParserExt2 {
@@ -143,15 +144,15 @@ public class PmdParserExt3 extends PmdParserExt2 {
      */
     private void parseRigidDynamics()
         throws IOException, MmdFormatException{
-            float mass        = parseLeFloat();
-            float dampingPos  = parseLeFloat();
-            float dampingRot  = parseLeFloat();
-            float restitution = parseLeFloat();
-            float friction    = parseLeFloat();
+        float mass        = parseLeFloat();
+        float dampingPos  = parseLeFloat();
+        float dampingRot  = parseLeFloat();
+        float restitution = parseLeFloat();
+        float friction    = parseLeFloat();
 
-            this.rigidHandler.pmdRigidPhysics(
-                mass, dampingPos, dampingRot, restitution, friction
-            );
+        this.rigidHandler.pmdRigidPhysics(
+            mass, dampingPos, dampingRot, restitution, friction
+        );
 
         return;
     }
@@ -225,7 +226,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
                 posXlim1, posXlim2,
                 posYlim1, posYlim2,
                 posZlim1, posZlim2
-                );
+        );
 
         float rotXlim1 = parseLeFloat();
         float rotYlim1 = parseLeFloat();
@@ -238,7 +239,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
                 rotXlim1, rotXlim2,
                 rotYlim1, rotYlim2,
                 rotZlim1, rotZlim2
-                );
+        );
 
         return;
     }
@@ -258,7 +259,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
                 elasticPosX,
                 elasticPosY,
                 elasticPosZ
-                );
+        );
 
         float elasticRotX = parseLeFloat();
         float elasticRotY = parseLeFloat();
@@ -268,7 +269,7 @@ public class PmdParserExt3 extends PmdParserExt2 {
                 elasticRotX,
                 elasticRotY,
                 elasticRotZ
-                );
+        );
 
         return;
     }

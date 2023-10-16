@@ -106,9 +106,12 @@ public class VmdParser {
     /**
      * ボーンモーション補間情報冗長部のチェックを行うか否か設定する。
      * デフォルトではチェックを行わない。
+     *
      * <p>※MMDVer7.30前後のVMD出力不具合を回避したい場合は、
      * オフにするとパースに成功する場合がある。
+     *
      * <p>※MMD Ver7.39x64以降はチェック回避必須。
+     *
      * @param mode チェックさせたければtrue
      */
     public void setRedundantCheck(boolean mode){

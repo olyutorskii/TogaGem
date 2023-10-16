@@ -54,7 +54,7 @@ public enum MorphType {
      * コンストラクタ。
      * @param code 符号化int値
      */
-    private MorphType(int code){
+    MorphType(int code){
         this((byte)code);
         return;
     }
@@ -63,7 +63,7 @@ public enum MorphType {
      * コンストラクタ。
      * @param code 符号化byte値
      */
-    private MorphType(byte code){
+    MorphType(byte code){
         this.encoded = code;
         return;
     }

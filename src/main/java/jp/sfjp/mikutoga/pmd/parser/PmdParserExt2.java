@@ -14,6 +14,7 @@ import jp.sfjp.mikutoga.pmd.PmdConst;
 
 /**
  * PMDモデルファイルのパーサ拡張その2。
+ *
  * <p>※ 独自トゥーンテクスチャファイル名対応
  */
 public class PmdParserExt2 extends PmdParserExt1 {

@@ -9,6 +9,7 @@ package jp.sfjp.mikutoga.bin.parser;
 
 /**
  * MMD関連ファイルのパース異常系。
+ *
  * <p>必要に応じて、パースに失敗した位置を保持する。
  */
 @SuppressWarnings("serial")
@@ -36,7 +37,7 @@ public class MmdFormatException extends Exception {
     /**
      * コンストラクタ。
      * @param position 入力ソース先頭から数えたエラー位置。(バイト単位)
-     * 負の値を与えると、エラー位置は無効と解釈される。
+     *     負の値を与えると、エラー位置は無効と解釈される。
      */
     public MmdFormatException(long position){
         this(null, position);
@@ -47,7 +48,7 @@ public class MmdFormatException extends Exception {
      * コンストラクタ。
      * @param message エラーメッセージ
      * @param position 入力ソース先頭から数えたエラー位置。(バイト単位)
-     * 負の値を与えると、エラー位置は無効と解釈される。
+     *     負の値を与えると、エラー位置は無効と解釈される。
      */
     public MmdFormatException(String message, long position){
         super(message);
@@ -83,7 +84,7 @@ public class MmdFormatException extends Exception {
     /**
      * エラー位置を取得する。
      * @return 入力ソース先頭からのバイト数で表されるエラー位置。
-     * 負なら無効なエラー位置。
+     *     負なら無効なエラー位置。
      */
     public long getPosition(){
         return this.position;

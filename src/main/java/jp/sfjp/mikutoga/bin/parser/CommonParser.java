@@ -45,7 +45,7 @@ public class CommonParser implements BinParser{
     private final PushbackInputStream is;
 
     private final byte[] readBuffer;
-//  private final ByteBuffer beBuf;
+    // private final ByteBuffer beBuf;
     private final ByteBuffer leBuf;
 
     private long position = 0L;
@@ -64,10 +64,10 @@ public class CommonParser implements BinParser{
 
         this.readBuffer = new byte[BYTES_PRIM];
 
-//      this.beBuf = ByteBuffer.wrap(this.readBuffer);
+        // this.beBuf = ByteBuffer.wrap(this.readBuffer);
         this.leBuf = ByteBuffer.wrap(this.readBuffer);
 
-//      this.beBuf.order(ByteOrder.BIG_ENDIAN);
+        // this.beBuf.order(ByteOrder.BIG_ENDIAN);
         this.leBuf.order(ByteOrder.LITTLE_ENDIAN);
 
         return;

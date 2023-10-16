@@ -48,7 +48,7 @@ public enum RigidShapeType {
      * コンストラクタ。
      * @param code 符号化int値
      */
-    private RigidShapeType(int code){
+    RigidShapeType(int code){
         this((byte)code);
         return;
     }
@@ -57,7 +57,7 @@ public enum RigidShapeType {
      * コンストラクタ。
      * @param code 符号化byte値
      */
-    private RigidShapeType(byte code){
+    RigidShapeType(byte code){
         this.encoded = code;
         return;
     }

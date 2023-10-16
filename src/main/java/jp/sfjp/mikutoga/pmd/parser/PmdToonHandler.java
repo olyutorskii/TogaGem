@@ -17,15 +17,18 @@ import jp.sfjp.mikutoga.bin.parser.ParseStage;
 public interface PmdToonHandler extends LoopHandler {
 
     /** トゥーンテクスチャファイル名抽出ループ。 */
-    ParseStage TOON_LIST = new ParseStage();
+    public static final ParseStage TOON_LIST = new ParseStage();
 
     /**
      * 独自トゥーンテクスチャファイル名の通知を受け取る。
+     *
      * <p>{@link #TOON_LIST}ループの構成要素
+     *
      * @param toonName 独自トゥーンテクスチャファイル名
-     * @throws MmdFormatException 不正フォーマットによる
-     * パース処理の中断をパーサに指示
+     * @throws MmdFormatException
+     *     不正フォーマットによるパース処理の中断をパーサに指示
      */
-    void pmdToonFileInfo(String toonName) throws MmdFormatException;
+    public abstract void pmdToonFileInfo(String toonName)
+            throws MmdFormatException;
 
 }

@@ -78,7 +78,9 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * 文字列の最後がLF(0x0a)の場合削除する。
+     *
      * <p>ボーングループ名対策。
+     *
      * @param name 文字列
      * @return 末尾LFが削除された文字列
      */
@@ -185,11 +187,14 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * 指定されたバイト長に収まるゼロ終端(0x00)文字列を読み込む。
+     *
      * <p>入力バイト列はwindows-31jエンコーディングとして解釈される。
+     *
      * <p>ゼロ終端以降のデータは無視されるが、
      * IO入力は指定バイト数だけ読み進められる。
      * ゼロ終端が見つからないまま指定バイト数が読み込み終わった場合、
      * そこまでのデータから文字列を構成する。
+     *
      * @param byteLen 読み込みバイト数
      * @return デコードされた文字列
      * @throws IOException IOエラー
