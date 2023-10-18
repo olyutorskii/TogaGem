@@ -1,0 +1,54 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ develop, release/** ]
+  pull_request:
+    branches: [ main, develop ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java: [ 11, 17, 21 ]
+    name: Java ${{ matrix.java }} building
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: ${{ matrix.java }}
+        cache: 'maven'
+    - name: Build with Maven
+      run: mvn --show-version --batch-mode -Dshow=private package site --file pom.xml
+
+
+  build8:
+
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    name: Java 8 building
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '8'
+        cache: 'maven'
+    - name: Build with Maven
+      run: mvn --show-version --batch-mode package --file pom.xml
+
+### EOF ###
