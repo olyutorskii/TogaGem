@@ -3,8 +3,11 @@
 package jp.sfjp.mikutoga.xml;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledForJreRange;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.condition.JRE.JAVA_18;
+import static org.junit.jupiter.api.condition.JRE.JAVA_19;
 
 
 /**
@@ -99,11 +102,34 @@ public class DatatypeIoTest {
         result = DatatypeIo.printFloat(Float.MIN_VALUE);
         assertEquals("1.4E-45", result.toString());
 
+        result = DatatypeIo.printFloat(Float.MAX_VALUE);
+        assertEquals("3.4028235E38", result.toString());
+
+        return;
+    }
+
+    @Test
+    @EnabledForJreRange(max = JAVA_18)
+    public void testPrintFloatBefore18() {
+        System.out.println("printFloatBefore18");
+
+        CharSequence result;
+
         result = DatatypeIo.printFloat(Float.MIN_NORMAL);
         assertEquals("1.17549435E-38", result.toString());
 
-        result = DatatypeIo.printFloat(Float.MAX_VALUE);
-        assertEquals("3.4028235E38", result.toString());
+        return;
+    }
+
+    @Test
+    @EnabledForJreRange(min = JAVA_19)
+    public void testPrintFloatAfter19() {
+        System.out.println("printFloatAfter19");
+
+        CharSequence result;
+
+        result = DatatypeIo.printFloat(Float.MIN_NORMAL);
+        assertEquals("1.1754944E-38", result.toString());
 
         return;
     }
