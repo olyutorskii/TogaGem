@@ -8,7 +8,7 @@
 ## What is TogaGem ? ##
 
 * **TogaGem**は、3D動画制作ツール、MikuMikuDance(MMD)で用いられる
-各種データファイルを読み込むためのJavaライブラリです。
+各種データファイルを読み書きするためのJavaライブラリです。
 
 * MikuMikuDance was used by a community of Japanese speakers,
 so much of TogaGem's documentation and comments contain Japanese word.
@@ -20,7 +20,7 @@ TogaParserライブラリの1.103.2版を引き継ぐ形で誕生しました。
 * 現時点で読み込みが可能なファイルは、
   - PMDモデルファイル(*.pmd)
   - VMDモーションファイル(*.vmd)
-の二種類です。
+の二種類です。PMXモデルファイルは読み込めません。
 
 * TogaGemは2023年10月頃まで [OSDN][OSDN](旧称 SourceForge.jp)
 でホスティングされていました。
