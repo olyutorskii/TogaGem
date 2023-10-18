@@ -7,8 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [3.122.4] - 2023-10-18
+
 ### Changed
 - ホスティングをOSDNからGitHubへ移行。
+- JUnit4からJUnit5へ移行
+
+### Fixed
+- Maven plugins のJDK20対応
 
 
 ## [3.122.2] - 2019-07-02
