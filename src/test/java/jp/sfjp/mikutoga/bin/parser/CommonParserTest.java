@@ -4,12 +4,11 @@
 package jp.sfjp.mikutoga.bin.parser;
 
 import java.nio.charset.Charset;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  *
@@ -17,22 +16,6 @@ import static org.junit.Assert.*;
 public class CommonParserTest {
 
     public CommonParserTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
     }
 
     /**
