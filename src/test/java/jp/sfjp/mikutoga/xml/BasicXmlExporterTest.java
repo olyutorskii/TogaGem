@@ -4,12 +4,14 @@
 package jp.sfjp.mikutoga.xml;
 
 import java.io.IOException;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledForJreRange;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.condition.JRE.JAVA_18;
+import static org.junit.jupiter.api.condition.JRE.JAVA_19;
+
 
 /**
  *
@@ -17,22 +19,6 @@ import static org.junit.Assert.*;
 public class BasicXmlExporterTest {
 
     public BasicXmlExporterTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
     }
 
     /**
@@ -117,7 +103,7 @@ public class BasicXmlExporterTest {
         BasicXmlExporter instance;
         Appendable app;
         StringBuffer buf;
-        
+
         instance = new BasicXmlExporter();
 
         try{
@@ -208,9 +194,8 @@ public class BasicXmlExporterTest {
         buf = new StringBuffer();
         instance.setAppendable(buf);
         instance.putXsdFloat(Float.MIN_VALUE).putCh(',')
-                .putXsdFloat(Float.MIN_NORMAL).putCh(',')
                 .putXsdFloat(Float.MAX_VALUE);
-        assertEquals("1.4E-45,1.17549435E-38,3.4028235E38", buf.toString());
+        assertEquals("1.4E-45,3.4028235E38", buf.toString());
 
         buf = new StringBuffer();
         instance.setAppendable(buf);
@@ -237,6 +222,41 @@ public class BasicXmlExporterTest {
         instance.putXsdFloat((float)StrictMath.E).putCh(',')
                 .putXsdFloat((float)StrictMath.PI);
         assertEquals("2.7182817,3.1415927", buf.toString());
+
+        return;
+    }
+
+    @Test
+    @EnabledForJreRange(max = JAVA_18)
+    public void testPutXsdFloatBefore18() throws IOException{
+        System.out.println("putXsdFloatBefore18");
+
+        BasicXmlExporter instance;
+        StringBuffer buf;
+
+        instance = new BasicXmlExporter();
+
+        buf = new StringBuffer();
+        instance.setAppendable(buf);
+        instance.putXsdFloat(Float.MIN_NORMAL);
+        assertEquals("1.17549435E-38", buf.toString());
+
+        return;
+    }
+
+    @Test
+    @EnabledForJreRange(min = JAVA_19)
+    public void testPutXsdFloatAfter19() throws IOException{
+        System.out.println("putXsdFloatAfter19");
+
+        BasicXmlExporter instance;
+        StringBuffer buf;
+
+        instance = new BasicXmlExporter();
+        buf = new StringBuffer();
+        instance.setAppendable(buf);
+        instance.putXsdFloat(Float.MIN_NORMAL);
+        assertEquals("1.1754944E-38", buf.toString());
 
         return;
     }
