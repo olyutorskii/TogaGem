@@ -23,7 +23,6 @@
 
     <rule ref="category/java/codestyle.xml" >
         <exclude name="CommentDefaultAccessModifier" />
-        <exclude name="DefaultPackage" />
         <exclude name="LocalVariableCouldBeFinal" />
         <exclude name="MethodArgumentCouldBeFinal" />
         <exclude name="OnlyOneReturn" />
@@ -78,7 +77,6 @@
     <rule ref="category/java/multithreading.xml" />
 
     <rule ref="category/java/performance.xml" >
-        <exclude name="AvoidUsingShortType" />
         <exclude name="ConsecutiveAppendsShouldReuse" />
         <exclude name="RedundantFieldInitializer" />
     </rule>
