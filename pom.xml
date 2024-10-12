@@ -96,8 +96,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <locale>en</locale>
-        <javadoc.locale>en</javadoc.locale>
         <spotbugs.jvmArgs>-Duser.language=en</spotbugs.jvmArgs>
+
         <show>protected</show>
 
         <checkstyle.config.location>config/checkstyle/checkstyle.xml</checkstyle.config.location>
@@ -396,8 +396,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <!-- for JDK11 javadoc -->
-                    <additionalJOption>-J-Duser.language=${javadoc.locale}</additionalJOption>
+                    <forceRootLocale>true</forceRootLocale>
                     <source>${maven.compiler.source}</source>
                     <notimestamp>true</notimestamp>
                     <header>${project.name} ${project.version} API</header>
@@ -519,8 +518,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <!-- for JDK11 javadoc -->
-                    <additionalJOption>-J-Duser.language=${javadoc.locale}</additionalJOption>
+                    <forceRootLocale>true</forceRootLocale>
                     <source>${maven.compiler.source}</source>
                     <notimestamp>true</notimestamp>
                     <header>${project.name} ${project.version} API</header>
