@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Update Jacoco & SoftBugs for JDK23
+- Update Maven plugins
+- Update PMD & Checkstyle
+- Update GitHub workflows
+
 
 ## [3.122.4] - 2023-10-18
 
