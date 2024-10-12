@@ -27,6 +27,7 @@ public interface PmdEngHandler extends LoopHandler {
 
     /**
      * PMD英語情報の有無の通知を受け取る。
+     *
      * @param hasEnglishInfo 英語情報が含まれればtrue
      * @throws MmdFormatException
      *     不正フォーマットによるパース処理の中断をパーサに指示
@@ -36,6 +37,7 @@ public interface PmdEngHandler extends LoopHandler {
 
     /**
      * PMD英語基本情報の通知を受け取る。
+     *
      * @param modelName モデル名
      * @param description モデルの説明文。改行CRLFは"\n"に変換される。
      * @throws MmdFormatException

@@ -20,6 +20,7 @@ public class PmdParser extends PmdParserExt3{
 
     /**
      * コンストラクタ。
+     *
      * @param source 入力ソース
      */
     public PmdParser(InputStream source){

@@ -39,18 +39,18 @@ public interface PmdBoneHandler extends LoopHandler {
      *
      * @param boneName ボーン名
      * @param boneKind ボーン種別。
-     * <ul>
-     * <li>0:回転
-     * <li>1:回転/移動
-     * <li>2:IK
-     * <li>3:不明
-     * <li>4:IK影響下(回転)
-     * <li>5:回転影響下
-     * <li>6:IK接続先
-     * <li>7:非表示
-     * <li>8:捩り
-     * <li>9:回転連動
-     * </ul>
+     *     <ul>
+     *     <li>0:回転
+     *     <li>1:回転/移動
+     *     <li>2:IK
+     *     <li>3:不明
+     *     <li>4:IK影響下(回転)
+     *     <li>5:回転影響下
+     *     <li>6:IK接続先
+     *     <li>7:非表示
+     *     <li>8:捩り
+     *     <li>9:回転連動
+     *     </ul>
      *     ※8,9はMMD4.0から？
      * @throws MmdFormatException
      *     不正フォーマットによるパース処理の中断をパーサに指示

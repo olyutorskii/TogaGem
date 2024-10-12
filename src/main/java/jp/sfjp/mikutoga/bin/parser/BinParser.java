@@ -157,6 +157,7 @@ public interface BinParser {
 
     /**
      * 固定バイト長の文字列を読み込む。
+     *
      * @param decoder 文字デコーダ
      * @param byteLen 読み込む固定バイト長
      * @return 文字列

@@ -61,6 +61,7 @@ public class I18nText implements CharSequence {
 
     /**
      * プライマリ文字列の登録。
+     *
      * @param seq プライマリ文字列。nullの場合は削除動作
      */
     public void setPrimaryText(CharSequence seq){
@@ -70,6 +71,7 @@ public class I18nText implements CharSequence {
 
     /**
      * グローバル文字列の登録。
+     *
      * @param seq グローバル文字列。nullの場合は削除動作
      */
     public void setGlobalText(CharSequence seq){
@@ -79,6 +81,7 @@ public class I18nText implements CharSequence {
 
     /**
      * 任意のロケールに関連付けられた文字列の登録。
+     *
      * @param locale ロケール
      * @param seq 文字列。nullの場合は削除動作
      * @throws NullPointerException ロケール引数がnull
@@ -92,6 +95,7 @@ public class I18nText implements CharSequence {
 
     /**
      * 任意の言語コードに関連付けられた文字列の登録。
+     *
      * @param code639 ISO639言語コード
      * @param seq 文字列。nullの場合は削除動作
      * @throws NullPointerException 言語コードがnull
@@ -112,6 +116,7 @@ public class I18nText implements CharSequence {
 
     /**
      * プライマリ文字列を返す。
+     *
      * @return 文字列。見つからなければnullを返す。
      */
     public String getPrimaryText(){
@@ -121,6 +126,7 @@ public class I18nText implements CharSequence {
 
     /**
      * グローバル文字列を返す。
+     *
      * @return 文字列。見つからなければnullを返す。
      */
     public String getGlobalText(){
@@ -130,6 +136,7 @@ public class I18nText implements CharSequence {
 
     /**
      * ロケールに応じた文字列を返す。
+     *
      * @param locale ロケール
      * @return 文字列。見つからなければnullを返す。
      * @throws NullPointerException 引数がnull
@@ -142,6 +149,7 @@ public class I18nText implements CharSequence {
 
     /**
      * 言語コードに応じた文字列を返す。
+     *
      * @param code639 ISO639言語コード
      * @return 文字列。見つからなければnullを返す。
      * @throws NullPointerException 引数がnull
@@ -233,6 +241,7 @@ public class I18nText implements CharSequence {
     /**
      * 登録済みの全ISO639言語コードリストを返す。
      * 優先度はプライマリ、グローバル、その他の順。
+     *
      * @return 全ISO639言語コード
      */
     public List<String> lang639CodeList(){
@@ -258,6 +267,7 @@ public class I18nText implements CharSequence {
 
     /**
      * プライマリ文字列が登録されているか判定する。
+     *
      * @return 登録されていればtrue
      */
     public boolean hasPrimaryText(){
@@ -267,6 +277,7 @@ public class I18nText implements CharSequence {
 
     /**
      * グローバル文字列が登録されているか判定する。
+     *
      * @return 登録されていればtrue
      */
     public boolean hasGlobalText(){
@@ -277,6 +288,7 @@ public class I18nText implements CharSequence {
     /**
      * {@inheritDoc}
      * {@link #getText()}仕様に準ずる。
+     *
      * @param index {@inheritDoc}
      * @return {@inheritDoc}
      */
@@ -290,6 +302,7 @@ public class I18nText implements CharSequence {
     /**
      * {@inheritDoc}
      * {@link #getText()}仕様に準ずる。
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -302,6 +315,7 @@ public class I18nText implements CharSequence {
     /**
      * {@inheritDoc}
      * {@link #getText()}仕様に準ずる。
+     *
      * @param start {@inheritDoc}
      * @param end {@inheritDoc}
      * @return {@inheritDoc}
@@ -316,6 +330,7 @@ public class I18nText implements CharSequence {
     /**
      * {@inheritDoc}
      * {@link #getText()}仕様に準ずる。
+     *
      * @return {@inheritDoc}
      */
     @Override

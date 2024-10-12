@@ -32,6 +32,7 @@ public final class BotherHandler implements ErrorHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @param exception {@inheritDoc}
      * @throws SAXException {@inheritDoc}
      */
@@ -42,6 +43,7 @@ public final class BotherHandler implements ErrorHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @param exception {@inheritDoc}
      * @throws SAXException {@inheritDoc}
      */
@@ -52,6 +54,7 @@ public final class BotherHandler implements ErrorHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @param exception {@inheritDoc}
      * @throws SAXException {@inheritDoc}
      */

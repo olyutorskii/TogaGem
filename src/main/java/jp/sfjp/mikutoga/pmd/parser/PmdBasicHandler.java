@@ -16,6 +16,7 @@ public interface PmdBasicHandler {
 
     /**
      * PMDファイルのパース処理開始の通知を受け取る。
+     *
      * @throws MmdFormatException
      *     不正フォーマットによるパース処理の中断をパーサに指示
      */
@@ -24,6 +25,7 @@ public interface PmdBasicHandler {
 
     /**
      * PMDファイルのパース処理終了の通知を受け取る。
+     *
      * @param hasMoreData
      *     入力ソースにまだ読み込まれていないデータがあればtrue
      * @throws MmdFormatException
@@ -34,6 +36,7 @@ public interface PmdBasicHandler {
 
     /**
      * PMDファイルのヘッダ情報の通知を受け取る。
+     *
      * @param header ヘッダ情報バイト列。
      * @throws MmdFormatException
      *     不正フォーマットによるパース処理の中断をパーサに指示
@@ -43,6 +46,7 @@ public interface PmdBasicHandler {
 
     /**
      * PMDファイルのモデル基本情報の通知を受け取る。
+     *
      * @param modelName モデル名
      * @param description モデルの説明文。改行CRLFは"\n"に変換される。
      * @throws MmdFormatException

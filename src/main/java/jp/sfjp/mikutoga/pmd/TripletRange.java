@@ -38,6 +38,7 @@ public class TripletRange {
     /**
      * X値有効範囲を設定する。
      * 下限値が上限値より大きければ入れ替える。
+     *
      * @param xFromArg X値下限
      * @param xToArg X値上限
      */
@@ -55,6 +56,7 @@ public class TripletRange {
     /**
      * Y値有効範囲を設定する。
      * 下限値が上限値より大きければ入れ替える。
+     *
      * @param yFromArg Y値下限
      * @param yToArg Y値上限
      */
@@ -72,6 +74,7 @@ public class TripletRange {
     /**
      * Z値有効範囲を設定する。
      * 下限値が上限値より大きければ入れ替える。
+     *
      * @param zFromArg Z値下限
      * @param zToArg Z値上限
      */
@@ -88,6 +91,7 @@ public class TripletRange {
 
     /**
      * X値下限を返す。
+     *
      * @return X値下限
      */
     public float getXFrom(){
@@ -96,6 +100,7 @@ public class TripletRange {
 
     /**
      * X値上限を返す。
+     *
      * @return X値上限
      */
     public float getXTo(){
@@ -104,6 +109,7 @@ public class TripletRange {
 
     /**
      * Y値下限を返す。
+     *
      * @return Y値下限
      */
     public float getYFrom(){
@@ -112,6 +118,7 @@ public class TripletRange {
 
     /**
      * Y値上限を返す。
+     *
      * @return Y値上限
      */
     public float getYTo(){
@@ -120,6 +127,7 @@ public class TripletRange {
 
     /**
      * Z値下限を返す。
+     *
      * @return Z値下限
      */
     public float getZFrom(){
@@ -128,6 +136,7 @@ public class TripletRange {
 
     /**
      * Z値上限を返す。
+     *
      * @return Z値上限
      */
     public float getZTo(){
@@ -136,6 +145,7 @@ public class TripletRange {
 
     /**
      * X値が範囲制約を満たすか判定する。
+     *
      * @param xVal X値
      * @return 制約を満たすならtrue
      */
@@ -146,6 +156,7 @@ public class TripletRange {
 
     /**
      * Y値が範囲制約を満たすか判定する。
+     *
      * @param yVal Y値
      * @return 制約を満たすならtrue
      */
@@ -156,6 +167,7 @@ public class TripletRange {
 
     /**
      * Z値が範囲制約を満たすか判定する。
+     *
      * @param zVal Z値
      * @return 制約を満たすならtrue
      */
@@ -166,6 +178,7 @@ public class TripletRange {
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override

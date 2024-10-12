@@ -67,6 +67,7 @@ public enum BoneType {
 
     /**
      * コンストラクタ。
+     *
      * @param code 符号化int値
      */
     BoneType(int code){
@@ -76,6 +77,7 @@ public enum BoneType {
 
     /**
      * コンストラクタ。
+     *
      * @param code 符号化byte値
      */
     BoneType(byte code){
@@ -85,6 +87,7 @@ public enum BoneType {
 
     /**
      * byte値からデコードする。
+     *
      * @param code byte値
      * @return デコードされた列挙子。該当するものがなければnull
      */
@@ -103,6 +106,7 @@ public enum BoneType {
 
     /**
      * byte値にエンコードする。
+     *
      * @return byte値
      */
     public byte encode(){
@@ -111,6 +115,7 @@ public enum BoneType {
 
     /**
      * デフォルトロケールでの表示名を返す。
+     *
      * @return 表示名
      */
     public String getGuiName(){
@@ -121,6 +126,7 @@ public enum BoneType {
 
     /**
      * ロケールに準じた表示名を返す。
+     *
      * @param locale ロケール。nullならデフォルトロケールと解釈される。
      * @return 表示名
      */

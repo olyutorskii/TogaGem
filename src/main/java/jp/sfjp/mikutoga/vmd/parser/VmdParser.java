@@ -32,6 +32,7 @@ public class VmdParser {
 
     /**
      * コンストラクタ。
+     *
      * @param source 入力ソース
      * @throws NullPointerException 引数がnull
      */
@@ -54,6 +55,7 @@ public class VmdParser {
 
     /**
      * 入力ソースを返す。
+     *
      * @return 入力ソース
      */
     public InputStream getSource(){
@@ -62,6 +64,7 @@ public class VmdParser {
 
     /**
      * 基本情報通知用ハンドラを登録する。
+     *
      * @param handler ハンドラ
      */
     public void setBasicHandler(VmdBasicHandler handler){
@@ -78,6 +81,7 @@ public class VmdParser {
 
     /**
      * カメラワーク情報通知用ハンドラを登録する。
+     *
      * @param cameraHandler ハンドラ
      */
     public void setCameraHandler(VmdCameraHandler cameraHandler){
@@ -87,6 +91,7 @@ public class VmdParser {
 
     /**
      * ライティング情報通知用ハンドラを登録する。
+     *
      * @param lightingHandler ハンドラ
      */
     public void setLightingHandler(VmdLightingHandler lightingHandler){
@@ -96,6 +101,7 @@ public class VmdParser {
 
     /**
      * ON/OFF情報通知用ハンドラを登録する。
+     *
      * @param boolHandler ハンドラ
      */
     public void setBoolHandler(VmdBoolHandler boolHandler){
@@ -122,6 +128,7 @@ public class VmdParser {
 
     /**
      * VMDファイルのパースを開始する。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -140,6 +147,7 @@ public class VmdParser {
 
     /**
      * VMDファイル本体のパースを開始する。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */

@@ -14,6 +14,7 @@ import java.util.Map;
 /**
  * プライマリ名 - グローバル名間の対応、
  * およびUnicode正規化によるゆらぎ表記吸収処理を行う。
+ *
  * @param <T> 別名管理クラス
  * @see <a href="https://ja.wikipedia.org/wiki/Unicode%E6%AD%A3%E8%A6%8F%E5%8C%96">
  * Unicode正規化 </a>

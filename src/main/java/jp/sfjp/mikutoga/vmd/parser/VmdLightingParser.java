@@ -25,6 +25,7 @@ class VmdLightingParser extends ProxyParser {
 
     /**
      * コンストラクタ。
+     *
      * @param parser 委譲先パーサ
      */
     VmdLightingParser(BinParser parser){
@@ -35,6 +36,7 @@ class VmdLightingParser extends ProxyParser {
 
     /**
      * ライティング情報通知用ハンドラを登録する。
+     *
      * @param lightingHandler ハンドラ
      */
     void setLightingHandler(VmdLightingHandler lightingHandler){
@@ -65,6 +67,7 @@ class VmdLightingParser extends ProxyParser {
 
     /**
      * 光源モーションデータのパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -98,6 +101,7 @@ class VmdLightingParser extends ProxyParser {
 
     /**
      * 影演出データのパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */

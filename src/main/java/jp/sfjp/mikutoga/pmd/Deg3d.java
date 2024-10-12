@@ -30,6 +30,7 @@ public class Deg3d {
 
     /**
      * X軸回転量を設定する。
+     *
      * @param xDegArg X軸回転量(degree)
      */
     public void setXDeg(float xDegArg){
@@ -39,6 +40,7 @@ public class Deg3d {
 
     /**
      * X軸回転量を返す。
+     *
      * @return X軸回転量(degree)
      */
     public float getXDeg(){
@@ -47,6 +49,7 @@ public class Deg3d {
 
     /**
      * Y軸回転量を設定する。
+     *
      * @param yDegArg Y軸回転量(degree)
      */
     public void setYDeg(float yDegArg){
@@ -56,6 +59,7 @@ public class Deg3d {
 
     /**
      * Y軸回転量を返す。
+     *
      * @return Y軸回転量(degree)
      */
     public float getYDeg(){
@@ -64,6 +68,7 @@ public class Deg3d {
 
     /**
      * Z軸回転量を設定する。
+     *
      * @param zDegArg Z軸回転量(degree)
      */
     public void setZDeg(float zDegArg){
@@ -73,6 +78,7 @@ public class Deg3d {
 
     /**
      * Z軸回転量を返す。
+     *
      * @return Z軸回転量(degree)
      */
     public float getZDeg(){
@@ -81,6 +87,7 @@ public class Deg3d {
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override

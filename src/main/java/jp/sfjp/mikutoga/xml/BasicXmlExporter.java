@@ -30,6 +30,7 @@ public class BasicXmlExporter extends AbstractXmlExporter{
 
     /**
      * 出力先アペンダを指定する。
+     *
      * @param app 出力先
      * @throws NullPointerException 引数がnull
      */
@@ -43,6 +44,7 @@ public class BasicXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param ch {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -54,6 +56,7 @@ public class BasicXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param seq {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -65,6 +68,7 @@ public class BasicXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param seq {@inheritDoc}
      * @param start {@inheritDoc}
      * @param end {@inheritDoc}
@@ -80,6 +84,7 @@ public class BasicXmlExporter extends AbstractXmlExporter{
     /**
      * {@inheritDoc}
      * 可能であれば出力をフラッシュする。
+     *
      * @throws IOException {@inheritDoc}
      */
     @Override
@@ -93,6 +98,7 @@ public class BasicXmlExporter extends AbstractXmlExporter{
     /**
      * {@inheritDoc}
      * 可能であれば出力をクローズする。
+     *
      * @throws IOException {@inheritDoc}
      */
     @Override

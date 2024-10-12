@@ -109,12 +109,11 @@ public interface VmdLightingHandler extends LoopHandler {
      * <p>{@link #SHADOW_LIST}ループの構成要素。
      *
      * @param shadowMode シャドウモード指定。
-     * <ul>
-     * <li>0 : シャドウOFF
-     * <li>1 : mode1 影描画の質がカメラからの距離の影響をあまり受けない。
-     * <li>2 : mode2 影描画の質をカメラからの距離に応じて劣化させる
-     * ことにより、カメラに近いオブジェクトの影描画の質を向上させる。
-     * </ul>
+     *     <ul>
+     *     <li>0 : シャドウOFF
+     *     <li>1 : mode1 影描画の質がカメラからの距離の影響をあまり受けない。
+     *     <li>2 : mode2 影描画の質をカメラからの距離に応じて劣化させることにより、カメラに近いオブジェクトの影描画の質を向上させる。
+     *     </ul>
      * @throws MmdFormatException
      *     不正フォーマットによるパース処理の中断をパーサに指示
      */

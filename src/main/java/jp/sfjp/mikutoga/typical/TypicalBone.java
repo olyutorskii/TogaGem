@@ -83,6 +83,7 @@ public final class TypicalBone extends I18nAlias {
 
     /**
      * XML文書の最上位構造を解読する。
+     *
      * @param top 最上位要素
      */
     private static void parse(Element top) {
@@ -100,6 +101,7 @@ public final class TypicalBone extends I18nAlias {
 
     /**
      * bone要素を解読する。
+     *
      * @param boneElem bone要素
      * @return ボーン情報
      */
@@ -151,6 +153,7 @@ public final class TypicalBone extends I18nAlias {
 
     /**
      * 全ボーンの不変リストを返す。
+     *
      * @return 全ボーンのリスト
      */
     public static List<TypicalBone> getTypicalBoneList(){
@@ -160,6 +163,7 @@ public final class TypicalBone extends I18nAlias {
     /**
      * プライマリ名の合致するボーン情報を返す。
      * NFKCで正規化されたプライマリ名で検索される。
+     *
      * @param primaryName プライマリ名
      * @return モーフ情報。見つからなければnull
      */
@@ -171,6 +175,7 @@ public final class TypicalBone extends I18nAlias {
     /**
      * グローバル名の合致するボーン情報を返す。
      * NFKCで正規化されたグローバル名で検索される。
+     *
      * @param globalName グローバル名
      * @return モーフ情報。見つからなければnull
      */
@@ -181,6 +186,7 @@ public final class TypicalBone extends I18nAlias {
 
     /**
      * プライマリ名をグローバル名に変換する。
+     *
      * @param primaryName プライマリ名
      * @return グローバル名。見つからなければnull
      */
@@ -191,6 +197,7 @@ public final class TypicalBone extends I18nAlias {
 
     /**
      * グローバル名をプライマリ名へ変換する。
+     *
      * @param globalName グローバル名
      * @return プライマリ名。見つからなければnull
      */

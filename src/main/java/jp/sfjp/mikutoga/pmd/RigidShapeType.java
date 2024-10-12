@@ -46,6 +46,7 @@ public enum RigidShapeType {
 
     /**
      * コンストラクタ。
+     *
      * @param code 符号化int値
      */
     RigidShapeType(int code){
@@ -55,6 +56,7 @@ public enum RigidShapeType {
 
     /**
      * コンストラクタ。
+     *
      * @param code 符号化byte値
      */
     RigidShapeType(byte code){
@@ -64,6 +66,7 @@ public enum RigidShapeType {
 
     /**
      * byte値からデコードする。
+     *
      * @param code byte値
      * @return デコードされた列挙子。該当するものがなければnull
      */
@@ -82,6 +85,7 @@ public enum RigidShapeType {
 
     /**
      * byte値にエンコードする。
+     *
      * @return byte値
      */
     public byte encode(){
@@ -90,6 +94,7 @@ public enum RigidShapeType {
 
     /**
      * デフォルトロケールでの表示名を返す。
+     *
      * @return 表示名
      */
     public String getGuiName(){
@@ -100,6 +105,7 @@ public enum RigidShapeType {
 
     /**
      * ロケールに準じた表示名を返す。
+     *
      * @param locale ロケール。nullならデフォルトロケールと解釈される。
      * @return 表示名
      */

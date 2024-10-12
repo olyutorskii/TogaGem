@@ -23,6 +23,7 @@ public class TogaXmlException extends Exception{
 
     /**
      * コンストラクタ。
+     *
      * @param message メッセージ
      */
     public TogaXmlException(String message){
@@ -32,6 +33,7 @@ public class TogaXmlException extends Exception{
 
     /**
      * コンストラクタ。
+     *
      * @param message メッセージ
      * @param cause 原因の例外
      */
@@ -42,6 +44,7 @@ public class TogaXmlException extends Exception{
 
     /**
      * コンストラクタ。
+     *
      * @param cause 原因の例外
      */
     public TogaXmlException(Throwable cause){

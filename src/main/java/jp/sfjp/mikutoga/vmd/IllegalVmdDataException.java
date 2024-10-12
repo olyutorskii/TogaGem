@@ -23,6 +23,7 @@ public class IllegalVmdDataException extends Exception{
 
     /**
      * コンストラクタ。
+     *
      * @param message 詳細メッセージ
      */
     public IllegalVmdDataException(String message){
@@ -32,6 +33,7 @@ public class IllegalVmdDataException extends Exception{
 
     /**
      * コンストラクタ。
+     *
      * @param cause 原因
      */
     public IllegalVmdDataException(Throwable cause){
@@ -41,6 +43,7 @@ public class IllegalVmdDataException extends Exception{
 
     /**
      * コンストラクタ。
+     *
      * @param message 詳細メッセージ
      * @param cause 原因
      */

@@ -69,9 +69,9 @@ abstract class AbstractXmlExporter implements XmlExporter{
      *
      * @param ch 判定対象文字
      * @return Basic-Latin文字ならtrue
-     * <a href="http://www.unicode.org/charts/PDF/U0000.pdf">
-     * Unicode 6.2 Controls and Basic Latin
-     * </a>
+     *     <a href="http://www.unicode.org/charts/PDF/U0000.pdf">
+     *         Unicode 6.2 Controls and Basic Latin
+     *     </a>
      */
     protected static boolean isBasicLatin(char ch){
         if('\u0000' <= ch && ch <= '\u007f'){
@@ -83,6 +83,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param ch {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -92,6 +93,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param seq {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -101,6 +103,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param seq {@inheritDoc}
      * @param start {@inheritDoc}
      * @param end {@inheritDoc}
@@ -113,6 +116,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @throws IOException {@inheritDoc}
      */
     @Override
@@ -120,6 +124,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @throws IOException {@inheritDoc}
      */
     @Override
@@ -128,6 +133,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param ch {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -140,6 +146,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param seq {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -153,6 +160,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
      */
@@ -164,6 +172,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param count {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -178,6 +187,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -187,6 +197,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param newLine {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
@@ -199,6 +210,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
      */
@@ -210,6 +222,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param count {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -224,6 +237,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -233,6 +247,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param indUnit {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
@@ -264,6 +279,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -273,6 +289,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
      */
@@ -287,6 +304,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -296,6 +314,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param bool {@inheritDoc}
      */
     @Override
@@ -306,6 +325,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param ch {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -331,6 +351,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param ch {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -361,6 +382,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param ch {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -389,6 +411,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param content {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -424,6 +447,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param comment {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -457,6 +481,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param comment {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -472,6 +497,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param comment {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -498,6 +524,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param tagName {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -512,6 +539,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
      */
@@ -524,6 +552,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param tagName {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -539,6 +568,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param tagName {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -554,6 +584,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param tagName {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -569,6 +600,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
      */
@@ -581,6 +613,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param iVal {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -594,6 +627,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param fVal {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -607,6 +641,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param attrName {@inheritDoc}
      * @param iVal {@inheritDoc}
      * @return {@inheritDoc}
@@ -627,6 +662,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param attrName {@inheritDoc}
      * @param fVal {@inheritDoc}
      * @return {@inheritDoc}
@@ -647,6 +683,7 @@ abstract class AbstractXmlExporter implements XmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param attrName {@inheritDoc}
      * @param content {@inheritDoc}
      * @return {@inheritDoc}

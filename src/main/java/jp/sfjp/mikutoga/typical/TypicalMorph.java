@@ -94,6 +94,7 @@ public final class TypicalMorph extends I18nAlias {
 
     /**
      * XML文書の最上位構造を解読する。
+     *
      * @param top 最上位要素
      */
     private static void parse(Element top) {
@@ -116,6 +117,7 @@ public final class TypicalMorph extends I18nAlias {
 
     /**
      * モーフグループ構造を解読する。
+     *
      * @param groupElem morphGroup要素
      */
     private static void parseGroup(Element groupElem){
@@ -142,6 +144,7 @@ public final class TypicalMorph extends I18nAlias {
 
     /**
      * morph要素を解読する。
+     *
      * @param morphElem morph要素
      * @param mtype モーフ種別
      * @return モーフ情報
@@ -190,6 +193,7 @@ public final class TypicalMorph extends I18nAlias {
 
     /**
      * 種別ごとのモーフ情報不変リストを取得する。
+     *
      * @param morphType モーフ種別
      * @return モーフ情報不変リスト
      */
@@ -202,6 +206,7 @@ public final class TypicalMorph extends I18nAlias {
     /**
      * プライマリ名の合致するモーフ情報を返す。
      * NFKCで正規化されたプライマリ名で検索される。
+     *
      * @param primaryName プライマリ名
      * @return モーフ情報。見つからなければnull
      */
@@ -213,6 +218,7 @@ public final class TypicalMorph extends I18nAlias {
     /**
      * グローバル名の合致するモーフ情報を返す。
      * NFKCで正規化されたグローバル名で検索される。
+     *
      * @param globalName グローバル名
      * @return モーフ情報。見つからなければnull
      */
@@ -223,6 +229,7 @@ public final class TypicalMorph extends I18nAlias {
 
     /**
      * プライマリ名をグローバル名に変換する。
+     *
      * @param primaryName プライマリ名
      * @return グローバル名。見つからなければnull
      */
@@ -233,6 +240,7 @@ public final class TypicalMorph extends I18nAlias {
 
     /**
      * グローバル名をプライマリ名へ変換する。
+     *
      * @param globalName グローバル名
      * @return プライマリ名。見つからなければnull
      */
@@ -244,6 +252,7 @@ public final class TypicalMorph extends I18nAlias {
 
     /**
      * モーフ種別を返す。
+     *
      * @return モーフ種別
      */
     public MorphType getMorphType(){

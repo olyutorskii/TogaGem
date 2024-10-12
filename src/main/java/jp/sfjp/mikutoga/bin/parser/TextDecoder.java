@@ -40,6 +40,7 @@ public class TextDecoder {
 
     /**
      * コンストラクタ。
+     *
      * @param cs キャラクタセット
      */
     public TextDecoder(Charset cs){
@@ -49,6 +50,7 @@ public class TextDecoder {
 
     /**
      * コンストラクタ。
+     *
      * @param decoder デコーダ
      */
     public TextDecoder(CharsetDecoder decoder){
@@ -90,6 +92,7 @@ public class TextDecoder {
      * ゼロチョップモードを設定する。
      * ゼロチョップモードをオンにすると、
      * 入力バイト値0x00以降はデコード対象外となる。
+     *
      * @param chop trueならゼロチョップモードオン
      */
     public void setZeroChopMode(boolean chop){
@@ -99,6 +102,7 @@ public class TextDecoder {
 
     /**
      * ゼロチョップモードか否か判定する。
+     *
      * @return ゼロチョップモードならtrue
      */
     public boolean isZeroChopMode(){
@@ -108,6 +112,7 @@ public class TextDecoder {
     /**
      * 入力バイトバッファのバイト値'0'出現以降をチョップする。
      * ゼロチョップモードでなければ何もしない。
+     *
      * @param bBuf 入力バイトバッファ
      */
     protected void chopZeroTermed(ByteBuffer bBuf){
@@ -128,6 +133,7 @@ public class TextDecoder {
 
     /**
      * バイトバッファの文字列デコードを行う。
+     *
      * @param bBuf バイトバッファ
      * @return デコードされた文字列
      * @throws CharacterCodingException デコード異常

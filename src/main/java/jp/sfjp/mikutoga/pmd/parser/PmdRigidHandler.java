@@ -56,11 +56,11 @@ public interface PmdRigidHandler extends LoopHandler {
      * <p>{@link #RIGID_LIST}ループの構成要素。
      *
      * @param shapeType 形状種別。
-     * <ul>
-     * <li>0x00:球
-     * <li>0x01:箱
-     * <li>0x02:カプセル
-     * </ul>
+     *     <ul>
+     *     <li>0x00:球
+     *     <li>0x01:箱
+     *     <li>0x02:カプセル
+     *     </ul>
      * @param width 球orカプセル半径。箱の幅。
      * @param height 箱orカプセルの高さ
      * @param depth 箱の奥行き
@@ -123,11 +123,11 @@ public interface PmdRigidHandler extends LoopHandler {
      * <p>{@link #RIGID_LIST}ループの構成要素。
      *
      * @param behaveType 剛体タイプ。
-     * <ul>
-     * <li>0:ボーン追従
-     * <li>1:物理演算
-     * <li>2:物理演算+ボーン位置合わせ
-     * </ul>
+     *     <ul>
+     *     <li>0:ボーン追従
+     *     <li>1:物理演算
+     *     <li>2:物理演算+ボーン位置合わせ
+     *     </ul>
      * @param collisionMap 非衝突剛体グループビットマップ。
      *     <p>(衝突グループ番号-1)位置のビット位置は1に、
      *     (非衝突グループ番号-1)位置のビット位置は0になる。

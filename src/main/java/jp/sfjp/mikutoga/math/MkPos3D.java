@@ -127,6 +127,7 @@ public strictfp class MkPos3D {
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override

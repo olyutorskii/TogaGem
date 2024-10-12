@@ -23,6 +23,7 @@ public class IllegalPmdDataException extends Exception{
 
     /**
      * コンストラクタ。
+     *
      * @param message メッセージ
      */
     public IllegalPmdDataException(String message){
@@ -32,6 +33,7 @@ public class IllegalPmdDataException extends Exception{
 
     /**
      * コンストラクタ。
+     *
      * @param cause 原因
      */
     public IllegalPmdDataException(Throwable cause){

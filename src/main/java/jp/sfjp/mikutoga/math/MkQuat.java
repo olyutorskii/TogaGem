@@ -190,6 +190,7 @@ public strictfp class MkQuat {
 
     /**
      * 虚部1を返す。
+     *
      * @return 虚部1
      */
     public double getQ1() {
@@ -198,6 +199,7 @@ public strictfp class MkQuat {
 
     /**
      * 虚部2を返す。
+     *
      * @return 虚部2
      */
     public double getQ2() {
@@ -206,6 +208,7 @@ public strictfp class MkQuat {
 
     /**
      * 虚部3を返す。
+     *
      * @return 虚部3
      */
     public double getQ3() {
@@ -214,6 +217,7 @@ public strictfp class MkQuat {
 
     /**
      * 実部を返す。
+     *
      * @return 実部
      */
     public double getQW() {
@@ -222,6 +226,7 @@ public strictfp class MkQuat {
 
     /**
      * 虚部1を設定する。
+     *
      * @param q1Arg 虚部1
      */
     public void setQ1(double q1Arg) {
@@ -231,6 +236,7 @@ public strictfp class MkQuat {
 
     /**
      * 虚部2を設定する。
+     *
      * @param q2Arg 虚部2
      */
     public void setQ2(double q2Arg) {
@@ -240,6 +246,7 @@ public strictfp class MkQuat {
 
     /**
      * 虚部3を設定する。
+     *
      * @param q3Arg 虚部3
      */
     public void setQ3(double q3Arg) {
@@ -249,6 +256,7 @@ public strictfp class MkQuat {
 
     /**
      * 実部を設定する。
+     *
      * @param wArg 実部
      */
     public void setQW(double wArg) {
@@ -258,6 +266,7 @@ public strictfp class MkQuat {
 
     /**
      * 虚部実部を設定する。
+     *
      * @param q1Arg 虚部1
      * @param q2Arg 虚部2
      * @param q3Arg 虚部3
@@ -274,6 +283,7 @@ public strictfp class MkQuat {
 
     /**
      * クォータニオンの絶対値を返す。
+     *
      * @return クォータニオンの絶対値
      */
     public double abs(){
@@ -440,6 +450,7 @@ public strictfp class MkQuat {
 
     /**
      * クォータニオンをYXZオイラー角へと変換する。
+     *
      * @param result YXZオイラー角
      */
     public void toEulerYXZ(EulerYXZ result){
@@ -450,6 +461,7 @@ public strictfp class MkQuat {
     /**
      * 回転クォータニオンを用いて点座標を回転させる。
      * 座標インスタンスは同一でもよい。
+     *
      * @param pos 点座標
      * @param result 格納先
      */
@@ -505,6 +517,7 @@ public strictfp class MkQuat {
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override

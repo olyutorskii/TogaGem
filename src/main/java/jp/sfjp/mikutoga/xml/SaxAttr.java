@@ -25,6 +25,7 @@ public final class SaxAttr {
 
     /**
      * 属性名に対応する属性値があるか否か判定する。
+     *
      * @param attr 属性群
      * @param name 属性名
      * @return 属性名に対応する属性値がある場合はtrue
@@ -36,6 +37,7 @@ public final class SaxAttr {
 
     /**
      * xsd:string型属性値の読み込み。
+     *
      * @param attr 属性群
      * @param name 属性名
      * @return 属性値。該当する属性が無ければnull。
@@ -47,6 +49,7 @@ public final class SaxAttr {
 
     /**
      * xsd:boolean型属性値の読み込み。
+     *
      * @param attr 属性群
      * @param name 属性名
      * @return 属性値。
@@ -62,6 +65,7 @@ public final class SaxAttr {
 
     /**
      * xsd:boolean型属性値の読み込み。
+     *
      * @param attr 属性群
      * @param name 属性名
      * @param def 属性が無い場合のデフォルト値
@@ -83,6 +87,7 @@ public final class SaxAttr {
 
     /**
      * xsd:byte型属性の読み込み。
+     *
      * @param attr 属性群
      * @param name 属性名
      * @return 属性値。
@@ -98,6 +103,7 @@ public final class SaxAttr {
 
     /**
      * xsd:float型属性値の読み込み。
+     *
      * @param attr 属性群
      * @param name 属性名
      * @return 属性値。
@@ -113,6 +119,7 @@ public final class SaxAttr {
 
     /**
      * xsd:int型属性値の読み込み。
+     *
      * @param attr 属性群
      * @param name 属性名
      * @return 属性値。

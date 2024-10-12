@@ -55,6 +55,7 @@ public class CommonParser implements BinParser{
 
     /**
      * コンストラクタ。
+     *
      * @param source 入力ソース
      */
     public CommonParser(InputStream source){
@@ -76,6 +77,7 @@ public class CommonParser implements BinParser{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -86,6 +88,7 @@ public class CommonParser implements BinParser{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
      */
@@ -110,6 +113,7 @@ public class CommonParser implements BinParser{
 
     /**
      * {@inheritDoc}
+     *
      * @param skipLength {@inheritDoc}
      * @throws IOException {@inheritDoc}
      * @throws MmdEofException {@inheritDoc}
@@ -133,6 +137,7 @@ public class CommonParser implements BinParser{
 
     /**
      * {@inheritDoc}
+     *
      * @param dst {@inheritDoc}
      * @param off {@inheritDoc}
      * @param length {@inheritDoc}
@@ -165,6 +170,7 @@ public class CommonParser implements BinParser{
 
     /**
      * {@inheritDoc}
+     *
      * @param dst {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -179,6 +185,7 @@ public class CommonParser implements BinParser{
 
     /**
      * 内部バッファへ指定バイト数だけ読み込む。
+     *
      * @param fillSize バイト長
      * @throws IOException IOエラー
      * @throws MmdEofException 読み込む途中でストリーム終端に達した。
@@ -191,6 +198,7 @@ public class CommonParser implements BinParser{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
      * @throws MmdEofException {@inheritDoc}
@@ -211,6 +219,7 @@ public class CommonParser implements BinParser{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
      * @throws MmdEofException {@inheritDoc}
@@ -223,6 +232,7 @@ public class CommonParser implements BinParser{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
      * @throws MmdEofException {@inheritDoc}
@@ -237,6 +247,7 @@ public class CommonParser implements BinParser{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
      * @throws MmdEofException {@inheritDoc}
@@ -251,6 +262,7 @@ public class CommonParser implements BinParser{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
      * @throws MmdEofException {@inheritDoc}
@@ -263,6 +275,7 @@ public class CommonParser implements BinParser{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
      * @throws MmdEofException {@inheritDoc}
@@ -277,6 +290,7 @@ public class CommonParser implements BinParser{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
      * @throws MmdEofException {@inheritDoc}
@@ -291,6 +305,7 @@ public class CommonParser implements BinParser{
 
     /**
      * {@inheritDoc}
+     *
      * @param decoder {@inheritDoc}
      * @param byteLen {@inheritDoc}
      * @return {@inheritDoc}
