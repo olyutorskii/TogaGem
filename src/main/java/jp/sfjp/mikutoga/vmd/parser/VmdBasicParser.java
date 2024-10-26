@@ -56,6 +56,7 @@ class VmdBasicParser extends ProxyParser{
 
     /**
      * コンストラクタ。
+     *
      * @param parser 委譲先パーサ
      */
     VmdBasicParser(BinParser parser){
@@ -67,6 +68,7 @@ class VmdBasicParser extends ProxyParser{
 
     /**
      * パースしたモデル名がカメラ及びライティング用モデル名だったか判定する。
+     *
      * @return カメラ及びライティング用モデル名だったらtrue
      */
     boolean hasStageActName(){
@@ -75,6 +77,7 @@ class VmdBasicParser extends ProxyParser{
 
     /**
      * 基本情報通知用ハンドラを登録する。
+     *
      * @param basicHandler ハンドラ
      */
     void setBasicHandler(VmdBasicHandler basicHandler){
@@ -90,6 +93,7 @@ class VmdBasicParser extends ProxyParser{
     /**
      * ボーンモーション補間情報冗長部のチェックを行うか否か設定する。
      * デフォルトではチェックを行わない。
+     *
      * @param mode チェックさせたければtrue
      */
     void setRedundantCheck(boolean mode){
@@ -104,6 +108,7 @@ class VmdBasicParser extends ProxyParser{
      * IO入力は指定バイト数だけ読み進められる。
      * ゼロ終端が見つからないまま指定バイト数が読み込み終わった場合、
      * そこまでのデータから文字列を構成する。
+     *
      * @param byteLen 読み込みバイト数
      * @return デコードされた文字列
      * @throws IOException IOエラー
@@ -120,6 +125,7 @@ class VmdBasicParser extends ProxyParser{
 
     /**
      * VMDファイル基本部のパースを開始する。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -136,6 +142,7 @@ class VmdBasicParser extends ProxyParser{
 
     /**
      * VMDファイルヘッダ部のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -157,6 +164,7 @@ class VmdBasicParser extends ProxyParser{
 
     /**
      * モデル名のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -174,6 +182,7 @@ class VmdBasicParser extends ProxyParser{
 
     /**
      * ボーンモーションデータのパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -212,6 +221,7 @@ class VmdBasicParser extends ProxyParser{
 
     /**
      * ボーンモーション補間データのパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -300,6 +310,7 @@ class VmdBasicParser extends ProxyParser{
 
     /**
      * モーフモーションデータのパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */

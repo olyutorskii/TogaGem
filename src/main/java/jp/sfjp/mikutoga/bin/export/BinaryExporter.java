@@ -77,6 +77,7 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * コンストラクタ。
+     *
      * @param ostream 出力ストリーム
      * @throws NullPointerException 引数がnull
      */
@@ -98,6 +99,7 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * 出力ストリームを閉じる。
+     *
      * @throws IOException 出力エラー
      */
     @Override
@@ -109,6 +111,7 @@ public class BinaryExporter implements Closeable, Flushable{
     /**
      * 出力をフラッシュする。
      * I/O効率とデバッグ効率のバランスを考え、ご利用は計画的に。
+     *
      * @throws IOException 出力エラー
      */
     @Override
@@ -119,6 +122,7 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * byte値を出力する。
+     *
      * @param bVal byte値
      * @return this自身
      * @throws IOException 出力エラー
@@ -130,6 +134,7 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * byte値を出力する。
+     *
      * @param iVal int値。上位24bitは捨てられる。
      * @return this自身
      * @throws IOException 出力エラー
@@ -141,6 +146,7 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * byte型配列を出力する。
+     *
      * @param array 配列
      * @return this自身
      * @throws IOException 出力エラー
@@ -153,6 +159,7 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * byte型配列の部分列を出力する。
+     *
      * @param array 配列
      * @param offset 出力開始位置
      * @param length 出力バイト数
@@ -167,6 +174,7 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * short値をリトルエンディアンで出力する。
+     *
      * @param sVal short値
      * @return this自身
      * @throws IOException 出力エラー
@@ -183,6 +191,7 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * short値をリトルエンディアンで出力する。
+     *
      * @param iVal int値。上位16bitは捨てられる。
      * @return this自身
      * @throws IOException 出力エラー
@@ -196,6 +205,7 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * int値をリトルエンディアンで出力する。
+     *
      * @param iVal int値
      * @return this自身
      * @throws IOException 出力エラー
@@ -213,6 +223,7 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * long値をリトルエンディアンで出力する。
+     *
      * @param lVal long値
      * @return this自身
      * @throws IOException 出力エラー
@@ -234,6 +245,7 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * float値をリトルエンディアンで出力する。
+     *
      * @param fVal float値
      * @return this自身
      * @throws IOException 出力エラー
@@ -246,6 +258,7 @@ public class BinaryExporter implements Closeable, Flushable{
 
     /**
      * double値をリトルエンディアンで出力する。
+     *
      * @param dVal double値
      * @return this自身
      * @throws IOException 出力エラー
@@ -296,6 +309,7 @@ public class BinaryExporter implements Closeable, Flushable{
     /**
      * Windows31J文字列をを固定バイト長で出力する。
      * 固定バイト長に満たない箇所はパディングデータが詰められる。
+     *
      * @param text テキスト
      * @param fixedLength 固定バイト長。0以下の場合は無制限。
      * @param filler 詰め物パディングデータ
@@ -342,6 +356,7 @@ public class BinaryExporter implements Closeable, Flushable{
      * UTF16-LEエンコード結果のバイト長を
      * 4byte整数としてリトルエンディアンで出力した後に、
      * エンコード結果のバイト列が出力される。
+     *
      * @param text 文字列
      * @return エンコードバイト列長
      * @throws IOException 出力エラー

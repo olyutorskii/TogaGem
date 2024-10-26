@@ -20,12 +20,14 @@ public interface FrameNumbered {
 
     /**
      * フレーム番号を設定する。
+     *
      * @param num フレーム番号
      */
     public abstract void setFrameNumber(int num);
 
     /**
      * フレーム番号を返す。
+     *
      * @return フレーム番号
      */
     public abstract int getFrameNumber();
@@ -49,6 +51,7 @@ public interface FrameNumbered {
 
         /**
          * {@inheritDoc}
+         *
          * @param o1 {@inheritDoc}
          * @param o2 {@inheritDoc}
          * @return {@inheritDoc}

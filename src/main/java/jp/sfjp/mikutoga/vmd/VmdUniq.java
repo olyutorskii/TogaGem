@@ -39,6 +39,7 @@ public final class VmdUniq {
 
     /**
      * 特殊なモーフ名「base」か否か判定する。
+     *
      * @param morphName モーフ名
      * @return モーフ名が「base」ならtrue
      */

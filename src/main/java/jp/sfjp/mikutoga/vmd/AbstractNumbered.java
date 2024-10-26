@@ -26,6 +26,7 @@ public abstract class AbstractNumbered implements FrameNumbered {
 
     /**
      * {@inheritDoc}
+     *
      * @param num {@inheritDoc}
      */
     @Override
@@ -36,6 +37,7 @@ public abstract class AbstractNumbered implements FrameNumbered {
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override

@@ -36,6 +36,7 @@ public class IllegalTextExportException extends Exception {
 
     /**
      * コンストラクタ。
+     *
      * @param message 詳細メッセージ
      */
     public IllegalTextExportException(String message){
@@ -45,6 +46,7 @@ public class IllegalTextExportException extends Exception {
 
     /**
      * コンストラクタ。
+     *
      * @param cause 原因
      */
     public IllegalTextExportException(CharacterCodingException cause){
@@ -54,6 +56,7 @@ public class IllegalTextExportException extends Exception {
 
     /**
      * コンストラクタ。
+     *
      * @param message 詳細メッセージ
      * @param cause 原因
      */

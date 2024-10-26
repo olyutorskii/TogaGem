@@ -23,6 +23,7 @@ public class MmdEofException extends MmdFormatException {
 
     /**
      * コンストラクタ。
+     *
      * @param message エラーメッセージ
      */
     public MmdEofException(String message){
@@ -32,6 +33,7 @@ public class MmdEofException extends MmdFormatException {
 
     /**
      * コンストラクタ。
+     *
      * @param position 入力ソース先頭からのエラー位置。(バイト単位)
      *     負の値を与えると、エラー位置は無効と解釈される。
      */
@@ -42,6 +44,7 @@ public class MmdEofException extends MmdFormatException {
 
     /**
      * コンストラクタ。
+     *
      * @param message エラーメッセージ
      * @param position 入力ソース先頭からのエラー位置。(バイト単位)
      *     負の値を与えると、エラー位置は無効と解釈される。

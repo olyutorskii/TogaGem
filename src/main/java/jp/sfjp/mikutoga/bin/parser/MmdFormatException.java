@@ -27,6 +27,7 @@ public class MmdFormatException extends Exception {
 
     /**
      * コンストラクタ。
+     *
      * @param message エラーメッセージ
      */
     public MmdFormatException(String message){
@@ -36,6 +37,7 @@ public class MmdFormatException extends Exception {
 
     /**
      * コンストラクタ。
+     *
      * @param position 入力ソース先頭から数えたエラー位置。(バイト単位)
      *     負の値を与えると、エラー位置は無効と解釈される。
      */
@@ -46,6 +48,7 @@ public class MmdFormatException extends Exception {
 
     /**
      * コンストラクタ。
+     *
      * @param message エラーメッセージ
      * @param position 入力ソース先頭から数えたエラー位置。(バイト単位)
      *     負の値を与えると、エラー位置は無効と解釈される。
@@ -60,6 +63,7 @@ public class MmdFormatException extends Exception {
      * {@inheritDoc}
      * 有効なエラー発生位置を保持している場合、
      * エラー文字列に追加出力される。
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -83,6 +87,7 @@ public class MmdFormatException extends Exception {
 
     /**
      * エラー位置を取得する。
+     *
      * @return 入力ソース先頭からのバイト数で表されるエラー位置。
      *     負なら無効なエラー位置。
      */
@@ -92,6 +97,7 @@ public class MmdFormatException extends Exception {
 
     /**
      * 有効なエラー位置が設定されているか判定する。
+     *
      * @return エラー位置が有効(非負)ならtrue
      */
     public boolean hasPosition(){

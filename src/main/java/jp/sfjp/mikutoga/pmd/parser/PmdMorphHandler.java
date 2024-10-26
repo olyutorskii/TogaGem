@@ -32,13 +32,13 @@ public interface PmdMorphHandler extends LoopHandler {
      *
      * @param morphName モーフ名
      * @param morphType モーフ種別。
-     * <ul>
-     * <li>0:base
-     * <li>1:まゆ
-     * <li>2:目
-     * <li>3:リップ
-     * <li>4:その他
-     * </ul>
+     *     <ul>
+     *     <li>0:base
+     *     <li>1:まゆ
+     *     <li>2:目
+     *     <li>3:リップ
+     *     <li>4:その他
+     *     </ul>
      * @throws MmdFormatException
      *     不正フォーマットによるパース処理の中断をパーサに指示
      */

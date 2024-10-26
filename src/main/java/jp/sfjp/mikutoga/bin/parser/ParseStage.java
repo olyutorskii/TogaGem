@@ -38,6 +38,7 @@ public class ParseStage {
 
     /**
      * 各インスタンスに割り当てられたユニークな通し番号を返す。
+     *
      * @return 通し番号
      */
     public int getNo(){
@@ -46,6 +47,7 @@ public class ParseStage {
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override

@@ -30,6 +30,7 @@ class VmdCameraParser extends ProxyParser{
 
     /**
      * コンストラクタ。
+     *
      * @param parser 委譲先パーサ
      */
     VmdCameraParser(BinParser parser){
@@ -40,6 +41,7 @@ class VmdCameraParser extends ProxyParser{
 
     /**
      * カメラワーク情報通知用ハンドラを登録する。
+     *
      * @param cameraHandler ハンドラ
      */
     void setCameraHandler(VmdCameraHandler cameraHandler){
@@ -54,6 +56,7 @@ class VmdCameraParser extends ProxyParser{
 
     /**
      * カメラモーションデータのパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -96,6 +99,7 @@ class VmdCameraParser extends ProxyParser{
 
     /**
      * カメラターゲット補間データのパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -131,6 +135,7 @@ class VmdCameraParser extends ProxyParser{
 
     /**
      * ターゲット位置以外の補間データのパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */

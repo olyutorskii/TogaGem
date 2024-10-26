@@ -19,6 +19,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * コンストラクタ。
+     *
      * @param delegate 委譲先
      */
     public ProxyXmlExporter(XmlExporter delegate){
@@ -30,6 +31,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param ch {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -41,6 +43,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param seq {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -52,6 +55,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param seq {@inheritDoc}
      * @param start {@inheritDoc}
      * @param end {@inheritDoc}
@@ -66,6 +70,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @throws IOException {@inheritDoc}
      */
     @Override
@@ -76,6 +81,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @throws IOException {@inheritDoc}
      */
     @Override
@@ -86,6 +92,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param ch {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -97,6 +104,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param seq {@inheritDoc}
      * @return {@inheritDoc}
      * @throws IOException {@inheritDoc}
@@ -108,6 +116,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -117,6 +126,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param bool {@inheritDoc}
      */
     @Override
@@ -127,6 +137,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -136,6 +147,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param newLine {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
@@ -147,6 +159,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -156,6 +169,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @param indUnit {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
@@ -185,6 +199,7 @@ public class ProxyXmlExporter extends AbstractXmlExporter{
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override

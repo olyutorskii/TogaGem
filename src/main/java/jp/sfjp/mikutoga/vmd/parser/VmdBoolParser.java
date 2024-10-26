@@ -30,6 +30,7 @@ class VmdBoolParser extends ProxyParser {
 
     /**
      * コンストラクタ。
+     *
      * @param parser 委譲先パーサ
      */
     VmdBoolParser(BinParser parser){
@@ -41,6 +42,7 @@ class VmdBoolParser extends ProxyParser {
 
     /**
      * ON/OFF情報通知用ハンドラを登録する。
+     *
      * @param boolHandler ハンドラ
      */
     void setBoolHandler(VmdBoolHandler boolHandler){
@@ -55,6 +57,7 @@ class VmdBoolParser extends ProxyParser {
 
     /**
      * データのパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -68,6 +71,7 @@ class VmdBoolParser extends ProxyParser {
 
     /**
      * モデル表示フラグデータのパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -95,6 +99,7 @@ class VmdBoolParser extends ProxyParser {
 
     /**
      * IK有効スイッチデータのパースと通知。
+     *
      * @param keyFrameNo キーフレーム番号
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー

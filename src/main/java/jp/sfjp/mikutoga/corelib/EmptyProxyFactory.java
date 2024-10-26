@@ -76,6 +76,7 @@ public final class EmptyProxyFactory {
         /**
          * {@inheritDoc}
          * NOTHING...
+         *
          * @param proxy {@inheritDoc}
          * @param method {@inheritDoc}
          * @param args {@inheritDoc}

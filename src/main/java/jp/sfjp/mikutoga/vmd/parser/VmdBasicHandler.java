@@ -39,6 +39,7 @@ public interface VmdBasicHandler extends LoopHandler {
 
     /**
      * VMDファイルのパース処理開始の通知を受け取る。
+     *
      * @throws MmdFormatException
      *     不正フォーマットによるパース処理の中断をパーサに指示
      */
@@ -47,6 +48,7 @@ public interface VmdBasicHandler extends LoopHandler {
 
     /**
      * VMDファイルのパース処理終了の通知を受け取る。
+     *
      * @param hasMoreData
      *     入力ソースにまだ読み込まれていないデータがあればtrue
      * @throws MmdFormatException
@@ -57,6 +59,7 @@ public interface VmdBasicHandler extends LoopHandler {
 
     /**
      * VMDファイルの固定長ヘッダを通知する。
+     *
      * @param header ヘッダ情報
      * @throws MmdFormatException
      *     不正フォーマットによるパース処理の中断をパーサに指示

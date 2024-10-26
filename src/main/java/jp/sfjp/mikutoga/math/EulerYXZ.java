@@ -138,6 +138,7 @@ public strictfp class EulerYXZ {
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -149,6 +150,7 @@ public strictfp class EulerYXZ {
 
     /**
      * 度数法による文字列表現を返す。
+     *
      * @return 文字列表現
      */
     public String toDegString(){

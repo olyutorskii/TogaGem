@@ -52,6 +52,7 @@ public enum MorphType {
 
     /**
      * コンストラクタ。
+     *
      * @param code 符号化int値
      */
     MorphType(int code){
@@ -61,6 +62,7 @@ public enum MorphType {
 
     /**
      * コンストラクタ。
+     *
      * @param code 符号化byte値
      */
     MorphType(byte code){
@@ -70,6 +72,7 @@ public enum MorphType {
 
     /**
      * byte値からデコードする。
+     *
      * @param code byte値
      * @return デコードされた列挙子。該当するものがなければnull
      */
@@ -88,6 +91,7 @@ public enum MorphType {
 
     /**
      * byte値にエンコードする。
+     *
      * @return byte値
      */
     public byte encode(){
@@ -96,6 +100,7 @@ public enum MorphType {
 
     /**
      * デフォルトロケールでの表示名を返す。
+     *
      * @return 表示名
      */
     public String getGuiName(){
@@ -106,6 +111,7 @@ public enum MorphType {
 
     /**
      * ロケールに準じた表示名を返す。
+     *
      * @param locale ロケール。nullならデフォルトロケールと解釈される。
      * @return 表示名
      */
@@ -120,6 +126,7 @@ public enum MorphType {
 
     /**
      * モーフ種別がbaseか否か判定する。
+     *
      * @return baseならtrue
      */
     public boolean isBase(){

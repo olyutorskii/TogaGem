@@ -23,6 +23,7 @@ public class PmdParserExt2 extends PmdParserExt1 {
 
     /**
      * コンストラクタ。
+     *
      * @param source 入力ソース
      */
     public PmdParserExt2(InputStream source){
@@ -32,6 +33,7 @@ public class PmdParserExt2 extends PmdParserExt1 {
 
     /**
      * トゥーンテクスチャファイルハンドラを登録する。
+     *
      * @param handler ハンドラ
      */
     public void setToonHandler(PmdToonHandler handler){
@@ -45,6 +47,7 @@ public class PmdParserExt2 extends PmdParserExt1 {
 
     /**
      * {@inheritDoc}
+     *
      * @throws IOException {@inheritDoc}
      * @throws MmdFormatException {@inheritDoc}
      */
@@ -62,6 +65,7 @@ public class PmdParserExt2 extends PmdParserExt1 {
 
     /**
      * 独自トゥーンテクスチャファイル名のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */

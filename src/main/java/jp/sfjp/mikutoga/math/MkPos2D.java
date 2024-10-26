@@ -104,6 +104,7 @@ public strictfp class MkPos2D {
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override

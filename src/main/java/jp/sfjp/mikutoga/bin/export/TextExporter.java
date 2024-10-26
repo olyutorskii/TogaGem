@@ -43,6 +43,7 @@ public class TextExporter {
 
     /**
      * コンストラクタ。
+     *
      * @param encoder エンコーダ
      * @throws NullPointerException 引数がnull
      */
@@ -63,6 +64,7 @@ public class TextExporter {
 
     /**
      * コンストラクタ。
+     *
      * @param cs 文字セット
      */
     public TextExporter(Charset cs){
@@ -72,6 +74,7 @@ public class TextExporter {
 
     /**
      * エンコーダを返す。
+     *
      * @return エンコーダ
      */
     public CharsetEncoder getEncoder(){
@@ -80,6 +83,7 @@ public class TextExporter {
 
     /**
      * 入力内部バッファサイズを設定する。
+     *
      * @param newSize バッファサイズ。(単位:char)
      * @throws IllegalArgumentException サイズ指定が正で無かった。
      */
@@ -96,6 +100,7 @@ public class TextExporter {
     /**
      * 出力内部バッファサイズを設定する。
      * 最低限必要な出力バッファサイズはエンコード設定により異なる。
+     *
      * @param newSize バッファサイズ。(単位:byte)
      * @throws IllegalArgumentException サイズ指定が小さすぎる。
      */
@@ -114,6 +119,7 @@ public class TextExporter {
 
     /**
      * 与えられた文字列をエンコードしてストリームに出力する。
+     *
      * @param text 文字列
      * @param os 出力ストリーム
      * @return 出力バイト長
@@ -136,6 +142,7 @@ public class TextExporter {
 
     /**
      * 文字列をエンコードしてストリームに出力する。
+     *
      * @param os 出力ストリーム
      * @return 出力バイト長
      * @throws IOException 出力エラー
@@ -186,6 +193,7 @@ public class TextExporter {
 
     /**
      * 入力バッファにまだ入力していない文字があるか判定する。
+     *
      * @return 入力バッファにまだ入力していない文字があればtrue
      */
     private boolean hasMoreInput(){
@@ -210,6 +218,7 @@ public class TextExporter {
 
     /**
      * エンコードを行う。
+     *
      * @return エンコード結果
      */
     private CoderResult encode(){
@@ -224,6 +233,7 @@ public class TextExporter {
 
     /**
      * 出力バッファを吐き出す。
+     *
      * @param os 出力ストリーム
      * @return 出力バイト長
      * @throws IOException 出力エラー
@@ -241,6 +251,7 @@ public class TextExporter {
 
     /**
      * エンコーダをフラッシュする。
+     *
      * @param os 出力ストリーム
      * @return 出力バイト長
      * @throws IOException 出力エラー

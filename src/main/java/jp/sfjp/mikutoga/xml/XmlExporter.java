@@ -18,6 +18,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 1文字を生出力する。
+     *
      * @param ch 文字
      * @return this本体
      * @throws IOException 出力エラー
@@ -26,6 +27,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 文字列を生出力する。
+     *
      * @param seq 文字列
      * @return this本体
      * @throws IOException 出力エラー
@@ -35,6 +37,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 空白を出力する。
+     *
      * @return this本体
      * @throws IOException 出力エラー
      */
@@ -42,6 +45,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 空白を指定回数出力する。
+     *
      * @param count 空白回数。0以下の場合は何も出力しない。
      * @return this本体
      * @throws IOException 出力エラー
@@ -50,12 +54,14 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 改行文字列を返す。
+     *
      * @return 改行文字列
      */
     public abstract String getNewLine();
 
     /**
      * 改行文字列を設定する。
+     *
      * @param newLine 改行文字列
      * @throws NullPointerException 引数がnull
      */
@@ -64,6 +70,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 改行を出力する。
+     *
      * @return this本体
      * @throws IOException 出力エラー
      */
@@ -71,6 +78,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 改行を指定回数出力する。
+     *
      * @param count 改行回数。0以下の場合は何も出力しない。
      * @return this本体
      * @throws IOException 出力エラー
@@ -79,6 +87,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * インデント単位文字列を返す。
+     *
      * @return インデント単位文字列
      */
     public abstract String getIndentUnit();
@@ -117,6 +126,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
     /**
      * インデントを出力する。
      * インデント単位文字列をネストレベル回数分出力する。
+     *
      * @return this本体
      * @throws IOException 出力エラー
      */
@@ -221,9 +231,9 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @param comment コメント内容
      * @return this本体
      * @throws IOException 出力エラー
-     * <a href="http://www.unicode.org/charts/PDF/U2400.pdf">
-     * Unicode 6.2 Controll Pictures
-     * </a>
+     *     <a href="http://www.unicode.org/charts/PDF/U2400.pdf">
+     *         Unicode 6.2 Controll Pictures
+     *     </a>
      */
     public abstract XmlExporter putCommentContent(CharSequence comment)
             throws IOException;
@@ -231,6 +241,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
     /**
      * 1行コメントを出力する。
      * コメント内部の頭及び末尾に空白が1つ挿入される。
+     *
      * @param comment コメント内容
      * @return this本体
      * @throws IOException 出力エラー
@@ -258,6 +269,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 開始タグ開き表記を出力する。
+     *
      * @param tagName タグ名
      * @return this本体
      * @throws IOException 出力エラー
@@ -267,6 +279,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 開始タグ閉じ表記を出力する。
+     *
      * @return this本体
      * @throws IOException 出力エラー
      */
@@ -274,6 +287,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 属性の無いシンプルな開始タグ表記を出力する。
+     *
      * @param tagName タグ名
      * @return this本体
      * @throws IOException 出力エラー
@@ -283,6 +297,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 終了タグ表記を出力する。
+     *
      * @param tagName タグ名
      * @return this本体
      * @throws IOException 出力エラー
@@ -292,6 +307,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 属性の無い単出タグ表記を出力する。
+     *
      * @param tagName タグ名
      * @return this本体
      * @throws IOException 出力エラー
@@ -301,6 +317,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 単出タグ閉じ表記を出力する。
+     *
      * @return this本体
      * @throws IOException 出力エラー
      */
@@ -308,6 +325,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * xsd:int値をXMLスキーマ準拠の形式で出力する。
+     *
      * @param iVal int値
      * @return this本体
      * @throws IOException 出力エラー
@@ -319,6 +337,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * xsd:float値をXMLスキーマ準拠の形式で出力する。
+     *
      * @param fVal float値
      * @return this本体
      * @throws IOException 出力エラー
@@ -330,6 +349,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * int型属性値を出力する。
+     *
      * @param attrName 属性名
      * @param iVal int値
      * @return this本体
@@ -340,6 +360,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * float型属性値を出力する。
+     *
      * @param attrName 属性名
      * @param fVal float値
      * @return this本体
@@ -351,6 +372,7 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
 
     /**
      * 属性値を出力する。
+     *
      * @param attrName 属性名
      * @param content 属性内容
      * @return this本体

@@ -109,6 +109,7 @@ class I18nAlias {
 
     /**
      * XMLドキュメントをロードする。
+     *
      * @param is 入力
      * @return 最上位要素
      * @throws ParserConfigurationException XMLの構成が変
@@ -145,6 +146,7 @@ class I18nAlias {
 
     /**
      * オーダー番号を返す。
+     *
      * @return オーダー番号
      */
     protected int getOrderNo(){
@@ -153,6 +155,7 @@ class I18nAlias {
 
     /**
      * オーダー番号を設定する。
+     *
      * @param orderNo オーダー番号
      */
     protected void setOrderNo(int orderNo){
@@ -174,6 +177,7 @@ class I18nAlias {
 
     /**
      * グローバル名の代表をひとつ返す。
+     *
      * @return 最初のグローバル名。ひとつもなければnull
      */
     public String getTopGlobalName(){
@@ -186,6 +190,7 @@ class I18nAlias {
 
     /**
      * プライマリ名の全別名リストを返す。
+     *
      * @return 全別名リスト。(不可変)
      */
     public List<String> getPrimaryNameList(){
@@ -194,6 +199,7 @@ class I18nAlias {
 
     /**
      * プライマリ名を追加。
+     *
      * @param primaryName プライマリ名
      */
     protected void addPrimaryName(String primaryName){
@@ -203,6 +209,7 @@ class I18nAlias {
 
     /**
      * グローバル名の全別名リストを返す。
+     *
      * @return 全別名リスト。(不可変)
      */
     public List<String> getGlobalNameList(){
@@ -211,6 +218,7 @@ class I18nAlias {
 
     /**
      * グローバル名を追加。
+     *
      * @param globalName グローバル名
      */
     protected void addGlobalName(String globalName){
@@ -235,6 +243,7 @@ class I18nAlias {
 
         /**
          * オーダ番号を順序づける。
+         *
          * @param o1 {@inheritDoc}
          * @param o2 {@inheritDoc}
          * @return {@inheritDoc}

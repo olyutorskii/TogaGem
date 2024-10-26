@@ -67,6 +67,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * コンストラクタ。
+     *
      * @param source 入力ソース
      */
     public PmdParserBase(InputStream source){
@@ -98,6 +99,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * 基本情報通知ハンドラを登録する。
+     *
      * @param handler ハンドラ
      */
     public void setBasicHandler(PmdBasicHandler handler){
@@ -111,6 +113,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * 形状情報通知ハンドラを登録する。
+     *
      * @param handler ハンドラ
      */
     public void setShapeHandler(PmdShapeHandler handler){
@@ -124,6 +127,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * 材質情報通知ハンドラを登録する。
+     *
      * @param handler ハンドラ
      */
     public void setMaterialHandler(PmdMaterialHandler handler){
@@ -137,6 +141,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * ボーン情報通知ハンドラを登録する。
+     *
      * @param handler ハンドラ
      */
     public void setBoneHandler(PmdBoneHandler handler){
@@ -150,6 +155,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * モーフ情報通知ハンドラを登録する。
+     *
      * @param handler ハンドラ
      */
     public void setMorphHandler(PmdMorphHandler handler){
@@ -163,6 +169,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * パースによって得られたボーン数を返す。
+     *
      * @return ボーン数
      */
     protected int getBoneCount(){
@@ -171,6 +178,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * パースによって得られたモーフ数を返す。
+     *
      * @return モーフ数
      */
     protected int getMorphCount(){
@@ -179,6 +187,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * パースによって得られたボーングループ数を返す。
+     *
      * @return ボーングループ数
      */
     protected int getBoneGroupCount(){
@@ -211,6 +220,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * PMDファイルのパースを開始する。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -229,6 +239,7 @@ public class PmdParserBase extends CommonParser {
     /**
      * PMDファイル本体のパースを開始する。
      * パーサを拡張する場合はこのメソッドをオーバーライドする。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -250,6 +261,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * PMDファイルヘッダ部のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -275,6 +287,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * 頂点情報のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -316,6 +329,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * 面情報のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -343,6 +357,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * 材質情報のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -379,6 +394,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * 色情報のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -413,6 +429,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * ボーン情報のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -448,6 +465,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * IKリスト情報のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -477,6 +495,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * IKチェーン情報のパースと通知。
+     *
      * @param chainLength チェーン長
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
@@ -500,6 +519,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * モーフ情報のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -529,6 +549,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * モーフ形状のパースと通知。
+     *
      * @param vertexCount 頂点数
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
@@ -555,6 +576,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * モーフGUI表示順のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -579,6 +601,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * ボーングループ名のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
@@ -605,6 +628,7 @@ public class PmdParserBase extends CommonParser {
 
     /**
      * ボーングループ内訳のパースと通知。
+     *
      * @throws IOException IOエラー
      * @throws MmdFormatException フォーマットエラー
      */
