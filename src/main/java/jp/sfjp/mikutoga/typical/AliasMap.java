@@ -17,9 +17,9 @@ import java.util.Map;
  *
  * @param <T> 別名管理クラス
  * @see <a href="https://ja.wikipedia.org/wiki/Unicode%E6%AD%A3%E8%A6%8F%E5%8C%96">
- * Unicode正規化 </a>
+ *     Unicode正規化 </a>
  * @see <a href="http://unicode.org/reports/tr15/">
- * UNICODE NORMALIZATION FORMS </a>
+ *     UNICODE NORMALIZATION FORMS </a>
  * @see java.text.Normalizer
  */
 class AliasMap<T extends I18nAlias> {
