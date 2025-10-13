@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Update Jacoco, SpotBugs, and PMD for JDK25
+
 
 ## [3.122.6] - 2024-10-26
 
