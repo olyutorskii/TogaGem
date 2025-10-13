@@ -14,11 +14,11 @@ package jp.sfjp.mikutoga.xml;
  * JAXB is not part of JDK9 or later.
  *
  * @see <a href="https://www.w3.org/TR/xmlschema-2/">
- * XML Schema Part 2: Datatypes Second Edition
- * </a>
+ *     XML Schema Part 2: Datatypes Second Edition
+ *     </a>
  * @see <a href="https://docs.oracle.com/javase/8/docs/api/javax/xml/bind/DatatypeConverter.html">
- * JavaSE8:DatatypeConverter
- * </a>
+ *     JavaSE8:DatatypeConverter
+ *     </a>
  */
 public final class DatatypeIo {
 

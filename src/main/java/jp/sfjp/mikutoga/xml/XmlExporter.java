@@ -164,8 +164,8 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      * @see <a href="http://www.w3.org/TR/xml11/#NT-CharRef">
-     * W3C XML1.1 Character Reference
-     * </a>
+     *     W3C XML1.1 Character Reference
+     *     </a>
      */
     public abstract XmlExporter putCharRef2Hex(char ch) throws IOException;
 
@@ -180,8 +180,8 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      * @see <a href="http://www.w3.org/TR/xml11/#NT-CharRef">
-     * W3C XML1.1 Character Reference
-     * </a>
+     *     W3C XML1.1 Character Reference
+     *     </a>
      */
     public abstract XmlExporter putCharRef4Hex(char ch) throws IOException;
 
@@ -330,8 +330,8 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      * @see <a href="http://www.w3.org/TR/xmlschema11-2/#int">
-     * XML Schema 1.1 Datatypes int
-     * </a>
+     *     XML Schema 1.1 Datatypes int
+     *     </a>
      */
     public abstract XmlExporter putXsdInt(int iVal) throws IOException;
 
@@ -342,8 +342,8 @@ public interface XmlExporter extends Appendable, Flushable, Closeable{
      * @return this本体
      * @throws IOException 出力エラー
      * @see <a href="http://www.w3.org/TR/xmlschema11-2/#sec-lex-float">
-     * XML Schema 1.1 Datatypes float Lexical Mapping
-     * </a>
+     *     XML Schema 1.1 Datatypes float Lexical Mapping
+     *     </a>
      */
     public abstract XmlExporter putXsdFloat(float fVal) throws IOException;
 
